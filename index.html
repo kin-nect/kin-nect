@@ -2047,8 +2047,6 @@
         <div class="tribe-dropdown" id="tribe-dropdown" style="display:none;">
           <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-kinnect'); closeTribeDropdown()">By KIN-NECT</button>
           <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-jai'); closeTribeDropdown()">By Jai</button>
-          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-miah'); closeTribeDropdown()">By Miah</button>
-          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-jo'); closeTribeDropdown()">By Jo</button>
           <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-chai'); closeTribeDropdown()">By Chai</button>
         </div>
       </div>
@@ -2269,16 +2267,21 @@
         <button class="filter-btn evt-filter filter-secondary" onclick="setEvtFilter(this,'seasonal')">🍂 Seasonal</button>
       </div>
       <div class="mockup-filters" style="margin-top: 0.75rem;">
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('march')">Mar</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('april')">Apr</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('may')">May</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('june')">Jun</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('july')">Jul</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('august')">Aug</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('september')">Sep</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('october')">Oct</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('november')">Nov</button>
-        <button class="filter-btn filter-secondary" onclick="scrollToMonth('december')">Dec</button>
+        <div class="tribe-dropdown-wrap">
+          <button class="filter-btn filter-secondary" onclick="toggleMonthDropdown()">📅 Months <span class="tribe-arrow">▾</span></button>
+          <div class="tribe-dropdown" id="month-dropdown" style="display:none;">
+            <button class="tribe-drop-item" onclick="scrollToMonth('march'); closeMonthDropdown()">March</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('april'); closeMonthDropdown()">April</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('may'); closeMonthDropdown()">May</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('june'); closeMonthDropdown()">June</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('july'); closeMonthDropdown()">July</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('august'); closeMonthDropdown()">August</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('september'); closeMonthDropdown()">September</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('october'); closeMonthDropdown()">October</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('november'); closeMonthDropdown()">November</button>
+            <button class="tribe-drop-item" onclick="scrollToMonth('december'); closeMonthDropdown()">December</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="events-layout">
@@ -2713,10 +2716,15 @@
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
       const tags = f.split(' ');
-      const show = tag === 'all' || tags.includes(tag) || 
+      const show = tag === 'all' || tags.includes(tag) ||
                    (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
       item.style.display = show ? '' : 'none';
     });
+    // If clicking tribe button itself (not a sub-item), show dropdown
+    if (tag === 'tribe') {
+      const d = document.getElementById('tribe-dropdown');
+      if (d) d.style.display = 'block';
+    }
   }
   function toggleTribeDropdown() {
     const d = document.getElementById('tribe-dropdown');
@@ -2739,8 +2747,25 @@
 
   function scrollToMonth(month) {
     const header = document.querySelector(`.cal-month-header[data-month="${month}"]`);
-    if (header) header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (header) {
+      const rect = header.getBoundingClientRect();
+      const offset = window.scrollY + rect.top - 120;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
   }
+  function toggleMonthDropdown() {
+    const d = document.getElementById('month-dropdown');
+    d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  }
+  function closeMonthDropdown() {
+    const d = document.getElementById('month-dropdown');
+    if (d) d.style.display = 'none';
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('#month-dropdown') && !e.target.closest('[onclick*="toggleMonthDropdown"]')) {
+      closeMonthDropdown();
+    }
+  });
 
   function setEvtFilter(btn, tag) {
     document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));

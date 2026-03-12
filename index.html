@@ -485,6 +485,7 @@
     gap: 2px;
   }
 
+  a.pillar-card { text-decoration: none; color: inherit; display: block; cursor: pointer; }
   .pillar-card {
     background: rgba(44,26,14,0.5);
     border: 1px solid rgba(232,184,75,0.08);
@@ -769,15 +770,7 @@
   }
 
   .manifesto blockquote::before {
-    content: '"';
-    position: absolute;
-    top: -2rem;
-    left: -2rem;
-    font-size: 8rem;
-    color: var(--ochre);
-    opacity: 0.2;
-    font-family: 'Playfair Display', serif;
-    line-height: 1;
+    content: none;
   }
 
   .manifesto blockquote em { color: var(--gold); }
@@ -1753,53 +1746,53 @@
   </div>
 
   <div class="pillars-grid">
-    <div class="pillar-card">
+    <a href="#directory" class="pillar-card">
       <span class="pillar-number">01 — LAUNCHING FIRST</span>
       <span class="pillar-icon">🌿</span>
       <div class="pillar-name">The Directory</div>
       <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
       <span class="pillar-tag">Find · Discover · KIN-NECT</span>
-    </div>
+    </a>
 
-    <div class="pillar-card">
+    <a href="#library" class="pillar-card">
       <span class="pillar-number">02</span>
       <span class="pillar-icon">📚</span>
       <div class="pillar-name">Library & Book Club</div>
       <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
       <span class="pillar-tag">Read · Gather · Grow</span>
-    </div>
+    </a>
 
-    <div class="pillar-card">
+    <a href="#events" class="pillar-card">
       <span class="pillar-number">03</span>
       <span class="pillar-icon">🌙</span>
       <div class="pillar-name">Events Calendar</div>
       <p class="pillar-desc">Equinox dates, cultural moments, community gatherings. Time held with intention.</p>
       <span class="pillar-tag">Gather · Celebrate · Mark</span>
-    </div>
+    </a>
 
-    <div class="pillar-card">
+    <a href="#editorial" class="pillar-card">
       <span class="pillar-number">04 — Coming Soon</span>
       <span class="pillar-icon">✍🏿</span>
       <div class="pillar-name">Blog & Editorial</div>
       <p class="pillar-desc">News, articles, and cultural commentary written with care. Stories that centre our perspectives, our histories, our futures.</p>
       <span class="pillar-tag">News · Commentary · Culture</span>
-    </div>
+    </a>
 
-    <div class="pillar-card">
+    <a href="#realm" class="pillar-card">
       <span class="pillar-number">05 — Coming Soon</span>
       <span class="pillar-icon">🛍</span>
       <div class="pillar-name">Realm Marketplace</div>
-      <p class="pillar-desc">The conscious department store. Buy directly from the businesses you discover in the directory. First stores: DANKH and The Utopia. Coming soon.</p>
+      <p class="pillar-desc">The conscious department store. DANKH by Realm. The Utopia by Realm. Built by the founders, open to the community. More stores coming.</p>
       <span class="pillar-tag">Shop · Support · Sustain</span>
-    </div>
+    </a>
 
-    <div class="pillar-card">
+    <a href="#newsletter" class="pillar-card">
       <span class="pillar-number">06 — Coming Soon</span>
       <span class="pillar-icon">💌</span>
       <div class="pillar-name">Newsletter</div>
       <p class="pillar-desc">The community glue. Curated, warm, regular — the thing that keeps us connected between everything else.</p>
       <span class="pillar-tag">Connect · Share · Nourish</span>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1878,15 +1871,15 @@
       <div class="mockup-filters" style="margin-top:0.5rem;">
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'healers')">Healers</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'movement')">Movement</button>
-        <button class="filter-btn filter-secondary" onclick="setFilter(this,'food')">Food & Drink</button>
+        <button class="filter-btn filter-secondary" onclick="setFilter(this,'food')">🌱 Plant-Based</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'creative')">Creative</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'spaces')">Spaces</button>
-        <button class="filter-btn filter-secondary" onclick="setFilter(this,'makers')">Makers</button>
+        <button class="filter-btn filter-secondary" onclick="setFilter(this,'creators')">Creators</button>
       </div>
     </div>
     <div class="directory-grid" id="dir-grid">
 
-      <div class="dir-card" data-tags="body makers soul">
+      <div class="dir-card" data-tags="body creators soul">
         <div class="dir-card-top">
           <div class="dir-avatar" style="background: linear-gradient(135deg, #4a7c59, #1a3a2a);">🌿</div>
           <div class="dir-meta">
@@ -2515,7 +2508,7 @@
     msg.textContent = '✦ You\'re in. Welcome to the KIN.';
   }
 
-
+  function setPractFilter(btn, tag) {
     document.querySelectorAll('#pract-grid .pract-card').forEach(c => {
       const tags = c.dataset.ptags || '';
       c.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
@@ -2524,7 +2517,7 @@
     btn.classList.add('active');
   }
 
-
+  function toggleNav() {
     const links = document.getElementById('nav-links');
     const burger = document.getElementById('nav-hamburger');
     links.classList.toggle('open');

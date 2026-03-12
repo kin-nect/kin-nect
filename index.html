@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIN-NECT — Consciously Curated. Stay KIN-nected.</title>
+<title>KIN-NECT — Stay KIN-nected with the Collective</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -227,6 +227,15 @@
     margin-bottom: 3rem;
     opacity: 0;
     animation: fadeUp 1s ease 0.7s forwards;
+    text-align: center;
+    line-height: 1.8;
+  }
+  .hero-sub2 {
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    opacity: 0.55;
+    letter-spacing: 0.2em;
+    font-style: italic;
+    display: block;
   }
 
   .hero-cta {
@@ -1659,6 +1668,7 @@
   <ul class="nav-links" id="nav-links">
     <li><a href="#about" onclick="closeNav()">About</a></li>
     <li><a href="#directory" onclick="closeNav()">Directory</a></li>
+    <li><a href="#practitioners" onclick="closeNav()">Practitioners</a></li>
     <li><a href="#library" onclick="closeNav()">Library</a></li>
     <li><a href="#events" onclick="closeNav()">Events</a></li>
     <li><a href="#realm" onclick="closeNav()">Realm</a></li>
@@ -1680,7 +1690,7 @@
     <span class="kin">KIN</span><span class="dash">-</span><span class="nect">NECT</span>
   </h1>
 
-  <p class="hero-subtitle">Consciously Curated. Stay KIN-nected.</p>
+  <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
 
   <div class="hero-cta">
     <a href="#directory" class="btn-primary"><span>Explore the Directory</span></a>
@@ -1712,7 +1722,7 @@
     <div class="about-values">
       <div class="about-value">
         <span class="about-value-label">What we are</span>
-        <p>A digital village. One place to find, support, and connect with conscious businesses, practitioners, and makers.</p>
+        <p>A digital village and a Collective. One place to find, support, and connect with conscious businesses, practitioners, and makers.</p>
       </div>
       <div class="about-value">
         <span class="about-value-label">How we work</span>
@@ -1747,7 +1757,7 @@
       <span class="pillar-number">01 — LAUNCHING FIRST</span>
       <span class="pillar-icon">🌿</span>
       <div class="pillar-name">The Directory</div>
-      <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, permission-first. If it elevates, it's here.</p>
+      <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
       <span class="pillar-tag">Find · Discover · KIN-NECT</span>
     </div>
 
@@ -1755,7 +1765,7 @@
       <span class="pillar-number">02</span>
       <span class="pillar-icon">📚</span>
       <div class="pillar-name">Library & Book Club</div>
-      <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Led by Miah.</p>
+      <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
       <span class="pillar-tag">Read · Gather · Grow</span>
     </div>
 
@@ -1819,7 +1829,7 @@
         <li><span>✦</span> Listed in the KIN-NECT directory</li>
         <li><span>✦</span> Featured in newsletter &amp; editorial</li>
         <li><span>✦</span> Access to a conscious, engaged audience</li>
-        <li><span>✦</span> London first — Amsterdam, NYC &amp; beyond next</li>
+        <li><span>✦</span> London first — the UK, Europe &amp; beyond next</li>
       </ul>
     </div>
     <div class="list-form-wrap">
@@ -1834,7 +1844,7 @@
         </div>
         <div class="form-group">
           <label>What do you do / what's your space?</label>
-          <input type="text" placeholder="e.g. Holistic healer, plant-based restaurant, crystal shop, sound healer..." id="f-what">
+          <input type="text" placeholder="e.g. Holistic healer, crystal shop, reiki, yoga teacher..." id="f-what">
         </div>
         <div class="form-group">
           <label>Where are you based?</label>
@@ -1857,7 +1867,7 @@
     <div class="mockup-header">
       <span class="section-label">01 — Launching First</span>
       <h2 class="mockup-title">The <em>Directory</em></h2>
-      <p class="mockup-subtitle">A living, curated map of practitioners, healers, spaces and makers doing things with intention. Permission-first. Community-owned.</p>
+      <p class="mockup-subtitle">A living, curated map of businesses, spaces and makers doing things with intention. Conscious. Community-owned. Curated with care.</p>
       <div class="filter-group-label">Browse by</div>
       <div class="mockup-filters">
         <button class="filter-btn active filter-primary" onclick="setFilter(this,'all')">All</button>
@@ -1927,13 +1937,213 @@
   </div>
 </section>
 
+<!-- PRACTITIONERS -->
+<section class="mockup-section" id="practitioners" style="background: rgba(10,7,3,0.6);">
+  <div class="mockup-inner">
+    <div class="mockup-header">
+      <span class="section-label">01b — Practitioners</span>
+      <h2 class="mockup-title">Find a <em>Practitioner</em></h2>
+      <p class="mockup-subtitle">People you can actually work with. Healers, therapists, coaches, yoga teachers — curated, conscious, community-rooted. Every practitioner is personally known to KIN-NECT.</p>
+      <div class="mockup-filters">
+        <button class="filter-btn active filter-primary" onclick="setPractFilter(this,'all')">All</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'therapy')">🧠 Therapy</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'movement')">🌿 Movement</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'bodywork')">✨ Bodywork</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'coaching')">💫 Coaching</button>
+      </div>
+    </div>
+    <div class="directory-grid" id="pract-grid">
+
+      <div class="dir-card pract-card" data-ptags="therapy bodywork">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #6B7C5E, #1a2a18);">🌿</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Holistic Therapy · Bodywork</span>
+            <span class="dir-location">📍 London</span>
+          </div>
+        </div>
+        <h3 class="dir-name">JF Therapy</h3>
+        <p class="dir-desc">Holistic therapist working at the intersection of mind, body and spirit. Integrative approach rooted in ancestral wisdom and contemporary therapeutic practice. Freelance therapist at Self Space.</p>
+        <div class="dir-footer">
+          <a href="#" class="dir-link">Book a session →</a>
+          <span class="dir-founding">✦ Founding Practitioner</span>
+        </div>
+      </div>
+
+      <div class="dir-card dir-card-ghost pract-card" data-ptags="all">
+        <div class="dir-card-top">
+          <div class="dir-avatar ghost-avatar">+</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Your Practice</span>
+            <span class="dir-location">📍 Your Location</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Are you a practitioner?</h3>
+        <p class="dir-desc">Therapists, healers, coaches, yoga teachers — if your work elevates and you're aligned with the KIN-NECT ethos, we want to know about you.</p>
+        <div class="dir-footer">
+          <span class="dir-founding" style="color: var(--sage);">→ Put your hand up</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL MOCKUP -->
+<section class="mockup-section" id="editorial" style="background: rgba(8,5,2,0.7);">
+  <div class="mockup-inner">
+    <div class="mockup-header">
+      <span class="section-label">04 — Coming Soon</span>
+      <h2 class="mockup-title">Editorial & <em>Curation</em></h2>
+      <p class="mockup-subtitle">Not a content factory. A conscious curation layer — our taste, our framing, other people's work given a better home. Videos, essays, sessions and writing that elevates.</p>
+      <div class="mockup-filters">
+        <button class="filter-btn active filter-primary">All</button>
+        <button class="filter-btn filter-primary">🎥 Video</button>
+        <button class="filter-btn filter-primary">📖 Reading</button>
+        <button class="filter-btn filter-primary">🧘🏾 Practice</button>
+        <button class="filter-btn filter-primary">🎵 Sound</button>
+      </div>
+    </div>
+
+    <div class="directory-grid">
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a1a2e, #4a0a0a);">🎥</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Video · Study · Mind</span>
+            <span class="dir-location">📺 YouTube</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Hindz — Study Sessions</h3>
+        <p class="dir-desc">Deep, focused study content that holds attention and elevates the mind. The kind of video you put on and actually learn something. We want this living on KIN-NECT.</p>
+        <div class="dir-footer">
+          <a href="https://www.youtube.com/@hindz" target="_blank" class="dir-link">Watch on YouTube →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a4a3a, #0a2a1a);">🧘🏾</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Yoga · Practice · Body</span>
+            <span class="dir-location">📺 YouTube</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Yoga with Nico</h3>
+        <p class="dir-desc">A Black yogi making yoga feel like it was made for us. 7-day challenges, 30-day challenges, chakra work. Nico's sessions are the kind of practice you come back to.</p>
+        <div class="dir-footer">
+          <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="dir-link">Practice with Nico →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #3a1a4a, #1a0a2a);">🔮</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Tarot · Soul · Retreats</span>
+            <span class="dir-location">📺 YouTube · Jamaica</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Queen Cup</h3>
+        <p class="dir-desc">Tarot, smudging, and retreat experiences rooted in spiritual practice. Also runs immersive retreats in Jamaica. A voice in the space where spirituality meets ancestral wisdom.</p>
+        <div class="dir-footer">
+          <a href="https://www.youtube.com/@QueenCup" target="_blank" class="dir-link">Watch Queen Cup →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a2a1a, #1a1a0a);">🃏</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Tarot · Soul · Guidance</span>
+            <span class="dir-location">📺 YouTube</span>
+          </div>
+        </div>
+        <h3 class="dir-name">HourGlassed by Jass</h3>
+        <p class="dir-desc">Tarot with depth — informative, grounded, and genuinely insightful. Jass brings knowledge and care to her readings. The kind of content you save and come back to.</p>
+        <div class="dir-footer">
+          <a href="https://www.youtube.com/@HourGlassedByJass" target="_blank" class="dir-link">Watch Jass →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a3a4a, #0a1a2a);">📖</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Sacred Texts · Knowledge · Soul</span>
+            <span class="dir-location">🌐 Archive</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Sacred Texts Archive</h3>
+        <p class="dir-desc">One of the largest free archives of sacred and religious texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world. A resource that belongs in every conscious library.</p>
+        <div class="dir-footer">
+          <a href="https://sacred-texts.com" target="_blank" class="dir-link">Explore the archive →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Resource</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a4a2a, #0a2a10);">🌿</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Natural Remedies · Body · Healing</span>
+            <span class="dir-location">🌐 Community Resource</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Earth Clinic</h3>
+        <p class="dir-desc">A vast community-built database of natural remedies, folk medicine and holistic health information. Not woo woo — grounded, practical, ancestral knowledge meeting lived experience.</p>
+        <div class="dir-footer">
+          <a href="https://www.earthclinic.com" target="_blank" class="dir-link">Explore Earth Clinic →</a>
+          <span class="dir-founding" style="color: var(--sage);">✦ Resource</span>
+        </div>
+      </div>
+
+      <div class="dir-card">
+        <div class="dir-card-top">
+          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a1a4a, #100a2a);">🧠</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Psychology · Research · Mind</span>
+            <span class="dir-location">📄 Journals & Writing</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Psychology & Research</h3>
+        <p class="dir-desc">Peer-reviewed research, psychology journals, and original writing where relevant. The intellectual backbone behind what KIN-NECT promotes. Evidence meets lived experience.</p>
+        <div class="dir-footer">
+          <span class="dir-founding" style="color: var(--sage);">✦ Coming — incl. original writing</span>
+        </div>
+      </div>
+
+      <div class="dir-card dir-card-ghost">
+        <div class="dir-card-top">
+          <div class="dir-avatar ghost-avatar">+</div>
+          <div class="dir-meta">
+            <span class="dir-tag">Your Medium</span>
+            <span class="dir-location">📍 Anywhere</span>
+          </div>
+        </div>
+        <h3 class="dir-name">Know something worth featuring?</h3>
+        <p class="dir-desc">A video, a Substack, a podcast, a piece of writing that needs a better home. If it elevates, it belongs here.</p>
+        <div class="dir-footer">
+          <span class="dir-founding" style="color: var(--sage);">→ Tell us about it</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- LIBRARY MOCKUP -->
 <section class="mockup-section mockup-alt" id="library">
   <div class="mockup-inner">
     <div class="mockup-header">
       <span class="section-label">02 — Coming Soon</span>
       <h2 class="mockup-title">The <em>Library</em></h2>
-      <p class="mockup-subtitle">A gathering around words, ideas and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind. Led by Miah.</p>
+      <p class="mockup-subtitle">A gathering around words, ideas and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
     </div>
     <div class="library-grid">
       <div class="library-featured">
@@ -1982,7 +2192,7 @@
         </div>
         <div class="library-join">
           <p>The library opens with KIN-NECT. Join the waitlist to be first in.</p>
-          <button class="btn-primary" style="margin-top:1rem;"><span>Join the Waitlist</span></button>
+          <button class="btn-primary" style="margin-top:1rem;" onclick="document.getElementById('newsletter-email').focus(); document.querySelector('.newsletter').scrollIntoView({behavior:'smooth'});"><span>Join the Waitlist ✦</span></button>
         </div>
       </div>
     </div>
@@ -2168,7 +2378,7 @@
               <span class="cal-event-type">🏛 In Person · Community</span>
               <h4>First KIN-NECT Gathering</h4>
               <p>Our founding community, in the same room for the first time. London. Date TBC.</p>
-              <span class="cal-coming-soon">Join the waitlist to hear first ✦</span>
+              <span class="cal-coming-soon" style="cursor:pointer;" onclick="document.querySelector('.newsletter').scrollIntoView({behavior:'smooth'})">Join the waitlist to hear first ✦</span>
             </div>
           </div>
 
@@ -2267,19 +2477,20 @@
 <section class="newsletter">
   <div class="newsletter-inner">
     <span class="section-label">Stay connected</span>
-    <h2>Join the <em>KIN</em></h2>
+    <h2>Join the <em>Collective</em></h2>
     <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
     <div class="newsletter-form">
-      <input type="email" class="newsletter-input" placeholder="your@email.com">
-      <button class="newsletter-btn">Stay KIN-nected</button>
+      <input type="email" class="newsletter-input" placeholder="your@email.com" id="newsletter-email">
+      <button class="newsletter-btn" onclick="handleNewsletter()">Join the Collective ✦</button>
     </div>
+    <p id="newsletter-msg" style="margin-top:1rem; font-size:0.85rem; color:var(--sage); opacity:0;"></p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">KIN<span>-</span>NECT</div>
-  <div class="footer-tagline">Consciously Curated. Stay KIN-nected.</div>
+  <div class="footer-tagline">Consciously Curated. Stay KIN-nected with the Collective.</div>
   <ul class="footer-links">
     <li><a href="#">Instagram</a></li>
     <li><a href="#">Newsletter</a></li>
@@ -2289,7 +2500,31 @@
 </footer>
 
 <script>
-  function toggleNav() {
+  function handleNewsletter() {
+    const email = document.getElementById('newsletter-email').value;
+    const msg = document.getElementById('newsletter-msg');
+    if (!email || !email.includes('@')) {
+      msg.style.opacity = '1';
+      msg.style.color = '#C8732A';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    window.location.href = `mailto:hello@kin-nect.com?subject=Newsletter signup&body=Please add me to the KIN-NECT newsletter: ${email}`;
+    msg.style.opacity = '1';
+    msg.style.color = 'var(--sage)';
+    msg.textContent = '✦ You\'re in. Welcome to the KIN.';
+  }
+
+
+    document.querySelectorAll('#pract-grid .pract-card').forEach(c => {
+      const tags = c.dataset.ptags || '';
+      c.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+
     const links = document.getElementById('nav-links');
     const burger = document.getElementById('nav-hamburger');
     links.classList.toggle('open');

@@ -918,6 +918,13 @@
     margin: 0 auto;
   }
 
+
+  .tribe-dropdown-wrap { position: relative; display: inline-block; }
+  .tribe-dropdown { position: absolute; top: calc(100% + 0.5rem); left: 0; background: #1a0e06; border: 1px solid rgba(232,184,75,0.2); border-radius: 8px; padding: 0.5rem; z-index: 100; min-width: 140px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+  .tribe-drop-item { display: block; width: 100%; background: none; border: none; color: var(--blush); font-size: 0.8rem; letter-spacing: 0.1em; padding: 0.5rem 0.8rem; text-align: left; cursor: pointer; border-radius: 4px; }
+  .tribe-drop-item:hover { background: rgba(232,184,75,0.08); color: var(--gold); }
+  .tribe-arrow { font-size: 0.6rem; margin-left: 0.3rem; }
+
   /* EDITORIAL FEED */
   .editorial-feed { display: flex; flex-direction: column; gap: 1.5rem; max-width: 780px; margin: 0 auto; }
   .feed-item { position: relative; border: 1px solid rgba(232,184,75,0.12); border-radius: 12px; background: rgba(20,12,6,0.6); transition: border-color 0.3s; }
@@ -1249,6 +1256,9 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(232,184,75,0.1);
   }
+
+  /* MONTH HEADERS */
+  .cal-month-header { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.5; padding: 1.5rem 0 0.5rem; border-bottom: 1px solid rgba(232,184,75,0.1); margin-bottom: 0.5rem; }
 
   .cal-month {
     font-family: 'Playfair Display', serif;
@@ -1691,9 +1701,9 @@
   <ul class="nav-links" id="nav-links">
     <li><a href="#about" onclick="closeNav()">About</a></li>
     <li><a href="#directory" onclick="closeNav()">Directory</a></li>
-    <li><a href="#practitioners" onclick="closeNav()">Practitioners</a></li>
-    <li><a href="#library" onclick="closeNav()">Library</a></li>
+    <li><a href="#editorial" onclick="closeNav()">Editorial</a></li>
     <li><a href="#events" onclick="closeNav()">Events</a></li>
+    <li><a href="#library" onclick="closeNav()">Library</a></li>
     <li><a href="#realm" onclick="closeNav()">Realm</a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
@@ -1841,7 +1851,7 @@
 </section>
 
 <!-- LIST WITH US -->
-<section class="list-with-us">
+<section class="list-with-us" id="list-with-us">
   <div class="list-inner">
     <div class="list-text">
       <span class="section-label">Join the directory</span>
@@ -1913,7 +1923,7 @@
         <div class="dir-card-top">
           <div class="dir-avatar" style="background: linear-gradient(135deg, #4a7c59, #1a3a2a);">🌿</div>
           <div class="dir-meta">
-            <span class="dir-tag">Body · Makers</span>
+            <span class="dir-tag">Body · Creators</span>
             <span class="dir-location">📍 Online & UK</span>
           </div>
         </div>
@@ -1977,16 +1987,16 @@
     </div>
     <div class="directory-grid" id="pract-grid">
 
-      <div class="dir-card pract-card" data-ptags="therapy bodywork">
+      <div class="dir-card pract-card" data-ptags="therapy bodywork coaching">
         <div class="dir-card-top">
           <div class="dir-avatar" style="background: linear-gradient(135deg, #6B7C5E, #1a2a18);">🌿</div>
           <div class="dir-meta">
-            <span class="dir-tag">Holistic Therapy · Bodywork</span>
+            <span class="dir-tag">Mental Health · Holistic Therapy · Bodywork</span>
             <span class="dir-location">📍 London</span>
           </div>
         </div>
         <h3 class="dir-name">JF Therapy</h3>
-        <p class="dir-desc">Holistic therapist working at the intersection of mind, body and spirit. Integrative approach rooted in ancestral wisdom and contemporary therapeutic practice. Freelance therapist at Self Space.</p>
+        <p class="dir-desc">Mental health and holistic therapist working at the intersection of mind, body and spirit. An integrative approach — blending contemporary therapeutic practice with ancestral wisdom and somatic awareness. Freelance therapist at Self Space.</p>
         <div class="dir-footer">
           <a href="#" class="dir-link">Book a session →</a>
           <span class="dir-founding">✦ Founding Practitioner</span>
@@ -2022,20 +2032,30 @@
     </div>
 
     <!-- FEED FILTERS -->
-    <div class="mockup-filters" style="margin-bottom: 2.5rem;">
+    <div class="mockup-filters" style="margin-bottom: 0.75rem; position: relative;">
       <button class="filter-btn active filter-primary" onclick="setFeedFilter(this,'all')">All</button>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'tribe')">✦ From the Tribe</button>
+      <div class="tribe-dropdown-wrap">
+        <button class="filter-btn filter-primary tribe-dropdown-btn" onclick="setFeedFilter(this,'tribe'); toggleTribeDropdown()">✦ From the Tribe <span class="tribe-arrow">▾</span></button>
+        <div class="tribe-dropdown" id="tribe-dropdown" style="display:none;">
+          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-kinnect'); closeTribeDropdown()">By KIN-NECT</button>
+          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-jai'); closeTribeDropdown()">By Jai</button>
+          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-miah'); closeTribeDropdown()">By Miah</button>
+          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-jo'); closeTribeDropdown()">By Jo</button>
+          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-chai'); closeTribeDropdown()">By Chai</button>
+        </div>
+      </div>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'words')">✍🏾 Words from the KIN</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'video')">🎥 Video</button>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'reading')">📖 Words & Written</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
     </div>
+    <p style="font-size:0.7rem; letter-spacing:0.1em; color:var(--blush); opacity:0.4; margin-bottom:2.5rem; font-style:italic;">From the Tribe = everything we curate & create. Words from the KIN = written words from the collective — poems, essays, Substacks, journals.</p>
 
     <!-- FEED -->
     <div class="editorial-feed">
 
       <!-- POST 1: ORIGINAL — EQUINOX -->
-      <div class="feed-item" data-feed="tribe" style="border-color: rgba(232,184,75,0.35); background: rgba(232,184,75,0.04);">
+      <div class="feed-item" data-feed="tribe tribe-kinnect" style="border-color: rgba(232,184,75,0.35); background: rgba(232,184,75,0.04);">
         <div class="feed-item-inner">
           <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--ochre), var(--gold), transparent); border-radius: 12px 12px 0 0;"></div>
           <div class="feed-meta-row">
@@ -2051,41 +2071,83 @@
         </div>
       </div>
 
+      <!-- CURATED: SACRED TEXTS -->
+      <div class="feed-item" data-feed="tribe words">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">📖 Words & Archive</span>
+            <span class="feed-date">sacred-texts.com</span>
+          </div>
+          <h3 class="feed-title">Sacred Texts Archive</h3>
+          <p class="feed-excerpt">One of the largest free archives of sacred texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Before any book, before any algorithm, this knowledge existed. Free, vast, and waiting. Every conscious library should start here.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://sacred-texts.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Sacred · Ancient · Knowledge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: EARTH CLINIC -->
+      <div class="feed-item" data-feed="tribe words">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🌿 Body · Healing</span>
+            <span class="feed-date">earthclinic.com</span>
+          </div>
+          <h3 class="feed-title">Earth Clinic</h3>
+          <p class="feed-excerpt">A community-built database of natural remedies, folk medicine and holistic health. Ancestral knowledge meeting lived experience.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Our grandmothers knew things that never made it into textbooks. Earth Clinic is one of the few places that resource still lives — community-sourced, practical, real.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.earthclinic.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Natural · Remedies · Body</span>
+          </div>
+        </div>
+      </div>
+
+
       <!-- STACK: HINDZ -->
-      <div class="feed-item feed-stack" data-feed="video">
+      <div class="feed-item feed-stack" data-feed="tribe video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🎥 Video Stack</span>
             <span class="feed-date">YouTube</span>
           </div>
-          <h3 class="feed-title">Hindz — Study Sessions</h3>
+          <h3 class="feed-title">HINDZSIGHT — Study Sessions</h3>
           <p class="feed-excerpt">Deep, focused study content that holds attention and elevates the mind. The kind of video you put on and actually learn something.</p>
           <div class="feed-resonate">
             <span class="resonate-label">Why this resonates with us</span>
-            <p class="resonate-text">Study shouldn't feel like punishment. Hindz creates an environment where learning feels natural, focused, and genuinely enjoyable. That's rare. We want this energy living on KIN-NECT.</p>
+            <p class="resonate-text">Study shouldn't feel like punishment. HINDZSIGHT creates an environment where learning feels natural, focused, and genuinely enjoyable. That's rare. We want this energy living on KIN-NECT.</p>
           </div>
           <button class="stack-toggle" onclick="toggleStack(this)">
             <span class="stack-toggle-label">↓ See the full Stack</span>
           </button>
           <div class="stack-items" style="display:none;">
-            <a href="https://www.youtube.com/@hindz" target="_blank" class="stack-item">
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="stack-item">
               <span class="stack-item-icon">▶</span>
-              <div><span class="stack-item-title">Study With Me — Deep Focus Sessions</span><span class="stack-item-meta">YouTube · Hindz</span></div>
+              <div><span class="stack-item-title">Study With Me — Deep Focus Sessions</span><span class="stack-item-meta">YouTube · HINDZSIGHT</span></div>
             </a>
-            <a href="https://www.youtube.com/@hindz" target="_blank" class="stack-item">
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="stack-item">
               <span class="stack-item-icon">▶</span>
-              <div><span class="stack-item-title">More sessions on his channel →</span><span class="stack-item-meta">YouTube · Hindz</span></div>
+              <div><span class="stack-item-title">More sessions on his channel →</span><span class="stack-item-meta">YouTube · HINDZSIGHT</span></div>
             </a>
           </div>
           <div class="feed-footer-row" style="margin-top: 1.5rem;">
-            <a href="https://www.youtube.com/@hindz" target="_blank" class="feed-link">Visit channel →</a>
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="feed-link">Visit channel →</a>
             <span class="feed-cats">Study · Focus · Mind</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
           </div>
         </div>
       </div>
 
       <!-- STACK: YOGA WITH NICO -->
-      <div class="feed-item feed-stack" data-feed="practice">
+      <div class="feed-item feed-stack" data-feed="tribe practice">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🧘🏾 Practice Stack</span>
@@ -2122,7 +2184,7 @@
       </div>
 
       <!-- CURATED: QUEEN CUP -->
-      <div class="feed-item" data-feed="video">
+      <div class="feed-item" data-feed="tribe video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🔮 Soul · Tarot</span>
@@ -2137,12 +2199,13 @@
           <div class="feed-footer-row">
             <a href="https://www.youtube.com/@QueenCup" target="_blank" class="feed-link">Watch →</a>
             <span class="feed-cats">Tarot · Ancestral · Soul</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
           </div>
         </div>
       </div>
 
       <!-- CURATED: JASS -->
-      <div class="feed-item" data-feed="video">
+      <div class="feed-item" data-feed="tribe video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🃏 Soul · Tarot</span>
@@ -2157,49 +2220,11 @@
           <div class="feed-footer-row">
             <a href="https://www.youtube.com/@HourGlassedByJass" target="_blank" class="feed-link">Watch →</a>
             <span class="feed-cats">Tarot · Guidance · Soul</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
           </div>
         </div>
       </div>
 
-      <!-- CURATED: SACRED TEXTS -->
-      <div class="feed-item" data-feed="reading">
-        <div class="feed-item-inner">
-          <div class="feed-meta-row">
-            <span class="feed-tag">📖 Reading · Archive</span>
-            <span class="feed-date">sacred-texts.com</span>
-          </div>
-          <h3 class="feed-title">Sacred Texts Archive</h3>
-          <p class="feed-excerpt">One of the largest free archives of sacred texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world.</p>
-          <div class="feed-resonate">
-            <span class="resonate-label">Why this resonates with us</span>
-            <p class="resonate-text">Before any book, before any algorithm, this knowledge existed. Free, vast, and waiting. Every conscious library should start here.</p>
-          </div>
-          <div class="feed-footer-row">
-            <a href="https://sacred-texts.com" target="_blank" class="feed-link">Explore →</a>
-            <span class="feed-cats">Sacred · Ancient · Knowledge</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CURATED: EARTH CLINIC -->
-      <div class="feed-item" data-feed="reading">
-        <div class="feed-item-inner">
-          <div class="feed-meta-row">
-            <span class="feed-tag">🌿 Body · Healing</span>
-            <span class="feed-date">earthclinic.com</span>
-          </div>
-          <h3 class="feed-title">Earth Clinic</h3>
-          <p class="feed-excerpt">A community-built database of natural remedies, folk medicine and holistic health. Ancestral knowledge meeting lived experience.</p>
-          <div class="feed-resonate">
-            <span class="resonate-label">Why this resonates with us</span>
-            <p class="resonate-text">Our grandmothers knew things that never made it into textbooks. Earth Clinic is one of the few places that resource still lives — community-sourced, practical, real.</p>
-          </div>
-          <div class="feed-footer-row">
-            <a href="https://www.earthclinic.com" target="_blank" class="feed-link">Explore →</a>
-            <span class="feed-cats">Natural · Remedies · Body</span>
-          </div>
-        </div>
-      </div>
 
       <!-- GHOST: SUGGEST -->
       <div class="feed-item feed-ghost" data-feed="all">
@@ -2297,6 +2322,18 @@
         <button class="filter-btn evt-filter filter-secondary" onclick="setEvtFilter(this,'portal')">🌀 Portals</button>
         <button class="filter-btn evt-filter filter-secondary" onclick="setEvtFilter(this,'seasonal')">🍂 Seasonal</button>
       </div>
+      <div class="mockup-filters" style="margin-top: 0.75rem;">
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('march')">Mar</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('april')">Apr</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('may')">May</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('june')">Jun</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('july')">Jul</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('august')">Aug</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('september')">Sep</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('october')">Oct</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('november')">Nov</button>
+        <button class="filter-btn filter-secondary" onclick="scrollToMonth('december')">Dec</button>
+      </div>
     </div>
     <div class="events-layout">
       <div class="events-calendar-preview">
@@ -2305,6 +2342,9 @@
           <span class="cal-label">Marked Moments</span>
         </div>
         <div class="cal-events" id="evt-list">
+
+          <!-- MARCH -->
+          <div class="cal-month-header" data-month="march">✦ March</div>
 
           <div class="cal-event" data-etags="seasonal spiritual">
             <div class="cal-date"><span class="cal-day">20</span><span class="cal-mon">MAR</span></div>
@@ -2317,7 +2357,11 @@
 
           <div class="cal-event" data-etags="moon">
             <div class="cal-date"><span class="cal-day">02</span><span class="cal-mon">APR</span></div>
-            <div class="cal-event-info">
+  
+          <!-- APRIL -->
+          <div class="cal-month-header" data-month="april">✦ April</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌕 Full Moon</span>
               <h4>Pink Moon <span class="cal-time">03:12 BST</span></h4>
               <p>Named for the pink wildflowers that bloom in early spring. A moon of new beginnings, courage and growth.</p>
@@ -2326,7 +2370,11 @@
 
           <div class="cal-event" data-etags="moon">
             <div class="cal-date"><span class="cal-day">01</span><span class="cal-mon">MAY</span></div>
-            <div class="cal-event-info">
+  
+          <!-- MAY -->
+          <div class="cal-month-header" data-month="may">✦ May</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌕 Full Moon</span>
               <h4>Flower Moon <span class="cal-time">18:23 BST</span></h4>
               <p>May's abundant blooms give this moon its name. Energy of fertility, abundance and full expression.</p>
@@ -2353,7 +2401,11 @@
 
           <div class="cal-event" data-etags="seasonal spiritual">
             <div class="cal-date"><span class="cal-day">21</span><span class="cal-mon">JUN</span></div>
-            <div class="cal-event-info">
+  
+          <!-- JUNE -->
+          <div class="cal-month-header" data-month="june">✦ June</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">☀️ Seasonal</span>
               <h4>Summer Solstice</h4>
               <p>Peak light. Abundance energy. The longest day — celebrate what has grown and what is fully alive in you.</p>
@@ -2371,7 +2423,11 @@
 
           <div class="cal-event" data-etags="moon">
             <div class="cal-date"><span class="cal-day">29</span><span class="cal-mon">JUL</span></div>
-            <div class="cal-event-info">
+  
+          <!-- JULY -->
+          <div class="cal-month-header" data-month="july">✦ July</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌕 Full Moon</span>
               <h4>Buck Moon <span class="cal-time">15:36 BST</span></h4>
               <p>Named for the time when male deer begin to regrow their antlers. Energy of strength, growth and new direction.</p>
@@ -2380,7 +2436,11 @@
 
           <div class="cal-event" data-etags="portal spiritual">
             <div class="cal-date"><span class="cal-day">08</span><span class="cal-mon">AUG</span></div>
-            <div class="cal-event-info">
+  
+          <!-- AUGUST -->
+          <div class="cal-month-header" data-month="august">✦ August</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌀 Portal & Alignment</span>
               <h4>Lion's Gate — 8/8</h4>
               <p>Alignment of Earth, Sirius and Orion's Belt. Manifestation, heart chakra activation, amplified intention.</p>
@@ -2398,7 +2458,11 @@
 
           <div class="cal-event" data-etags="seasonal spiritual">
             <div class="cal-date"><span class="cal-day">22</span><span class="cal-mon">SEP</span></div>
-            <div class="cal-event-info">
+  
+          <!-- SEPTEMBER -->
+          <div class="cal-month-header" data-month="september">✦ September</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🍂 Seasonal</span>
               <h4>Autumn Equinox</h4>
               <p>Harvest, gratitude, balance. We begin to turn inward. Honour what has grown.</p>
@@ -2416,7 +2480,11 @@
 
           <div class="cal-event" data-etags="moon">
             <div class="cal-date"><span class="cal-day">26</span><span class="cal-mon">OCT</span></div>
-            <div class="cal-event-info">
+  
+          <!-- OCTOBER -->
+          <div class="cal-month-header" data-month="october">✦ October</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌕 Full Moon</span>
               <h4>Hunter's Moon <span class="cal-time">04:12 GMT</span></h4>
               <p>Energy of focus, readiness and gathering strength before winter. A time to prepare and go within.</p>
@@ -2425,7 +2493,11 @@
 
           <div class="cal-event cal-highlight" data-etags="moon spiritual">
             <div class="cal-date"><span class="cal-day">24</span><span class="cal-mon">NOV</span></div>
-            <div class="cal-event-info">
+  
+          <!-- NOVEMBER -->
+          <div class="cal-month-header" data-month="november">✦ November</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌕 Full Moon</span>
               <h4>Beaver Moon <span class="cal-time">14:53 GMT</span> <span class="cal-badge super-badge">Supermoon</span></h4>
               <p>A supermoon — appearing larger and brighter as the moon reaches its closest point to Earth. Named for the time when beavers build their winter dams. Energy of preparation, home and warmth.</p>
@@ -2434,7 +2506,11 @@
 
           <div class="cal-event" data-etags="seasonal spiritual">
             <div class="cal-date"><span class="cal-day">21</span><span class="cal-mon">DEC</span></div>
-            <div class="cal-event-info">
+  
+          <!-- DECEMBER -->
+          <div class="cal-month-header" data-month="december">✦ December</div>
+
+          <div class="cal-event-info">
               <span class="cal-event-type">🌑 Seasonal</span>
               <h4>Winter Solstice</h4>
               <p>Rebirth of the sun. Inner stillness. The longest night — and the promise of returning light.</p>
@@ -2627,10 +2703,23 @@
     document.querySelectorAll('.mockup-filters .filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.feed-item').forEach(item => {
-      const f = item.dataset.feed || 'all';
-      item.style.display = (tag === 'all' || f === tag || f === 'all') ? '' : 'none';
+      const f = item.dataset.feed || '';
+      const tags = f.split(' ');
+      const show = tag === 'all' || tags.includes(tag) || 
+                   (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
+      item.style.display = show ? '' : 'none';
     });
   }
+  function toggleTribeDropdown() {
+    const d = document.getElementById('tribe-dropdown');
+    d.style.display = d.style.display === 'none' ? 'block' : 'none';
+  }
+  function closeTribeDropdown() {
+    document.getElementById('tribe-dropdown').style.display = 'none';
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.tribe-dropdown-wrap')) closeTribeDropdown();
+  });
 
   function toggleStack(btn) {
     const items = btn.nextElementSibling;
@@ -2638,6 +2727,212 @@
     const open = items.style.display === 'none';
     items.style.display = open ? 'block' : 'none';
     label.textContent = open ? '↑ Close Stack' : '↓ See the full Stack';
+  }
+
+  function scrollToMonth(month) {
+    const header = document.querySelector(`.cal-month-header[data-month="${month}"]`);
+    if (header) header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function setEvtFilter(btn, tag) {
+    document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#evt-list .cal-event').forEach(ev => {
+      if (tag === 'all' || (ev.dataset.etags && ev.dataset.etags.includes(tag))) {
+        ev.style.display = '';
+      } else {
+        ev.style.display = 'none';
+      }
+    });
+  }
+
+
+  function setFilter(btn, tag) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.dir-card').forEach(card => {
+      if (tag === 'all' || (card.dataset.tags && card.dataset.tags.includes(tag))) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+
+  function handleListSubmit() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const what = document.getElementById('f-what').value.trim();
+    const location = document.getElementById('f-location').value.trim();
+    const link = document.getElementById('f-link').value.trim();
+    const msg = document.getElementById('form-msg');
+
+    if (!name || !email || !what) {
+      msg.style.color = '#A8462A';
+      msg.textContent = 'Please fill in your name, email and what you do.';
+      return;
+    }
+
+    // Build mailto with all fields — swap for a form backend (Formspree etc) when ready
+    const subject = encodeURIComponent(`KIN-NECT Directory — ${name} wants to be listed`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nWhat they do: ${what}\nBased: ${location || 'Not specified'}\nLink: ${link || 'Not provided'}`
+    );
+    window.location.href = `mailto:hello@kin-nect.com?subject=${subject}&body=${body}`;
+
+    msg.style.color = '#6B7C5E';
+    msg.textContent = '✦ Thank you — we\'ll be in touch soon.';
+  }
+
+
+  const hero = document.querySelector('.hero');
+  const orbits = document.querySelectorAll('.hero-orbit');
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    orbits.forEach((orbit, i) => {
+      const factor = (i + 1) * 0.4;
+      orbit.style.transform = `translate(calc(-50% + ${x * factor}px), calc(-50% + ${y * factor}px))`;
+    });
+  });
+
+  // Intersection observer for pillar cards
+  const cards = document.querySelectorAll('.pillar-card, .timeline-item, .structure-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, (i % 6) * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+</script>
+
+</body>
+</html><!-- REALM TEASER -->
+<section class="realm-teaser" id="realm">
+  <div class="realm-teaser-inner">
+    <span class="section-label">05 — Coming Soon</span>
+    <h2>Realm <em>Marketplace</em></h2>
+    <p class="realm-teaser-sub">Think Holland & Barrett meets Cult Beauty meets Dice — but conscious, curated, and community-owned. Every business in the KIN-NECT directory can bring their products to Realm. Shop Wyld Herbs sea moss. Browse The Utopia's crystals. Find things made by people who mean it.</p>
+    <div class="realm-stores">
+      <div class="realm-store-card">
+        <span class="realm-store-label">Coming to Realm</span>
+        <div class="realm-store-name">DANKH</div>
+        <p>Jai's apothecary and wellness creation. Forthcoming.</p>
+      </div>
+      <div class="realm-store-card">
+        <span class="realm-store-label">Coming to Realm</span>
+        <div class="realm-store-name">The Utopia</div>
+        <p>Chai's crystals, candles and conscious living. Coming back online.</p>
+      </div>
+      <div class="realm-store-card realm-store-open">
+        <span class="realm-store-label">In the Directory · Coming to Realm</span>
+        <div class="realm-store-name">Wyld Herbs</div>
+        <p>Organic sea moss, plant therapeutics. Women-owned, diaspora-rooted. Shop direct.</p>
+      </div>
+    </div>
+    <p class="realm-teaser-note">Realm opens when the directory is ready. The foundation comes first.</p>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <span class="section-label">Stay connected</span>
+    <h2>Join the <em>Collective</em></h2>
+    <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="your@email.com" id="newsletter-email">
+      <button class="newsletter-btn" onclick="handleNewsletter()">Join the Collective ✦</button>
+    </div>
+    <p id="newsletter-msg" style="margin-top:1rem; font-size:0.85rem; color:var(--sage); opacity:0;"></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <div class="footer-tagline">Consciously Curated. Stay KIN-nected with the Collective.</div>
+  <ul class="footer-links">
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Newsletter</a></li>
+    <li><a href="#realm">Realm</a></li>
+    <li><a href="#directory">Directory</a></li>
+  </ul>
+</footer>
+
+<script>
+  function handleNewsletter() {
+    const email = document.getElementById('newsletter-email').value;
+    const msg = document.getElementById('newsletter-msg');
+    if (!email || !email.includes('@')) {
+      msg.style.opacity = '1';
+      msg.style.color = '#C8732A';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    window.location.href = `mailto:hello@kin-nect.com?subject=Newsletter signup&body=Please add me to the KIN-NECT newsletter: ${email}`;
+    msg.style.opacity = '1';
+    msg.style.color = 'var(--sage)';
+    msg.textContent = '✦ You\'re in. Welcome to the KIN.';
+  }
+
+  function setPractFilter(btn, tag) {
+    document.querySelectorAll('#pract-grid .pract-card').forEach(c => {
+      const tags = c.dataset.ptags || '';
+      c.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function toggleNav() {
+    const links = document.getElementById('nav-links');
+    const burger = document.getElementById('nav-hamburger');
+    links.classList.toggle('open');
+    burger.classList.toggle('open');
+  }
+  function closeNav() {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('nav-hamburger').classList.remove('open');
+  }
+
+  // Past events accordion
+  function togglePast(btn) {
+    const list = document.getElementById('past-events');
+    const label = btn.querySelector('.past-toggle-label');
+    const isHidden = list.style.display === 'none';
+    list.style.display = isHidden ? 'block' : 'none';
+    label.textContent = isHidden ? '↓ Earlier in 2026' : '↑ Earlier in 2026';
+  }
+
+  // Event filter
+
+
+  function toggleStack(btn) {
+    const items = btn.nextElementSibling;
+    const label = btn.querySelector('.stack-toggle-label');
+    const open = items.style.display === 'none';
+    items.style.display = open ? 'block' : 'none';
+    label.textContent = open ? '↑ Close Stack' : '↓ See the full Stack';
+  }
+
+  function scrollToMonth(month) {
+    const header = document.querySelector(`.cal-month-header[data-month="${month}"]`);
+    if (header) header.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function setEvtFilter(btn, tag) {

@@ -918,6 +918,36 @@
     margin: 0 auto;
   }
 
+  /* EDITORIAL FEED */
+  .editorial-feed { display: flex; flex-direction: column; gap: 1.5rem; max-width: 780px; margin: 0 auto; }
+  .feed-item { position: relative; border: 1px solid rgba(232,184,75,0.12); border-radius: 12px; background: rgba(20,12,6,0.6); transition: border-color 0.3s; }
+  .feed-item:hover { border-color: rgba(232,184,75,0.28); }
+  .feed-item-inner { padding: 2rem 2.2rem; position: relative; }
+  .feed-ghost { border-style: dashed; }
+  .feed-meta-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .feed-tag { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); background: rgba(107,124,94,0.12); padding: 0.25rem 0.7rem; border-radius: 20px; }
+  .tribe-tag { color: var(--gold); background: rgba(232,184,75,0.1); }
+  .feed-date { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--blush); opacity: 0.45; }
+  .feed-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 400; color: var(--cream); margin-bottom: 0.8rem; line-height: 1.4; }
+  .feed-excerpt { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--blush); opacity: 0.65; line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+  .feed-resonate { border-left: 2px solid rgba(232,184,75,0.25); padding-left: 1.2rem; margin: 1.2rem 0; }
+  .resonate-label { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-bottom: 0.4rem; }
+  .resonate-text { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--blush); opacity: 0.7; line-height: 1.7; font-style: italic; }
+  .feed-footer-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .feed-link { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--gold); text-decoration: none; opacity: 0.8; }
+  .feed-link:hover { opacity: 1; }
+  .feed-byline { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage); opacity: 0.7; }
+  .feed-cats { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+  .stack-toggle { background: none; border: 1px solid rgba(232,184,75,0.2); color: var(--gold); font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; margin-top: 1rem; transition: all 0.2s; }
+  .stack-toggle:hover { background: rgba(232,184,75,0.08); }
+  .stack-items { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .stack-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; border-radius: 8px; background: rgba(232,184,75,0.04); border: 1px solid rgba(232,184,75,0.08); text-decoration: none; transition: background 0.2s; }
+  .stack-item:hover { background: rgba(232,184,75,0.09); }
+  .stack-item-icon { color: var(--gold); opacity: 0.6; font-size: 0.8rem; }
+  .stack-item-title { display: block; font-size: 0.85rem; color: var(--cream); opacity: 0.8; margin-bottom: 0.2rem; }
+  .stack-item-meta { display: block; font-size: 0.7rem; color: var(--blush); opacity: 0.45; letter-spacing: 0.08em; }
+
+
   .mockup-alt {
     background: rgba(44,26,14,0.3);
     max-width: 100%;
@@ -1685,9 +1715,9 @@
 
   <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
 
-  <div class="hero-cta">
+    <div class="hero-cta">
     <a href="#directory" class="btn-primary"><span>Explore the Directory</span></a>
-    <a href="#about" class="btn-secondary">About KIN-NECT</a>
+    <a href="#list-with-us" class="btn-secondary">Join the Directory</a>
   </div>
 
   <div class="hero-scroll-hint">
@@ -1986,147 +2016,202 @@
 <section class="mockup-section" id="editorial" style="background: rgba(8,5,2,0.7);">
   <div class="mockup-inner">
     <div class="mockup-header">
-      <span class="section-label">04 — Coming Soon</span>
+      <span class="section-label">02 — Editorial & Curation</span>
       <h2 class="mockup-title">Editorial & <em>Curation</em></h2>
-      <p class="mockup-subtitle">Not a content factory. A conscious curation layer — our taste, our framing, other people's work given a better home. Videos, essays, sessions and writing that elevates.</p>
-      <div class="mockup-filters">
-        <button class="filter-btn active filter-primary">All</button>
-        <button class="filter-btn filter-primary">🎥 Video</button>
-        <button class="filter-btn filter-primary">📖 Reading</button>
-        <button class="filter-btn filter-primary">🧘🏾 Practice</button>
-        <button class="filter-btn filter-primary">🎵 Sound</button>
-      </div>
+      <p class="mockup-subtitle">Not a content factory. A conscious feed — original writing, curated videos, reading and practice. Our taste, our framing, other people's work given a better home.</p>
     </div>
 
-    <div class="directory-grid">
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a1a2e, #4a0a0a);">🎥</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Video · Study · Mind</span>
-            <span class="dir-location">📺 YouTube</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Hindz — Study Sessions</h3>
-        <p class="dir-desc">Deep, focused study content that holds attention and elevates the mind. The kind of video you put on and actually learn something. We want this living on KIN-NECT.</p>
-        <div class="dir-footer">
-          <a href="https://www.youtube.com/@hindz" target="_blank" class="dir-link">Watch on YouTube →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a4a3a, #0a2a1a);">🧘🏾</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Yoga · Practice · Body</span>
-            <span class="dir-location">📺 YouTube</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Yoga with Nico</h3>
-        <p class="dir-desc">A Black yogi making yoga feel like it was made for us. 7-day challenges, 30-day challenges, chakra work. Nico's sessions are the kind of practice you come back to.</p>
-        <div class="dir-footer">
-          <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="dir-link">Practice with Nico →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #3a1a4a, #1a0a2a);">🔮</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Tarot · Soul · Retreats</span>
-            <span class="dir-location">📺 YouTube · Jamaica</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Queen Cup</h3>
-        <p class="dir-desc">Tarot, smudging, and retreat experiences rooted in spiritual practice. Also runs immersive retreats in Jamaica. A voice in the space where spirituality meets ancestral wisdom.</p>
-        <div class="dir-footer">
-          <a href="https://www.youtube.com/@QueenCup" target="_blank" class="dir-link">Watch Queen Cup →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a2a1a, #1a1a0a);">🃏</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Tarot · Soul · Guidance</span>
-            <span class="dir-location">📺 YouTube</span>
-          </div>
-        </div>
-        <h3 class="dir-name">HourGlassed by Jass</h3>
-        <p class="dir-desc">Tarot with depth — informative, grounded, and genuinely insightful. Jass brings knowledge and care to her readings. The kind of content you save and come back to.</p>
-        <div class="dir-footer">
-          <a href="https://www.youtube.com/@HourGlassedByJass" target="_blank" class="dir-link">Watch Jass →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Featured</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a3a4a, #0a1a2a);">📖</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Sacred Texts · Knowledge · Soul</span>
-            <span class="dir-location">🌐 Archive</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Sacred Texts Archive</h3>
-        <p class="dir-desc">One of the largest free archives of sacred and religious texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world. A resource that belongs in every conscious library.</p>
-        <div class="dir-footer">
-          <a href="https://sacred-texts.com" target="_blank" class="dir-link">Explore the archive →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Resource</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #1a4a2a, #0a2a10);">🌿</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Natural Remedies · Body · Healing</span>
-            <span class="dir-location">🌐 Community Resource</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Earth Clinic</h3>
-        <p class="dir-desc">A vast community-built database of natural remedies, folk medicine and holistic health information. Not woo woo — grounded, practical, ancestral knowledge meeting lived experience.</p>
-        <div class="dir-footer">
-          <a href="https://www.earthclinic.com" target="_blank" class="dir-link">Explore Earth Clinic →</a>
-          <span class="dir-founding" style="color: var(--sage);">✦ Resource</span>
-        </div>
-      </div>
-
-      <div class="dir-card">
-        <div class="dir-card-top">
-          <div class="dir-avatar" style="background: linear-gradient(135deg, #2a1a4a, #100a2a);">🧠</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Psychology · Research · Mind</span>
-            <span class="dir-location">📄 Journals & Writing</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Psychology & Research</h3>
-        <p class="dir-desc">Peer-reviewed research, psychology journals, and original writing where relevant. The intellectual backbone behind what KIN-NECT promotes. Evidence meets lived experience.</p>
-        <div class="dir-footer">
-          <span class="dir-founding" style="color: var(--sage);">✦ Coming — incl. original writing</span>
-        </div>
-      </div>
-
-      <div class="dir-card dir-card-ghost">
-        <div class="dir-card-top">
-          <div class="dir-avatar ghost-avatar">+</div>
-          <div class="dir-meta">
-            <span class="dir-tag">Your Medium</span>
-            <span class="dir-location">📍 Anywhere</span>
-          </div>
-        </div>
-        <h3 class="dir-name">Know something worth featuring?</h3>
-        <p class="dir-desc">A video, a Substack, a podcast, a piece of writing that needs a better home. If it elevates, it belongs here.</p>
-        <div class="dir-footer">
-          <span class="dir-founding" style="color: var(--sage);">→ Tell us about it</span>
-        </div>
-      </div>
-
+    <!-- FEED FILTERS -->
+    <div class="mockup-filters" style="margin-bottom: 2.5rem;">
+      <button class="filter-btn active filter-primary" onclick="setFeedFilter(this,'all')">All</button>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'tribe')">✦ From the Tribe</button>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'video')">🎥 Video</button>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'reading')">📖 Words & Written</button>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
+      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
     </div>
+
+    <!-- FEED -->
+    <div class="editorial-feed">
+
+      <!-- POST 1: ORIGINAL — EQUINOX -->
+      <div class="feed-item" data-feed="tribe" style="border-color: rgba(232,184,75,0.35); background: rgba(232,184,75,0.04);">
+        <div class="feed-item-inner">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--ochre), var(--gold), transparent); border-radius: 12px 12px 0 0;"></div>
+          <div class="feed-meta-row">
+            <span class="feed-tag tribe-tag">✦ From the Tribe</span>
+            <span class="feed-date">Dropping 20.03.26 — Spring Equinox</span>
+          </div>
+          <h3 class="feed-title">The Wheel of the Year: What the Equinoxes & Solstices Actually Mean — and How to Move With Them</h3>
+          <p class="feed-excerpt">Four times a year the Earth marks a threshold. Most of us were never taught what they mean or why our ancestors organised entire lives around them. This is that.</p>
+          <div class="feed-footer-row">
+            <span class="feed-byline">By KIN-NECT</span>
+            <span class="feed-cats">Editorial · Seasonal · Ancestral Knowledge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STACK: HINDZ -->
+      <div class="feed-item feed-stack" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🎥 Video Stack</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">Hindz — Study Sessions</h3>
+          <p class="feed-excerpt">Deep, focused study content that holds attention and elevates the mind. The kind of video you put on and actually learn something.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Study shouldn't feel like punishment. Hindz creates an environment where learning feels natural, focused, and genuinely enjoyable. That's rare. We want this energy living on KIN-NECT.</p>
+          </div>
+          <button class="stack-toggle" onclick="toggleStack(this)">
+            <span class="stack-toggle-label">↓ See the full Stack</span>
+          </button>
+          <div class="stack-items" style="display:none;">
+            <a href="https://www.youtube.com/@hindz" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">Study With Me — Deep Focus Sessions</span><span class="stack-item-meta">YouTube · Hindz</span></div>
+            </a>
+            <a href="https://www.youtube.com/@hindz" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">More sessions on his channel →</span><span class="stack-item-meta">YouTube · Hindz</span></div>
+            </a>
+          </div>
+          <div class="feed-footer-row" style="margin-top: 1.5rem;">
+            <a href="https://www.youtube.com/@hindz" target="_blank" class="feed-link">Visit channel →</a>
+            <span class="feed-cats">Study · Focus · Mind</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STACK: YOGA WITH NICO -->
+      <div class="feed-item feed-stack" data-feed="practice">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🧘🏾 Practice Stack</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">Yoga with Nico</h3>
+          <p class="feed-excerpt">A Black yogi making yoga feel like it was made for us. 7-day challenges, 30-day challenges, chakra work.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Yoga spaces have historically not centred us. Nico changes that — the energy, the music, the representation. A practice you come back to because it actually feels like yours.</p>
+          </div>
+          <button class="stack-toggle" onclick="toggleStack(this)">
+            <span class="stack-toggle-label">↓ See the full Stack</span>
+          </button>
+          <div class="stack-items" style="display:none;">
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">7-Day Yoga Challenge</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">30-Day Yoga Challenge</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">Chakra Series</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+          </div>
+          <div class="feed-footer-row" style="margin-top: 1.5rem;">
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="feed-link">Visit channel →</a>
+            <span class="feed-cats">Yoga · Chakra · Body</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: QUEEN CUP -->
+      <div class="feed-item" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🔮 Soul · Tarot</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">Queen Cup</h3>
+          <p class="feed-excerpt">Tarot, smudging, and retreat experiences rooted in spiritual practice. Also runs immersive retreats in Jamaica.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Spiritual practice that doesn't feel performative. Queen Cup brings ancestral tools into the present without losing their weight. The retreats are something else entirely.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.youtube.com/@QueenCup" target="_blank" class="feed-link">Watch →</a>
+            <span class="feed-cats">Tarot · Ancestral · Soul</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: JASS -->
+      <div class="feed-item" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🃏 Soul · Tarot</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">HourGlassed by Jass</h3>
+          <p class="feed-excerpt">Tarot with real depth — informative, grounded, and genuinely insightful. The kind of content you save and come back to.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Jass doesn't just read — she teaches. There's knowledge in every video. You leave understanding something you didn't before. That's what this feed is for.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.youtube.com/@HourGlassedByJass" target="_blank" class="feed-link">Watch →</a>
+            <span class="feed-cats">Tarot · Guidance · Soul</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: SACRED TEXTS -->
+      <div class="feed-item" data-feed="reading">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">📖 Reading · Archive</span>
+            <span class="feed-date">sacred-texts.com</span>
+          </div>
+          <h3 class="feed-title">Sacred Texts Archive</h3>
+          <p class="feed-excerpt">One of the largest free archives of sacred texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Before any book, before any algorithm, this knowledge existed. Free, vast, and waiting. Every conscious library should start here.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://sacred-texts.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Sacred · Ancient · Knowledge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: EARTH CLINIC -->
+      <div class="feed-item" data-feed="reading">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🌿 Body · Healing</span>
+            <span class="feed-date">earthclinic.com</span>
+          </div>
+          <h3 class="feed-title">Earth Clinic</h3>
+          <p class="feed-excerpt">A community-built database of natural remedies, folk medicine and holistic health. Ancestral knowledge meeting lived experience.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Our grandmothers knew things that never made it into textbooks. Earth Clinic is one of the few places that resource still lives — community-sourced, practical, real.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.earthclinic.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Natural · Remedies · Body</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GHOST: SUGGEST -->
+      <div class="feed-item feed-ghost" data-feed="all">
+        <div class="feed-item-inner" style="text-align: center; padding: 3rem 2rem;">
+          <div style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;">+</div>
+          <h3 class="feed-title" style="opacity: 0.5;">Know something worth featuring?</h3>
+          <p class="feed-excerpt" style="opacity: 0.4;">A video, a Substack, a piece of writing that needs a better home. If it elevates, it belongs here.</p>
+          <span style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--sage);">→ Tell us about it</span>
+        </div>
+      </div>
+
+    </div><!-- end feed -->
   </div>
 </section>
 
@@ -2134,7 +2219,7 @@
 <section class="mockup-section mockup-alt" id="library">
   <div class="mockup-inner">
     <div class="mockup-header">
-      <span class="section-label">02 — Coming Soon</span>
+      <span class="section-label">04 — Coming Soon</span>
       <h2 class="mockup-title">The <em>Library</em></h2>
       <p class="mockup-subtitle">A gathering around words, ideas and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
     </div>
@@ -2196,7 +2281,7 @@
 <section class="mockup-section" id="events">
   <div class="mockup-inner">
     <div class="mockup-header">
-      <span class="section-label">03 — Coming Soon</span>
+      <span class="section-label">03 — Events Calendar</span>
       <h2 class="mockup-title">Events <em>Calendar</em></h2>
       <p class="mockup-subtitle">Spiritual dates. Moon cycles. In-person gatherings. Online events. A calendar that holds time the way our community actually moves through the year.</p>
       <div class="filter-group-label" style="margin-top:1.5rem;">Main</div>
@@ -2538,6 +2623,23 @@
   }
 
   // Event filter
+  function setFeedFilter(btn, tag) {
+    document.querySelectorAll('.mockup-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.feed-item').forEach(item => {
+      const f = item.dataset.feed || 'all';
+      item.style.display = (tag === 'all' || f === tag || f === 'all') ? '' : 'none';
+    });
+  }
+
+  function toggleStack(btn) {
+    const items = btn.nextElementSibling;
+    const label = btn.querySelector('.stack-toggle-label');
+    const open = items.style.display === 'none';
+    items.style.display = open ? 'block' : 'none';
+    label.textContent = open ? '↑ Close Stack' : '↓ See the full Stack';
+  }
+
   function setEvtFilter(btn, tag) {
     document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');

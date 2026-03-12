@@ -287,6 +287,9 @@
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 100%;
   }
 
   .btn-secondary:hover {
@@ -1717,7 +1720,6 @@
   <div class="hero-orbit orbit-2"></div>
   <div class="hero-orbit orbit-3"></div>
 
-  <div class="hero-eyebrow">✦ A conscious community platform ✦</div>
 
   <h1 class="hero-title">
     <span class="kin">KIN</span><span class="dash">-</span><span class="nect">NECT</span>
@@ -1726,8 +1728,8 @@
   <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
 
     <div class="hero-cta">
-    <a href="#directory" class="btn-primary"><span>Explore the Directory</span></a>
-    <a href="#list-with-us" class="btn-secondary">Join the Directory</a>
+    <a href="#directory" class="btn-secondary"  style="border-color:var(--ochre); color:var(--ochre);"><span>Explore the Directory</span></a>
+    <a href="#list-with-us" class="btn-primary" onclick="event.preventDefault();document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})"><span>Join the KIN</span></a>
   </div>
 
   <div class="hero-scroll-hint">
@@ -1787,7 +1789,7 @@
 
   <div class="pillars-grid">
     <a href="#directory" class="pillar-card">
-      <span class="pillar-number">01 — LAUNCHING FIRST</span>
+      <span class="pillar-number">01</span>
       <span class="pillar-icon">🌿</span>
       <div class="pillar-name">The Directory</div>
       <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
@@ -1854,10 +1856,10 @@
 <section class="list-with-us" id="list-with-us">
   <div class="list-inner">
     <div class="list-text">
-      <span class="section-label">Join the directory</span>
+      <span class="section-label">Join the KIN</span>
       <h2>Are you doing <em>something</em> worth knowing about?</h2>
       <p>Healers. Creatives. Spaces. Makers. Plant-based restaurants. Event organisers. If what you do elevates consciousness and serves community — we want to know about you.</p>
-      <p style="margin-top:0.8rem;">We always ask before featuring anyone. This is just how you put your hand up.</p>
+      <p style="margin-top:0.8rem;">We always ask before featuring anyone. This is just how you join the KIN.</p>
       <ul class="list-benefits">
         <li><span>✦</span> Listed in the KIN-NECT directory</li>
         <li><span>✦</span> Featured in newsletter &amp; editorial</li>
@@ -1898,7 +1900,7 @@
 <section class="mockup-section" id="directory">
   <div class="mockup-inner">
     <div class="mockup-header">
-      <span class="section-label">01 — Launching First</span>
+      <span class="section-label">01 — The Directory</span>
       <h2 class="mockup-title">The <em>Directory</em></h2>
       <p class="mockup-subtitle">A living, curated map of businesses, spaces and makers doing things with intention. Conscious. Community-owned. Curated with care.</p>
       <div class="filter-group-label">Browse by</div>
@@ -2014,7 +2016,7 @@
         <h3 class="dir-name">Are you a practitioner?</h3>
         <p class="dir-desc">Therapists, healers, coaches, yoga teachers — if your work elevates and you're aligned with the KIN-NECT ethos, we want to know about you.</p>
         <div class="dir-footer">
-          <span class="dir-founding" style="color: var(--sage);">→ Put your hand up</span>
+          <span class="dir-founding" style="color: var(--sage);">→ Join the KIN</span>
         </div>
       </div>
 
@@ -2237,68 +2239,6 @@
       </div>
 
     </div><!-- end feed -->
-  </div>
-</section>
-
-<!-- LIBRARY MOCKUP -->
-<section class="mockup-section mockup-alt" id="library">
-  <div class="mockup-inner">
-    <div class="mockup-header">
-      <span class="section-label">04 — Coming Soon</span>
-      <h2 class="mockup-title">The <em>Library</em></h2>
-      <p class="mockup-subtitle">A gathering around words, ideas and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
-    </div>
-    <div class="library-grid">
-      <div class="library-featured">
-        <span class="lib-label">Current Read</span>
-        <div class="book-cover" style="background: linear-gradient(135deg, #A8462A 0%, #2C1A0E 100%);">
-          <div class="book-spine"></div>
-          <div class="book-title-block">
-            <span class="book-title-text">Upcoming</span>
-            <span class="book-author-text">First pick TBC</span>
-          </div>
-        </div>
-        <p class="lib-desc">Our first book club selection will be announced when KIN-NECT launches. If you have a suggestion, we'd love to hear it.</p>
-        <a href="#" class="lib-suggest">Suggest a book →</a>
-      </div>
-      <div class="library-shelf">
-        <span class="lib-label">On the Shelf</span>
-        <div class="shelf-items">
-          <div class="shelf-item">
-            <div class="shelf-spine" style="background: #6B7C5E;"></div>
-            <div class="shelf-info">
-              <span class="shelf-category">Philosophy</span>
-              <span class="shelf-placeholder">Coming soon</span>
-            </div>
-          </div>
-          <div class="shelf-item">
-            <div class="shelf-spine" style="background: #C8732A;"></div>
-            <div class="shelf-info">
-              <span class="shelf-category">Healing & Wellness</span>
-              <span class="shelf-placeholder">Coming soon</span>
-            </div>
-          </div>
-          <div class="shelf-item">
-            <div class="shelf-spine" style="background: #E8B84B;"></div>
-            <div class="shelf-info">
-              <span class="shelf-category">History & Culture</span>
-              <span class="shelf-placeholder">Coming soon</span>
-            </div>
-          </div>
-          <div class="shelf-item">
-            <div class="shelf-spine" style="background: #A8462A;"></div>
-            <div class="shelf-info">
-              <span class="shelf-category">Fiction & Imagination</span>
-              <span class="shelf-placeholder">Coming soon</span>
-            </div>
-          </div>
-        </div>
-        <div class="library-join">
-          <p>The library opens with KIN-NECT. Join the waitlist to be first in.</p>
-          <button class="btn-primary" style="margin-top:1rem;" onclick="document.getElementById('newsletter-email').focus(); document.querySelector('.newsletter').scrollIntoView({behavior:'smooth'});"><span>Join the Waitlist ✦</span></button>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2600,6 +2540,68 @@
   </div>
 </section>
 
+<!-- LIBRARY MOCKUP -->
+<section class="mockup-section mockup-alt" id="library">
+  <div class="mockup-inner">
+    <div class="mockup-header">
+      <span class="section-label">04 — Coming Soon</span>
+      <h2 class="mockup-title">The <em>Library</em></h2>
+      <p class="mockup-subtitle">A gathering around words, ideas and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
+    </div>
+    <div class="library-grid">
+      <div class="library-featured">
+        <span class="lib-label">Current Read</span>
+        <div class="book-cover" style="background: linear-gradient(135deg, #A8462A 0%, #2C1A0E 100%);">
+          <div class="book-spine"></div>
+          <div class="book-title-block">
+            <span class="book-title-text">Upcoming</span>
+            <span class="book-author-text">First pick TBC</span>
+          </div>
+        </div>
+        <p class="lib-desc">Our first book club selection will be announced when KIN-NECT launches. If you have a suggestion, we'd love to hear it.</p>
+        <a href="#" class="lib-suggest">Suggest a book →</a>
+      </div>
+      <div class="library-shelf">
+        <span class="lib-label">On the Shelf</span>
+        <div class="shelf-items">
+          <div class="shelf-item">
+            <div class="shelf-spine" style="background: #6B7C5E;"></div>
+            <div class="shelf-info">
+              <span class="shelf-category">Philosophy</span>
+              <span class="shelf-placeholder">Coming soon</span>
+            </div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-spine" style="background: #C8732A;"></div>
+            <div class="shelf-info">
+              <span class="shelf-category">Healing & Wellness</span>
+              <span class="shelf-placeholder">Coming soon</span>
+            </div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-spine" style="background: #E8B84B;"></div>
+            <div class="shelf-info">
+              <span class="shelf-category">History & Culture</span>
+              <span class="shelf-placeholder">Coming soon</span>
+            </div>
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-spine" style="background: #A8462A;"></div>
+            <div class="shelf-info">
+              <span class="shelf-category">Fiction & Imagination</span>
+              <span class="shelf-placeholder">Coming soon</span>
+            </div>
+          </div>
+        </div>
+        <div class="library-join">
+          <p>The library opens with KIN-NECT. Join the waitlist to be first in.</p>
+          <button class="btn-primary" style="margin-top:1rem;" onclick="document.getElementById('newsletter-email').focus(); document.querySelector('.newsletter').scrollIntoView({behavior:'smooth'});"><span>Join the Waitlist ✦</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- REALM TEASER -->
 <section class="realm-teaser" id="realm">
   <div class="realm-teaser-inner">
@@ -2631,11 +2633,11 @@
 <section class="newsletter">
   <div class="newsletter-inner">
     <span class="section-label">Stay connected</span>
-    <h2>Join the <em>Collective</em></h2>
+    <h2>Join the <em>KIN</em></h2>
     <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
     <div class="newsletter-form">
       <input type="email" class="newsletter-input" placeholder="your@email.com" id="newsletter-email">
-      <button class="newsletter-btn" onclick="handleNewsletter()">Join the Collective ✦</button>
+      <button class="newsletter-btn" onclick="handleNewsletter()">Join the KIN ✦</button>
     </div>
     <p id="newsletter-msg" style="margin-top:1rem; font-size:0.85rem; color:var(--sage); opacity:0;"></p>
   </div>
@@ -2644,7 +2646,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">KIN<span>-</span>NECT</div>
-  <div class="footer-tagline">Consciously Curated. Stay KIN-nected with the Collective.</div>
+  <div class="footer-tagline">Stay KIN-nected with the Collective.</div>
   <ul class="footer-links">
     <li><a href="#">Instagram</a></li>
     <li><a href="#">Newsletter</a></li>
@@ -2822,204 +2824,5 @@
 
 </body>
 </html><!-- REALM TEASER -->
-<section class="realm-teaser" id="realm">
-  <div class="realm-teaser-inner">
-    <span class="section-label">05 — Coming Soon</span>
-    <h2>Realm <em>Marketplace</em></h2>
-    <p class="realm-teaser-sub">Think Holland & Barrett meets Cult Beauty meets Dice — but conscious, curated, and community-owned. Every business in the KIN-NECT directory can bring their products to Realm. Shop Wyld Herbs sea moss. Browse The Utopia's crystals. Find things made by people who mean it.</p>
-    <div class="realm-stores">
-      <div class="realm-store-card">
-        <span class="realm-store-label">Coming to Realm</span>
-        <div class="realm-store-name">DANKH</div>
-        <p>Jai's apothecary and wellness creation. Forthcoming.</p>
-      </div>
-      <div class="realm-store-card">
-        <span class="realm-store-label">Coming to Realm</span>
-        <div class="realm-store-name">The Utopia</div>
-        <p>Chai's crystals, candles and conscious living. Coming back online.</p>
-      </div>
-      <div class="realm-store-card realm-store-open">
-        <span class="realm-store-label">In the Directory · Coming to Realm</span>
-        <div class="realm-store-name">Wyld Herbs</div>
-        <p>Organic sea moss, plant therapeutics. Women-owned, diaspora-rooted. Shop direct.</p>
-      </div>
-    </div>
-    <p class="realm-teaser-note">Realm opens when the directory is ready. The foundation comes first.</p>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <div class="newsletter-inner">
-    <span class="section-label">Stay connected</span>
-    <h2>Join the <em>Collective</em></h2>
-    <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
-    <div class="newsletter-form">
-      <input type="email" class="newsletter-input" placeholder="your@email.com" id="newsletter-email">
-      <button class="newsletter-btn" onclick="handleNewsletter()">Join the Collective ✦</button>
-    </div>
-    <p id="newsletter-msg" style="margin-top:1rem; font-size:0.85rem; color:var(--sage); opacity:0;"></p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">KIN<span>-</span>NECT</div>
-  <div class="footer-tagline">Consciously Curated. Stay KIN-nected with the Collective.</div>
-  <ul class="footer-links">
-    <li><a href="#">Instagram</a></li>
-    <li><a href="#">Newsletter</a></li>
-    <li><a href="#realm">Realm</a></li>
-    <li><a href="#directory">Directory</a></li>
-  </ul>
-</footer>
-
-<script>
-  function handleNewsletter() {
-    const email = document.getElementById('newsletter-email').value;
-    const msg = document.getElementById('newsletter-msg');
-    if (!email || !email.includes('@')) {
-      msg.style.opacity = '1';
-      msg.style.color = '#C8732A';
-      msg.textContent = 'Please enter a valid email address.';
-      return;
-    }
-    window.location.href = `mailto:hello@kin-nect.com?subject=Newsletter signup&body=Please add me to the KIN-NECT newsletter: ${email}`;
-    msg.style.opacity = '1';
-    msg.style.color = 'var(--sage)';
-    msg.textContent = '✦ You\'re in. Welcome to the KIN.';
-  }
-
-  function setPractFilter(btn, tag) {
-    document.querySelectorAll('#pract-grid .pract-card').forEach(c => {
-      const tags = c.dataset.ptags || '';
-      c.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
-    });
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  function toggleNav() {
-    const links = document.getElementById('nav-links');
-    const burger = document.getElementById('nav-hamburger');
-    links.classList.toggle('open');
-    burger.classList.toggle('open');
-  }
-  function closeNav() {
-    document.getElementById('nav-links').classList.remove('open');
-    document.getElementById('nav-hamburger').classList.remove('open');
-  }
-
-  // Past events accordion
-  function togglePast(btn) {
-    const list = document.getElementById('past-events');
-    const label = btn.querySelector('.past-toggle-label');
-    const isHidden = list.style.display === 'none';
-    list.style.display = isHidden ? 'block' : 'none';
-    label.textContent = isHidden ? '↓ Earlier in 2026' : '↑ Earlier in 2026';
-  }
-
-  // Event filter
-
-
-  function toggleStack(btn) {
-    const items = btn.nextElementSibling;
-    const label = btn.querySelector('.stack-toggle-label');
-    const open = items.style.display === 'none';
-    items.style.display = open ? 'block' : 'none';
-    label.textContent = open ? '↑ Close Stack' : '↓ See the full Stack';
-  }
-
-  function scrollToMonth(month) {
-    const header = document.querySelector(`.cal-month-header[data-month="${month}"]`);
-    if (header) header.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function setEvtFilter(btn, tag) {
-    document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#evt-list .cal-event').forEach(ev => {
-      if (tag === 'all' || (ev.dataset.etags && ev.dataset.etags.includes(tag))) {
-        ev.style.display = '';
-      } else {
-        ev.style.display = 'none';
-      }
-    });
-  }
-
-
-  function setFilter(btn, tag) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.dir-card').forEach(card => {
-      if (tag === 'all' || (card.dataset.tags && card.dataset.tags.includes(tag))) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-
-  function handleListSubmit() {
-    const name = document.getElementById('f-name').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const what = document.getElementById('f-what').value.trim();
-    const location = document.getElementById('f-location').value.trim();
-    const link = document.getElementById('f-link').value.trim();
-    const msg = document.getElementById('form-msg');
-
-    if (!name || !email || !what) {
-      msg.style.color = '#A8462A';
-      msg.textContent = 'Please fill in your name, email and what you do.';
-      return;
-    }
-
-    // Build mailto with all fields — swap for a form backend (Formspree etc) when ready
-    const subject = encodeURIComponent(`KIN-NECT Directory — ${name} wants to be listed`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nWhat they do: ${what}\nBased: ${location || 'Not specified'}\nLink: ${link || 'Not provided'}`
-    );
-    window.location.href = `mailto:hello@kin-nect.com?subject=${subject}&body=${body}`;
-
-    msg.style.color = '#6B7C5E';
-    msg.textContent = '✦ Thank you — we\'ll be in touch soon.';
-  }
-
-
-  const hero = document.querySelector('.hero');
-  const orbits = document.querySelectorAll('.hero-orbit');
-
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    orbits.forEach((orbit, i) => {
-      const factor = (i + 1) * 0.4;
-      orbit.style.transform = `translate(calc(-50% + ${x * factor}px), calc(-50% + ${y * factor}px))`;
-    });
-  });
-
-  // Intersection observer for pillar cards
-  const cards = document.querySelectorAll('.pillar-card, .timeline-item, .structure-card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, (i % 6) * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-  });
-</script>
-
 </body>
 </html>

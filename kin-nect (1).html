@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIN-NECT — Consciously Curated. Stay KIN-nected.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --earth: #2C1A0E;
+    --ochre: #C8732A;
+    --gold: #E8B84B;
+    --cream: #F5EDD8;
+    --sage: #6B7C5E;
+    --terracotta: #A8462A;
+    --blush: #E8C9A0;
+    --night: #0D0A06;
+    --warm-white: #FAF5E9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+
+  nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.9) 0%, transparent 100%);
+    z-index: -1;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+  }
+
+  .nav-logo span {
+    color: var(--cream);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a {
+    color: var(--blush);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 8rem 3rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Radial warm glow */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background: radial-gradient(ellipse, rgba(200,115,42,0.18) 0%, rgba(44,26,14,0.4) 50%, transparent 80%);
+    pointer-events: none;
+  }
+
+  /* Decorative circles */
+  .hero-orbit {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(232,184,75,0.12);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: slowRotate 60s linear infinite;
+  }
+
+  .orbit-1 { width: 600px; height: 600px; }
+  .orbit-2 { width: 900px; height: 900px; animation-duration: 90s; animation-direction: reverse; border-color: rgba(168,70,42,0.08); }
+  .orbit-3 { width: 1200px; height: 1200px; animation-duration: 120s; border-color: rgba(107,124,94,0.07); }
+
+  /* Dot on orbit */
+  .orbit-1::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px var(--gold);
+  }
+
+  @keyframes slowRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  .hero-title .kin {
+    color: var(--gold);
+    display: inline-block;
+  }
+
+  .hero-title .dash {
+    color: var(--ochre);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.65em;
+  }
+
+  .hero-title .nect {
+    color: var(--cream);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--blush);
+    letter-spacing: 0.05em;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .btn-primary {
+    background: var(--ochre);
+    color: var(--night);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(245,237,216,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    animation: fadeUp 1s ease 1.5s forwards;
+    opacity: 0;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--sage), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1400px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(232,184,75,0.3), transparent);
+  }
+
+  .divider-symbol {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    opacity: 0.6;
+  }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    padding: 6rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .about-text {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--blush);
+  }
+
+  .about-text em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .about-text strong {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  /* PILLARS */
+  .pillars {
+    padding: 4rem 3rem 8rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .pillars-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .pillars-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .pillars-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 2px;
+  }
+
+  .pillar-card {
+    background: rgba(44,26,14,0.5);
+    border: 1px solid rgba(232,184,75,0.08);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--ochre);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .pillar-card:hover::before { transform: scaleX(1); }
+  .pillar-card:hover { background: rgba(44,26,14,0.8); border-color: rgba(232,184,75,0.2); }
+
+  .pillar-card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(200,115,42,0.15) 0%, rgba(44,26,14,0.6) 100%);
+    border-color: rgba(200,115,42,0.2);
+  }
+
+  .pillar-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--ochre);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.8;
+  }
+
+  .pillar-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .pillar-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--blush);
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .pillar-tag {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 1px solid rgba(107,124,94,0.4);
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* STRUCTURE SECTION */
+  .structure {
+    padding: 8rem 3rem;
+    background: rgba(200,115,42,0.04);
+    border-top: 1px solid rgba(232,184,75,0.1);
+    border-bottom: 1px solid rgba(232,184,75,0.1);
+  }
+
+  .structure-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .structure-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    color: var(--cream);
+  }
+
+  .structure-text h2 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .structure-text p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--blush);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .structure-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .structure-card {
+    padding: 2rem;
+    border: 1px solid rgba(232,184,75,0.15);
+    position: relative;
+  }
+
+  .structure-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+  }
+
+  .structure-card.community::before { background: var(--sage); }
+  .structure-card.realm::before { background: var(--ochre); }
+
+  .structure-card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .community .structure-card-label { color: var(--sage); }
+  .realm .structure-card-label { color: var(--ochre); }
+
+  .structure-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .structure-card p {
+    font-size: 0.95rem;
+    color: var(--blush);
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    padding: 8rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .timeline-header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .timeline-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+
+  .timeline-header h2 em { color: var(--gold); font-style: italic; }
+
+  .timeline-items {
+    position: relative;
+  }
+
+  .timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 3.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--ochre), rgba(200,115,42,0.1));
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .timeline-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ochre);
+    letter-spacing: 0.1em;
+    min-width: 3.5rem;
+    padding-top: 0.3rem;
+    position: relative;
+    text-align: right;
+  }
+
+  .timeline-year::after {
+    content: '';
+    position: absolute;
+    right: -3rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ochre);
+    border: 2px solid var(--night);
+    box-shadow: 0 0 0 1px var(--ochre);
+  }
+
+  .timeline-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 1rem;
+    color: var(--blush);
+    opacity: 0.75;
+    line-height: 1.7;
+  }
+
+  /* MANIFESTO QUOTE */
+  .manifesto {
+    padding: 10rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .manifesto::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(200,115,42,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .manifesto blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--cream);
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+
+  .manifesto blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    font-size: 8rem;
+    color: var(--ochre);
+    opacity: 0.2;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+
+  .manifesto blockquote em { color: var(--gold); }
+
+  .manifesto cite {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-style: normal;
+  }
+
+  /* LIST WITH US */
+  .list-with-us {
+    padding: 8rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .list-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .list-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+
+  .list-text h2 em { color: var(--gold); font-style: italic; }
+
+  .list-text p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--blush);
+    opacity: 0.8;
+    line-height: 1.75;
+  }
+
+  .list-benefits {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .list-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+    color: var(--blush);
+    font-weight: 300;
+  }
+
+  .list-benefits li span {
+    color: var(--ochre);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  .list-form {
+    background: rgba(44,26,14,0.5);
+    border: 1px solid rgba(232,184,75,0.12);
+    padding: 2.5rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: rgba(245,237,216,0.06);
+    border: 1px solid rgba(232,184,75,0.15);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus { border-color: var(--gold); }
+  .form-group input::placeholder { color: rgba(232,201,160,0.35); }
+
+  .list-submit {
+    width: 100%;
+    background: var(--ochre);
+    color: var(--night);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .list-submit:hover { background: var(--gold); }
+  .list-submit span { position: relative; z-index: 1; }
+
+  .form-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 1rem;
+    min-height: 1.2rem;
+    color: var(--sage);
+  }
+
+  @media (max-width: 768px) {
+    .list-with-us { padding: 5rem 1.5rem; }
+    .list-inner { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    padding: 6rem 3rem;
+    background: linear-gradient(135deg, rgba(44,26,14,0.8) 0%, rgba(13,10,6,1) 100%);
+    border-top: 1px solid rgba(232,184,75,0.1);
+  }
+
+  .newsletter-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .newsletter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter h2 em { color: var(--gold); font-style: italic; }
+
+  .newsletter p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--blush);
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    background: rgba(245,237,216,0.08);
+    border: 1px solid rgba(232,184,75,0.2);
+    border-right: none;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .newsletter-input::placeholder { color: rgba(232,201,160,0.4); }
+  .newsletter-input:focus { border-color: var(--gold); }
+
+  .newsletter-btn {
+    background: var(--ochre);
+    color: var(--night);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover { background: var(--gold); }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid rgba(232,184,75,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+
+  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--blush);
+    opacity: 0.6;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .footer-links a {
+    color: var(--blush);
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+
+  .footer-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .pillars { padding: 4rem 1.5rem; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar-card.featured { grid-column: span 1; }
+    .structure-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .timeline { padding: 4rem 1.5rem; }
+    .timeline-items::before { left: 2.5rem; }
+    .timeline-year { min-width: 2.5rem; font-size: 0.65rem; }
+    .manifesto { padding: 6rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; }
+    .newsletter { padding: 4rem 1.5rem; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { border-right: 1px solid rgba(232,184,75,0.2); }
+    .about-strip { padding: 4rem 1.5rem; }
+    .structure { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KIN<span>-</span>NECT</div>
+  <ul class="nav-links">
+    <li><a href="#">Community</a></li>
+    <li><a href="#">Directory</a></li>
+    <li><a href="#">Realm</a></li>
+    <li><a href="#">Library</a></li>
+    <li><a href="#">Events</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orbit orbit-1"></div>
+  <div class="hero-orbit orbit-2"></div>
+  <div class="hero-orbit orbit-3"></div>
+
+  <div class="hero-eyebrow">✦ A conscious community platform ✦</div>
+
+  <h1 class="hero-title">
+    <span class="kin">KIN</span><span class="dash">-</span><span class="nect">NECT</span>
+  </h1>
+
+  <p class="hero-subtitle">Consciously Curated. Stay KIN-nected.</p>
+
+  <div class="hero-cta">
+    <a href="#" class="btn-primary"><span>Join the Community</span></a>
+    <a href="#" class="btn-secondary">Explore the Directory</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">✦</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-strip">
+  <span class="section-label">What we are</span>
+  <p class="about-text">
+    A <em>community owned</em> space where the culture lives — part directory, part media, part marketplace, part gathering place. <strong>Culturally rooted. Consciousness-first. Curated with care.</strong> If it elevates, it belongs here. Accessible on and offline, built by and for us.
+  </p>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-symbol">◈</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- PILLARS -->
+<section class="pillars">
+  <div class="pillars-header">
+    <h2 class="pillars-title">The <em>Six</em><br>Pillars</h2>
+    <span class="section-label">What we hold</span>
+  </div>
+
+  <div class="pillars-grid">
+    <div class="pillar-card featured">
+      <span class="pillar-number">01 — FOUNDATION</span>
+      <span class="pillar-icon">✍🏿</span>
+      <div class="pillar-name">Blog & Editorial</div>
+      <p class="pillar-desc">News, articles, and cultural commentary written with care. Stories that centre our perspectives, our histories, our futures.</p>
+      <span class="pillar-tag">News · Commentary · Culture</span>
+    </div>
+
+    <div class="pillar-card">
+      <span class="pillar-number">02</span>
+      <span class="pillar-icon">🌿</span>
+      <div class="pillar-name">Directory</div>
+      <p class="pillar-desc">Food spots, healers, practitioners, events, art. A living map of our community.</p>
+      <span class="pillar-tag">Find · Discover · Connect</span>
+    </div>
+
+    <div class="pillar-card">
+      <span class="pillar-number">03</span>
+      <span class="pillar-icon">📚</span>
+      <div class="pillar-name">Library & Book Club</div>
+      <p class="pillar-desc">Led by Miah. A gathering around words, ideas, and the literature that shapes us.</p>
+      <span class="pillar-tag">Read · Gather · Grow</span>
+    </div>
+
+    <div class="pillar-card">
+      <span class="pillar-number">04</span>
+      <span class="pillar-icon">🌙</span>
+      <div class="pillar-name">Events Calendar</div>
+      <p class="pillar-desc">Equinox dates, cultural moments, community gatherings. Time held with intention.</p>
+      <span class="pillar-tag">Gather · Celebrate · Mark</span>
+    </div>
+
+    <div class="pillar-card">
+      <span class="pillar-number">05</span>
+      <span class="pillar-icon">🛍</span>
+      <div class="pillar-name">Realm Marketplace</div>
+      <p class="pillar-desc">The commercial arm. A curated space for aligned businesses and makers. First stores: DANKH and Utopia.</p>
+      <span class="pillar-tag">Shop · Support · Sustain</span>
+    </div>
+
+    <div class="pillar-card">
+      <span class="pillar-number">06</span>
+      <span class="pillar-icon">💌</span>
+      <div class="pillar-name">Newsletter</div>
+      <p class="pillar-desc">The community glue. Led by Jo. Curated, warm, regular — the thing that keeps us connected between everything else.</p>
+      <span class="pillar-tag">Connect · Share · Nourish</span>
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section class="structure">
+  <div class="structure-inner">
+    <div class="structure-text">
+      <span class="section-label">How we're built</span>
+      <h2>Free at the <em>front door.</em> Sustained at the back.</h2>
+      <p>KIN-NECT is built with community at its core and longevity in its bones. Two complementary structures — one rooted in community interest, one in commerce — working together to keep the platform free and thriving.</p>
+      <p>Grants. Brand partnerships. Premium listings. Realm commission. Events. Revenue that serves the community, not the other way around.</p>
+    </div>
+
+    <div class="structure-cards">
+      <div class="structure-card community">
+        <span class="structure-card-label">Community Arm</span>
+        <h3>KIN-NECT CIC</h3>
+        <p>Community Interest Company. Free access for all, grants eligible, governed by and for the community it serves.</p>
+      </div>
+
+      <div class="structure-card realm">
+        <span class="structure-card-label">Commercial Arm</span>
+        <h3>Realm LTD</h3>
+        <p>The marketplace. A curated space for aligned businesses, makers, and practitioners to reach the community. Led by Chai.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="timeline-header">
+    <span class="section-label">The journey</span>
+    <h2>Building <em>slowly,</em> building right</h2>
+  </div>
+
+  <div class="timeline-items">
+    <div class="timeline-item">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-content">
+        <h3>The Foundations</h3>
+        <p>Notion MVP. Instagram presence. Newsletter launched. No one leaves their job or restructures their life. Collectively, ~5–10 hours per week. This year is about planting seeds with intention.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2027</div>
+      <div class="timeline-content">
+        <h3>First Growth</h3>
+        <p>First grant secured. Realm soft launch. Collaborators begin to be compensated per project. The community starts to feel the shape of what we're building.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">2028</div>
+      <div class="timeline-content">
+        <h3>Proper Structure</h3>
+        <p>Real compensation. Full structure in place. KIN-NECT as a self-sustaining, community-owned platform — exactly what it was always meant to be.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO QUOTE -->
+<section class="manifesto">
+  <div class="divider" style="margin-bottom: 6rem;">
+    <div class="divider-line"></div>
+    <div class="divider-symbol">✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <blockquote>
+    We don't build platforms.<br>We build <em>places where people belong.</em>
+  </blockquote>
+  <cite>KIN-NECT — Founding Vision, 2026</cite>
+</section>
+
+<!-- LIST WITH US -->
+<section class="list-with-us">
+  <div class="list-inner">
+    <div class="list-text">
+      <span class="section-label">Join the directory</span>
+      <h2>Are you doing <em>something</em> worth knowing about?</h2>
+      <p>Practitioners. Healers. Creatives. Spaces. Makers. Event organisers. If what you do elevates consciousness and serves community — we want to know about you.</p>
+      <p style="margin-top:0.8rem;">We always ask before featuring anyone. This is just how you put your hand up.</p>
+      <ul class="list-benefits">
+        <li><span>✦</span> Free founding directory listing</li>
+        <li><span>✦</span> Featured in newsletter &amp; editorial</li>
+        <li><span>✦</span> A credited portfolio piece for your work</li>
+        <li><span>✦</span> Access to a conscious, engaged audience</li>
+      </ul>
+    </div>
+    <div class="list-form-wrap">
+      <div class="list-form">
+        <div class="form-group">
+          <label>Your name</label>
+          <input type="text" placeholder="What do we call you?" id="f-name">
+        </div>
+        <div class="form-group">
+          <label>Your email</label>
+          <input type="email" placeholder="your@email.com" id="f-email">
+        </div>
+        <div class="form-group">
+          <label>What do you do / what's your space?</label>
+          <input type="text" placeholder="e.g. Men's yoga classes, crystal shop, sound healer..." id="f-what">
+        </div>
+        <div class="form-group">
+          <label>Where are you based?</label>
+          <input type="text" placeholder="City / online / both" id="f-location">
+        </div>
+        <div class="form-group">
+          <label>A link to your work (optional)</label>
+          <input type="text" placeholder="Instagram, website, anything" id="f-link">
+        </div>
+        <button class="list-submit" onclick="handleListSubmit()"><span>Put My Hand Up ✦</span></button>
+        <p class="form-note" id="form-msg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <span class="section-label">Stay connected</span>
+    <h2>Join the <em>KIN</em></h2>
+    <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="your@email.com">
+      <button class="newsletter-btn">Stay KIN-nected</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <div class="footer-tagline">Consciously Curated. Stay KIN-nected.</div>
+  <ul class="footer-links">
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Newsletter</a></li>
+    <li><a href="#">Realm</a></li>
+    <li><a href="#">Directory</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Directory interest form
+  function handleListSubmit() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const what = document.getElementById('f-what').value.trim();
+    const location = document.getElementById('f-location').value.trim();
+    const link = document.getElementById('f-link').value.trim();
+    const msg = document.getElementById('form-msg');
+
+    if (!name || !email || !what) {
+      msg.style.color = '#A8462A';
+      msg.textContent = 'Please fill in your name, email and what you do.';
+      return;
+    }
+
+    // Build mailto with all fields — swap for a form backend (Formspree etc) when ready
+    const subject = encodeURIComponent(`KIN-NECT Directory — ${name} wants to be listed`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nWhat they do: ${what}\nBased: ${location || 'Not specified'}\nLink: ${link || 'Not provided'}`
+    );
+    window.location.href = `mailto:hello@kin-nect.com?subject=${subject}&body=${body}`;
+
+    msg.style.color = '#6B7C5E';
+    msg.textContent = '✦ Thank you — we\'ll be in touch soon.';
+  }
+
+
+  const hero = document.querySelector('.hero');
+  const orbits = document.querySelectorAll('.hero-orbit');
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    orbits.forEach((orbit, i) => {
+      const factor = (i + 1) * 0.4;
+      orbit.style.transform = `translate(calc(-50% + ${x * factor}px), calc(-50% + ${y * factor}px))`;
+    });
+  });
+
+  // Intersection observer for pillar cards
+  const cards = document.querySelectorAll('.pillar-card, .timeline-item, .structure-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, (i % 6) * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+</script>
+
+</body>
+</html>

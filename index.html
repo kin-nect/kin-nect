@@ -1790,7 +1790,7 @@
 <!-- PILLARS -->
 <section class="pillars">
   <div class="pillars-header">
-    <h2 class="pillars-title">The <em>Six</em><br>Pillars</h2>
+    <h2 class="pillars-title">The <em>Six</em> Pillars</h2>
     <span class="section-label">What we hold</span>
   </div>
 
@@ -1909,6 +1909,7 @@
     <div class="mockup-header">
       <span class="section-label">01 — The Directory</span>
       <h2 class="mockup-title">The <em>Directory</em></h2>
+      <p style="font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); opacity:0.5; margin-top:-1rem; margin-bottom:1.5rem;">Businesses &nbsp;·&nbsp; Practitioners</p>
       <p class="mockup-subtitle">A living, curated map of businesses, spaces and makers doing things with intention. Conscious. Community-owned. Curated with care.</p>
       <div class="filter-group-label">Browse by</div>
       <div class="mockup-filters">
@@ -2034,8 +2035,8 @@
 <section class="mockup-section" id="editorial" style="background: rgba(8,5,2,0.7);">
   <div class="mockup-inner">
     <div class="mockup-header">
-      <span class="section-label">02 — Editorial & Curation</span>
-      <h2 class="mockup-title">Editorial & <em>Curation</em></h2>
+      <span class="section-label">02 — The Editorial</span>
+      <h2 class="mockup-title">The <em>Editorial</em></h2>
       <p class="mockup-subtitle">Not a content factory. A conscious feed — original writing, curated videos, reading and practice. Our taste, our framing, other people's work given a better home.</p>
     </div>
 
@@ -2517,6 +2518,11 @@
             </div>
 
           </div>
+          <div style="padding: 1.5rem 0 0.5rem;">
+            <span class="lib-label">Submit an Event</span>
+            <p style="font-size:0.85rem; color:rgba(244,236,220,0.6); line-height:1.6; margin: 0.5rem 0 1rem;">Running a conscious gathering? If it belongs in our community, it belongs on this calendar.</p>
+            <button class="btn-primary" style="width:100%;"><span>Submit an Event →</span></button>
+          </div>
         </div>
       </div>
       <div class="events-submit">
@@ -2530,11 +2536,7 @@
             <div class="legend-item"><span>💻</span> Online Events</div>
           </div>
         </div>
-        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(232,184,75,0.1);">
-          <span class="lib-label">Submit an Event</span>
-          <p>Running a conscious gathering, workshop or online event? If it belongs in our community, it belongs on this calendar.</p>
-          <button class="btn-primary" style="margin-top:1.2rem; width:100%;"><span>Submit an Event →</span></button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -2784,15 +2786,17 @@
   function setEvtFilter(btn, tag) {
     document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    // Restore all month headers
-    document.querySelectorAll('.cal-month-header').forEach(h => h.style.display = '');
-    document.querySelectorAll('#evt-list .cal-event').forEach(ev => {
-      if (tag === 'all' || (ev.dataset.etags && ev.dataset.etags.includes(tag))) {
-        ev.style.display = '';
-      } else {
-        ev.style.display = 'none';
-      }
-    });
+    if (tag === 'all') {
+      // Restore everything
+      document.querySelectorAll('.cal-month-header').forEach(h => h.style.display = '');
+      document.querySelectorAll('#evt-list .cal-event').forEach(ev => ev.style.display = '');
+    } else {
+      // Hide month headers, show only matching events
+      document.querySelectorAll('.cal-month-header').forEach(h => h.style.display = 'none');
+      document.querySelectorAll('#evt-list .cal-event').forEach(ev => {
+        ev.style.display = (ev.dataset.etags && ev.dataset.etags.includes(tag)) ? '' : 'none';
+      });
+    }
   }
 
 

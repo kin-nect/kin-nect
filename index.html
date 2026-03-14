@@ -1864,7 +1864,7 @@
     <div class="list-text">
       <span class="section-label">Join the KIN</span>
       <h2>Are you doing <em>something</em> worth knowing about?</h2>
-      <p>Healers. Creatives. Spaces. Makers. Plant-based restaurants. Event organisers. If what you do elevates consciousness and serves community — we want to know about you.</p>
+      <p>Artists. Creatives. Spaces. Plant-based food. Event organisers. Businesses with soul. If what you do elevates consciousness and serves community — we want to know about you.</p>
       <p style="margin-top:0.8rem;">We always ask before featuring anyone. This is just how you join the KIN.</p>
       <ul class="list-benefits">
         <li><span>✦</span> Listed in the KIN-NECT directory</li>
@@ -1895,7 +1895,7 @@
           <label>A link to your work (optional)</label>
           <input type="text" placeholder="Instagram, website, anything" id="f-link">
         </div>
-        <button class="list-submit" onclick="handleListSubmit()"><span>Put My Hand Up ✦</span></button>
+        <button class="list-submit" onclick="handleListSubmit()"><span>Join the KIN ✦</span></button>
         <p class="form-note" id="form-msg"></p>
       </div>
     </div>
@@ -1917,7 +1917,6 @@
         <button class="filter-btn filter-primary" onclick="setFilter(this,'soul')">✨ Soul / Spirit</button>
       </div>
       <div class="mockup-filters" style="margin-top:0.5rem;">
-        <button class="filter-btn filter-secondary" onclick="setFilter(this,'healers')">Healers</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'movement')">Movement</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'food')">🌱 Plant-Based</button>
         <button class="filter-btn filter-secondary" onclick="setFilter(this,'creative')">Creative</button>
@@ -2784,13 +2783,14 @@
   }
 
 
-  function handleListSubmit() {
+  async function handleListSubmit() {
     const name = document.getElementById('f-name').value.trim();
     const email = document.getElementById('f-email').value.trim();
     const what = document.getElementById('f-what').value.trim();
     const location = document.getElementById('f-location').value.trim();
     const link = document.getElementById('f-link').value.trim();
     const msg = document.getElementById('form-msg');
+    const btn = document.querySelector('.list-submit');
 
     if (!name || !email || !what) {
       msg.style.color = '#A8462A';
@@ -2798,15 +2798,34 @@
       return;
     }
 
-    // Build mailto with all fields — swap for a form backend (Formspree etc) when ready
-    const subject = encodeURIComponent(`KIN-NECT Directory — ${name} wants to be listed`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nWhat they do: ${what}\nBased: ${location || 'Not specified'}\nLink: ${link || 'Not provided'}`
-    );
-    window.location.href = `mailto:hello@kin-nect.com?subject=${subject}&body=${body}`;
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Sending...';
 
-    msg.style.color = '#6B7C5E';
-    msg.textContent = '✦ Thank you — we\'ll be in touch soon.';
+    try {
+      const response = await fetch('https://formspree.io/f/xeerzwwv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, what, location, link })
+      });
+
+      if (response.ok) {
+        msg.style.color = '#6B7C5E';
+        msg.textContent = '✦ Thank you — we\'ll be in touch soon.';
+        btn.querySelector('span').textContent = '✦ Submitted';
+        document.getElementById('f-name').value = '';
+        document.getElementById('f-email').value = '';
+        document.getElementById('f-what').value = '';
+        document.getElementById('f-location').value = '';
+        document.getElementById('f-link').value = '';
+      } else {
+        throw new Error('Form error');
+      }
+    } catch(e) {
+      msg.style.color = '#A8462A';
+      msg.textContent = 'Something went wrong — please try again or email hello@kin-nect.com';
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Join the KIN ✦';
+    }
   }
 
 

@@ -1678,9 +1678,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2.5rem;
+      gap: 1.2rem;
       font-size: 1rem;
       z-index: 150;
+      padding: 2rem;
     }
     .nav-links.open { display: flex; }
     .nav-links a { font-size: 1rem; opacity: 1; }
@@ -1806,7 +1807,7 @@
     <a href="#editorial" class="pillar-card">
       <span class="pillar-number">02</span>
       <span class="pillar-icon">✍🏿</span>
-      <div class="pillar-name">Editorial & Curation</div>
+      <div class="pillar-name">The Editorial</div>
       <p class="pillar-desc">News, articles, and cultural commentary written with care. Stories that centre our perspectives, our histories, our futures.</p>
       <span class="pillar-tag">Watch · Read · Learn</span>
     </a>
@@ -1822,7 +1823,7 @@
     <a href="#library" class="pillar-card">
       <span class="pillar-number">04 — Coming Soon</span>
       <span class="pillar-icon">📚</span>
-      <div class="pillar-name">Library & Book Club</div>
+      <div class="pillar-name">The Library</div>
       <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
       <span class="pillar-tag">Read · Gather · Grow</span>
     </a>
@@ -2041,22 +2042,28 @@
     </div>
 
     <!-- FEED FILTERS -->
-    <div class="mockup-filters" style="margin-bottom: 0.75rem; position: relative;">
+    <div class="mockup-filters" style="margin-bottom: 0.5rem; position: relative; flex-wrap: wrap; gap: 0.6rem;">
       <button class="filter-btn active filter-primary" onclick="setFeedFilter(this,'all')">All</button>
       <div class="tribe-dropdown-wrap">
-        <button class="filter-btn filter-primary tribe-dropdown-btn" onclick="setFeedFilter(this,'tribe'); toggleTribeDropdown()">✦ From the Tribe <span class="tribe-arrow">▾</span></button>
-        <div class="tribe-dropdown" id="tribe-dropdown" style="display:none;">
-          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-kinnect'); closeTribeDropdown()">By KIN-NECT</button>
-          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-jai'); closeTribeDropdown()">By Jai</button>
-          <button class="tribe-drop-item" onclick="setFeedFilter(document.querySelector('.tribe-dropdown-btn'),'tribe-chai'); closeTribeDropdown()">By Chai</button>
-        </div>
+        <button class="filter-btn filter-primary tribe-dropdown-btn" id="tribe-main-btn" onclick="toggleTribeSection()">✦ From the Tribe <span class="tribe-arrow" id="tribe-arrow">▾</span></button>
       </div>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'words')">✍🏾 Words from the KIN</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'video')">🎥 Video</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
     </div>
-    <p style="font-size:0.7rem; letter-spacing:0.1em; color:var(--blush); opacity:0.4; margin-bottom:2.5rem; font-style:italic;">From the Tribe = everything we curate & create. Words from the KIN = written words from the collective — poems, essays, Substacks, journals.</p>
+    <!-- FROM THE TRIBE EXPANDED SECTION -->
+    <div id="tribe-section" style="display:none; margin-bottom:1.5rem; padding:1.5rem; border:1px solid rgba(232,184,75,0.2); border-radius:10px; background:rgba(232,184,75,0.03);">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--cream); margin-bottom:1rem; font-style:italic;">Everything we curate and create. If KIN-NECT found it, made it, or stands behind it — it lives here.</p>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+        <button class="filter-btn filter-secondary active" onclick="setFeedFilter(this,'tribe')">All from the Tribe</button>
+        <button class="filter-btn filter-secondary" onclick="setFeedFilter(this,'tribe-kinnect')">By KIN-NECT</button>
+      </div>
+    </div>
+    <!-- WORDS FROM THE KIN DESCRIPTION -->
+    <div id="words-section" style="display:none; margin-bottom:1.5rem; padding:1.5rem; border:1px solid rgba(232,184,75,0.2); border-radius:10px; background:rgba(232,184,75,0.03);">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--cream); font-style:italic;">Written words from the collective — poems, essays, Substacks, journals, zines. From the Tribe and from the wider KIN.</p>
+    </div>
 
     <!-- FEED -->
     <div class="editorial-feed">
@@ -2718,30 +2725,36 @@
   // Event filter
   function setFeedFilter(btn, tag) {
     document.querySelectorAll('.mockup-filters .filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
+    // Hide contextual sections unless relevant
+    const ws = document.getElementById('words-section');
+    if (ws) ws.style.display = (tag === 'words') ? 'block' : 'none';
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
       const tags = f.split(' ');
-      const show = tag === 'all' || tags.includes(tag) ||
+      const show = tag === 'all' ||
+                   tags.includes(tag) ||
                    (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
       item.style.display = show ? '' : 'none';
     });
-    // If clicking tribe button itself (not a sub-item), show dropdown
-    if (tag === 'tribe') {
-      const d = document.getElementById('tribe-dropdown');
-      if (d) d.style.display = 'block';
+  }
+  function toggleTribeSection() {
+    const section = document.getElementById('tribe-section');
+    const arrow = document.getElementById('tribe-arrow');
+    const btn = document.getElementById('tribe-main-btn');
+    const isOpen = section.style.display !== 'none';
+    section.style.display = isOpen ? 'none' : 'block';
+    arrow.textContent = isOpen ? '▾' : '▴';
+    if (!isOpen) {
+      // Filter to tribe items
+      setFeedFilter(btn, 'tribe');
+      btn.classList.add('active');
+    } else {
+      setFeedFilter(null, 'all');
+      document.querySelector('.mockup-filters .filter-btn').classList.add('active');
     }
   }
-  function toggleTribeDropdown() {
-    const d = document.getElementById('tribe-dropdown');
-    d.style.display = d.style.display === 'none' ? 'block' : 'none';
-  }
-  function closeTribeDropdown() {
-    document.getElementById('tribe-dropdown').style.display = 'none';
-  }
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.tribe-dropdown-wrap')) closeTribeDropdown();
-  });
+
 
   function toggleStack(btn) {
     const items = btn.nextElementSibling;
@@ -2787,14 +2800,30 @@
     document.querySelectorAll('.evt-filter').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     if (tag === 'all') {
-      // Restore everything
-      document.querySelectorAll('.cal-month-header').forEach(h => h.style.display = '');
+      document.querySelectorAll('.cal-month-header').forEach(h => {
+        h.style.display = '';
+        h.style.textDecoration = '';
+        h.style.opacity = '0.5';
+      });
       document.querySelectorAll('#evt-list .cal-event').forEach(ev => ev.style.display = '');
     } else {
-      // Hide month headers, show only matching events
+      // Hide all month headers first
       document.querySelectorAll('.cal-month-header').forEach(h => h.style.display = 'none');
       document.querySelectorAll('#evt-list .cal-event').forEach(ev => {
-        ev.style.display = (ev.dataset.etags && ev.dataset.etags.includes(tag)) ? '' : 'none';
+        const matches = ev.dataset.etags && ev.dataset.etags.includes(tag);
+        ev.style.display = matches ? '' : 'none';
+        // If this event matches, show and highlight its month header
+        if (matches) {
+          const month = ev.dataset.month;
+          if (month) {
+            const header = document.querySelector(`.cal-month-header[data-month="${month}"]`);
+            if (header) {
+              header.style.display = '';
+              header.style.textDecoration = 'underline';
+              header.style.opacity = '1';
+            }
+          }
+        }
       });
     }
   }

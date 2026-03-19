@@ -944,6 +944,47 @@
     padding-bottom: 0.5rem;
   }
 
+
+  /* EDITORIAL FEED FILTER BUTTONS */
+  .feed-filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.1rem;
+    background: transparent;
+    border: 1px solid rgba(245,237,216,0.15);
+    color: var(--blush);
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .feed-filter-btn:hover {
+    border-color: rgba(232,184,75,0.4);
+    color: var(--gold);
+  }
+  .feed-filter-btn.active {
+    background: rgba(232,184,75,0.12);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .feed-filter-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    background: transparent;
+    border: 1px solid rgba(232,184,75,0.2);
+    color: var(--blush);
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+  }
+  .feed-filter-sub:hover { border-color: var(--gold); color: var(--gold); }
+  .feed-filter-sub.active { background: rgba(232,184,75,0.15); border-color: var(--gold); color: var(--gold); }
+
   /* EDITORIAL FEED */
   .editorial-feed { display: flex; flex-direction: column; gap: 1.5rem; max-width: 780px; margin: 0 auto; }
   .feed-item { position: relative; border: 1px solid rgba(232,184,75,0.12); border-radius: 12px; background: rgba(20,12,6,0.6); transition: border-color 0.3s; }
@@ -2052,26 +2093,31 @@
 
     <!-- FEED FILTERS -->
     <div class="mockup-filters" style="margin-bottom: 0.5rem; position: relative; flex-wrap: wrap; gap: 0.6rem;">
-      <button class="filter-btn active filter-primary" onclick="setFeedFilter(this,'all')">All</button>
-      <div class="tribe-dropdown-wrap">
-        <button class="filter-btn filter-primary tribe-dropdown-btn" id="tribe-main-btn" onclick="toggleTribeSection()">✦ From the Tribe <span class="tribe-arrow" id="tribe-arrow">▾</span></button>
-      </div>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'words')">✍🏾 Words from the KIN</button>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'video')">🎥 Video</button>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
-      <button class="filter-btn filter-primary" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
+      <button class="feed-filter-btn active" onclick="setFeedFilter(this,'all')">All</button>
+      <button class="feed-filter-btn" id="tribe-main-btn" onclick="toggleTribeSection(this)">✦ From the Tribe <span id="tribe-arrow">▾</span></button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'words'); showContextBox('words-section')">✍🏾 Words from the KIN</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
     </div>
-    <!-- FROM THE TRIBE EXPANDED SECTION -->
-    <div id="tribe-section" style="display:none; margin-bottom:1.5rem; padding:1.5rem; border:1px solid rgba(232,184,75,0.2); border-radius:10px; background:rgba(232,184,75,0.03);">
-      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--cream); margin-bottom:1rem; font-style:italic;">Everything we curate and create. If KIN-NECT found it, made it, or stands behind it — it lives here.</p>
-      <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-        <button class="filter-btn filter-secondary active" onclick="setFeedFilter(this,'tribe')">All from the Tribe</button>
-        <button class="filter-btn filter-secondary" onclick="setFeedFilter(this,'tribe-kinnect')">By KIN-NECT</button>
+
+    <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
+    <div id="tribe-section" style="display:none; margin-bottom:1.5rem;">
+      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem; margin-bottom:1rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Everything we curate and create. If KIN-NECT found it, made it, or stands behind it — it lives here.</p>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="feed-filter-sub active" id="tribe-all-btn" onclick="setTribeFilter(this,'tribe')">All</button>
+          <button class="feed-filter-sub" onclick="setTribeFilter(this,'tribe-kinnect')">By KIN-NECT</button>
+          <button class="feed-filter-sub" onclick="setTribeFilter(this,'tribe-jai')">By Jai</button>
+        </div>
       </div>
     </div>
-    <!-- WORDS FROM THE KIN DESCRIPTION -->
-    <div id="words-section" style="display:none; margin-bottom:1.5rem; padding:1.5rem; border:1px solid rgba(232,184,75,0.2); border-radius:10px; background:rgba(232,184,75,0.03);">
-      <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--cream); font-style:italic;">Written words from the collective — poems, essays, Substacks, journals, zines. From the Tribe and from the wider KIN.</p>
+
+    <!-- WORDS FROM THE KIN BOX -->
+    <div id="words-section" style="display:none; margin-bottom:1.5rem;">
+      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7;">Written words from the collective — poems, essays, Substacks, journals, zines. From the Tribe and from the wider KIN.</p>
+      </div>
     </div>
 
     <!-- FEED -->
@@ -2733,11 +2779,14 @@
 
   // Event filter
   function setFeedFilter(btn, tag) {
-    document.querySelectorAll('.mockup-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    // Update button active states
+    document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    // Hide contextual sections unless relevant
-    const ws = document.getElementById('words-section');
-    if (ws) ws.style.display = (tag === 'words') ? 'block' : 'none';
+    // Hide both context boxes
+    document.getElementById('tribe-section').style.display = 'none';
+    document.getElementById('words-section').style.display = 'none';
+    document.getElementById('tribe-arrow').textContent = '▾';
+    // Filter feed items
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
       const tags = f.split(' ');
@@ -2747,21 +2796,48 @@
       item.style.display = show ? '' : 'none';
     });
   }
-  function toggleTribeSection() {
+  function showContextBox(id) {
+    document.getElementById(id).style.display = 'block';
+  }
+  function toggleTribeSection(btn) {
     const section = document.getElementById('tribe-section');
     const arrow = document.getElementById('tribe-arrow');
-    const btn = document.getElementById('tribe-main-btn');
     const isOpen = section.style.display !== 'none';
-    section.style.display = isOpen ? 'none' : 'block';
-    arrow.textContent = isOpen ? '▾' : '▴';
-    if (!isOpen) {
-      // Filter to tribe items
-      setFeedFilter(btn, 'tribe');
-      btn.classList.add('active');
+    if (isOpen) {
+      // Close — go back to All
+      section.style.display = 'none';
+      arrow.textContent = '▾';
+      setFeedFilter(document.querySelector('.feed-filter-btn'), 'all');
+      document.querySelector('.feed-filter-btn').classList.add('active');
     } else {
-      setFeedFilter(null, 'all');
-      document.querySelector('.mockup-filters .filter-btn').classList.add('active');
+      // Open — activate tribe filter
+      document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      arrow.textContent = '▴';
+      section.style.display = 'block';
+      // Reset sub-filter to all tribe
+      document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));
+      document.getElementById('tribe-all-btn').classList.add('active');
+      // Show all tribe items
+      document.getElementById('words-section').style.display = 'none';
+      document.querySelectorAll('.feed-item').forEach(item => {
+        const f = item.dataset.feed || '';
+        const show = f.split(' ').some(t => t.startsWith('tribe'));
+        item.style.display = show ? '' : 'none';
+      });
     }
+  }
+  function setTribeFilter(btn, tag) {
+    document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.feed-item').forEach(item => {
+      const f = item.dataset.feed || '';
+      const tags = f.split(' ');
+      const show = tag === 'tribe'
+        ? tags.some(t => t.startsWith('tribe'))
+        : tags.includes(tag);
+      item.style.display = show ? '' : 'none';
+    });
   }
 
 

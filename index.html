@@ -1005,8 +1005,8 @@
   .feed-link:hover { opacity: 1; }
   .feed-byline { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage); opacity: 0.7; }
   .feed-cats { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
-  .stack-toggle { background: none; border: 1px solid rgba(232,184,75,0.2); color: var(--gold); font-size: 0.75rem; letter-spacing: 0.12em; padding: 0.5rem 1.2rem; border-radius: 20px; cursor: pointer; margin-top: 1rem; transition: all 0.2s; }
-  .stack-toggle:hover { background: rgba(232,184,75,0.08); }
+  .stack-toggle { background: none; border: 1px solid rgba(232,184,75,0.2); color: var(--gold); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1.1rem; border-radius: 20px; cursor: pointer; margin-top: 1rem; transition: all 0.25s ease; opacity: 0.8; }
+  .stack-toggle:hover { background: rgba(232,184,75,0.08); border-color: var(--gold); opacity: 1; }
   .stack-items { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
   .stack-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; border-radius: 8px; background: rgba(232,184,75,0.04); border: 1px solid rgba(232,184,75,0.08); text-decoration: none; transition: background 0.2s; }
   .stack-item:hover { background: rgba(232,184,75,0.09); }
@@ -1060,22 +1060,29 @@
 
   .filter-btn {
     background: transparent;
-    border: 1px solid rgba(232,184,75,0.2);
+    border: 1px solid rgba(232,184,75,0.18);
     color: var(--blush);
     font-family: 'Space Mono', monospace;
     font-size: 0.6rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.1rem;
     cursor: pointer;
-    transition: all 0.3s;
-    opacity: 0.6;
+    transition: all 0.25s ease;
+    border-radius: 20px;
+    opacity: 0.7;
   }
 
-  .filter-btn:hover, .filter-btn.active {
-    background: var(--ochre);
-    border-color: var(--ochre);
-    color: var(--night);
+  .filter-btn:hover {
+    border-color: rgba(232,184,75,0.5);
+    color: var(--gold);
+    opacity: 1;
+  }
+
+  .filter-btn.active {
+    background: rgba(232,184,75,0.12);
+    border-color: var(--gold);
+    color: var(--gold);
     opacity: 1;
   }
 

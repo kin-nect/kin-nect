@@ -2126,7 +2126,7 @@
     <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
     <div id="tribe-section" style="display:none; margin-bottom:1.5rem;">
       <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem; margin-bottom:1rem;">
-        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Everything we curate and create. If KIN-NECT found it, made it, or stands behind it — it lives here.</p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Original content written and made by the KIN-NECT team. If one of us created it, it lives here.</p>
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
           <button class="feed-filter-sub active" id="tribe-all-btn" onclick="setTribeFilter(this,'tribe')">All</button>
           <button class="feed-filter-sub" onclick="setTribeFilter(this,'tribe-kinnect')">By KIN-NECT</button>
@@ -2163,7 +2163,7 @@
       </div>
 
       <!-- CURATED: SACRED TEXTS -->
-      <div class="feed-item" data-feed="tribe words resources">
+      <div class="feed-item" data-feed="words resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">📖 Research Resource</span>
@@ -2183,7 +2183,7 @@
       </div>
 
       <!-- CURATED: EARTH CLINIC -->
-      <div class="feed-item" data-feed="tribe words resources">
+      <div class="feed-item" data-feed="words resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🌿 Research Resource</span>
@@ -2204,7 +2204,7 @@
 
 
       <!-- STACK: HINDZ -->
-      <div class="feed-item feed-stack" data-feed="tribe video">
+      <div class="feed-item feed-stack" data-feed="video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🎥 Video Stack</span>
@@ -2238,7 +2238,7 @@
       </div>
 
       <!-- STACK: YOGA WITH NICO -->
-      <div class="feed-item feed-stack" data-feed="tribe practice">
+      <div class="feed-item feed-stack" data-feed="practice">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🧘🏾 Practice Stack</span>
@@ -2275,7 +2275,7 @@
       </div>
 
       <!-- CURATED: QUEEN CUP -->
-      <div class="feed-item" data-feed="tribe video">
+      <div class="feed-item" data-feed="video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🔮 Soul · Tarot</span>
@@ -2296,7 +2296,7 @@
       </div>
 
       <!-- CURATED: JASS -->
-      <div class="feed-item" data-feed="tribe video">
+      <div class="feed-item" data-feed="video">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🃏 Soul · Tarot</span>
@@ -2828,28 +2828,42 @@
     const arrow = document.getElementById('tribe-arrow');
     const isOpen = section.style.display !== 'none';
     if (isOpen) {
-      // Close — go back to All
       section.style.display = 'none';
       arrow.textContent = '▾';
       setFeedFilter(document.querySelector('.feed-filter-btn'), 'all');
       document.querySelector('.feed-filter-btn').classList.add('active');
     } else {
-      // Open — activate tribe filter
       document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       arrow.textContent = '▴';
       section.style.display = 'block';
-      // Reset sub-filter to all tribe
       document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));
       document.getElementById('tribe-all-btn').classList.add('active');
-      // Show all tribe items
-      document.getElementById('words-section').style.display = 'none';
+      ['words-section','resources-section'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      // Show ONLY items with tribe- tags (original content only)
       document.querySelectorAll('.feed-item').forEach(item => {
         const f = item.dataset.feed || '';
-        const show = f.split(' ').some(t => t.startsWith('tribe'));
+        const tags = f.split(' ');
+        // Must have a tribe-* tag to show — data-feed="tribe" alone or "tribe-kinnect" etc
+        const show = tags.some(t => t === 'tribe' || t.startsWith('tribe-'));
         item.style.display = show ? '' : 'none';
       });
     }
+  }
+  function setTribeFilter(btn, tag) {
+    document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.feed-item').forEach(item => {
+      const f = item.dataset.feed || '';
+      const tags = f.split(' ');
+      const show = tag === 'tribe'
+        ? tags.some(t => t === 'tribe' || t.startsWith('tribe-'))
+        : tags.includes(tag);
+      item.style.display = show ? '' : 'none';
+    });
   }
   function setTribeFilter(btn, tag) {
     document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));

@@ -2109,7 +2109,7 @@
     <div class="mockup-filters" style="margin-bottom: 0.5rem; position: relative; flex-wrap: wrap; gap: 0.6rem;">
       <button class="feed-filter-btn active" onclick="setFeedFilter(this,'all')">All</button>
       <button class="feed-filter-btn" id="tribe-main-btn" onclick="toggleTribeSection(this)">✦ From the Tribe <span id="tribe-arrow">▾</span></button>
-      <button class="feed-filter-btn" onclick="setFeedFilter(this,'words'); showContextBox('words-section')">✍🏾 Words from the KIN</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'words')">✍🏾 Words from the KIN</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
@@ -2124,15 +2124,15 @@
     </div>
 
     <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
-    <div id="tribe-section" style="display:none; margin-bottom:1.5rem;">
-      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem; margin-bottom:1rem;">
+    <div id="tribe-section" style="display:none; margin-bottom:1rem;">
+      <div style="border:1px solid rgba(232,184,75,0.2); border-radius:8px; background:rgba(232,184,75,0.03); padding:0.9rem 1.2rem;">
         <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Original content written and made by the KIN-NECT team. If one of us created it, it lives here.</p>
       </div>
     </div>
 
     <!-- WORDS FROM THE KIN BOX -->
-    <div id="words-section" style="display:none; margin-bottom:1.5rem;">
-      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem;">
+    <div id="words-section" style="display:none; margin-bottom:1rem;">
+      <div style="border:1px solid rgba(232,184,75,0.2); border-radius:8px; background:rgba(232,184,75,0.03); padding:0.9rem 1.2rem;">
         <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7;">Written words from the collective — poems, essays, Substacks, journals, zines. From the Tribe and from the wider KIN.</p>
       </div>
     </div>
@@ -2158,7 +2158,7 @@
       </div>
 
       <!-- CURATED: SACRED TEXTS -->
-      <div class="feed-item" data-feed="words resources">
+      <div class="feed-item" data-feed="resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">📖 Research Resource</span>
@@ -2178,7 +2178,7 @@
       </div>
 
       <!-- CURATED: EARTH CLINIC -->
-      <div class="feed-item" data-feed="words resources">
+      <div class="feed-item" data-feed="resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
             <span class="feed-tag">🌿 Research Resource</span>
@@ -2804,6 +2804,15 @@
       if (el) el.style.display = 'none';
     });
     document.getElementById('tribe-arrow').textContent = '▾';
+    // Show relevant context box
+    if (tag === 'words') {
+      const ws = document.getElementById('words-section');
+      if (ws) ws.style.display = 'block';
+    }
+    if (tag === 'resources') {
+      const rs = document.getElementById('resources-section');
+      if (rs) rs.style.display = 'block';
+    }
     // Filter feed items
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
@@ -2813,10 +2822,6 @@
                    (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
       item.style.display = show ? '' : 'none';
     });
-  }
-  function showContextBox(id) {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'block';
   }
   function toggleTribeSection(btn) {
     const section = document.getElementById('tribe-section');

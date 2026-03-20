@@ -2113,7 +2113,7 @@
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
-      <button class="feed-filter-btn" onclick="setFeedFilter(this,'resources'); showContextBox('resources-section')">🔍 Resources</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'resources')">🔍 Resources</button>
     </div>
 
     <!-- RESOURCES BOX -->
@@ -2313,7 +2313,7 @@
 
 
       <!-- GHOST: SUGGEST -->
-      <div class="feed-item feed-ghost" data-feed="all">
+      <div class="feed-item feed-ghost" data-feed="ghost">
         <div class="feed-item-inner" style="text-align: center; padding: 3rem 2rem;">
           <div style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;">+</div>
           <h3 class="feed-title" style="opacity: 0.5;">Know something worth featuring?</h3>
@@ -2817,9 +2817,10 @@
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
       const tags = f.split(' ');
-      const show = tag === 'all' ||
-                   tags.includes(tag) ||
-                   (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
+      const isGhost = tags.includes('ghost');
+      const show = tag === 'all'
+        ? true
+        : !isGhost && (tags.includes(tag) || (tag === 'tribe' && tags.some(t => t.startsWith('tribe-') || t === 'tribe')));
       item.style.display = show ? '' : 'none';
     });
   }
@@ -2843,12 +2844,11 @@
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
       });
-      // Show ONLY items with tribe- tags (original content only)
+      // Show ONLY items with tribe- tags (original content only, no ghost)
       document.querySelectorAll('.feed-item').forEach(item => {
         const f = item.dataset.feed || '';
         const tags = f.split(' ');
-        // Must have a tribe-* tag to show — data-feed="tribe" alone or "tribe-kinnect" etc
-        const show = tags.some(t => t === 'tribe' || t.startsWith('tribe-'));
+        const show = !tags.includes('ghost') && tags.some(t => t === 'tribe' || t.startsWith('tribe-'));
         item.style.display = show ? '' : 'none';
       });
     }

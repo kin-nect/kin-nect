@@ -519,7 +519,9 @@
   }
 
   .pillar-card:hover::before { transform: scaleX(1); }
-  .pillar-card:hover { background: rgba(44,26,14,0.8); border-color: rgba(232,184,75,0.2); }
+  .pillar-card:hover { background: rgba(44,26,14,0.8); border-color: rgba(232,184,75,0.4); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .pillar-tag::after { content: " →"; opacity: 0.5; }
+  .pillar-card:hover .pillar-tag::after { opacity: 1; color: var(--gold); }
 
   .pillar-card.featured {
     grid-column: span 2;
@@ -2046,15 +2048,20 @@
       <p style="font-family:'Cormorant Garamond',serif; font-size:0.95rem; color:var(--blush); opacity:0.5; margin-bottom:1.5rem; font-style:italic;">People you can actually work with — therapists, coaches, yoga teachers. Curated, conscious, personally known to KIN-NECT.</p>
       <div class="mockup-filters">
         <button class="filter-btn active filter-primary" onclick="setPractFilter(this,'all')">All</button>
-        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'therapy')">🧠 Therapy</button>
-        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'movement')">🌿 Movement</button>
-        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'bodywork')">✨ Bodywork</button>
-        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'coaching')">💫 Coaching</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'mind')">🧠 Mind</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'body')">🌿 Body</button>
+        <button class="filter-btn filter-primary" onclick="setPractFilter(this,'soul')">✨ Soul / Spirit</button>
+      </div>
+      <div class="mockup-filters" style="margin-top:0.5rem;">
+        <button class="filter-btn filter-secondary" onclick="setPractFilter(this,'therapy')">Therapy</button>
+        <button class="filter-btn filter-secondary" onclick="setPractFilter(this,'movement')">Movement</button>
+        <button class="filter-btn filter-secondary" onclick="setPractFilter(this,'bodywork')">Bodywork</button>
+        <button class="filter-btn filter-secondary" onclick="setPractFilter(this,'coaching')">Coaching</button>
       </div>
     </div>
     <div class="directory-grid" id="pract-grid">
 
-      <div class="dir-card pract-card" data-ptags="therapy bodywork coaching">
+      <div class="dir-card pract-card" data-ptags="therapy bodywork coaching mind body soul">
         <div class="dir-card-top">
           <div class="dir-avatar" style="background: linear-gradient(135deg, #6B7C5E, #1a2a18);">🌿</div>
           <div class="dir-meta">
@@ -2106,6 +2113,14 @@
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'resources'); showContextBox('resources-section')">🔍 Resources</button>
+    </div>
+
+    <!-- RESOURCES BOX -->
+    <div id="resources-section" style="display:none; margin-bottom:1.5rem;">
+      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Places to do your own research. Not posts — portals. Archives, databases and knowledge hubs the community should know about.</p>
+      </div>
     </div>
 
     <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
@@ -2148,10 +2163,10 @@
       </div>
 
       <!-- CURATED: SACRED TEXTS -->
-      <div class="feed-item" data-feed="tribe words">
+      <div class="feed-item" data-feed="tribe words resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
-            <span class="feed-tag">📖 Words & Archive</span>
+            <span class="feed-tag">📖 Research Resource</span>
             <span class="feed-date">sacred-texts.com</span>
           </div>
           <h3 class="feed-title">Sacred Texts Archive</h3>
@@ -2168,10 +2183,10 @@
       </div>
 
       <!-- CURATED: EARTH CLINIC -->
-      <div class="feed-item" data-feed="tribe words">
+      <div class="feed-item" data-feed="tribe words resources">
         <div class="feed-item-inner">
           <div class="feed-meta-row">
-            <span class="feed-tag">🌿 Body · Healing</span>
+            <span class="feed-tag">🌿 Research Resource</span>
             <span class="feed-date">earthclinic.com</span>
           </div>
           <h3 class="feed-title">Earth Clinic</h3>
@@ -2786,12 +2801,13 @@
 
   // Event filter
   function setFeedFilter(btn, tag) {
-    // Update button active states
     document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    // Hide both context boxes
-    document.getElementById('tribe-section').style.display = 'none';
-    document.getElementById('words-section').style.display = 'none';
+    // Hide all context boxes
+    ['tribe-section','words-section','resources-section'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
     document.getElementById('tribe-arrow').textContent = '▾';
     // Filter feed items
     document.querySelectorAll('.feed-item').forEach(item => {
@@ -2804,7 +2820,8 @@
     });
   }
   function showContextBox(id) {
-    document.getElementById(id).style.display = 'block';
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'block';
   }
   function toggleTribeSection(btn) {
     const section = document.getElementById('tribe-section');

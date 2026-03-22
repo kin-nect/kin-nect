@@ -2889,7 +2889,8 @@
       arrow.textContent = '▴';
       section.style.display = 'block';
       document.querySelectorAll('.feed-filter-sub').forEach(b => b.classList.remove('active'));
-      document.getElementById('tribe-all-btn').classList.add('active');
+      const tribeAllBtn = document.getElementById('tribe-all-btn');
+      if (tribeAllBtn) tribeAllBtn.classList.add('active');
       ['words-section','resources-section'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';

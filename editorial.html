@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIN-NECT — Stay KIN-nected with the Collective</title>
+<title>The Editorial — KIN-NECT</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1768,247 +1768,261 @@
 <nav>
   <a class="nav-logo" href="index.html">KIN<span>-</span>NECT</a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="index.html#about" onclick="closeNav()" style="color:var(--gold);">About</a></li>
+    <li><a href="index.html#about" onclick="closeNav()">About</a></li>
     <li><a href="directory.html" onclick="closeNav()">Directory</a></li>
-    <li><a href="editorial.html" onclick="closeNav()">Editorial</a></li>
+    <li><a href="editorial.html" onclick="closeNav()" style="color:var(--gold);">Editorial</a></li>
     <li><a href="events.html" onclick="closeNav()">Events</a></li>
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
     <li><a href="index.html#realm" onclick="closeNav()">Realm</a></li>
-    <li><a href="index.html#list-with-us" onclick="closeNav(); event.preventDefault(); document.getElementById('list-with-us') && document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})" style="color:var(--gold);">Join the KIN</a></li>
+    <li><a href="index.html#list-with-us" style="color:var(--gold);">Join the KIN</a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
-<section class="hero">
-  <div class="hero-orbit orbit-1"></div>
-  <div class="hero-orbit orbit-2"></div>
-  <div class="hero-orbit orbit-3"></div>
-
-
-  <h1 class="hero-title">
-    <span class="kin">KIN</span><span class="dash">-</span><span class="nect">NECT</span>
-  </h1>
-
-  <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
-
-    <div class="hero-cta">
-    <a href="#directory" class="btn-secondary"  style="border-color:var(--ochre); color:var(--ochre);"><span>Explore the Directory</span></a>
-    <a href="#list-with-us" class="btn-primary" onclick="event.preventDefault();document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})"><span>Join the KIN</span></a>
-  </div>
-
-  <div class="hero-scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- DIVIDER -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-symbol">✦</div>
-  <div class="divider-line"></div>
+<div style="padding:8rem 3rem 2rem; max-width:900px; margin:0 auto;">
+  <span style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.6;">02 — The Editorial</span>
+  <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:700;color:var(--cream);margin:0.5rem 0 1rem;">The <em style="color:var(--gold);font-style:italic;">Editorial</em></h1>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--blush);opacity:0.7;max-width:600px;line-height:1.7;margin-bottom:3rem;">Original writing from the Tribe. Curated videos, words and resources that elevate.</p>
 </div>
-
-<!-- ABOUT -->
-<!-- ABOUT -->
-<section class="about-full" id="about">
-  <span class="section-label">About KIN-NECT</span>
-  <div class="about-grid">
-    <div class="about-main">
-      <h2>A <em>conscious community</em> platform. Built from the inside out.</h2>
-      <p>KIN-NECT is a community-owned space where the culture lives — part directory, part media, part marketplace, part gathering place. Culturally rooted. Consciousness-first. Curated with care.</p>
-      <p>We exist to make conscious businesses visible and to circulate the community's economy with intention. If it elevates, it belongs here.</p>
+<!-- EDITORIAL MOCKUP -->
+<section class="mockup-section" id="editorial" style="background: rgba(8,5,2,0.7); padding-top:0;">
+  <div class="mockup-inner">
+    <div class="mockup-header">
+      <span class="section-label">02 — The Editorial</span>
+      <h2 class="mockup-title">The <em>Editorial</em></h2>
+      <p class="mockup-subtitle">Not a content factory. A conscious feed — original writing, curated videos, reading and practice. Our taste, our framing, other people's work given a better home.</p>
     </div>
-    <div class="about-values">
-      <div class="about-value">
-        <span class="about-value-label">What we are</span>
-        <p>A digital village and a Collective. One place to find, support, and connect with conscious businesses, practitioners, and makers.</p>
-      </div>
-      <div class="about-value">
-        <span class="about-value-label">How we work</span>
-        <p>Curated with care. Community first. Always.</p>
-      </div>
-      <div class="about-value">
-        <span class="about-value-label">Where we're going</span>
-        <p>London first. Then the UK and Europe. Then wherever the diaspora builds.</p>
+
+    <!-- FEED FILTERS -->
+    <div class="mockup-filters" style="margin-bottom: 0.5rem; position: relative; flex-wrap: wrap; gap: 0.6rem;">
+      <button class="feed-filter-btn active" onclick="setFeedFilter(this,'all')">All</button>
+      <button class="feed-filter-btn" id="tribe-main-btn" onclick="toggleTribeSection(this)">✦ From the Tribe <span id="tribe-arrow">▾</span></button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'words')">✍🏾 Words from the KIN</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
+      <button class="feed-filter-btn" onclick="setFeedFilter(this,'resources')">🔍 Resources</button>
+    </div>
+
+    <!-- RESOURCES BOX -->
+    <div id="resources-section" style="display:none; margin-bottom:1.5rem;">
+      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Places to do your own research. Not posts — portals. Archives, databases and knowledge hubs the community should know about.</p>
       </div>
     </div>
+
+    <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
+    <div id="tribe-section" style="display:none; margin-bottom:1rem;">
+      <div style="border:1px solid rgba(232,184,75,0.2); border-radius:8px; background:rgba(232,184,75,0.03); padding:0.9rem 1.2rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Original content written and made by the KIN-NECT team. If one of us created it, it lives here.</p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- DIVIDER -->
-<div class="divider">
-  <div class="divider-line"></div>
-  <div class="divider-symbol">◈</div>
-  <div class="divider-line"></div>
-</div>
-
-<!-- PILLARS -->
-<!-- PILLARS -->
-<section class="pillars">
-  <div class="pillars-header">
-    <h2 class="pillars-title">The <em>Six</em> Pillars</h2>
-    <span class="section-label">What we hold</span>
-  </div>
-
-  <div class="pillars-grid">
-    <a href="directory.html" class="pillar-card">
-      <span class="pillar-number">01</span>
-      <span class="pillar-icon">🌿</span>
-      <div class="pillar-name">The Directory</div>
-      <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
-      <span class="pillar-tag">Find · Discover · KIN-NECT</span>
-    </a>
-
-    <a href="editorial.html" class="pillar-card">
-      <span class="pillar-number">02</span>
-      <span class="pillar-icon">✍🏿</span>
-      <div class="pillar-name">The Editorial</div>
-      <p class="pillar-desc">News, articles, and cultural commentary written with care. Stories that centre our perspectives, our histories, our futures.</p>
-      <span class="pillar-tag">Watch · Read · Learn</span>
-    </a>
-
-    <a href="events.html" class="pillar-card">
-      <span class="pillar-number">03</span>
-      <span class="pillar-icon">🌙</span>
-      <div class="pillar-name">Events Calendar</div>
-      <p class="pillar-desc">Equinox dates, cultural moments, community gatherings. Time held with intention.</p>
-      <span class="pillar-tag">Gather · Celebrate · Mark</span>
-    </a>
-
-    <a href="library.html" class="pillar-card">
-      <span class="pillar-number">04 — Coming Soon</span>
-      <span class="pillar-icon">📚</span>
-      <div class="pillar-name">The Library</div>
-      <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
-      <span class="pillar-tag">Read · Gather · Grow</span>
-    </a>
-
-    <a href="index.html#realm" class="pillar-card">
-      <span class="pillar-number">05 — Coming Soon</span>
-      <span class="pillar-icon">🛍</span>
-      <div class="pillar-name">Realm Marketplace</div>
-      <p class="pillar-desc">The conscious department store. DANKH by Realm. The Utopia by Realm. Built by the founders, open to the community. More stores coming.</p>
-      <span class="pillar-tag">Shop · Support · Sustain</span>
-    </a>
-
-    <a href="index.html#list-with-us" class="pillar-card">
-      <span class="pillar-number">06 — Coming Soon</span>
-      <span class="pillar-icon">💌</span>
-      <div class="pillar-name">Newsletter</div>
-      <p class="pillar-desc">The community glue. Curated, warm, regular — the thing that keeps us connected between everything else.</p>
-      <span class="pillar-tag">Connect · Share · Nourish</span>
-    </a>
-  </div>
-</section>
-
-<!-- MANIFESTO QUOTE -->
-<!-- MANIFESTO QUOTE -->
-<section class="manifesto">
-  <div class="divider" style="margin-bottom: 6rem;">
-    <div class="divider-line"></div>
-    <div class="divider-symbol">✦</div>
-    <div class="divider-line"></div>
-  </div>
-
-  <blockquote>
-    We build <em>places where people belong.</em>
-  </blockquote>
-  <cite>KIN-NECT — Founding Vision, 2021</cite>
-</section>
-
-<!-- LIST WITH US -->
-<!-- LIST WITH US -->
-<section class="list-with-us" id="list-with-us">
-  <div class="list-inner">
-    <div class="list-text">
-      <span class="section-label">Join the KIN</span>
-      <h2>Are you doing <em>something</em> worth knowing about?</h2>
-      <p>Artists. Creatives. Spaces. Plant-based food. Event organisers. Businesses with soul. If what you do elevates consciousness and serves community — we want to know about you.</p>
-      <p style="margin-top:0.8rem;">We always ask before featuring anyone. This is just how you join the KIN.</p>
-      <ul class="list-benefits">
-        <li><span>✦</span> Listed in the KIN-NECT directory</li>
-        <li><span>✦</span> Featured in newsletter &amp; editorial</li>
-        <li><span>✦</span> Access to a conscious, engaged audience</li>
-        <li><span>✦</span> London first — the UK, Europe &amp; beyond next</li>
-      </ul>
+    <!-- WORDS FROM THE KIN BOX -->
+    <div id="words-section" style="display:none; margin-bottom:1rem;">
+      <div style="border:1px solid rgba(232,184,75,0.2); border-radius:8px; background:rgba(232,184,75,0.03); padding:0.9rem 1.2rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7;">Written words from the collective — poems, essays, Substacks, journals, zines. From the Tribe and from the wider KIN.</p>
+      </div>
     </div>
-    <div class="list-form-wrap">
-      <div class="list-form">
-        <div class="form-group">
-          <label>Your name</label>
-          <input type="text" placeholder="What do we call you?" id="f-name">
+
+    <!-- FEED -->
+    <div class="editorial-feed">
+
+      <!-- POST 1: ORIGINAL — EQUINOX -->
+      <div class="feed-item" data-feed="tribe tribe-kinnect" style="border-color: rgba(232,184,75,0.35); background: rgba(232,184,75,0.04);">
+        <div class="feed-item-inner">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--ochre), var(--gold), transparent); border-radius: 12px 12px 0 0;"></div>
+          <div class="feed-meta-row">
+            <span class="feed-tag tribe-tag">✦ From the Tribe</span>
+            <span class="feed-date">20 March 2026 — Spring Equinox</span>
+          </div>
+          <h3 class="feed-title">The Wheel of the Year: What the Equinoxes & Solstices Actually Mean — and How to Move With Them</h3>
+          <p class="feed-excerpt">Four times a year the Earth marks a change. A movement into different energy — and with that comes a shift in earthly rhythm. It can make all the difference to understand it, take heed of it, and move with the seasons as they turn.</p>
+
+          <!-- Full post lives at equinox.html -->
+
+          <a href="equinox.html" class="stack-toggle" style="margin-top:1.2rem; display:inline-block; text-decoration:none;">
+            <span>↓ Read the full post</span>
+          </a>
+
+          <div class="feed-footer-row" style="margin-top:1rem;">
+            <span class="feed-byline">By KIN-NECT</span>
+            <span class="feed-cats">Editorial · Seasonal · Ancestral Knowledge · Fire Horse · Year of 10</span>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Your email</label>
-          <input type="email" placeholder="your@email.com" id="f-email">
-        </div>
-        <div class="form-group">
-          <label>What do you do / what's your space?</label>
-          <input type="text" placeholder="e.g. Holistic healer, crystal shop, reiki, yoga teacher..." id="f-what">
-        </div>
-        <div class="form-group">
-          <label>Where are you based?</label>
-          <input type="text" placeholder="City / online / both" id="f-location">
-        </div>
-        <div class="form-group">
-          <label>A link to your work (optional)</label>
-          <input type="text" placeholder="Instagram, website, anything" id="f-link">
-        </div>
-        <button class="list-submit" onclick="handleListSubmit()"><span>Join the KIN ✦</span></button>
-        <p class="form-note" id="form-msg"></p>
       </div>
-    </div>
+
+      <!-- CURATED: SACRED TEXTS -->
+      <div class="feed-item" data-feed="resources">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">📖 Research Resource</span>
+            <span class="feed-date">sacred-texts.com</span>
+          </div>
+          <h3 class="feed-title">Sacred Texts Archive</h3>
+          <p class="feed-excerpt">One of the largest free archives of sacred texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Before any book, before any algorithm, this knowledge existed. Free, vast, and waiting. Every conscious library should start here.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://sacred-texts.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Sacred · Ancient · Knowledge</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: EARTH CLINIC -->
+      <div class="feed-item" data-feed="resources">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🌿 Research Resource</span>
+            <span class="feed-date">earthclinic.com</span>
+          </div>
+          <h3 class="feed-title">Earth Clinic</h3>
+          <p class="feed-excerpt">A community-built database of natural remedies, folk medicine and holistic health. Ancestral knowledge meeting lived experience.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Our grandmothers knew things that never made it into textbooks. Earth Clinic is one of the few places that resource still lives — community-sourced, practical, real.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.earthclinic.com" target="_blank" class="feed-link">Explore →</a>
+            <span class="feed-cats">Natural · Remedies · Body</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- STACK: HINDZ -->
+      <div class="feed-item feed-stack" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🎥 Video Stack</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">HINDZSIGHT — Study Sessions</h3>
+          <p class="feed-excerpt">Deep, focused study content that holds attention and elevates the mind. The kind of video you put on and actually learn something.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Study shouldn't feel like punishment. HINDZSIGHT creates an environment where learning feels natural, focused, and genuinely enjoyable. That's rare. We want this energy living on KIN-NECT.</p>
+          </div>
+          <button class="stack-toggle" onclick="toggleStack(this)">
+            <span class="stack-toggle-label">↓ See the full Stack</span>
+          </button>
+          <div class="stack-items" style="display:none;">
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">Study With Me — Deep Focus Sessions</span><span class="stack-item-meta">YouTube · HINDZSIGHT</span></div>
+            </a>
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">More sessions on his channel →</span><span class="stack-item-meta">YouTube · HINDZSIGHT</span></div>
+            </a>
+          </div>
+          <div class="feed-footer-row" style="margin-top: 1.5rem;">
+            <a href="https://www.youtube.com/@HINDZSIGHT" target="_blank" class="feed-link">Visit channel →</a>
+            <span class="feed-cats">Study · Focus · Mind</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STACK: YOGA WITH NICO -->
+      <div class="feed-item feed-stack" data-feed="practice">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🧘🏾 Practice Stack</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">Yoga with Nico</h3>
+          <p class="feed-excerpt">A Black yogi making yoga feel like it was made for us. 7-day challenges, 30-day challenges, chakra work.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Yoga spaces have historically not centred us. Nico changes that — the energy, the music, the representation. A practice you come back to because it actually feels like yours.</p>
+          </div>
+          <button class="stack-toggle" onclick="toggleStack(this)">
+            <span class="stack-toggle-label">↓ See the full Stack</span>
+          </button>
+          <div class="stack-items" style="display:none;">
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">7-Day Yoga Challenge</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">30-Day Yoga Challenge</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="stack-item">
+              <span class="stack-item-icon">▶</span>
+              <div><span class="stack-item-title">Chakra Series</span><span class="stack-item-meta">YouTube · Yoga with Nico</span></div>
+            </a>
+          </div>
+          <div class="feed-footer-row" style="margin-top: 1.5rem;">
+            <a href="https://www.youtube.com/@yogawithnico" target="_blank" class="feed-link">Visit channel →</a>
+            <span class="feed-cats">Yoga · Chakra · Body</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: QUEEN CUP -->
+      <div class="feed-item" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🔮 Soul · Tarot</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">Queen Cup</h3>
+          <p class="feed-excerpt">Tarot, smudging, and retreat experiences rooted in spiritual practice. Also runs immersive retreats in Jamaica.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Spiritual practice that doesn't feel performative. Queen Cup brings ancestral tools into the present without losing their weight. The retreats are something else entirely.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.youtube.com/@QueenCup" target="_blank" class="feed-link">Watch →</a>
+            <span class="feed-cats">Tarot · Ancestral · Soul</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURATED: JASS -->
+      <div class="feed-item" data-feed="video">
+        <div class="feed-item-inner">
+          <div class="feed-meta-row">
+            <span class="feed-tag">🃏 Soul · Tarot</span>
+            <span class="feed-date">YouTube</span>
+          </div>
+          <h3 class="feed-title">HourGlassed by Jass</h3>
+          <p class="feed-excerpt">Tarot with real depth — informative, grounded, and genuinely insightful. The kind of content you save and come back to.</p>
+          <div class="feed-resonate">
+            <span class="resonate-label">Why this resonates with us</span>
+            <p class="resonate-text">Jass doesn't just read — she teaches. There's knowledge in every video. You leave understanding something you didn't before. That's what this feed is for.</p>
+          </div>
+          <div class="feed-footer-row">
+            <a href="https://www.youtube.com/@HourGlassedByJass" target="_blank" class="feed-link">Watch →</a>
+            <span class="feed-cats">Tarot · Guidance · Soul</span>
+            <span style="font-size:0.65rem; color:var(--gold); opacity:0.5; letter-spacing:0.1em;">✦ Pending permission</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- GHOST: SUGGEST -->
+      <div class="feed-item feed-ghost" data-feed="ghost">
+        <div class="feed-item-inner" style="text-align: center; padding: 3rem 2rem;">
+          <div style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;">+</div>
+          <h3 class="feed-title" style="opacity: 0.5;">Know something worth featuring?</h3>
+          <p class="feed-excerpt" style="opacity: 0.4;">A video, a Substack, a piece of writing that needs a better home. If it elevates, it belongs here.</p>
+          <span style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--sage);">→ Tell us about it</span>
+        </div>
+      </div>
+
+    </div><!-- end feed -->
   </div>
 </section>
 
-<!-- DIRECTORY MOCKUP -->
-<!-- REALM TEASER -->
-<section class="realm-teaser" id="realm">
-  <div class="realm-teaser-inner">
-    <span class="section-label">05 — Coming Soon</span>
-    <h2>Realm <em>Marketplace</em></h2>
-    <p class="realm-teaser-sub">Think Holland & Barrett meets Cult Beauty meets Dice — but conscious, curated, and community-owned. Every business in the KIN-NECT directory can bring their products to Realm. Shop Wyld Herbs sea moss. Browse The Utopia's crystals. Find things made by people who mean it.</p>
-    <div class="realm-stores">
-      <div class="realm-store-card">
-        <span class="realm-store-label">Coming to Realm</span>
-        <div class="realm-store-name">DANKH</div>
-        <p>Jai's apothecary and wellness creation. Forthcoming.</p>
-      </div>
-      <div class="realm-store-card">
-        <span class="realm-store-label">Coming to Realm</span>
-        <div class="realm-store-name">The Utopia</div>
-        <p>Chai's crystals, candles and conscious living. Coming back online.</p>
-      </div>
-      <div class="realm-store-card realm-store-open">
-        <span class="realm-store-label">In the Directory · Coming to Realm</span>
-        <div class="realm-store-name">Wyld Herbs</div>
-        <p>Organic sea moss, plant therapeutics. Women-owned, diaspora-rooted. Shop direct.</p>
-      </div>
-    </div>
-    <p class="realm-teaser-note">Realm opens when the directory is ready. The foundation comes first.</p>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <div class="newsletter-inner">
-    <span class="section-label">Stay connected</span>
-    <h2>Join the <em>KIN</em></h2>
-    <p>Be the first to know when KIN-NECT opens its doors. No noise, just signal — curated updates from the heart of the community.</p>
-    <div class="newsletter-form">
-      <input type="email" class="newsletter-input" placeholder="your@email.com" id="newsletter-email">
-      <button class="newsletter-btn" onclick="handleNewsletter()">Join the KIN ✦</button>
-    </div>
-    <p id="newsletter-msg" style="margin-top:1rem; font-size:0.85rem; color:var(--sage); opacity:0;"></p>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- EVENTS MOCKUP -->
 <footer>
   <div class="footer-logo">KIN<span>-</span>NECT</div>
   <div class="footer-tagline">Stay KIN-nected with the Collective.</div>
@@ -2019,107 +2033,59 @@
     <li><a href="#directory">Directory</a></li>
   </ul>
 </footer>
-
 <script>
   function toggleNav() {
-    const links = document.getElementById('nav-links');
-    const burger = document.getElementById('nav-hamburger');
-    links.classList.toggle('open');
-    burger.classList.toggle('open');
+    document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('nav-hamburger').classList.toggle('open');
   }
   function closeNav() {
     document.getElementById('nav-links').classList.remove('open');
     document.getElementById('nav-hamburger').classList.remove('open');
   }
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+</script>
+<script>
+  function setFeedFilter(btn, tag) {
+    document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    ['tribe-section','words-section','resources-section'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.style.display = 'none';
     });
-  });
-  // Hero parallax
-  const orbits = document.querySelectorAll('.hero-orbit');
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    orbits.forEach((orbit, i) => {
-      const factor = (i + 1) * 0.4;
-      orbit.style.transform = `translate(calc(-50% + ${x * factor}px), calc(-50% + ${y * factor}px))`;
+    document.getElementById('tribe-arrow').textContent = '▾';
+    if (tag === 'words') { const ws = document.getElementById('words-section'); if (ws) ws.style.display = 'block'; }
+    if (tag === 'resources') { const rs = document.getElementById('resources-section'); if (rs) rs.style.display = 'block'; }
+    document.querySelectorAll('.feed-item').forEach(item => {
+      const f = item.dataset.feed || '';
+      const tags = f.split(' ');
+      const show = tag === 'all' || tags.includes(tag) || (tag === 'tribe' && tags.some(t => t.startsWith('tribe')));
+      item.style.display = show ? '' : 'none';
     });
-  });
-  // Pillar card animations
-  const cards = document.querySelectorAll('.pillar-card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }, (i % 6) * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-  });
-  async function handleNewsletter() {
-    const email = document.getElementById('newsletter-email').value;
-    const msg = document.getElementById('newsletter-msg');
-    if (!email || !email.includes('@')) {
-      msg.style.opacity = '1'; msg.style.color = '#C8732A';
-      msg.textContent = 'Please enter a valid email address.'; return;
-    }
-    try {
-      const response = await fetch('https://formspree.io/f/xeerzwwv', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ email, type: 'newsletter' })
+  }
+  function toggleTribeSection(btn) {
+    const section = document.getElementById('tribe-section');
+    const arrow = document.getElementById('tribe-arrow');
+    const isOpen = section.style.display !== 'none';
+    if (isOpen) {
+      section.style.display = 'none'; arrow.textContent = '▾';
+      setFeedFilter(document.querySelector('.feed-filter-btn'), 'all');
+      document.querySelector('.feed-filter-btn').classList.add('active');
+    } else {
+      document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active'); arrow.textContent = '▴'; section.style.display = 'block';
+      ['words-section','resources-section'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+      document.querySelectorAll('.feed-item').forEach(item => {
+        const f = item.dataset.feed || '';
+        const tags = f.split(' ');
+        const show = !tags.includes('ghost') && tags.some(t => t === 'tribe' || t.startsWith('tribe-'));
+        item.style.display = show ? '' : 'none';
       });
-      if (response.ok) {
-        msg.style.opacity = '1'; msg.style.color = 'var(--sage)';
-        msg.textContent = "✦ You're in. Welcome to the KIN.";
-        document.getElementById('newsletter-email').value = '';
-      } else { throw new Error(); }
-    } catch(e) {
-      msg.style.opacity = '1'; msg.style.color = '#A8462A';
-      msg.textContent = 'Something went wrong — please try again.';
     }
   }
-  async function handleListSubmit() {
-    const name = document.getElementById('f-name').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const what = document.getElementById('f-what').value.trim();
-    const location = document.getElementById('f-location').value.trim();
-    const link = document.getElementById('f-link').value.trim();
-    const msg = document.getElementById('form-msg');
-    const btn = document.querySelector('.list-submit');
-    if (!name || !email || !what) {
-      msg.style.color = '#A8462A';
-      msg.textContent = 'Please fill in your name, email and what you do.'; return;
-    }
-    btn.disabled = true; btn.querySelector('span').textContent = 'Sending...';
-    try {
-      const response = await fetch('https://formspree.io/f/xeerzwwv', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name, email, what, location, link })
-      });
-      if (response.ok) {
-        msg.style.color = '#6B7C5E';
-        msg.textContent = "✦ Thank you — we'll be in touch soon.";
-        btn.querySelector('span').textContent = 'Join the KIN ✦';
-        ['f-name','f-email','f-what','f-location','f-link'].forEach(id => { document.getElementById(id).value = ''; });
-      } else { throw new Error(); }
-    } catch(e) {
-      msg.style.color = '#A8462A';
-      msg.textContent = 'Something went wrong — please try again.';
-      btn.disabled = false; btn.querySelector('span').textContent = 'Join the KIN ✦';
-    }
+  function toggleStack(btn) {
+    const items = btn.nextElementSibling;
+    const label = btn.querySelector('.stack-toggle-label');
+    const open = items.style.display === 'none';
+    items.style.display = open ? 'block' : 'none';
+    label.textContent = open ? '↑ Close Stack' : '↓ See the full Stack';
   }
 </script>
 </body>

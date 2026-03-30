@@ -1793,136 +1793,40 @@
 <section class="mockup-section mockup-alt" id="library" style="padding-top:0;">
   <div class="mockup-inner">
 
-    <!-- FILTERS -->
-    <div class="feed-filters" style="margin-bottom:2.5rem;">
-      <button class="feed-filter-btn active" onclick="setLibFilter(this,'all')">All</button>
-      <button class="feed-filter-btn" onclick="setLibFilter(this,'books')">📚 Books</button>
-      <button class="feed-filter-btn" onclick="setLibFilter(this,'films')">🎬 Films</button>
-      <button class="feed-filter-btn" onclick="setLibFilter(this,'research')">🔍 Research</button>
-      <button class="feed-filter-btn" onclick="setLibFilter(this,'swap')">✦ Book Swap</button>
+    <!-- COMING SOON HEADER -->
+    <div style="text-align:center;padding:3rem 0 4rem;border-bottom:1px solid rgba(232,184,75,0.08);margin-bottom:3rem;">
+      <span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.5;display:block;margin-bottom:1rem;">Opening soon</span>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--blush);opacity:0.7;line-height:1.8;max-width:560px;margin:0 auto;font-style:italic;">A gathering around words, ideas and the literature that shapes us. Books, films, research, collective discussion — a home for the curious mind.</p>
     </div>
 
-    <!-- FEATURED READ -->
-    <div class="lib-section" data-lib="all books">
-      <span class="section-label" style="display:block;margin-bottom:1.5rem;">✦ Featured Read</span>
-      <div style="background:rgba(232,184,75,0.04);border:1px solid rgba(232,184,75,0.15);border-radius:12px;padding:2rem;margin-bottom:3rem;position:relative;">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ochre),var(--gold),transparent);border-radius:12px 12px 0 0;"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);opacity:0.7;">Words from the KIN — Featured Zine</span>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin:0.5rem 0 0.3rem;">Miah's Zine</h3>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.7;margin-bottom:1rem;font-style:italic;">By Miah — Library Director, KIN-NECT</p>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--blush);opacity:0.8;line-height:1.8;margin-bottom:1.2rem;">A raw, honest representation of the mixed Black perspective in London in the 2020s. This is the kind of work the library was built for — writing that doesn't ask permission to exist.</p>
-        <span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);">Coming soon — curated by Miah</span>
+    <!-- WHAT'S COMING -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:4rem;">
+      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">📚</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Books</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">A curated reading list. Curated by the Library Director.</p>
+      </div>
+      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🎬</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Films & Docs</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">Films and documentaries worth watching. Curated by the Library Director.</p>
+      </div>
+      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">✦</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Featured Read</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">One piece highlighted each month. Essays, zines, chapters, words worth sitting with.</p>
+      </div>
+      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🔄</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Book Swap</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">Give a book, take a book. Community exchange — coming with the library launch.</p>
       </div>
     </div>
 
-    <!-- BOOKS -->
-    <div class="lib-section" data-lib="all books">
-      <span class="section-label" style="display:block;margin-bottom:1.5rem;">📚 Books</span>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:3rem;">
-
-        <div class="lib-card">
-          <span class="lib-card-cat">History & Culture</span>
-          <div class="lib-card-title">The Melanin Empath</div>
-          <div class="lib-card-author">Discover the Knowledge of Melanated Beings Born With Empath Energy</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Literature</span>
-          <div class="lib-card-title">I Know Why the Caged Bird Sings</div>
-          <div class="lib-card-author">Maya Angelou</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Literature</span>
-          <div class="lib-card-title">James Baldwin — Selected Works</div>
-          <div class="lib-card-author">James Baldwin</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Healing</span>
-          <div class="lib-card-title">Post Traumatic Slave Syndrome</div>
-          <div class="lib-card-author">Dr. Joy DeGruy</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Coming Soon</span>
-          <div class="lib-card-title">Ugly</div>
-          <div class="lib-card-author">TBC</div>
-        </div>
-        <div class="lib-card" style="border-style:dashed;opacity:0.5;">
-          <span class="lib-card-cat">Curated by Miah</span>
-          <div class="lib-card-title">More titles coming</div>
-          <div class="lib-card-author">Opening selection in progress ✦</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- FILMS -->
-    <div class="lib-section" data-lib="all films">
-      <span class="section-label" style="display:block;margin-bottom:1.5rem;">🎬 Films & Documentaries</span>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:3rem;">
-
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">Moonlight</div>
-          <div class="lib-card-author">Barry Jenkins, 2016</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">Daughters of the Dust</div>
-          <div class="lib-card-author">Julie Dash, 1991</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">Fruitvale Station</div>
-          <div class="lib-card-author">Ryan Coogler, 2013</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">One Night in Miami</div>
-          <div class="lib-card-author">Regina King, 2020</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">Malcolm X</div>
-          <div class="lib-card-author">Spike Lee, 1992</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Film</span>
-          <div class="lib-card-title">Fences</div>
-          <div class="lib-card-author">Denzel Washington, 2016</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Documentary</span>
-          <div class="lib-card-title">13th</div>
-          <div class="lib-card-author">Ava DuVernay, 2016</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Documentary</span>
-          <div class="lib-card-title">The Colour of Fear</div>
-          <div class="lib-card-author">Lee Mun Wah, 1994</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Documentary</span>
-          <div class="lib-card-title">Dark Girls</div>
-          <div class="lib-card-author">Bill Duke & D. Channsin Berry, 2011</div>
-        </div>
-        <div class="lib-card">
-          <span class="lib-card-cat">Series</span>
-          <div class="lib-card-title">Roots</div>
-          <div class="lib-card-author">1977 / 2016</div>
-        </div>
-        <div class="lib-card" style="border-style:dashed;opacity:0.5;">
-          <span class="lib-card-cat">Curated by Miah</span>
-          <div class="lib-card-title">More coming</div>
-          <div class="lib-card-author">Opening selection in progress ✦</div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- RESEARCH -->
-    <div class="lib-section" data-lib="all research">
-      <span class="section-label" style="display:block;margin-bottom:1.5rem;">🔍 Research & Resources</span>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:3rem;">
-
+    <!-- RESEARCH — live now -->
+    <div style="margin-bottom:3rem;">
+      <span class="section-label" style="display:block;margin-bottom:1.5rem;">🔍 Research — Available Now</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">
         <div class="lib-card">
           <span class="lib-card-cat">Sacred Knowledge</span>
           <div class="lib-card-title">Sacred Texts Archive</div>
@@ -1937,17 +1841,6 @@
           <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.6;margin-top:0.5rem;line-height:1.6;">Natural remedies, folk cures and ancestral health knowledge. Research before you medicate.</p>
           <a href="https://earthclinic.com" target="_blank" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:block;margin-top:0.8rem;">Explore →</a>
         </div>
-
-      </div>
-    </div>
-
-    <!-- BOOK SWAP -->
-    <div class="lib-section" data-lib="all swap">
-      <span class="section-label" style="display:block;margin-bottom:1.5rem;">✦ Book Swap</span>
-      <div style="background:rgba(107,124,94,0.06);border:1px solid rgba(107,124,94,0.2);border-radius:12px;padding:2rem;margin-bottom:2rem;">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--cream);margin-bottom:0.5rem;">Fiksy's Book Swap</h3>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.7;line-height:1.8;margin-bottom:1rem;">A community book exchange — give a book, take a book. Embedded in the KIN-NECT library as our founding swap partner. Coming soon.</p>
-        <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);">Partnership in progress — launching with the library</span>
       </div>
     </div>
 
@@ -1955,31 +1848,12 @@
 </section>
 
 <style>
-  .lib-card {
-    background: rgba(232,184,75,0.03);
-    border: 1px solid rgba(232,184,75,0.1);
-    border-radius: 10px;
-    padding: 1.2rem;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .lib-card:hover { border-color: rgba(232,184,75,0.25); background: rgba(232,184,75,0.06); }
-  .lib-card-cat { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage); display: block; margin-bottom: 0.4rem; }
-  .lib-card-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.2rem; }
-  .lib-card-author { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--blush); opacity: 0.6; font-style: italic; }
-  .lib-section { display: block; }
-  .lib-section.hidden { display: none; }
+  .lib-card { background:rgba(232,184,75,0.03); border:1px solid rgba(232,184,75,0.1); border-radius:10px; padding:1.2rem; transition:border-color 0.2s,background 0.2s; }
+  .lib-card:hover { border-color:rgba(232,184,75,0.25); background:rgba(232,184,75,0.06); }
+  .lib-card-cat { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); display:block; margin-bottom:0.4rem; }
+  .lib-card-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--cream); margin-bottom:0.2rem; }
+  .lib-card-author { font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--blush); opacity:0.6; font-style:italic; }
 </style>
-
-<script>
-  function setLibFilter(btn, tag) {
-    document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.lib-section').forEach(s => {
-      const tags = s.dataset.lib || '';
-      s.classList.toggle('hidden', !tags.includes(tag));
-    });
-  }
-</script>
 
 <!-- REALM TEASER -->
 <footer>

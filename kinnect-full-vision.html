@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIN-NECT — Full Vision Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ochre: #C8732A;
+      --gold: #C8732A;
+      --cream: #F5EDD8;
+      --sage: #6B7C5E;
+      --blush: #E8C9A0;
+      --night: #0D0A06;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--night); color:var(--cream); font-family:'Cormorant Garamond',serif; }
+
+    /* PREVIEW BANNER */
+    .preview-banner {
+      background: rgba(200,115,42,0.15);
+      border-bottom: 1px solid rgba(200,115,42,0.3);
+      text-align: center;
+      padding: 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ochre);
+    }
+
+    /* NAV */
+    nav { padding:1.4rem 3rem; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(200,115,42,0.1); }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:900; color:var(--gold); text-decoration:none; letter-spacing:0.05em; }
+    .nav-logo span { color:var(--cream); font-style:italic; font-weight:400; }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--blush); text-decoration:none; opacity:0.7; }
+    .nav-links a:hover { opacity:1; color:var(--gold); }
+    .nav-cta { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; background:var(--gold); color:var(--night); padding:0.5rem 1.2rem; border-radius:20px; text-decoration:none; font-weight:700; }
+
+    /* SECTION LABELS */
+    .section-label { font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); opacity:0.6; display:block; margin-bottom:1rem; }
+
+    /* PAGE HEADER */
+    .page-header { padding:6rem 3rem 3rem; max-width:1200px; margin:0 auto; }
+    .page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:700; color:var(--cream); margin:0.5rem 0 1rem; }
+    .page-header p { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--blush); opacity:0.7; max-width:600px; line-height:1.7; }
+
+    /* SECTION WRAPPER */
+    .section-wrap { padding:3rem; max-width:1200px; margin:0 auto; }
+    .section-divider { border:none; border-top:1px solid rgba(200,115,42,0.1); margin:3rem 0; }
+
+    /* SECTION TITLE */
+    .section-title { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--cream); margin-bottom:0.5rem; }
+    .section-title em { color:var(--gold); font-style:italic; }
+
+    /* CARDS */
+    .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; margin-top:1.5rem; }
+    .card { background:rgba(200,115,42,0.03); border:1px solid rgba(200,115,42,0.12); border-radius:12px; padding:1.5rem; transition:border-color 0.2s; }
+    .card:hover { border-color:rgba(200,115,42,0.3); }
+    .card-tag { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); display:block; margin-bottom:0.5rem; }
+    .card-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--cream); margin-bottom:0.3rem; }
+    .card-sub { font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--blush); opacity:0.6; font-style:italic; margin-bottom:0.5rem; }
+    .card-body { font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--blush); opacity:0.7; line-height:1.7; }
+    .card-badge { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); opacity:0.8; margin-top:0.6rem; display:block; }
+    .card-link { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); text-decoration:none; margin-top:0.8rem; display:block; }
+
+    /* FEED ITEMS */
+    .feed-item { border:1px solid rgba(200,115,42,0.12); border-radius:12px; background:rgba(20,12,6,0.6); padding:1.8rem 2rem; margin-bottom:1rem; position:relative; }
+    .feed-item.tribe { border-color:rgba(200,115,42,0.3); background:rgba(200,115,42,0.04); }
+    .feed-tag { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); background:rgba(200,115,42,0.1); padding:0.2rem 0.6rem; border-radius:20px; margin-right:0.8rem; }
+    .feed-date { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.1em; color:var(--blush); opacity:0.4; }
+    .feed-meta { margin-bottom:0.8rem; }
+    .feed-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--cream); margin-bottom:0.5rem; line-height:1.4; }
+    .feed-excerpt { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--blush); opacity:0.75; line-height:1.75; margin-bottom:0.8rem; }
+    .feed-footer { display:flex; align-items:center; gap:1.5rem; margin-top:0.8rem; }
+    .feed-byline { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.1em; color:var(--sage); }
+    .feed-cats { font-size:0.75rem; color:var(--blush); opacity:0.35; }
+    .tribe-bar { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--ochre),var(--gold),transparent); border-radius:12px 12px 0 0; }
+
+    /* PARTNERSHIP CARDS */
+    .partner-card { background:rgba(107,124,94,0.06); border:1px solid rgba(107,124,94,0.2); border-radius:12px; padding:1.5rem; }
+    .partner-label { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); display:block; margin-bottom:0.5rem; }
+
+    /* FUTURE PILLAR CARDS */
+    .pillar-future { background:rgba(200,115,42,0.02); border:1px dashed rgba(200,115,42,0.15); border-radius:12px; padding:1.5rem; opacity:0.7; }
+
+    /* PRACT CARDS */
+    .pract-card { background:rgba(20,12,6,0.5); border:1px solid rgba(200,115,42,0.1); border-radius:12px; padding:1.4rem; }
+
+    /* LIBRARY */
+    .lib-card { background:rgba(200,115,42,0.03); border:1px solid rgba(200,115,42,0.1); border-radius:10px; padding:1.2rem; }
+    .lib-cat { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); display:block; margin-bottom:0.4rem; }
+    .lib-title { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--cream); margin-bottom:0.2rem; }
+    .lib-author { font-family:'Cormorant Garamond',serif; font-size:0.9rem; color:var(--blush); opacity:0.6; font-style:italic; }
+
+    /* FOOTER */
+    footer { border-top:1px solid rgba(200,115,42,0.1); padding:3rem; text-align:center; margin-top:5rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--gold); margin-bottom:0.5rem; }
+    .footer-logo span { color:var(--cream); font-style:italic; font-weight:400; }
+    .footer-tagline { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--blush); opacity:0.5; font-style:italic; }
+
+    @media(max-width:768px) {
+      nav { padding:1.2rem 1.5rem; }
+      .nav-links { display:none; }
+      .page-header, .section-wrap { padding:4rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="preview-banner">✦ Full Vision Preview — Not live yet. This is what KIN-NECT looks like at full capacity. ✦</div>
+
+<nav>
+  <a class="nav-logo" href="#">KIN<span>-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#directory">Directory</a></li>
+    <li><a href="#editorial">Editorial</a></li>
+    <li><a href="#library">Library</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#pillars">Future</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Join the KIN ✦</a>
+</nav>
+
+<!-- ═══════════════════════════════════ DIRECTORY ═══ -->
+<div id="directory" class="page-header">
+  <span class="section-label">01 — The Directory</span>
+  <h1 class="section-title">The <em>Directory</em></h1>
+  <p>A living, curated map of conscious businesses, practitioners and spaces. If it elevates, it belongs here.</p>
+</div>
+
+<div class="section-wrap">
+  <span class="section-label">Businesses — Founding Members & Beyond</span>
+  <div class="card-grid">
+
+    <div class="card">
+      <span class="card-tag">Plant Medicine · Body · Online</span>
+      <div class="card-title">Wyld Herbs</div>
+      <div class="card-sub">Organic sea moss & plant therapeutics</div>
+      <div class="card-body">Ethically farmed sea moss grown in St. Lucia and Dominica. Scientifically backed, women-owned, Black-founded. A founding member of KIN-NECT.</div>
+      <span class="card-badge">✦ Founding Member</span>
+      <a class="card-link" href="#">Visit Wyld Herbs →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Creative · Spaces · Mind · London</span>
+      <div class="card-title">Stoke Newington Music School</div>
+      <div class="card-sub">Community music CIC, Hackney</div>
+      <div class="card-body">Building musical foundations that last a lifetime. Instruments, vocals, music technology — accessible, joyful, community-rooted.</div>
+      <span class="card-badge">✦ Founding Member</span>
+      <a class="card-link" href="#">Visit SNMS →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Soul · Body · Plant-Based · London</span>
+      <div class="card-title">Eat of Eden</div>
+      <div class="card-sub">Plant-based Caribbean food, London</div>
+      <div class="card-body">Caribbean flavours, plant-based principles. Jerk jackfruit, rice and peas, plantain. Soul food that loves you back.</div>
+      <a class="card-link" href="#">Visit →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Body · Mind · Online & UK</span>
+      <div class="card-title">Get Hemp</div>
+      <div class="card-sub">CBD & conscious wellness — ✦ KIN-NECT Partner</div>
+      <div class="card-body">Premium CBD products rooted in plant medicine tradition. Tinctures, balms, edibles. Conscious wellness from the earth.</div>
+      <span class="card-badge">✦ KIN-NECT Brand Partner</span>
+      <a class="card-link" href="#">Shop Get Hemp →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Mind · Soul · Creative · London</span>
+      <div class="card-title">ADHD Babes</div>
+      <div class="card-sub">Community for Black women with ADHD</div>
+      <div class="card-body">A community that finally gets it. Resources, connection, events and solidarity for Black women navigating ADHD.</div>
+      <a class="card-link" href="#">Visit →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Soul · Creative · Events · London</span>
+      <div class="card-title">Yes Gurl Magazine</div>
+      <div class="card-sub">Culture, community, women of colour</div>
+      <div class="card-body">The magazine that centres women of colour — their culture, their voices, their world. Events, editorial, community.</div>
+      <a class="card-link" href="#">Visit →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Soul · Creative · Music · London</span>
+      <div class="card-title">Orri Jam Sessions</div>
+      <div class="card-sub">Community music gatherings, London</div>
+      <div class="card-body">A space where musicians and music lovers meet. Live jams, community sessions, the kind of room that makes you feel something.</div>
+      <a class="card-link" href="#">Find out more →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Body · Soul · Social Impact · London</span>
+      <div class="card-title">Brixton Soup Kitchen CIC</div>
+      <div class="card-sub">Community food & mutual aid, Brixton</div>
+      <div class="card-body">Frontline community care. Hot food, warm space, no questions asked. What mutual aid actually looks like in practice.</div>
+      <a class="card-link" href="#">Support them →</a>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Mind · Soul · Research · London</span>
+      <div class="card-title">The Love Tank CIC</div>
+      <div class="card-sub">Health & wellbeing for underserved communities — ✦ KIN-NECT Partner</div>
+      <div class="card-body">Education, community building, research and events for communities mainstream healthcare consistently under-serves. Black Health Matters programme.</div>
+      <span class="card-badge">✦ KIN-NECT Community Partner</span>
+      <a class="card-link" href="#">Visit The Love Tank →</a>
+    </div>
+
+    <div class="card" style="opacity:0.5;border-style:dashed;">
+      <span class="card-tag">Spaces · Soul · Wellbeing · London</span>
+      <div class="card-title">Shai Space</div>
+      <div class="card-sub">Conscious community events, London</div>
+      <div class="card-body">Late night tea, community gatherings, a space that breathes. Where the conscious community finds each other.</div>
+      <span class="card-badge">Onboarding ✦</span>
+    </div>
+
+    <div class="card" style="opacity:0.5;border-style:dashed;">
+      <span class="card-tag">Body · Soul · Hair · London</span>
+      <div class="card-title">One Stop Dreadlock</div>
+      <div class="card-sub">Loctician, London</div>
+      <div class="card-body">The hands that know what they're doing. Natural hair, loc maintenance, a practitioner who treats your hair like it matters.</div>
+      <span class="card-badge">Onboarding ✦</span>
+    </div>
+
+    <div class="card" style="opacity:0.5;border-style:dashed;">
+      <span class="card-tag">Soul · Creative · Music · London</span>
+      <div class="card-title">Underground Barz</div>
+      <div class="card-sub">Open mic & creative space, London</div>
+      <div class="card-body">A room that holds up-and-coming artists. Open mic, cipher, community. Where voices get heard before the world catches up.</div>
+      <span class="card-badge">Onboarding ✦</span>
+    </div>
+
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- PRACTITIONERS -->
+  <span class="section-label" style="margin-top:2rem;display:block;">Practitioners</span>
+  <div class="card-grid">
+
+    <div class="pract-card">
+      <span class="card-tag">Mental Health · Holistic · London</span>
+      <div class="card-title">JF Therapy</div>
+      <div class="card-sub">Integrative therapist & holistic practitioner</div>
+      <div class="card-body">Working at the intersection of mind, body and spirit. Trauma-informed, culturally competent, rooted in genuine care. Freelance therapist at Self Space.</div>
+      <span class="card-badge">✦ Founding Practitioner</span>
+    </div>
+
+    <div class="pract-card">
+      <span class="card-tag">Movement · Body · Yoga · London</span>
+      <div class="card-title">Nathan — Yoga</div>
+      <div class="card-sub">Yoga teacher, community sessions</div>
+      <div class="card-body">Accessible, grounding yoga sessions for the community. Regular sessions weekly. WhatsApp group for bookings and updates.</div>
+      <span class="card-badge">✦ Founding Practitioner</span>
+    </div>
+
+    <div class="pract-card" style="opacity:0.5;border-style:dashed;">
+      <span class="card-tag">Soul · Intimacy · Somatic · Online & London</span>
+      <div class="card-title">Conscious Intimacy Coach</div>
+      <div class="card-sub">Somatic intimacy & sexual health — Divine Play</div>
+      <div class="card-body">Somatic coaching at the intersection of body, pleasure and healing. Safe, boundaried, trauma-aware practice.</div>
+      <span class="card-badge">Coming soon — Divine Play section ✦</span>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider" style="max-width:1200px;margin:2rem auto;">
+
+<!-- ═══════════════════════════════════ EDITORIAL ═══ -->
+<div id="editorial" class="page-header">
+  <span class="section-label">02 — The Editorial</span>
+  <h1 class="section-title">The <em>Editorial</em></h1>
+  <p>Not a content factory. A conscious feed — original writing, curated videos, reading and practice. Our taste, our framing, other people's work given a better home.</p>
+</div>
+
+<div class="section-wrap">
+
+  <!-- BRAND PARTNERSHIP NOTE -->
+  <div style="background:rgba(107,124,94,0.08);border:1px solid rgba(107,124,94,0.2);border-radius:10px;padding:1rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;gap:1rem;">
+    <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);">✦ In Partnership with Get Hemp</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.6;">Brand partnerships are carefully chosen — we only feature what we genuinely believe in.</span>
+  </div>
+
+  <!-- FROM THE TRIBE -->
+  <span class="section-label">✦ From the Tribe</span>
+
+  <div class="feed-item tribe" style="margin-bottom:1rem;">
+    <div class="tribe-bar"></div>
+    <div class="feed-meta">
+      <span class="feed-tag">✦ From the Tribe</span>
+      <span class="feed-date">20 March 2026 — Spring Equinox</span>
+    </div>
+    <div class="feed-title">The Wheel of the Year: What the Equinoxes & Solstices Actually Mean — and How to Move With Them</div>
+    <div class="feed-excerpt">Four times a year the Earth marks a change. Most of us were never taught this. We were handed a calendar that doesn't account for the seasons, doesn't honour the cycles, and certainly doesn't give us permission to rest.</div>
+    <div class="feed-footer">
+      <span class="feed-byline">By KIN-NECT</span>
+      <span class="feed-cats">Editorial · Seasonal · Ancestral Knowledge · Fire Horse · Year of 10</span>
+    </div>
+  </div>
+
+  <div class="feed-item tribe" style="margin-bottom:1rem;">
+    <div class="tribe-bar"></div>
+    <div class="feed-meta">
+      <span class="feed-tag">✦ From the Tribe</span>
+      <span class="feed-date">Summer Solstice 2026</span>
+    </div>
+    <div class="feed-title">Becoming a Guide: An Autoethnographic Journal on Accompanying a Friend's First Psychedelic Journey</div>
+    <div class="feed-excerpt">What does it mean to hold space for someone's mind opening? This is not a how-to. It's a record of what happened — before, during, after — and what it taught me about consciousness, trust and the sacred responsibility of presence.</div>
+    <div class="feed-footer">
+      <span class="feed-byline">By Jai — KIN-NECT Founder</span>
+      <span class="feed-cats">Research · Plant Medicine · Psychedelic · Journal</span>
+    </div>
+  </div>
+
+  <div class="feed-item tribe" style="margin-bottom:2rem;">
+    <div class="tribe-bar"></div>
+    <div class="feed-meta">
+      <span class="feed-tag">✦ From the Tribe</span>
+      <span class="feed-date">Autumn Equinox 2026</span>
+    </div>
+    <div class="feed-title">Conscious Cannabis: Reclamation, Ritual and the Community That Was Criminalised for It</div>
+    <div class="feed-excerpt">Cannabis has been in our ancestral toolkit for centuries. Its criminalisation was never about the plant — it was about the people who used it. This is a piece about reclaiming what was always ours.</div>
+    <div class="feed-footer">
+      <span class="feed-byline">By KIN-NECT</span>
+      <span class="feed-cats">Plant Medicine · History · Reclamation · Conscious Living</span>
+    </div>
+  </div>
+
+  <!-- WORDS FROM THE KIN -->
+  <span class="section-label" style="margin-top:2rem;display:block;">Words from the KIN</span>
+
+  <div class="feed-item" style="margin-bottom:1rem;">
+    <div class="feed-meta">
+      <span class="feed-tag">Words from the KIN</span>
+      <span class="feed-date">Featured Zine</span>
+    </div>
+    <div class="feed-title">Miah's Zine</div>
+    <div class="feed-excerpt">A raw, honest representation of the mixed Black perspective in London in the 2020s. Writing that doesn't ask permission to exist — and exactly the kind of work the library was built for.</div>
+    <div style="background:rgba(200,115,42,0.05);border-left:2px solid rgba(200,115,42,0.3);padding:0.8rem 1rem;margin:0.8rem 0;border-radius:0 6px 6px 0;">
+      <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);opacity:0.7;">Why this resonates with us</span>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.7;line-height:1.7;margin-top:0.3rem;">This zine documents an experience most of us know but rarely see written down so honestly. It belongs in the library and it belongs in the feed.</p>
+    </div>
+    <div class="feed-footer">
+      <span class="feed-byline">By Miah — Library Director, KIN-NECT</span>
+      <span class="feed-cats">Zine · Black Perspective · London · Culture</span>
+    </div>
+  </div>
+
+  <!-- IN PARTNERSHIP -->
+  <div class="feed-item" style="margin-bottom:1rem;border-color:rgba(107,124,94,0.3);">
+    <div class="feed-meta">
+      <span class="feed-tag" style="background:rgba(107,124,94,0.1);color:var(--sage);">✦ In Partnership</span>
+      <span class="feed-date">Get Hemp × KIN-NECT</span>
+    </div>
+    <div class="feed-title">The Plant Medicine Cabinet: What CBD Actually Does and How to Use It Consciously</div>
+    <div class="feed-excerpt">Not a sponsored article that talks around the point. A genuine guide to CBD — what the research says, what our community uses it for, and why the plant is worthy of your respect before it's worthy of your shelf.</div>
+    <div style="background:rgba(107,124,94,0.05);border-left:2px solid rgba(107,124,94,0.3);padding:0.8rem 1rem;margin:0.8rem 0;border-radius:0 6px 6px 0;">
+      <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);opacity:0.7;">Why this partnership</span>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.7;line-height:1.7;margin-top:0.3rem;">Get Hemp approached us because they believe in the same things we do. We said yes because we already believed in them. Community members get 20% off with code KINNECT.</p>
+    </div>
+    <div class="feed-footer">
+      <span class="feed-byline">KIN-NECT × Get Hemp</span>
+      <span class="feed-cats">Plant Medicine · CBD · Wellness · Partnership</span>
+    </div>
+  </div>
+
+  <!-- POC THERAPISTS PIECE -->
+  <div class="feed-item" style="margin-bottom:2rem;">
+    <div class="feed-meta">
+      <span class="feed-tag">Editorial</span>
+      <span class="feed-date">2026</span>
+    </div>
+    <div class="feed-title">Finding the Right Therapist: POC Practitioners in London You Should Know About</div>
+    <div class="feed-excerpt">Culturally competent therapy is not a luxury — it's a necessity. This is our guide to Black and brown therapists and practitioners in London who actually get it.</div>
+    <div class="feed-footer">
+      <span class="feed-byline">By KIN-NECT</span>
+      <span class="feed-cats">Mental Health · POC Practitioners · London · Wellbeing</span>
+    </div>
+  </div>
+
+</div>
+
+<hr class="section-divider" style="max-width:1200px;margin:2rem auto;">
+
+<!-- ═══════════════════════════════════ LIBRARY ═══ -->
+<div id="library" class="page-header">
+  <span class="section-label">03 — The Library</span>
+  <h1 class="section-title">The <em>Library</em></h1>
+  <p>A gathering around words, ideas and the literature that shapes us. Curated by Miah — Library Director, KIN-NECT.</p>
+</div>
+
+<div class="section-wrap">
+
+  <!-- FEATURED READ -->
+  <div style="background:rgba(200,115,42,0.04);border:1px solid rgba(200,115,42,0.2);border-radius:12px;padding:2rem;margin-bottom:2.5rem;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ochre),transparent);border-radius:12px 12px 0 0;"></div>
+    <span class="section-label">✦ Featured Read</span>
+    <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--cream);margin-bottom:0.3rem;">Miah's Zine</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.6;font-style:italic;margin-bottom:0.8rem;">Mixed Black perspectives in London, 2020s</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.8;line-height:1.8;">The first featured read belongs to the Library Director. Raw, honest, London-rooted. This is the kind of work the library was built for.</div>
+  </div>
+
+  <!-- BOOKS -->
+  <span class="section-label">📚 Books — Curated by Miah</span>
+  <div class="card-grid" style="margin-bottom:2.5rem;">
+    <div class="lib-card"><span class="lib-cat">Literature</span><div class="lib-title">I Know Why the Caged Bird Sings</div><div class="lib-author">Maya Angelou</div></div>
+    <div class="lib-card"><span class="lib-cat">Literature</span><div class="lib-title">James Baldwin — Selected Works</div><div class="lib-author">James Baldwin</div></div>
+    <div class="lib-card"><span class="lib-cat">Healing</span><div class="lib-title">Post Traumatic Slave Syndrome</div><div class="lib-author">Dr. Joy DeGruy</div></div>
+    <div class="lib-card"><span class="lib-cat">Consciousness</span><div class="lib-title">The Melanin Empath</div><div class="lib-author">Melanated Beings with Empath Energy</div></div>
+    <div class="lib-card"><span class="lib-cat">Fiction</span><div class="lib-title">Ugly</div><div class="lib-author">Curated by Miah</div></div>
+    <div class="lib-card"><span class="lib-cat">Research · Plant Medicine</span><div class="lib-title">Becoming a Guide</div><div class="lib-author">Jai — autoethnographic research journal</div></div>
+  </div>
+
+  <!-- FILMS -->
+  <span class="section-label">🎬 Films & Documentaries — Curated by Miah</span>
+  <div class="card-grid" style="margin-bottom:2.5rem;">
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">Moonlight</div><div class="lib-author">Barry Jenkins, 2016</div></div>
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">Daughters of the Dust</div><div class="lib-author">Julie Dash, 1991</div></div>
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">Fruitvale Station</div><div class="lib-author">Ryan Coogler, 2013</div></div>
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">Malcolm X</div><div class="lib-author">Spike Lee, 1992</div></div>
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">One Night in Miami</div><div class="lib-author">Regina King, 2020</div></div>
+    <div class="lib-card"><span class="lib-cat">Film</span><div class="lib-title">Fences</div><div class="lib-author">Denzel Washington, 2016</div></div>
+    <div class="lib-card"><span class="lib-cat">Documentary</span><div class="lib-title">13th</div><div class="lib-author">Ava DuVernay, 2016</div></div>
+    <div class="lib-card"><span class="lib-cat">Documentary</span><div class="lib-title">The Colour of Fear</div><div class="lib-author">Lee Mun Wah, 1994</div></div>
+    <div class="lib-card"><span class="lib-cat">Documentary</span><div class="lib-title">Dark Girls</div><div class="lib-author">Bill Duke, 2011</div></div>
+    <div class="lib-card"><span class="lib-cat">Series</span><div class="lib-title">Roots</div><div class="lib-author">1977 / 2016</div></div>
+  </div>
+
+  <!-- RESEARCH -->
+  <span class="section-label">🔍 Research</span>
+  <div class="card-grid" style="margin-bottom:2.5rem;">
+    <div class="lib-card">
+      <span class="lib-cat">Sacred Knowledge</span>
+      <div class="lib-title">Sacred Texts Archive</div>
+      <div class="lib-author">sacred-texts.com</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.6;margin-top:0.5rem;line-height:1.6;">Before any algorithm, this knowledge existed.</p>
+      <a class="card-link" href="https://sacred-texts.com" target="_blank">Explore →</a>
+    </div>
+    <div class="lib-card">
+      <span class="lib-cat">Natural Health</span>
+      <div class="lib-title">Earth Clinic</div>
+      <div class="lib-author">earthclinic.com</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.6;margin-top:0.5rem;line-height:1.6;">Natural remedies and ancestral health knowledge.</p>
+      <a class="card-link" href="https://earthclinic.com" target="_blank">Explore →</a>
+    </div>
+  </div>
+
+  <!-- BOOK SWAP -->
+  <div class="partner-card">
+    <span class="partner-label">✦ Book Swap — Fiksy Partnership</span>
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:0.3rem;">Fiksy's Book Swap</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.7;line-height:1.7;">Give a book, take a book. Fiksy's community book exchange is embedded in the KIN-NECT library as our founding swap partner. Browse what's available and add your own.</div>
+    <a class="card-link" href="#" style="color:var(--sage);">Browse the swap →</a>
+  </div>
+
+</div>
+
+<hr class="section-divider" style="max-width:1200px;margin:2rem auto;">
+
+<!-- ═══════════════════════════════════ FUTURE PILLARS ═══ -->
+<div id="pillars" class="page-header">
+  <span class="section-label">What's coming — Future Pillars</span>
+  <h1 class="section-title">The <em>Vision</em></h1>
+  <p>KIN-NECT is not finished. It's growing. These are the programmes, platforms and spaces being built next.</p>
+</div>
+
+<div class="section-wrap">
+  <div class="card-grid">
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 2-3</span>
+      <div class="card-title">🎙 KIN-NECT Podcast</div>
+      <div class="card-body">Audio extension of the platform. Conversations from the directory — practitioners, makers, community builders. Our editorial, in voice.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 2-3 · Research</span>
+      <div class="card-title">🍄 Psychedelic Research Programme</div>
+      <div class="card-body">Community-based participatory research into plant medicine and consciousness. Partnering with Imperial College, Beckley Foundation and MAPS. Funded through KIN-NECT CIC grants.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 2-3 · Research</span>
+      <div class="card-title">🌹 Psychosexual Research Strand</div>
+      <div class="card-body">Research into conscious sexuality and psychosexual wellbeing, for and by the community. Educational, therapeutic and culturally rooted.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 2-3 · Events</span>
+      <div class="card-title">🌿 KIN-NECT Retreats</div>
+      <div class="card-body">Conscious community retreats beginning in Jamaica. Plant medicine, ancestral wellness, cannabis-friendly spaces in legal destinations. Ticket income + grant-funded.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 3-4 · Social Impact</span>
+      <div class="card-title">🌱 Youth Prevention & Reform Programme</div>
+      <div class="card-body">Led by G. Working with young people at risk — arts, music, community, mentorship. Heavily grant-funded territory. KIN-NECT's most important social impact work.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 3-4 · Social Impact</span>
+      <div class="card-title">🏠 Homelessness Initiative</div>
+      <div class="card-body">Community-led support for people experiencing homelessness. Built alongside and partnered with frontline organisations like Brixton Soup Kitchen CIC.</div>
+    </div>
+
+    <div class="pillar-future">
+      <span class="card-tag">Year 3-5 · Capital Grant</span>
+      <div class="card-title">🏛 KIN-NECT Physical Space</div>
+      <div class="card-body">A community-owned building. Ground floor: library, events, practitioners. First floor: operations hub. Second floor: residency rooms. Attached: subsidised community apartments. Asset-locked — belongs to the collective permanently.</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <div class="footer-tagline" style="margin-top:0.5rem;">"A living archive of everything worth knowing, everyone worth finding, everywhere worth going — built by us, for us, belonging to all of us."</div>
+  <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.5;margin-top:1.5rem;">We build places where people belong. ✦</div>
+</footer>
+
+</body>
+</html>

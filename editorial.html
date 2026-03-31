@@ -1802,14 +1802,6 @@
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'video')">🎥 Video</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'practice')">🧘🏾 Practice</button>
       <button class="feed-filter-btn" onclick="setFeedFilter(this,'sound')">🎵 Sound</button>
-      <button class="feed-filter-btn" onclick="setFeedFilter(this,'resources')">🔍 Resources</button>
-    </div>
-
-    <!-- RESOURCES BOX -->
-    <div id="resources-section" style="display:none; margin-bottom:1.5rem;">
-      <div style="border:1px solid rgba(232,184,75,0.25); border-radius:10px; background:rgba(232,184,75,0.04); padding:1.5rem 1.8rem;">
-        <p style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-style:italic; line-height:1.7; margin-bottom:1.2rem;">Places to do your own research. Not posts — portals. Archives, databases and knowledge hubs the community should know about.</p>
-      </div>
     </div>
 
     <!-- FROM THE TRIBE BOX — only visible when tribe is active -->
@@ -1852,47 +1844,6 @@
           </div>
         </div>
       </div>
-
-      <!-- CURATED: SACRED TEXTS -->
-      <div class="feed-item" data-feed="resources">
-        <div class="feed-item-inner">
-          <div class="feed-meta-row">
-            <span class="feed-tag">📖 Research Resource</span>
-            <span class="feed-date">sacred-texts.com</span>
-          </div>
-          <h3 class="feed-title">Sacred Texts Archive</h3>
-          <p class="feed-excerpt">One of the largest free archives of sacred texts on the internet. Mythology, ancient wisdom, spiritual traditions from across the world.</p>
-          <div class="feed-resonate">
-            <span class="resonate-label">Why this resonates with us</span>
-            <p class="resonate-text">Before any book, before any algorithm, this knowledge existed. Free, vast, and waiting. Every conscious library should start here.</p>
-          </div>
-          <div class="feed-footer-row">
-            <a href="https://sacred-texts.com" target="_blank" class="feed-link">Explore →</a>
-            <span class="feed-cats">Sacred · Ancient · Knowledge</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CURATED: EARTH CLINIC -->
-      <div class="feed-item" data-feed="resources">
-        <div class="feed-item-inner">
-          <div class="feed-meta-row">
-            <span class="feed-tag">🌿 Research Resource</span>
-            <span class="feed-date">earthclinic.com</span>
-          </div>
-          <h3 class="feed-title">Earth Clinic</h3>
-          <p class="feed-excerpt">A community-built database of natural remedies, folk medicine and holistic health. Ancestral knowledge meeting lived experience.</p>
-          <div class="feed-resonate">
-            <span class="resonate-label">Why this resonates with us</span>
-            <p class="resonate-text">Our grandmothers knew things that never made it into textbooks. Earth Clinic is one of the few places that resource still lives — community-sourced, practical, real.</p>
-          </div>
-          <div class="feed-footer-row">
-            <a href="https://www.earthclinic.com" target="_blank" class="feed-link">Explore →</a>
-            <span class="feed-cats">Natural · Remedies · Body</span>
-          </div>
-        </div>
-      </div>
-
 
       <!-- STACK: HINDZ -->
       <div class="feed-item feed-stack" data-feed="video">
@@ -2057,12 +2008,11 @@
   function setFeedFilter(btn, tag) {
     document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    ['tribe-section','words-section','resources-section'].forEach(id => {
+    ['tribe-section','words-section'].forEach(id => {
       const el = document.getElementById(id); if (el) el.style.display = 'none';
     });
     document.getElementById('tribe-arrow').textContent = '▾';
     if (tag === 'words') { const ws = document.getElementById('words-section'); if (ws) ws.style.display = 'block'; }
-    if (tag === 'resources') { const rs = document.getElementById('resources-section'); if (rs) rs.style.display = 'block'; }
     document.querySelectorAll('.feed-item').forEach(item => {
       const f = item.dataset.feed || '';
       const tags = f.split(' ');
@@ -2081,7 +2031,7 @@
     } else {
       document.querySelectorAll('.feed-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active'); arrow.textContent = '▴'; section.style.display = 'block';
-      ['words-section','resources-section'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+      ['words-section'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
       document.querySelectorAll('.feed-item').forEach(item => {
         const f = item.dataset.feed || '';
         const tags = f.split(' ');

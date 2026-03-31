@@ -1907,24 +1907,25 @@
     </div>
     <div class="list-form-wrap">
       <div class="list-form">
+        <p style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:var(--blush);opacity:0.4;margin-bottom:1.2rem;">Fields marked <span style="color:var(--ochre);">*</span> are required</p>
         <div class="form-group">
-          <label>Your name</label>
-          <input type="text" placeholder="What do we call you?" id="f-name">
+          <label>Your name <span style="color:var(--ochre);">*</span></label>
+          <input type="text" placeholder="What do we call you?" id="f-name" required>
         </div>
         <div class="form-group">
-          <label>Your email</label>
-          <input type="email" placeholder="your@email.com" id="f-email">
+          <label>Your email <span style="color:var(--ochre);">*</span></label>
+          <input type="email" placeholder="your@email.com" id="f-email" required>
         </div>
         <div class="form-group">
-          <label>What do you do / what's your space?</label>
-          <input type="text" placeholder="e.g. Holistic healer, crystal shop, reiki, yoga teacher..." id="f-what">
+          <label>What do you do / what's your space? <span style="color:var(--ochre);">*</span></label>
+          <input type="text" placeholder="e.g. Holistic healer, crystal shop, reiki, yoga teacher..." id="f-what" required>
         </div>
         <div class="form-group">
-          <label>Where are you based?</label>
+          <label>Where are you based? <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:var(--blush);opacity:0.5;font-weight:400;"> — optional</span></label>
           <input type="text" placeholder="City / online / both" id="f-location">
         </div>
         <div class="form-group">
-          <label>A link to your work (optional)</label>
+          <label>A link to your work <span style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:var(--blush);opacity:0.5;font-weight:400;"> — optional</span></label>
           <input type="text" placeholder="Instagram, website, anything" id="f-link">
         </div>
         <button class="list-submit" onclick="handleListSubmit()"><span>Join the KIN ✦</span></button>

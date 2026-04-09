@@ -1805,7 +1805,7 @@
   <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
 
     <div class="hero-cta">
-    <a href="#directory" class="btn-secondary"  style="border-color:var(--ochre); color:var(--ochre);"><span>Explore the Directory</span></a>
+    <a href="directory.html" class="btn-secondary"  style="border-color:var(--ochre); color:var(--ochre);"><span>Explore the Directory</span></a>
     <a href="#list-with-us" class="btn-primary" onclick="event.preventDefault();document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})"><span>Join the KIN</span></a>
   </div>
 
@@ -1856,20 +1856,20 @@
       <span class="pillar-tag">Read · Gather · Grow</span>
     </a>
 
-    <a href="#realm" class="pillar-card">
+    <a href="about.html" class="pillar-card">
       <span class="pillar-number">05</span>
-      <span class="pillar-icon">🛍</span>
-      <div class="pillar-name">Realm Marketplace</div>
-      <p class="pillar-desc">The conscious department store. DANKH by Realm. The Utopia by Realm. Built by the founders, open to the community. More stores coming.</p>
-      <span class="pillar-tag">Shop · Support · Sustain</span>
+      <span class="pillar-icon">🌍</span>
+      <div class="pillar-name">Conscious Travel</div>
+      <p class="pillar-desc">Where to go to expand consciousness, heal your body and be in community. KIN-NECT scouts destinations — Glastonbury, Amsterdam, Jamaica and beyond.</p>
+      <span class="pillar-tag">Explore · Discover · Travel</span>
     </a>
 
     <a href="#list-with-us" class="pillar-card">
       <span class="pillar-number">06</span>
-      <span class="pillar-icon">💌</span>
-      <div class="pillar-name">Newsletter</div>
-      <p class="pillar-desc">The community glue. Curated, warm, regular — the thing that keeps us connected between everything else.</p>
-      <span class="pillar-tag">Connect · Share · Nourish</span>
+      <span class="pillar-icon">✦</span>
+      <div class="pillar-name">Join the KIN</div>
+      <p class="pillar-desc">Get listed. Get connected. Whether you're a business, a practitioner, a maker or a creative — if you elevate, you belong here.</p>
+      <span class="pillar-tag">Connect · Belong · Build</span>
     </a>
   </div>
 </section>
@@ -2011,5 +2011,101 @@
     } catch(e) { msg.style.color = '#A8462A'; msg.textContent = 'Something went wrong.'; btn.disabled = false; btn.querySelector('span').textContent = 'Join the KIN ✦'; }
   }
 </script>
+<!-- SUBSCRIPTION POPUP -->
+<div id="kin-popup" style="display:none;position:fixed;inset:0;background:rgba(13,10,6,0.85);z-index:1000;align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="background:#1A0E06;border:1px solid rgba(200,115,42,0.25);border-radius:16px;max-width:480px;width:100%;padding:2.5rem;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ochre),rgba(200,115,42,0.2),transparent);border-radius:16px 16px 0 0;"></div>
+    <button onclick="closePopup()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--blush);opacity:0.4;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.7rem;">✕</button>
+
+    <span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ochre);opacity:0.7;display:block;margin-bottom:0.8rem;">Stay KIN-nected</span>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin-bottom:0.5rem;">Get updates from <em style="color:var(--ochre);font-style:italic;">the Collective</em></h3>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.7;line-height:1.7;margin-bottom:1.5rem;">New listings, posts, events and library additions — delivered to your inbox. Choose what you want to hear about.</p>
+
+    <div style="margin-bottom:1.2rem;">
+      <input type="email" id="popup-email" placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(200,115,42,0.2);border-radius:8px;padding:0.8rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;margin-bottom:1rem;">
+
+      <p style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.8rem;">I want updates about:</p>
+
+      <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.2rem;">
+        <label style="display:flex;align-items:center;gap:0.8rem;cursor:pointer;">
+          <input type="checkbox" id="pref-directory" checked style="accent-color:var(--ochre);width:14px;height:14px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.8;">🌿 New directory listings</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:0.8rem;cursor:pointer;">
+          <input type="checkbox" id="pref-editorial" checked style="accent-color:var(--ochre);width:14px;height:14px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.8;">✦ New editorial posts</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:0.8rem;cursor:pointer;">
+          <input type="checkbox" id="pref-events" checked style="accent-color:var(--ochre);width:14px;height:14px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.8;">🌕 Events & moon cycles</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:0.8rem;cursor:pointer;">
+          <input type="checkbox" id="pref-library" checked style="accent-color:var(--ochre);width:14px;height:14px;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--blush);opacity:0.8;">📚 Library & new reads</span>
+        </label>
+      </div>
+    </div>
+
+    <button onclick="handlePopupSubmit()" style="width:100%;background:var(--ochre);color:var(--night);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.9rem;border:none;border-radius:25px;cursor:pointer;font-weight:700;">Stay KIN-nected ✦</button>
+    <p id="popup-msg" style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;text-align:center;margin-top:0.8rem;min-height:1rem;"></p>
+    <p style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.1em;color:var(--blush);opacity:0.3;text-align:center;margin-top:0.8rem;text-transform:uppercase;">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<script>
+  // Show popup after 30 seconds if not already dismissed
+  function initPopup() {
+    if (localStorage.getItem('kin-popup-dismissed')) return;
+    setTimeout(() => {
+      const popup = document.getElementById('kin-popup');
+      popup.style.display = 'flex';
+    }, 30000);
+  }
+
+  function closePopup() {
+    document.getElementById('kin-popup').style.display = 'none';
+    localStorage.setItem('kin-popup-dismissed', 'true');
+  }
+
+  async function handlePopupSubmit() {
+    const email = document.getElementById('popup-email').value.trim();
+    const msg = document.getElementById('popup-msg');
+    if (!email || !email.includes('@')) {
+      msg.style.color = '#C8732A';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    const prefs = [];
+    if (document.getElementById('pref-directory').checked) prefs.push('directory');
+    if (document.getElementById('pref-editorial').checked) prefs.push('editorial');
+    if (document.getElementById('pref-events').checked) prefs.push('events');
+    if (document.getElementById('pref-library').checked) prefs.push('library');
+
+    try {
+      const response = await fetch('https://formspree.io/f/xeerzwwv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email, type: 'subscription', preferences: prefs.join(', ') })
+      });
+      if (response.ok) {
+        msg.style.color = '#6B7C5E';
+        msg.textContent = '✦ Welcome to the KIN.';
+        document.getElementById('popup-email').value = '';
+        setTimeout(() => closePopup(), 2000);
+      } else { throw new Error(); }
+    } catch(e) {
+      msg.style.color = '#C8732A';
+      msg.textContent = 'Something went wrong — please try again.';
+    }
+  }
+
+  // Close on backdrop click
+  document.getElementById('kin-popup').addEventListener('click', function(e) {
+    if (e.target === this) closePopup();
+  });
+
+  initPopup();
+</script>
+
 </body>
 </html>

@@ -106,7 +106,42 @@
       .nav-links { display:none; }
       .page-header, .section-wrap { padding:4rem 1.5rem 2rem; }
     }
-  </style>
+    body.light-mode {
+    --night: #FAF3E4;
+    --cream: #1A0E06;
+    --blush: #3A2010;
+    --gold: #B8621A;
+    --ochre: #B8621A;
+    --sage: #3A5830;
+    background: #FAF3E4;
+  }
+  body.light-mode nav { background: rgba(250,243,228,0.97); }
+  body.light-mode .card, body.light-mode .pillar-future { background: #FDF8EE; border-color: rgba(184,98,26,0.15); }
+  body.light-mode footer { background: #F0E8D4; }
+</style>
+
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const btn = document.getElementById('theme-btn');
+    if (body.classList.contains('light-mode')) {
+      body.classList.remove('light-mode');
+      btn.textContent = '☀ Light';
+      localStorage.setItem('kin-theme','dark');
+    } else {
+      body.classList.add('light-mode');
+      btn.textContent = '☾ Dark';
+      localStorage.setItem('kin-theme','light');
+    }
+  }
+  if (localStorage.getItem('kin-theme') === 'light') {
+    document.body.classList.add('light-mode');
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('theme-btn');
+      if (btn) btn.textContent = '☾ Dark';
+    });
+  }
+</script>
 </head>
 <body>
 
@@ -122,7 +157,9 @@
     <li><a href="#events">Events</a></li>
     <li><a href="#pillars">Programmes</a></li>
     <li><a href="#research">Research</a></li>
+    <li><a href="#divine-play">Divine Play</a></li>
   </ul>
+  <button onclick="toggleTheme()" id="theme-btn" style="background:none;border:1px solid rgba(200,115,42,0.3);border-radius:20px;padding:0.3rem 0.8rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.7;margin-left:1rem;">☀ Light</button>
   <a class="nav-cta" href="#">Join the KIN ✦</a>
 </nav>
 
@@ -858,6 +895,52 @@
       <span class="card-tag">Community Impact · Year 1-2</span>
       <div class="card-title">📊 Engagement & Impact Tracking</div>
       <div class="card-body" style="line-height:1.8;">From day one, KIN-NECT tracks what matters — directory listings, community visits, events attendance, editorial reach, social engagement. This evidence builds the case for grant funding and demonstrates the platform's impact to partners and investors.</div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-divider" style="max-width:1200px;margin:2rem auto;">
+
+<!-- ═══════════════════════════════════ DIVINE PLAY ═══ -->
+<div id="divine-play" class="page-header">
+  <span class="section-label">07 — Divine Play</span>
+  <h1 class="section-title">Divine <em>Play</em></h1>
+  <p style="max-width:700px;line-height:1.8;">Sexual health, intimacy and conscious relating — approached with the same care, rigour and cultural rootedness as everything else on this platform. Not titillation. Not shame. Just honesty about a fundamental part of human experience that our community deserves space to explore.</p>
+</div>
+
+<div class="section-wrap">
+
+  <div style="background:rgba(200,115,42,0.04);border:1px solid rgba(200,115,42,0.12);border-radius:12px;padding:2rem;margin-bottom:2.5rem;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--cream);line-height:1.9;font-style:italic;margin-bottom:0;">Sexual health is not separate from holistic health. Conscious relating is not separate from community. Divine Play is KIN-NECT's dedicated space for the conversations our community needs — rooted in therapy, research and lived experience.</p>
+  </div>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <span class="card-tag">Directory · Live — 18+ section</span>
+      <div class="card-title">Conscious Intimacy Practitioners</div>
+      <div class="card-body" style="line-height:1.8;">A curated directory of somatic intimacy coaches, psychosexual therapists, sex-positive counsellors and conscious relating practitioners. Vetted, culturally aware, trauma-informed. The practitioners our community actually needs access to.</div>
+      <span class="card-badge">✦ Coming — Year 2</span>
+    </div>
+
+    <div class="card">
+      <span class="card-tag">Editorial · Sexual Health</span>
+      <div class="card-title">The Conversations We're Not Having</div>
+      <div class="card-body" style="line-height:1.8;">Editorial content on sexual health, pleasure, conscious relating, reproductive health and the intersection of culture and intimacy. Written by practitioners and community voices who know this territory. No shame, no sensationalism — just honest, grounded writing.</div>
+      <span class="card-badge">✦ Coming — Year 2</span>
+    </div>
+
+    <div class="card pillar-future">
+      <span class="card-tag">Research · Year 2-3</span>
+      <div class="card-title">🌹 Psychosexual Wellbeing Research</div>
+      <div class="card-body" style="line-height:1.8;">Community-based research into psychosexual wellbeing — for and by the community. Educational, therapeutic and culturally rooted. Built on Jai's foundation as an integrative counsellor working toward psychosexual qualification.</div>
+    </div>
+
+    <div class="card pillar-future">
+      <span class="card-tag">Events · Year 2-3</span>
+      <div class="card-title">Divine Play Gatherings</div>
+      <div class="card-body" style="line-height:1.8;">Conscious, boundaried spaces for exploring intimacy, pleasure and relating. Workshops, conversations, somatic experiences — for people who want to engage with these themes thoughtfully and safely.</div>
     </div>
 
   </div>

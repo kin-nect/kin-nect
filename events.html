@@ -1775,7 +1775,110 @@
   .social-link { color: var(--blush); opacity: 0.5; transition: opacity 0.2s, color 0.2s; display: flex; align-items: center; }
   .social-link:hover { opacity: 1; color: var(--gold); }
   .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; color: var(--blush); opacity: 0.3; margin-top: 1.2rem; text-transform: uppercase; }
-  </style>
+  
+  /* LIGHT MODE */
+  body.light-mode {
+    --night: #FAF3E4;
+    --cream: #1A0E06;
+    --blush: #3A2010;
+    --gold: #B8621A;
+    --ochre: #B8621A;
+    --sage: #3A5830;
+    background: #FAF3E4;
+  }
+  body.light-mode nav {
+    background: rgba(250,243,228,0.97);
+  }
+  body.light-mode nav::before {
+    background: none;
+  }
+  body.light-mode .hero {
+    background: #FAF3E4;
+  }
+  body.light-mode .hero-orbit {
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode section,
+  body.light-mode .section-wrap,
+  body.light-mode .mockup-section,
+  body.light-mode .mockup-inner {
+    background: #FAF3E4;
+  }
+  body.light-mode .card,
+  body.light-mode .dir-card,
+  body.light-mode .feed-item,
+  body.light-mode .pract-card,
+  body.light-mode .lib-card,
+  body.light-mode .cal-event {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.15);
+    color: #1A0E06;
+  }
+  body.light-mode .feed-item { background: #FDF8EE; }
+  body.light-mode .dir-name,
+  body.light-mode .feed-title,
+  body.light-mode .lib-card-title,
+  body.light-mode h1, body.light-mode h2,
+  body.light-mode h3, body.light-mode h4 {
+    color: #1A0E06;
+  }
+  body.light-mode p,
+  body.light-mode .dir-desc,
+  body.light-mode .feed-excerpt {
+    color: #3A2010;
+  }
+  body.light-mode footer {
+    background: #F0E8D4;
+    border-top: 1px solid rgba(184,98,26,0.15);
+  }
+  body.light-mode .filter-btn {
+    background: #F0E8D4;
+    border-color: rgba(184,98,26,0.2);
+    color: #3A2010;
+  }
+  body.light-mode .filter-btn.active {
+    background: var(--ochre);
+    color: #FAF3E4;
+  }
+  body.light-mode .list-with-us,
+  body.light-mode .list-form-wrap {
+    background: #F0E8D4;
+  }
+  body.light-mode .list-form {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.15);
+  }
+  body.light-mode input,
+  body.light-mode textarea,
+  body.light-mode select {
+    background: #FAF3E4;
+    border-color: rgba(184,98,26,0.2);
+    color: #1A0E06;
+  }
+  body.light-mode .kin-popup > div,
+  body.light-mode #kin-popup > div,
+  body.light-mode .save-modal-inner {
+    background: #FDF8EE;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid rgba(200,115,42,0.3);
+    border-radius: 20px;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.7;
+    transition: opacity 0.2s, border-color 0.2s;
+    margin-left: 1rem;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { opacity: 1; border-color: rgba(200,115,42,0.6); }
+</style>
 </head>
 <body>
 <nav>
@@ -1788,6 +1891,7 @@
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
     <li><a href="index.html#list-with-us" style="color:var(--gold);">Join the KIN</a></li>
   </ul>
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -2203,6 +2307,30 @@
   const popupEl = document.getElementById('kin-popup');
   if (popupEl) popupEl.addEventListener('click', function(e) { if(e.target===this) closePopup(); });
   initPopup();
+</script>
+
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const btn = document.getElementById('theme-btn');
+    if (body.classList.contains('light-mode')) {
+      body.classList.remove('light-mode');
+      btn.textContent = '☀ Light';
+      localStorage.setItem('kin-theme', 'dark');
+    } else {
+      body.classList.add('light-mode');
+      btn.textContent = '☾ Dark';
+      localStorage.setItem('kin-theme', 'light');
+    }
+  }
+  // Apply saved theme on load
+  if (localStorage.getItem('kin-theme') === 'light') {
+    document.body.classList.add('light-mode');
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('theme-btn');
+      if (btn) btn.textContent = '☾ Dark';
+    });
+  }
 </script>
 </body>
 </html>

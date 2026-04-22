@@ -1778,19 +1778,88 @@
   
   /* LIGHT MODE */
   body.light-mode {
-    --night: #F5EDD8;
-    --cream: #2C1A0E;
-    --blush: #4A2E1A;
-    --gold: #C8732A;
-    --ochre: #C8732A;
-    --sage: #4A6340;
+    --night: #FAF3E4;
+    --cream: #1A0E06;
+    --blush: #3A2010;
+    --gold: #B8621A;
+    --ochre: #B8621A;
+    --sage: #3A5830;
+    background: #FAF3E4;
+  }
+  body.light-mode nav {
+    background: rgba(250,243,228,0.97);
   }
   body.light-mode nav::before {
-    background: linear-gradient(to bottom, rgba(245,237,216,0.95) 0%, transparent 100%);
+    background: none;
   }
-  body.light-mode .hero { background: var(--night); }
-  body.light-mode .hero-orbit { border-color: rgba(200,115,42,0.15); }
-  body.light-mode footer { background: rgba(200,115,42,0.05); border-top: 1px solid rgba(200,115,42,0.15); }
+  body.light-mode .hero {
+    background: #FAF3E4;
+  }
+  body.light-mode .hero-orbit {
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode section,
+  body.light-mode .section-wrap,
+  body.light-mode .mockup-section,
+  body.light-mode .mockup-inner {
+    background: #FAF3E4;
+  }
+  body.light-mode .card,
+  body.light-mode .dir-card,
+  body.light-mode .feed-item,
+  body.light-mode .pract-card,
+  body.light-mode .lib-card,
+  body.light-mode .cal-event {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.15);
+    color: #1A0E06;
+  }
+  body.light-mode .feed-item { background: #FDF8EE; }
+  body.light-mode .dir-name,
+  body.light-mode .feed-title,
+  body.light-mode .lib-card-title,
+  body.light-mode h1, body.light-mode h2,
+  body.light-mode h3, body.light-mode h4 {
+    color: #1A0E06;
+  }
+  body.light-mode p,
+  body.light-mode .dir-desc,
+  body.light-mode .feed-excerpt {
+    color: #3A2010;
+  }
+  body.light-mode footer {
+    background: #F0E8D4;
+    border-top: 1px solid rgba(184,98,26,0.15);
+  }
+  body.light-mode .filter-btn {
+    background: #F0E8D4;
+    border-color: rgba(184,98,26,0.2);
+    color: #3A2010;
+  }
+  body.light-mode .filter-btn.active {
+    background: var(--ochre);
+    color: #FAF3E4;
+  }
+  body.light-mode .list-with-us,
+  body.light-mode .list-form-wrap {
+    background: #F0E8D4;
+  }
+  body.light-mode .list-form {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.15);
+  }
+  body.light-mode input,
+  body.light-mode textarea,
+  body.light-mode select {
+    background: #FAF3E4;
+    border-color: rgba(184,98,26,0.2);
+    color: #1A0E06;
+  }
+  body.light-mode .kin-popup > div,
+  body.light-mode #kin-popup > div,
+  body.light-mode .save-modal-inner {
+    background: #FDF8EE;
+  }
 
   .theme-toggle {
     background: none;

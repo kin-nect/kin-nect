@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIN-NECT — The Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ochre: #C8732A;
+    --gold: #C8732A;
+    --cream: #F5EDD8;
+    --sage: #6B7C5E;
+    --blush: #E8C9A0;
+    --night: #0D0A06;
+    --dark: #1A0E06;
+    --border: rgba(200,115,42,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .nav-links a { color: var(--blush); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 8rem 3rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .page-title em { color: var(--ochre); font-style: italic; }
+
+  .page-desc {
+    font-size: 1.1rem;
+    color: var(--blush);
+    opacity: 0.7;
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  /* TABS */
+  .tabs {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background: none;
+    color: var(--blush);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    background: var(--ochre);
+    color: var(--night);
+    border-color: var(--ochre);
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  .tab:hover:not(.active) { opacity: 1; border-color: rgba(200,115,42,0.4); }
+
+  /* FILTERS */
+  .filters {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 3rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.4;
+    margin-right: 0.5rem;
+  }
+
+  .filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: none;
+    color: var(--blush);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    border-color: var(--ochre);
+    color: var(--ochre);
+    opacity: 1;
+  }
+
+  /* GRID */
+  .grid-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 3rem 6rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(200,115,42,0.35);
+  }
+
+  .product-img {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: rgba(200,115,42,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(transparent, rgba(26,14,6,0.6));
+  }
+
+  .product-vendor {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+  }
+
+  .product-body { padding: 1rem 1.2rem 1.2rem; }
+
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin: 0.3rem 0 0.5rem;
+    line-height: 1.3;
+  }
+
+  .product-desc {
+    font-size: 0.85rem;
+    color: var(--blush);
+    opacity: 0.6;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .btn-add {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background: var(--ochre);
+    color: var(--night);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+
+  .btn-add:hover { background: var(--gold); }
+
+  .product-badge {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.4rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    background: rgba(13,10,6,0.85);
+    border: 1px solid rgba(200,115,42,0.3);
+    border-radius: 10px;
+    color: var(--ochre);
+  }
+
+  /* EVENT CARD */
+  .event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .event-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ochre), transparent);
+  }
+
+  .event-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(200,115,42,0.35);
+  }
+
+  .event-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .event-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+
+  .event-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--blush);
+    opacity: 0.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .event-desc {
+    font-size: 0.9rem;
+    color: var(--blush);
+    opacity: 0.65;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .event-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .event-price {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .btn-ticket {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background: var(--ochre);
+    color: var(--night);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+
+  .btn-ticket:hover { background: var(--gold); }
+
+  .btn-waitlist {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: var(--ochre);
+    border: 1px solid rgba(200,115,42,0.4);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-waitlist:hover { border-color: var(--ochre); }
+
+  /* VENDOR CTA */
+  .vendor-cta {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 3rem;
+  }
+
+  .vendor-box {
+    background: rgba(200,115,42,0.04);
+    border: 1px solid rgba(200,115,42,0.15);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .vendor-box-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .vendor-box-text p {
+    font-size: 1rem;
+    color: var(--blush);
+    opacity: 0.65;
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  .btn-vendor {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.8rem;
+    background: transparent;
+    color: var(--ochre);
+    border: 1px solid rgba(200,115,42,0.4);
+    border-radius: 25px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-vendor:hover { border-color: var(--ochre); background: rgba(200,115,42,0.08); }
+
+  /* SECTION DIVIDER */
+  .section-head {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3rem 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .section-head span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.4;
+  }
+
+  /* HIDDEN */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  .footer-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.3;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-header, .tabs, .filters, .grid-wrap, .vendor-cta, .section-head { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="#" class="active">Marketplace</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <span class="section-label">✦ The Marketplace</span>
+  <h1 class="page-title">Shop <em>Conscious.</em><br>Buy <em>Community.</em></h1>
+  <p class="page-desc">A curated marketplace of conscious products and experiences. Every vendor is vetted. Every product belongs here. The community always shops free — vendors keep 85% of every sale.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab(this, 'products')">🌿 Products</button>
+  <button class="tab" onclick="switchTab(this, 'events')">🎟 Events & Experiences</button>
+</div>
+
+<!-- PRODUCTS PANEL -->
+<div id="products" class="panel active">
+
+  <div class="filters">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" onclick="setFilter(this, 'all')">All</button>
+    <button class="filter-btn" onclick="setFilter(this, 'plant')">🌿 Plant Medicine</button>
+    <button class="filter-btn" onclick="setFilter(this, 'body')">💆🏾 Body</button>
+    <button class="filter-btn" onclick="setFilter(this, 'movement')">🧘🏾 Movement</button>
+    <button class="filter-btn" onclick="setFilter(this, 'merch')">✦ Merch</button>
+    <button class="filter-btn" onclick="setFilter(this, 'digital')">📄 Digital</button>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="product-grid">
+
+      <div class="product-card" data-cat="plant">
+        <div class="product-img">🌿</div>
+        <span class="product-badge">✦ Founding Vendor</span>
+        <div class="product-body">
+          <span class="product-vendor">Wyld Herbs</span>
+          <div class="product-name">Raw Irish Sea Moss Gel</div>
+          <div class="product-desc">Wildcrafted, raw, unprocessed. 92 minerals. Ships within 3 days.</div>
+          <div class="product-footer">
+            <span class="product-price">£24.99</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="plant">
+        <div class="product-img">🪬</div>
+        <div class="product-body">
+          <span class="product-vendor">Smudge A Lot</span>
+          <div class="product-name">White Sage Smudge Bundle</div>
+          <div class="product-desc">Ceremonial grade. Hand-tied. Ethically sourced. For clearing, cleansing and intention setting.</div>
+          <div class="product-footer">
+            <span class="product-price">£12.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="merch">
+        <div class="product-img">🃏</div>
+        <div class="product-body">
+          <span class="product-vendor">Hindz — HINDZSIGHT</span>
+          <div class="product-name">Affirmation Card Deck</div>
+          <div class="product-desc">52 cards rooted in Black consciousness and daily intention. Pull one every morning.</div>
+          <div class="product-footer">
+            <span class="product-price">£22.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="body">
+        <div class="product-img">🌊</div>
+        <div class="product-body">
+          <span class="product-vendor">Soul Cap</span>
+          <div class="product-name">Swimming Cap for Natural Hair</div>
+          <div class="product-desc">Finally — a cap that fits. Designed for afros, locs, braids and thick hair.</div>
+          <div class="product-footer">
+            <span class="product-price">£18.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="digital">
+        <div class="product-img" style="background:rgba(107,124,94,0.08);">📄</div>
+        <span class="product-badge">DANKH</span>
+        <div class="product-body">
+          <span class="product-vendor">DANKH</span>
+          <div class="product-name">The Conscious Smoke Guide</div>
+          <div class="product-desc">Herbs, blends, intentions. Plant-based smoking as ritual. PDF download.</div>
+          <div class="product-footer">
+            <span class="product-price">£15.00</span>
+            <button class="btn-add">Download ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="movement">
+        <div class="product-img" style="background:rgba(107,124,94,0.08);">🧘🏾</div>
+        <span class="product-badge">DANKH</span>
+        <div class="product-body">
+          <span class="product-vendor">DANKH</span>
+          <div class="product-name">Conscious Movement Kit</div>
+          <div class="product-desc">Yoga mat + blocks. Ethically made, sustainably sourced. Your practice deserves the right tools.</div>
+          <div class="product-footer">
+            <span class="product-price">£45.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="merch">
+        <div class="product-img">👜</div>
+        <span class="product-badge">✦ KIN-NECT</span>
+        <div class="product-body">
+          <span class="product-vendor">KIN-NECT</span>
+          <div class="product-name">KIN-NECT Tote Bag</div>
+          <div class="product-desc">Conscious community on your shoulder. Limited first run. Designed by Phill.</div>
+          <div class="product-footer">
+            <span class="product-price">£20.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="merch">
+        <div class="product-img">☕</div>
+        <span class="product-badge">DANKH</span>
+        <div class="product-body">
+          <span class="product-vendor">DANKH</span>
+          <div class="product-name">Wake & Bake Mug</div>
+          <div class="product-desc">Morning rituals deserve the right vessel. DANKH ceramics — conscious living, daily.</div>
+          <div class="product-footer">
+            <span class="product-price">£22.00</span>
+            <button class="btn-add">Add to basket ✦</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- EVENTS PANEL -->
+<div id="events" class="panel">
+
+  <div class="filters">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" onclick="setFilter(this, 'all')">All</button>
+    <button class="filter-btn" onclick="setFilter(this, 'kin')">✦ KIN-NECT</button>
+    <button class="filter-btn" onclick="setFilter(this, 'community')">🌍 Community</button>
+    <button class="filter-btn" onclick="setFilter(this, 'spiritual')">🌕 Spiritual</button>
+    <button class="filter-btn" onclick="setFilter(this, 'workshop')">✍🏾 Workshops</button>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="event-grid">
+
+      <div class="event-card" data-cat="kin">
+        <span class="event-type">✦ KIN-NECT · March 20th 2027 · London</span>
+        <div class="event-name">Spring Equinox Gathering</div>
+        <div class="event-meta">Shai Space, London · One year anniversary</div>
+        <div class="event-desc">The first KIN-NECT community gathering. Food by Chef Adoniz, poetry and music from Underground Barz, practitioners from the directory. The community meets in person for the first time.</div>
+        <div class="event-footer">
+          <span class="event-price">£15 — £25</span>
+          <button class="btn-ticket">Get tickets ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="kin community">
+        <span class="event-type">🍽 DANKH · Supper Club · Legal City TBC</span>
+        <div class="event-name">Medicated Moments</div>
+        <div class="event-meta">Location TBC · Cannabis-friendly</div>
+        <div class="event-desc">A conscious supper club. Intentional. Communal. The intersection of plant medicine, food and togetherness. In a legal city, on our terms.</div>
+        <div class="event-footer">
+          <span class="event-price">£65 — £85</span>
+          <button class="btn-waitlist">Join waitlist ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="community">
+        <span class="event-type">🎵 Orri · Weekly · London</span>
+        <div class="event-name">Orri Jam Sessions</div>
+        <div class="event-meta">Colour Factory / Jumbi · Twice weekly</div>
+        <div class="event-desc">Live jams, improvisation, community. The kind of room that makes you feel something. Musicians and music lovers welcome.</div>
+        <div class="event-footer">
+          <span class="event-price">Free — £10</span>
+          <button class="btn-ticket">Book now ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="community">
+        <span class="event-type">🍵 Shai Space · Recurring · London</span>
+        <div class="event-name">Late Night Tea</div>
+        <div class="event-meta">Shai Space, London · Recurring</div>
+        <div class="event-desc">Late night tea, slow conversations, conscious community. A regular gathering for people who need somewhere to land.</div>
+        <div class="event-footer">
+          <span class="event-price">Free</span>
+          <button class="btn-ticket">Find out more ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="workshop">
+        <span class="event-type">✍🏾 First Born · Workshop · London</span>
+        <div class="event-name">Zine Making Workshop</div>
+        <div class="event-meta">London · Various dates</div>
+        <div class="event-desc">Cut, paste, create. Zine making as community practice — telling your story in your own format, on your own terms.</div>
+        <div class="event-footer">
+          <span class="event-price">£20 — £35</span>
+          <button class="btn-ticket">Book now ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="community">
+        <span class="event-type">🎤 Underground Barz · Poetry · London</span>
+        <div class="event-name">Poetry Night</div>
+        <div class="event-meta">London · Monthly</div>
+        <div class="event-desc">Words that hit different. Open mic poetry — community voices, no filter, no permission needed.</div>
+        <div class="event-footer">
+          <span class="event-price">Free — £10</span>
+          <button class="btn-ticket">Book now ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="spiritual">
+        <span class="event-type">🌕 Spiritual · June 2026</span>
+        <div class="event-name">Summer Solstice</div>
+        <div class="event-meta">21 June 2026</div>
+        <div class="event-desc">The longest day. Peak energy, peak light. Set your intentions for the second half of the year. KIN-NECT editorial published on this date.</div>
+        <div class="event-footer">
+          <span class="event-price">Free</span>
+          <button class="btn-ticket">Read more ✦</button>
+        </div>
+      </div>
+
+      <div class="event-card" data-cat="spiritual">
+        <span class="event-type">🌕 Full Moon · May 2026</span>
+        <div class="event-name">Flower Moon — Full Moon in Scorpio</div>
+        <div class="event-meta">12 May 2026</div>
+        <div class="event-desc">Depth, transformation, intensity. The Flower Moon marks full bloom. What needs to be released before summer?</div>
+        <div class="event-footer">
+          <span class="event-price">Free</span>
+          <button class="btn-ticket">Add to calendar ✦</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- VENDOR CTA -->
+<div class="vendor-cta">
+  <div class="vendor-box">
+    <div class="vendor-box-text">
+      <h3>Sell through KIN-NECT</h3>
+      <p>Got a conscious product or run community events? List on the KIN-NECT marketplace — free to join, commission only when you sell. Every vendor is curated and vetted. You bring the products, we bring the community.</p>
+    </div>
+    <button class="btn-vendor">Apply to become a vendor ✦</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:var(--blush);opacity:0.5;margin:0.5rem 0;">Stay KIN-nected with the Collective.</p>
+  <div class="footer-note" style="margin-top:1rem;">Vendors keep 85% · Events organisers keep 90% · Community always free</div>
+</footer>
+
+<script>
+  function switchTab(btn, panel) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panel).classList.add('active');
+    // Reset filters
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn')[0] && document.querySelector('#' + panel + ' .filter-btn').classList.add('active');
+  }
+
+  function setFilter(btn, cat) {
+    const panel = btn.closest('.panel');
+    panel.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    panel.querySelectorAll('[data-cat]').forEach(card => {
+      if (cat === 'all' || card.dataset.cat.includes(cat)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

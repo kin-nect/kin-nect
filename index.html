@@ -809,6 +809,12 @@
     margin: 0 auto;
   }
 
+  .list-with-us-wrap {
+    background: rgba(200,115,42,0.04);
+    border-top: 1px solid rgba(200,115,42,0.08);
+    border-bottom: 1px solid rgba(200,115,42,0.08);
+  }
+
   .list-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -859,10 +865,10 @@
   }
 
   .list-form {
-    background: rgba(44,26,14,0.5);
-    border: 1px solid rgba(232,184,75,0.12);
+    background: rgba(200,115,42,0.06);
+    border: 1px solid rgba(200,115,42,0.15);
     padding: 2.5rem;
-    backdrop-filter: blur(4px);
+    border-radius: 12px;
   }
 
   .form-group {
@@ -1790,7 +1796,7 @@
     background: rgba(250,243,228,0.97);
   }
   body.light-mode nav::before {
-    background: none;
+    background: rgba(250,243,228,0.97) !important;
   }
   body.light-mode .hero {
     background: #FAF3E4;
@@ -1878,6 +1884,107 @@
     flex-shrink: 0;
   }
   .theme-toggle:hover { opacity: 1; border-color: rgba(200,115,42,0.6); }
+
+  /* BUTTON FIXES IN LIGHT MODE */
+  body.light-mode .btn-secondary {
+    border-color: rgba(184,98,26,0.5);
+    color: #B8621A;
+    background: transparent;
+  }
+  body.light-mode .btn-secondary:hover {
+    border-color: #B8621A;
+    background: rgba(184,98,26,0.08);
+  }
+  body.light-mode .btn-primary {
+    background: #B8621A;
+    color: #FAF3E4;
+  }
+  /* NAV LOGO — remove any grey box */
+  body.light-mode .nav-logo {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  /* HERO in light mode — keep warm */
+  body.light-mode .hero {
+    background: linear-gradient(135deg, #FAF3E4 0%, #F0E4CC 100%) !important;
+  }
+  body.light-mode .hero-title,
+  body.light-mode .hero-subtitle,
+  body.light-mode .hero-sub2 {
+    color: #1A0E06;
+  }
+  /* GREY BARS — remove section/page backgrounds */
+  body.light-mode .mockup-section,
+  body.light-mode .section-wrap,
+  body.light-mode section {
+    background: #FAF3E4 !important;
+  }
+  /* WARMTH — ochre tints for key sections */
+  body.light-mode .list-with-us-wrap {
+    background: rgba(184,98,26,0.06);
+  }
+  body.light-mode .list-form {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.2);
+  }
+  body.light-mode input,
+  body.light-mode textarea {
+    background: #FAF3E4;
+    color: #1A0E06;
+    border-color: rgba(184,98,26,0.2);
+  }
+  body.light-mode .pillar-card {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode .pillar-name,
+  body.light-mode .pillar-desc {
+    color: #1A0E06;
+  }
+  /* DIRECTORY / EDITORIAL / EVENTS / LIBRARY warmth */
+  body.light-mode .dir-card,
+  body.light-mode .feed-item,
+  body.light-mode .cal-event,
+  body.light-mode .lib-card,
+  body.light-mode .pract-card {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode .dir-name,
+  body.light-mode .feed-title,
+  body.light-mode .lib-card-title,
+  body.light-mode h1, body.light-mode h2,
+  body.light-mode h3, body.light-mode h4 {
+    color: #1A0E06;
+  }
+  body.light-mode p,
+  body.light-mode .dir-desc,
+  body.light-mode .feed-excerpt,
+  body.light-mode .dir-tag,
+  body.light-mode .card-body {
+    color: #3A2010;
+  }
+  /* FILTER BUTTONS */
+  body.light-mode .filter-btn {
+    background: #F0E4CC;
+    border-color: rgba(184,98,26,0.2);
+    color: #3A2010;
+  }
+  body.light-mode .filter-btn.active {
+    background: #B8621A;
+    color: #FAF3E4;
+    border-color: #B8621A;
+  }
+  /* MOCKUP INNER - remove grey */
+  body.light-mode .mockup-inner {
+    background: #FAF3E4 !important;
+  }
+  /* THEME TOGGLE */
+  body.light-mode .theme-toggle {
+    color: #3A2010;
+    border-color: rgba(184,98,26,0.3);
+  }
 </style>
 </head>
 <body>
@@ -1906,12 +2013,16 @@
     <span class="kin">KIN</span><span class="dash">-</span><span class="nect">NECT</span>
   </h1>
 
-  <p class="hero-subtitle">Stay KIN-nected with the Collective.<br><span class="hero-sub2">Consciously Curated.</span></p>
+  <p class="hero-subtitle">An ecosystem of places, products, events and knowledge<br><span class="hero-sub2">to aid raising consciousness and holistic wellbeing.</span></p>
 
-    <div class="hero-cta">
-    <a href="directory.html" class="btn-secondary"  style="border-color:var(--ochre); color:var(--ochre);"><span>Explore the Directory</span></a>
-    <a href="#list-with-us" class="btn-primary" onclick="event.preventDefault();document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})"><span>Join the KIN</span></a>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--blush);opacity:0.7;line-height:1.8;max-width:560px;margin:0 auto 2.5rem;text-align:center;">For anyone wanting to find community, increase their knowledge and live more intentionally. Built by us, for us. Free always.</p>
+
+  <div class="hero-cta">
+    <a href="#list-with-us" class="btn-primary" onclick="event.preventDefault();document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'})"><span>Join the KIN ✦</span></a>
+    <a href="directory.html" class="btn-secondary" style="border-color:var(--ochre);color:var(--ochre);"><span>Explore the Directory</span></a>
   </div>
+
+  <p style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--blush);opacity:0.35;margin-top:1.5rem;text-align:center;">Scroll to discover the six pillars ↓</p>
 
   <div class="hero-scroll-hint">
     <span>Scroll</span>
@@ -1995,6 +2106,7 @@
 
 <!-- LIST WITH US -->
 <!-- LIST WITH US -->
+<div class="list-with-us-wrap">
 <section class="list-with-us" id="list-with-us">
   <div class="list-inner">
     <div class="list-text">
@@ -2038,6 +2150,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <!-- DIRECTORY MOCKUP -->
 <footer>

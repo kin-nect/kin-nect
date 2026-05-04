@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIN-NECT — Events Calendar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ochre: #C8732A;
+    --gold: #C8732A;
+    --cream: #F5EDD8;
+    --sage: #6B7C5E;
+    --blush: #E8C9A0;
+    --night: #0D0A06;
+    --dark: #1A0E06;
+    --border: rgba(200,115,42,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 0.15em; color: var(--ochre); text-decoration: none; }
+  .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .nav-links a { color: var(--blush); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--ochre); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 8rem 3rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .page-title em { color: var(--ochre); font-style: italic; }
+  .page-desc { font-size: 1.05rem; color: var(--blush); opacity: 0.7; line-height: 1.8; max-width: 560px; }
+
+  /* LAYOUT */
+  .calendar-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: none;
+    color: var(--blush);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active, .filter-btn:hover { border-color: var(--ochre); color: var(--ochre); opacity: 1; }
+
+  /* MONTH */
+  .month-section { margin-bottom: 3rem; }
+
+  .month-header {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.6;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(200,115,42,0.1);
+    margin-bottom: 1rem;
+  }
+
+  /* EVENT ROW */
+  .event-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+    transition: background 0.2s;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  .event-row:hover { background: rgba(200,115,42,0.04); padding: 1rem 0.8rem; margin: 0 -0.8rem; }
+
+  .event-date {
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .event-day {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    display: block;
+  }
+
+  .event-mon {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.5;
+  }
+
+  .event-type-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .event-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+
+  .event-detail {
+    font-size: 0.88rem;
+    color: var(--blush);
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+
+  .event-location {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.08em;
+    color: var(--blush);
+    opacity: 0.4;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  .event-action { flex-shrink: 0; padding-top: 0.2rem; }
+
+  .btn-ticket {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.9rem;
+    background: var(--ochre);
+    color: var(--night);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .btn-ticket:hover { background: #E8842A; }
+
+  .btn-free {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.9rem;
+    background: transparent;
+    color: var(--ochre);
+    border: 1px solid rgba(200,115,42,0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-free:hover { border-color: var(--ochre); }
+
+  .event-price-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--ochre);
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  /* FEATURED EVENT */
+  .event-featured {
+    background: rgba(200,115,42,0.04);
+    border: 1px solid rgba(200,115,42,0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .event-featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ochre), transparent);
+  }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 6rem; }
+
+  .sidebar-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .sidebar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .subscribe-input {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(200,115,42,0.15);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    outline: none;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn-subscribe {
+    width: 100%;
+    background: var(--ochre);
+    color: var(--night);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .prefs { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+
+  .pref-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--blush); opacity: 0.75; cursor: pointer; }
+  .pref-item input { accent-color: var(--ochre); }
+
+  /* UPCOMING MINI */
+  .mini-event {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+    align-items: center;
+  }
+
+  .mini-event:last-child { border-bottom: none; }
+
+  .mini-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--ochre);
+    min-width: 36px;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .mini-name {
+    font-size: 0.88rem;
+    color: var(--blush);
+    opacity: 0.75;
+    line-height: 1.4;
+  }
+
+  /* SUBMIT */
+  .submit-section {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 3rem;
+  }
+
+  .submit-box {
+    background: rgba(200,115,42,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .submit-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem; }
+  .submit-box p { font-size: 0.95rem; color: var(--blush); opacity: 0.6; line-height: 1.7; max-width: 480px; }
+
+  .btn-submit-event {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    background: transparent;
+    color: var(--ochre);
+    border: 1px solid rgba(200,115,42,0.35);
+    border-radius: 25px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-submit-event:hover { border-color: var(--ochre); background: rgba(200,115,42,0.06); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    text-align: center;
+  }
+
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--ochre); letter-spacing: 0.15em; }
+  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  @media (max-width: 900px) {
+    .calendar-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-header, .calendar-layout, .submit-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="#" class="active">Events</a></li>
+    <li><a href="marketplace.html">Marketplace</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <span class="section-label">03 — Events Calendar</span>
+  <h1 class="page-title">Time held with <em>intention.</em></h1>
+  <p class="page-desc">Moon cycles, equinoxes, solstices, community gatherings and conscious experiences. A calendar that moves the way our community moves through the year.</p>
+</div>
+
+<div class="calendar-layout">
+
+  <!-- MAIN CALENDAR -->
+  <div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+      <button class="filter-btn" onclick="setFilter(this,'kin')">✦ KIN-NECT</button>
+      <button class="filter-btn" onclick="setFilter(this,'community')">🌍 Community</button>
+      <button class="filter-btn" onclick="setFilter(this,'moon')">🌕 Moon Cycles</button>
+      <button class="filter-btn" onclick="setFilter(this,'seasonal')">🌱 Seasonal</button>
+      <button class="filter-btn" onclick="setFilter(this,'workshop')">✍🏾 Workshops</button>
+    </div>
+
+    <!-- MAY 2026 -->
+    <div class="month-section">
+      <div class="month-header">✦ May 2026</div>
+
+      <div class="event-row" data-etag="moon">
+        <div class="event-date"><span class="event-day">01</span><span class="event-mon">May</span></div>
+        <div>
+          <span class="event-type-tag">🌕 Full Moon</span>
+          <div class="event-name">Flower Moon — Full Moon in Scorpio</div>
+          <div class="event-detail">Depth, transformation, intensity. The Flower Moon marks full bloom. What needs to be released before summer?</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Add to calendar</button></div>
+      </div>
+
+      <div class="event-row" data-etag="community">
+        <div class="event-date"><span class="event-day">10</span><span class="event-mon">May</span></div>
+        <div>
+          <span class="event-type-tag">🧘🏾 Movement · Weekly · London</span>
+          <div class="event-name">Sunday Yoga with Nathan</div>
+          <div class="event-detail">Accessible, grounding community yoga. Open to all levels.</div>
+          <span class="event-location">📍 London — location via WhatsApp group</span>
+        </div>
+        <div class="event-action">
+          <span class="event-price-tag">Free</span>
+          <button class="btn-free">Join group</button>
+        </div>
+      </div>
+
+      <div class="event-row" data-etag="moon">
+        <div class="event-date"><span class="event-day">16</span><span class="event-mon">May</span></div>
+        <div>
+          <span class="event-type-tag">🌑 New Moon</span>
+          <div class="event-name">New Moon in Taurus</div>
+          <div class="event-detail">Grounding, abundance, new beginnings rooted in the physical world. Plant your intentions in fertile ground.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Add to calendar</button></div>
+      </div>
+
+    </div>
+
+    <!-- JUNE 2026 -->
+    <div class="month-section">
+      <div class="month-header">✦ June 2026</div>
+
+      <div class="event-row" data-etag="moon">
+        <div class="event-date"><span class="event-day">11</span><span class="event-mon">Jun</span></div>
+        <div>
+          <span class="event-type-tag">🌕 Full Moon</span>
+          <div class="event-name">Strawberry Moon — Full Moon in Sagittarius</div>
+          <div class="event-detail">Freedom, expansion, adventure. The Strawberry Moon calls you toward the horizon.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Add to calendar</button></div>
+      </div>
+
+      <div class="event-row" data-etag="seasonal">
+        <div class="event-date"><span class="event-day">21</span><span class="event-mon">Jun</span></div>
+        <div>
+          <span class="event-type-tag">🌞 Seasonal — Summer Solstice</span>
+          <div class="event-name">Summer Solstice — The Longest Day</div>
+          <div class="event-detail">Peak energy, peak light. The sun at its highest point. KIN-NECT editorial published on this date — set your intentions for the second half of the year.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Read editorial</button></div>
+      </div>
+
+      <div class="event-row" data-etag="community">
+        <div class="event-date"><span class="event-day">26</span><span class="event-mon">Jun</span></div>
+        <div>
+          <span class="event-type-tag">🍵 Community · Recurring · London</span>
+          <div class="event-name">Shai Space Late Night Tea</div>
+          <div class="event-detail">Late night tea, slow conversations, conscious community. A regular gathering for people who need somewhere to land.</div>
+          <span class="event-location">📍 Shai Space, London</span>
+        </div>
+        <div class="event-action">
+          <span class="event-price-tag">£6 — £18</span>
+          <button class="btn-free">Find out more</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- JULY 2026 -->
+    <div class="month-section">
+      <div class="month-header">✦ July 2026</div>
+
+      <div class="event-row" data-etag="moon">
+        <div class="event-date"><span class="event-day">10</span><span class="event-mon">Jul</span></div>
+        <div>
+          <span class="event-type-tag">🌕 Full Moon</span>
+          <div class="event-name">Buck Moon — Full Moon in Capricorn</div>
+          <div class="event-detail">Structure, ambition, long-term vision. Named for the antlers beginning to grow. What are you building for the long term?</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Add to calendar</button></div>
+      </div>
+
+      <div class="event-row" data-etag="community workshop">
+        <div class="event-date"><span class="event-day">19</span><span class="event-mon">Jul</span></div>
+        <div>
+          <span class="event-type-tag">✍🏾 Workshop · First Born · London</span>
+          <div class="event-name">Zine Making Workshop</div>
+          <div class="event-detail">Cut, paste, create. Telling your story in your own format, on your own terms. Materials provided.</div>
+          <span class="event-location">📍 London — TBC</span>
+        </div>
+        <div class="event-action">
+          <span class="event-price-tag">£20 — £35</span>
+          <button class="btn-ticket">Book now ✦</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SEPTEMBER 2026 -->
+    <div class="month-section">
+      <div class="month-header">✦ September 2026</div>
+
+      <div class="event-row" data-etag="seasonal">
+        <div class="event-date"><span class="event-day">23</span><span class="event-mon">Sep</span></div>
+        <div>
+          <span class="event-type-tag">🍂 Seasonal — Autumn Equinox</span>
+          <div class="event-name">Autumn Equinox — Equal Day and Night</div>
+          <div class="event-detail">The balance point between light and dark. Time to harvest, reflect and prepare for the inward season. KIN-NECT editorial published on this date.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Read editorial</button></div>
+      </div>
+
+    </div>
+
+    <!-- DECEMBER 2026 -->
+    <div class="month-section">
+      <div class="month-header">✦ December 2026</div>
+
+      <div class="event-row" data-etag="seasonal">
+        <div class="event-date"><span class="event-day">21</span><span class="event-mon">Dec</span></div>
+        <div>
+          <span class="event-type-tag">❄️ Seasonal — Winter Solstice</span>
+          <div class="event-name">Winter Solstice — The Longest Night</div>
+          <div class="event-detail">The turning point. From here the light returns. Rest, reflect, renew. KIN-NECT editorial published on this date.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Read editorial</button></div>
+      </div>
+
+    </div>
+
+    <!-- MARCH 2027 — FEATURED -->
+    <div class="month-section">
+      <div class="month-header">✦ March 2027</div>
+
+      <div class="event-featured" data-etag="kin seasonal">
+        <span class="event-type-tag">✦ KIN-NECT · One Year Anniversary · London</span>
+        <div class="event-name" style="font-size:1.4rem;margin-bottom:0.5rem;">Spring Equinox Gathering</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:var(--ochre);opacity:0.7;margin-bottom:0.8rem;">20 March 2027 · Shai Space, London</div>
+        <div class="event-detail" style="margin-bottom:1.2rem;">The first KIN-NECT community gathering. One year to the day from launch. Food by Chef Adoniz, poetry and music from Underground Barz, practitioners from the directory. The community meets in person for the first time. Be there.</div>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--ochre);font-weight:700;">£15 — £25</span>
+          <button class="btn-ticket">Get tickets ✦</button>
+          <span style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.4;">Partnerships: Self Space · Shai Space · Wyld Herbs · Yes Gurl</span>
+        </div>
+      </div>
+
+      <div class="event-row" data-etag="seasonal">
+        <div class="event-date"><span class="event-day">20</span><span class="event-mon">Mar</span></div>
+        <div>
+          <span class="event-type-tag">🌱 Seasonal — Spring Equinox</span>
+          <div class="event-name">Spring Equinox — The New Year Begins</div>
+          <div class="event-detail">Equal day and night. The true start of the year. One year of KIN-NECT. The wheel turns again.</div>
+        </div>
+        <div class="event-action"><button class="btn-free">Read editorial</button></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">🌕 Get notified</div>
+      <div class="prefs">
+        <label class="pref-item"><input type="checkbox" checked> IRL gatherings</label>
+        <label class="pref-item"><input type="checkbox" checked> Moon cycles</label>
+        <label class="pref-item"><input type="checkbox" checked> Spiritual dates</label>
+        <label class="pref-item"><input type="checkbox"> Workshops</label>
+      </div>
+      <input type="email" class="subscribe-input" placeholder="your@email.com">
+      <button class="btn-subscribe">Stay KIN-nected ✦</button>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">✦ Coming up</div>
+      <div class="mini-event">
+        <div class="mini-date">01<br>MAY</div>
+        <div class="mini-name">🌕 Flower Moon</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date">21<br>JUN</div>
+        <div class="mini-name">☀️ Summer Solstice</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date">23<br>SEP</div>
+        <div class="mini-name">🍂 Autumn Equinox</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date">21<br>DEC</div>
+        <div class="mini-name">❄️ Winter Solstice</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date">20<br>MAR</div>
+        <div class="mini-name">✦ KIN-NECT Gathering</div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">🎟 Recurring events</div>
+      <div class="mini-event">
+        <div class="mini-date" style="font-size:0.4rem;line-height:1.4;">Every<br>SUN</div>
+        <div class="mini-name">🧘🏾 Yoga with Nathan</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date" style="font-size:0.4rem;line-height:1.4;">2×<br>WK</div>
+        <div class="mini-name">🎵 Orri Jam Sessions</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date" style="font-size:0.4rem;line-height:1.4;">Recur<br>ring</div>
+        <div class="mini-name">🍵 Shai Space Late Tea</div>
+      </div>
+      <div class="mini-event">
+        <div class="mini-date" style="font-size:0.4rem;line-height:1.4;">Mon<br>thly</div>
+        <div class="mini-name">🎤 Underground Barz</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SUBMIT EVENT -->
+<div class="submit-section">
+  <div class="submit-box">
+    <div>
+      <h3>Running a conscious gathering?</h3>
+      <p>If it belongs in the community, it belongs on this calendar. Submit your event — we review everything and reach out if it's a fit.</p>
+    </div>
+    <button class="btn-submit-event">Submit an event ✦</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:0.95rem;color:var(--blush);opacity:0.5;margin:0.5rem 0 1rem;">Stay KIN-nected with the Collective.</p>
+  <p style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--blush);opacity:0.3;">Time held with intention ✦</p>
+</footer>
+
+<script>
+  function setFilter(btn, cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('[data-etag]').forEach(row => {
+      if (cat === 'all' || row.dataset.etag.includes(cat)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

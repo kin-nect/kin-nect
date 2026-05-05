@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIN-NECT — My Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ochre: #C8732A;
+    --gold: #C8732A;
+    --cream: #F5EDD8;
+    --sage: #6B7C5E;
+    --blush: #E8C9A0;
+    --night: #0D0A06;
+    --dark: #1A0E06;
+    --border: rgba(200,115,42,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 0.15em; color: var(--ochre); text-decoration: none; }
+  .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .nav-links a { color: var(--blush); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--ochre); }
+
+  /* LAYOUT */
+  .portal-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 3rem 6rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* SIDEBAR */
+  .portal-sidebar { position: sticky; top: 6rem; }
+
+  .profile-card {
+    background: rgba(26,14,6,0.7);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ochre), transparent);
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(200,115,42,0.3), rgba(107,124,94,0.3));
+    border: 2px solid rgba(200,115,42,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.2rem;
+  }
+
+  .profile-handle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--ochre);
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
+
+  .profile-bio {
+    font-size: 0.9rem;
+    color: var(--blush);
+    opacity: 0.65;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .profile-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ochre); display: block; }
+  .stat-label { font-family: 'Space Mono', monospace; font-size: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blush); opacity: 0.4; }
+
+  /* NAV SIDEBAR */
+  .portal-nav {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+
+  .portal-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.6;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+    transition: all 0.2s;
+  }
+
+  .portal-nav-item:last-child { border-bottom: none; }
+  .portal-nav-item:hover, .portal-nav-item.active { opacity: 1; color: var(--ochre); background: rgba(200,115,42,0.04); }
+  .portal-nav-item .icon { font-size: 0.9rem; }
+
+  .prefs-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+
+  .prefs-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .pref-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.05);
+  }
+
+  .pref-row:last-child { border-bottom: none; }
+  .pref-name { font-size: 0.85rem; color: var(--blush); opacity: 0.7; }
+
+  .toggle {
+    width: 32px;
+    height: 18px;
+    background: rgba(200,115,42,0.2);
+    border-radius: 9px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .toggle.on { background: var(--ochre); }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--cream);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s;
+  }
+
+  .toggle.on::after { left: 16px; }
+
+  /* MAIN CONTENT */
+  .portal-main { }
+
+  .portal-greeting {
+    margin-bottom: 2rem;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .greeting-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .greeting-title em { color: var(--ochre); font-style: italic; }
+
+  .greeting-sub {
+    font-size: 1rem;
+    color: var(--blush);
+    opacity: 0.6;
+    line-height: 1.7;
+  }
+
+  /* SECTION */
+  .portal-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .section-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.7;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* SAVED GRID */
+  .saved-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .saved-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .saved-card:hover { border-color: rgba(200,115,42,0.35); transform: translateY(-2px); }
+
+  .saved-type {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    opacity: 0.6;
+    margin-bottom: 0.4rem;
+  }
+
+  .saved-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+
+  .saved-sub {
+    font-size: 0.8rem;
+    color: var(--blush);
+    opacity: 0.5;
+    line-height: 1.5;
+  }
+
+  .saved-remove {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background: none;
+    border: none;
+    color: var(--blush);
+    opacity: 0.2;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: opacity 0.2s;
+  }
+
+  .saved-card:hover .saved-remove { opacity: 0.5; }
+
+  /* ORDERS */
+  .order-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+  }
+
+  .order-row:last-child { border-bottom: none; }
+  .order-icon { font-size: 1.4rem; text-align: center; }
+
+  .order-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
+  .order-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+
+  .order-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 10px;
+  }
+
+  .status-delivered { background: rgba(107,124,94,0.2); color: var(--sage); }
+  .status-pending { background: rgba(200,115,42,0.15); color: var(--ochre); }
+
+  /* EVENTS GOING */
+  .event-going-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+  }
+
+  .event-going-row:last-child { border-bottom: none; }
+
+  .event-date-pill {
+    background: rgba(200,115,42,0.1);
+    border: 1px solid rgba(200,115,42,0.2);
+    border-radius: 8px;
+    padding: 0.4rem 0.6rem;
+    text-align: center;
+    flex-shrink: 0;
+    min-width: 50px;
+  }
+
+  .edp-day { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ochre); display: block; line-height: 1; }
+  .edp-mon { font-family: 'Space Mono', monospace; font-size: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ochre); opacity: 0.7; }
+
+  .event-going-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
+  .event-going-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+
+  /* SUBMISSIONS */
+  .submission-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(200,115,42,0.06);
+  }
+
+  .submission-row:last-child { border-bottom: none; }
+
+  .sub-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  .sub-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
+  .sub-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+
+  .sub-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .sub-accepted { background: rgba(107,124,94,0.2); color: var(--sage); }
+  .sub-review { background: rgba(200,115,42,0.15); color: var(--ochre); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    padding: 2rem;
+    text-align: center;
+    border: 1px dashed rgba(200,115,42,0.15);
+    border-radius: 12px;
+  }
+
+  .empty-state p { font-size: 0.95rem; color: var(--blush); opacity: 0.5; line-height: 1.7; margin-bottom: 1rem; }
+
+  .btn-explore {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    background: var(--ochre);
+    color: var(--night);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    text-align: center;
+  }
+
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--ochre); letter-spacing: 0.15em; }
+  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  @media (max-width: 900px) {
+    .portal-layout { grid-template-columns: 1fr; padding: 5rem 1.5rem 4rem; }
+    .portal-sidebar { position: static; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="marketplace.html">Marketplace</a></li>
+    <li><a href="events-mockup.html">Events</a></li>
+    <li><a href="#" class="active">My Portal</a></li>
+  </ul>
+</nav>
+
+<div class="portal-layout">
+
+  <!-- SIDEBAR -->
+  <div class="portal-sidebar">
+
+    <div class="profile-card">
+      <div class="avatar">🌱</div>
+      <div class="profile-name">Jai F.</div>
+      <div class="profile-handle">@jai · Member since March 2026</div>
+      <div class="profile-bio">Integrative counsellor. Community builder. Conscious living, plant medicine, music. London.</div>
+      <div class="profile-stats">
+        <div class="stat">
+          <span class="stat-num">12</span>
+          <span class="stat-label">Saved</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Orders</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2</span>
+          <span class="stat-label">Events</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portal-nav">
+      <div class="portal-nav-item active" onclick="showPanel('saved')">
+        <span class="icon">✦</span> Saved
+      </div>
+      <div class="portal-nav-item" onclick="showPanel('orders')">
+        <span class="icon">🛍</span> Orders
+      </div>
+      <div class="portal-nav-item" onclick="showPanel('events')">
+        <span class="icon">🎟</span> My Events
+      </div>
+      <div class="portal-nav-item" onclick="showPanel('submissions')">
+        <span class="icon">📤</span> Submissions
+      </div>
+      <div class="portal-nav-item" onclick="showPanel('settings')">
+        <span class="icon">⚙</span> Settings
+      </div>
+    </div>
+
+    <div class="prefs-card">
+      <div class="prefs-title">My notifications</div>
+      <div class="pref-row">
+        <span class="pref-name">🌿 New listings</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pref-row">
+        <span class="pref-name">✦ Editorial posts</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pref-row">
+        <span class="pref-name">🌍 IRL gatherings</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pref-row">
+        <span class="pref-name">🌕 Moon cycles</span>
+        <div class="toggle" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pref-row">
+        <span class="pref-name">📚 Library adds</span>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MAIN -->
+  <div class="portal-main">
+
+    <div class="portal-greeting">
+      <span class="section-label">✦ Welcome back</span>
+      <h1 class="greeting-title">Your <em>KIN-NECT</em><br>portal.</h1>
+      <p class="greeting-sub">Everything you've saved, ordered, submitted and signed up for — all in one place.</p>
+    </div>
+
+    <!-- SAVED PANEL -->
+    <div id="panel-saved">
+
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Saved Listings</div>
+          <a class="section-link" href="directory.html">Browse directory →</a>
+        </div>
+        <div class="saved-grid">
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">🌿 Directory · Herbs</div>
+            <div class="saved-name">Wyld Herbs</div>
+            <div class="saved-sub">Sea moss gel, botanicals</div>
+          </div>
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">🧘🏾 Directory · Movement</div>
+            <div class="saved-name">Nathan L — Yoga</div>
+            <div class="saved-sub">Sunday community yoga</div>
+          </div>
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">🍵 Directory · Space</div>
+            <div class="saved-name">Shai Space</div>
+            <div class="saved-sub">Late night tea, community</div>
+          </div>
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">✦ Directory · Loctician</div>
+            <div class="saved-name">One Stop Dreadlock</div>
+            <div class="saved-sub">Natural hair, locs</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Saved Editorial</div>
+          <a class="section-link" href="editorial.html">Browse editorial →</a>
+        </div>
+        <div class="saved-grid">
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">✦ From the Tribe</div>
+            <div class="saved-name">The Wheel of the Year</div>
+            <div class="saved-sub">Spring Equinox 2026</div>
+          </div>
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">🌿 Conscious Travel</div>
+            <div class="saved-name">Conscious Jamaica</div>
+            <div class="saved-sub">Plant medicine & retreats</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Saved Library</div>
+          <a class="section-link" href="library.html">Browse library →</a>
+        </div>
+        <div class="saved-grid">
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">📚 Library · Research</div>
+            <div class="saved-name">Sacred Texts Archive</div>
+            <div class="saved-sub">sacred-texts.com</div>
+          </div>
+
+          <div class="saved-card">
+            <button class="saved-remove">✕</button>
+            <div class="saved-type">🌿 Library · Health</div>
+            <div class="saved-name">Earth Clinic</div>
+            <div class="saved-sub">Natural remedies</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ORDERS PANEL -->
+    <div id="panel-orders" style="display:none;">
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">My Orders</div>
+          <a class="section-link" href="marketplace.html">Shop marketplace →</a>
+        </div>
+        <div class="order-row">
+          <div class="order-icon">🌿</div>
+          <div>
+            <div class="order-name">Raw Irish Sea Moss Gel — Wyld Herbs</div>
+            <div class="order-meta">Ordered 15 April 2026 · £24.99</div>
+          </div>
+          <span class="order-status status-delivered">Delivered</span>
+        </div>
+        <div class="order-row">
+          <div class="order-icon">📄</div>
+          <div>
+            <div class="order-name">The Conscious Smoke Guide — DANKH</div>
+            <div class="order-meta">Ordered 20 April 2026 · £15.00</div>
+          </div>
+          <span class="order-status status-delivered">Downloaded</span>
+        </div>
+        <div class="order-row">
+          <div class="order-icon">👜</div>
+          <div>
+            <div class="order-name">KIN-NECT Tote Bag</div>
+            <div class="order-meta">Ordered 1 May 2026 · £20.00</div>
+          </div>
+          <span class="order-status status-pending">On its way</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTS PANEL -->
+    <div id="panel-events" style="display:none;">
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Events I'm attending</div>
+          <a class="section-link" href="events-mockup.html">Browse events →</a>
+        </div>
+        <div class="event-going-row">
+          <div class="event-date-pill">
+            <span class="edp-day">20</span>
+            <span class="edp-mon">Mar 27</span>
+          </div>
+          <div>
+            <div class="event-going-name">Spring Equinox Gathering — KIN-NECT</div>
+            <div class="event-going-meta">Shai Space, London · £20 · 1 ticket</div>
+          </div>
+        </div>
+        <div class="event-going-row">
+          <div class="event-date-pill">
+            <span class="edp-day">19</span>
+            <span class="edp-mon">Jul</span>
+          </div>
+          <div>
+            <div class="event-going-name">Zine Making Workshop — First Born</div>
+            <div class="event-going-meta">London TBC · £25 · 1 ticket</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Upcoming spiritual dates</div>
+        </div>
+        <div class="event-going-row">
+          <div class="event-date-pill">
+            <span class="edp-day">01</span>
+            <span class="edp-mon">May</span>
+          </div>
+          <div>
+            <div class="event-going-name">🌕 Flower Moon — Full Moon in Scorpio</div>
+          </div>
+        </div>
+        <div class="event-going-row">
+          <div class="event-date-pill">
+            <span class="edp-day">21</span>
+            <span class="edp-mon">Jun</span>
+          </div>
+          <div>
+            <div class="event-going-name">☀️ Summer Solstice</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMISSIONS PANEL -->
+    <div id="panel-submissions" style="display:none;">
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">My Submissions</div>
+        </div>
+        <div class="submission-row">
+          <div class="sub-icon">📚</div>
+          <div>
+            <div class="sub-name">Saint Heron — saintheron.com</div>
+            <div class="sub-meta">Submitted to Library · 22 April 2026</div>
+          </div>
+          <span class="sub-status sub-accepted">Accepted ✓</span>
+        </div>
+        <div class="submission-row">
+          <div class="sub-icon">✍🏾</div>
+          <div>
+            <div class="sub-name">Essay: On Ancestral Healing</div>
+            <div class="sub-meta">Submitted to Editorial · 28 April 2026</div>
+          </div>
+          <span class="sub-status sub-review">In review</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div id="panel-settings" style="display:none;">
+      <div class="portal-section">
+        <div class="section-header">
+          <div class="section-title">Account Settings</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Display name</div>
+            <input type="text" value="Jai F." style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;">
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Email</div>
+            <input type="email" value="jai@example.com" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;">
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Short bio</div>
+            <textarea rows="3" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;resize:vertical;">Integrative counsellor. Community builder. Conscious living, plant medicine, music. London.</textarea>
+          </div>
+          <button style="background:var(--ochre);color:var(--night);font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:25px;cursor:pointer;font-weight:700;align-self:flex-start;">Save changes ✦</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <p style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--blush);opacity:0.3;margin-top:0.8rem;">Your portal. Your collection. Your community. ✦</p>
+</footer>
+
+<script>
+  function showPanel(name) {
+    ['saved','orders','events','submissions','settings'].forEach(p => {
+      document.getElementById('panel-' + p).style.display = p === name ? 'block' : 'none';
+    });
+    document.querySelectorAll('.portal-nav-item').forEach(item => {
+      item.classList.toggle('active', item.textContent.trim().toLowerCase().includes(name));
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1998,6 +1998,7 @@
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
     <li><a href="#list-with-us" onclick="closeNav(); setTimeout(()=>document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'}),100);" style="color:var(--gold);">Join the KIN</a></li>
   </ul>
+  <button onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}" style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--ochre);color:var(--night);border:none;border-radius:20px;padding:0.4rem 1rem;cursor:pointer;font-weight:700;margin-right:0.5rem;">Stay KIN-nected ✦</button>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -2166,7 +2167,7 @@
     <li><a href="editorial.html">Editorial</a></li>
     <li><a href="events.html">Events</a></li>
     <li><a href="library.html">Library</a></li>
-    <li><a href="index.html#list-with-us">Join the KIN</a></li>
+    <li><a href="index.html#list-with-us">Get Listed</a></li>
   </ul>
   <div class="footer-copy">© 2026 KIN-NECT. Built with intention.</div>
 </footer>

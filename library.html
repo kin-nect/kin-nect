@@ -1790,7 +1790,7 @@
     background: rgba(250,243,228,0.97);
   }
   body.light-mode nav::before {
-    background: none;
+    background: rgba(250,243,228,0.97) !important;
   }
   body.light-mode .hero {
     background: #FAF3E4;
@@ -1805,6 +1805,15 @@
     background: #FAF3E4;
   }
   body.light-mode .card,
+  body.light-mode .save-btn {
+    background: rgba(250,243,228,0.95);
+    border-color: rgba(184,98,26,0.3);
+    color: #B8621A;
+  }
+  body.light-mode .save-btn.saved {
+    color: #B8621A;
+    border-color: rgba(184,98,26,0.6);
+  }
   body.light-mode .dir-card,
   body.light-mode .feed-item,
   body.light-mode .pract-card,
@@ -1878,6 +1887,107 @@
     flex-shrink: 0;
   }
   .theme-toggle:hover { opacity: 1; border-color: rgba(200,115,42,0.6); }
+
+  /* BUTTON FIXES IN LIGHT MODE */
+  body.light-mode .btn-secondary {
+    border-color: rgba(184,98,26,0.5);
+    color: #B8621A;
+    background: transparent;
+  }
+  body.light-mode .btn-secondary:hover {
+    border-color: #B8621A;
+    background: rgba(184,98,26,0.08);
+  }
+  body.light-mode .btn-primary {
+    background: #B8621A;
+    color: #FAF3E4;
+  }
+  /* NAV LOGO — remove any grey box */
+  body.light-mode .nav-logo {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  /* HERO in light mode — keep warm */
+  body.light-mode .hero {
+    background: linear-gradient(135deg, #FAF3E4 0%, #F0E4CC 100%) !important;
+  }
+  body.light-mode .hero-title,
+  body.light-mode .hero-subtitle,
+  body.light-mode .hero-sub2 {
+    color: #1A0E06;
+  }
+  /* GREY BARS — remove section/page backgrounds */
+  body.light-mode .mockup-section,
+  body.light-mode .section-wrap,
+  body.light-mode section {
+    background: #FAF3E4 !important;
+  }
+  /* WARMTH — ochre tints for key sections */
+  body.light-mode .list-with-us-wrap {
+    background: rgba(184,98,26,0.06);
+  }
+  body.light-mode .list-form {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.2);
+  }
+  body.light-mode input,
+  body.light-mode textarea {
+    background: #FAF3E4;
+    color: #1A0E06;
+    border-color: rgba(184,98,26,0.2);
+  }
+  body.light-mode .pillar-card {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode .pillar-name,
+  body.light-mode .pillar-desc {
+    color: #1A0E06;
+  }
+  /* DIRECTORY / EDITORIAL / EVENTS / LIBRARY warmth */
+  body.light-mode .dir-card,
+  body.light-mode .feed-item,
+  body.light-mode .cal-event,
+  body.light-mode .lib-card,
+  body.light-mode .pract-card {
+    background: #FDF8EE;
+    border-color: rgba(184,98,26,0.12);
+  }
+  body.light-mode .dir-name,
+  body.light-mode .feed-title,
+  body.light-mode .lib-card-title,
+  body.light-mode h1, body.light-mode h2,
+  body.light-mode h3, body.light-mode h4 {
+    color: #1A0E06;
+  }
+  body.light-mode p,
+  body.light-mode .dir-desc,
+  body.light-mode .feed-excerpt,
+  body.light-mode .dir-tag,
+  body.light-mode .card-body {
+    color: #3A2010;
+  }
+  /* FILTER BUTTONS */
+  body.light-mode .filter-btn {
+    background: #F0E4CC;
+    border-color: rgba(184,98,26,0.2);
+    color: #3A2010;
+  }
+  body.light-mode .filter-btn.active {
+    background: #B8621A;
+    color: #FAF3E4;
+    border-color: #B8621A;
+  }
+  /* MOCKUP INNER - remove grey */
+  body.light-mode .mockup-inner {
+    background: #FAF3E4 !important;
+  }
+  /* THEME TOGGLE */
+  body.light-mode .theme-toggle {
+    color: #3A2010;
+    border-color: rgba(184,98,26,0.3);
+  }
 </style>
 </head>
 <body>
@@ -2120,16 +2230,22 @@ async function handleSubmission() {
     const name = document.getElementById('popup-name') ? document.getElementById('popup-name').value.trim() : '';
     const msg = document.getElementById('popup-msg');
     if (!email || !email.includes('@')) { msg.style.color='#C8732A'; msg.textContent='Please enter a valid email.'; return; }
-    const prefs = [];
-    if (document.getElementById('pref-directory') && document.getElementById('pref-directory').checked) prefs.push('directory');
-    if (document.getElementById('pref-editorial') && document.getElementById('pref-editorial').checked) prefs.push('editorial');
-    if (document.getElementById('pref-gatherings') && document.getElementById('pref-gatherings').checked) prefs.push('irl gatherings');
-    if (document.getElementById('pref-spiritual') && document.getElementById('pref-spiritual').checked) prefs.push('spiritual dates & moon cycles');
-    if (document.getElementById('pref-library') && document.getElementById('pref-library').checked) prefs.push('library');
     try {
-      const r = await fetch('https://formspree.io/f/xeerzwwv', { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body:JSON.stringify({name: name || 'Not provided', email, type:'subscription', preferences:prefs.join(', ')}) });
-      if (r.ok) { msg.style.color='#6B7C5E'; msg.textContent='✦ Welcome to the KIN.'; document.getElementById('popup-email').value=''; if(document.getElementById('popup-name')) document.getElementById('popup-name').value=''; setTimeout(()=>closePopup(),2000); }
-      else { throw new Error(); }
+      const formData = new FormData();
+      formData.append('EMAIL', email);
+      formData.append('FIRSTNAME', name || '');
+      formData.append('email_address_check', '');
+      formData.append('locale', 'en');
+      const r = await fetch('https://a990b6e4.sibforms.com/serve/MUIFAFyNHhngYh2TstiuD9MUkEIC4RJKG7ttgdg56gItcGp1GqFCvh5JUE5R6Pp6hRYzaDMZ3zkqvwZKnBgaGnW-JWvNAWP33FUJ1grtiIUjeovFMkohz0E2t013KI6BmQXqkN9-ceREDzxPtAnyp8fLJGu-W2PeV1Mc1Z7ujTSYLy_XqrkNTS40jK2GlMDyHUy9xKrMrvi9rT0ymw==', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+      msg.style.color='#6B7C5E';
+      msg.textContent='✦ Welcome to the KIN.';
+      document.getElementById('popup-email').value='';
+      if(document.getElementById('popup-name')) document.getElementById('popup-name').value='';
+      setTimeout(()=>closePopup(),2000);
     } catch(e) { msg.style.color='#C8732A'; msg.textContent='Something went wrong — please try again.'; }
   }
   const popupEl = document.getElementById('kin-popup');

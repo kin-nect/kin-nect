@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divine Play — KIN-NECT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ochre: #C8732A;
+    --gold: #C8732A;
+    --rose: #8B3A5C;
+    --rose-light: rgba(139,58,92,0.15);
+    --cream: #F5EDD8;
+    --sage: #6B7C5E;
+    --blush: #E8C9A0;
+    --night: #0D0A06;
+    --dark: #1A0E06;
+    --border: rgba(139,58,92,0.2);
+    --border-ochre: rgba(200,115,42,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,10,6,0.95) 0%, transparent 100%);
+  }
+
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 0.15em; color: var(--ochre); text-decoration: none; }
+  .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .nav-links a { color: var(--blush); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--rose); }
+
+  /* HERO */
+  .dp-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dp-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(139,58,92,0.12) 0%, transparent 70%);
+  }
+
+  .dp-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+
+  .dp-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .dp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+  }
+
+  .dp-title em { color: var(--rose); font-style: italic; }
+
+  .dp-subtitle {
+    font-size: 1.2rem;
+    color: var(--blush);
+    opacity: 0.7;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+
+  .dp-gate {
+    background: rgba(139,58,92,0.08);
+    border: 1px solid rgba(139,58,92,0.25);
+    border-radius: 12px;
+    padding: 1.2rem 2rem;
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .dp-gate p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.8;
+  }
+
+  /* SECTION SHARED */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-title em { color: var(--rose); font-style: italic; }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--blush);
+    opacity: 0.65;
+    line-height: 1.9;
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(139,58,92,0.12);
+    margin: 4rem 0;
+  }
+
+  /* MANIFESTO */
+  .manifesto {
+    padding: 4rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .manifesto blockquote {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.8;
+    opacity: 0.85;
+    max-width: 760px;
+  }
+
+  .manifesto blockquote em { color: var(--rose); }
+
+  /* CARDS GRID */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .dp-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .dp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose), transparent);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .dp-card:hover { transform: translateY(-3px); border-color: rgba(139,58,92,0.4); }
+
+  .dp-card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .dp-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .dp-card-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.08em;
+    color: var(--blush);
+    opacity: 0.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .dp-card-body {
+    font-size: 0.9rem;
+    color: var(--blush);
+    opacity: 0.65;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .dp-card-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rose);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .dp-card-link:hover { opacity: 1; }
+
+  /* FEED ITEM */
+  .feed-item {
+    background: rgba(26,14,6,0.5);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .feed-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose), transparent);
+    border-radius: 12px 12px 0 0;
+  }
+
+  .feed-item:hover { border-color: rgba(139,58,92,0.4); }
+
+  .feed-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .feed-tag { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); background: rgba(139,58,92,0.1); padding: 0.3rem 0.7rem; border-radius: 10px; }
+  .feed-date { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+
+  .feed-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+
+  .feed-excerpt { font-size: 0.9rem; color: var(--blush); opacity: 0.65; line-height: 1.7; margin-bottom: 1rem; }
+
+  .feed-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+  .feed-byline { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+
+  /* STORE */
+  .store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .store-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .store-card:hover { transform: translateY(-2px); }
+
+  .store-img {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: rgba(139,58,92,0.06);
+  }
+
+  .store-body { padding: 1rem; }
+  .store-vendor { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.7; margin-bottom: 0.3rem; }
+  .store-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--cream); margin-bottom: 0.3rem; }
+  .store-price { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--rose); font-weight: 700; margin-bottom: 0.8rem; }
+  .store-desc { font-size: 0.82rem; color: var(--blush); opacity: 0.55; line-height: 1.6; margin-bottom: 0.8rem; }
+
+  .btn-add {
+    width: 100%;
+    background: var(--rose);
+    color: var(--cream);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+  }
+
+  .btn-add:hover { background: #7A3050; }
+
+  /* EVENT ROW */
+  .dp-event {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(139,58,92,0.08);
+  }
+
+  .dp-event:last-child { border-bottom: none; }
+
+  .dp-event-date { text-align: center; }
+  .dp-day { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cream); display: block; line-height: 1; }
+  .dp-mon { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rose); opacity: 0.6; }
+
+  .dp-event-type { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); opacity: 0.6; margin-bottom: 0.3rem; display: block; }
+  .dp-event-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.2rem; }
+  .dp-event-detail { font-size: 0.85rem; color: var(--blush); opacity: 0.55; line-height: 1.6; }
+
+  .btn-event {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    background: rgba(139,58,92,0.15);
+    color: var(--rose);
+    border: 1px solid rgba(139,58,92,0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .btn-event:hover { background: rgba(139,58,92,0.25); }
+
+  /* RESEARCH */
+  .research-quote {
+    background: rgba(139,58,92,0.06);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .research-quote p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+
+  .research-quote cite {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rose);
+    opacity: 0.6;
+    display: block;
+    margin-top: 1rem;
+  }
+
+  /* PODCAST */
+  .podcast-card {
+    background: rgba(26,14,6,0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .podcast-card:hover { border-color: rgba(139,58,92,0.4); }
+
+  .podcast-icon { font-size: 2.5rem; flex-shrink: 0; }
+  .podcast-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--cream); margin-bottom: 0.3rem; }
+  .podcast-meta { font-family: 'Space Mono', monospace; font-size: 0.45rem; letter-spacing: 0.08em; color: var(--rose); opacity: 0.6; margin-bottom: 0.4rem; }
+  .podcast-desc { font-size: 0.85rem; color: var(--blush); opacity: 0.6; line-height: 1.6; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; text-align: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--ochre); letter-spacing: 0.15em; }
+  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
+
+  /* SECTION SPACING */
+  .dp-section { padding: 4rem 0; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .wrap { padding: 0 1.5rem; }
+    .manifesto { padding: 3rem 1.5rem; }
+    .dp-hero { padding: 7rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="#" class="active">Divine Play</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="dp-hero">
+  <div class="dp-hero-inner">
+    <span class="dp-label">✦ KIN-NECT — Divine Play</span>
+    <h1 class="dp-title">The body.<br>The self.<br><em>The pleasure.</em></h1>
+    <p class="dp-subtitle">"Sexual health is not separate from holistic health. Conscious relating is not separate from community. This is the space for the conversations our community needs — and has always deserved."</p>
+    <div class="dp-gate">
+      <p>🌹 18+ space · Trauma-informed · Culturally rooted · Non-judgmental</p>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <blockquote>
+    "For too long, our bodies have been politicised, pathologised and policed. Divine Play is the space where we reclaim them — through honest conversation, conscious relating, ancestral wisdom and the understanding that <em>pleasure is not a luxury</em>. It is a birthright."
+  </blockquote>
+</div>
+
+<!-- EDITORIAL -->
+<div class="dp-section">
+  <div class="wrap">
+    <span class="section-label">✦ Editorial</span>
+    <h2 class="section-title">The <em>Conversations</em><br>We're Not Having</h2>
+    <p class="section-desc">Written by practitioners, researchers and community voices who know this territory. No shame, no sensationalism — just honest, grounded writing about sex, intimacy, identity and the body.</p>
+
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">✦ Research · Auto-ethnography</span>
+        <span class="feed-date">Jai F. · 2026</span>
+      </div>
+      <div class="feed-title">From Pleasure to Practice: An Auto-ethnographic Navigation of the Intersections between BDSM, Racial Identity, and Counselling Training</div>
+      <div class="feed-excerpt">What happens when the therapist is also the subject? This dissertation sits at the intersection of race, sexuality, power and the therapeutic relationship — exploring what BDSM practice can teach us about consent, identity and healing, and what counselling training taught me about myself.</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Jai F. — Integrative Counsellor & Researcher</span>
+        <a href="#" class="dp-card-link">Read on portfolio →</a>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">🎙 Podcast · Decisions Decisions</span>
+        <span class="feed-date">Episode 386</span>
+      </div>
+      <div class="feed-title">Olympic Play — Decisions Decisions, Episode 386</div>
+      <div class="feed-excerpt">A conversation about play, pleasure and what it means to approach intimacy with the same intentionality and discipline as an elite athlete. What would it look like to train for connection the way Olympians train for performance?</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Decisions Decisions Podcast</span>
+        <a href="#" class="dp-card-link">Listen now →</a>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">📚 Featured Read</span>
+        <span class="feed-date">Shan Boodram</span>
+      </div>
+      <div class="feed-title">The Game of Desire — Shan Boodram</div>
+      <div class="feed-excerpt">Five surprising secrets to dating with intention. Shan Boodram — sexologist, intimacy educator and cultural voice — offers a framework for conscious dating rooted in self-knowledge, communication and genuine desire. Required reading for anyone navigating modern intimacy.</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Shan Boodram · Sexologist & Educator</span>
+        <a href="#" class="dp-card-link">Find the book →</a>
+      </div>
+    </div>
+
+    <!-- SHAN BOODRAM -->
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">🎙 Video · Shan Boodram</span>
+        <span class="feed-date">Shan Boodram</span>
+      </div>
+      <div class="feed-title">Are They Your Type or Your Trauma Response?</div>
+      <div class="feed-excerpt">Shan Boodram on the patterns we mistake for chemistry — why we're drawn to people who feel familiar rather than healthy, and how to tell the difference. Essential viewing for anyone doing the work on themselves.</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Shan Boodram</span>
+        <a href="#" class="dp-card-link">Watch now →</a>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">🎙 Podcast · Shan Boodram × DeWanda</span>
+      </div>
+      <div class="feed-title">The Compatibility Question Everyone Avoids</div>
+      <div class="feed-excerpt">Shan Boodram and DeWanda Wise on the conversations we don't have early enough in relationships — what compatibility actually means beyond surface-level attraction and shared taste in music.</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Shan Boodram × DeWanda Wise</span>
+        <a href="#" class="dp-card-link">Listen now →</a>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-meta">
+        <span class="feed-tag">🎙 Talk · Seema Anand</span>
+      </div>
+      <div class="feed-title">Seema Anand — The Art of Storytelling & Erotic Wisdom</div>
+      <div class="feed-excerpt">Seema Anand on the ancient erotic wisdom traditions of South Asia — the Kama Sutra not as a sex manual but as a philosophy of pleasure, connection and the art of living fully. Reclaiming ancestral knowledge about the body.</div>
+      <div class="feed-footer">
+        <span class="feed-byline">Seema Anand · Storyteller & Mythologist</span>
+        <a href="#" class="dp-card-link">Watch now →</a>
+      </div>
+    </div>
+
+    <!-- KIN-NECT RESEARCH COMING -->
+    <div style="background:rgba(139,58,92,0.04);border:1px solid rgba(139,58,92,0.12);border-radius:12px;padding:1.5rem;margin-top:1rem;">
+      <span class="dp-card-tag" style="margin-bottom:0.8rem;display:block;">✦ From the Tribe · Forthcoming Research</span>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--cream);margin-bottom:0.8rem;">Forthcoming Editorial — Jai F.</div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;">
+        <div style="font-size:0.9rem;color:var(--blush);opacity:0.7;padding:0.4rem 0;border-bottom:1px solid rgba(139,58,92,0.08);">Divine Play — a framework for conscious sexuality</div>
+        <div style="font-size:0.9rem;color:var(--blush);opacity:0.7;padding:0.4rem 0;border-bottom:1px solid rgba(139,58,92,0.08);">Black & Kinky — identity, desire and the politics of pleasure</div>
+        <div style="font-size:0.9rem;color:var(--blush);opacity:0.7;padding:0.4rem 0;border-bottom:1px solid rgba(139,58,92,0.08);">Understanding Intersectionality when combining Sex, Kink & Cultural Components</div>
+        <div style="font-size:0.9rem;color:var(--blush);opacity:0.7;padding:0.4rem 0;">Shades of Submission: Balancing being a submissive and a 'strong Black woman'</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" style="margin: 0; border-color: rgba(139,58,92,0.1);">
+
+<!-- DIRECTORY -->
+<div class="dp-section">
+  <div class="wrap">
+    <span class="section-label">🌹 Directory</span>
+    <h2 class="section-title">Conscious Intimacy <em>Practitioners</em></h2>
+    <p class="section-desc">Somatic intimacy coaches, psychosexual therapists, sex-positive counsellors and conscious relating practitioners. Vetted, culturally aware, trauma-informed.</p>
+
+    <div class="card-grid">
+
+      <div class="dp-card">
+        <span class="dp-card-tag">Psychosexual Therapy · London</span>
+        <div class="dp-card-title">JF Therapy</div>
+        <div class="dp-card-sub">Jai F. — Integrative Counsellor</div>
+        <div class="dp-card-body">Integrative counselling with a psychosexual specialism. Working with identity, intimacy, BDSM, conscious relating and the intersections of race and sexuality. Culturally competent, trauma-informed.</div>
+        <a href="directory.html" class="dp-card-link">Book a session →</a>
+      </div>
+
+      <div class="dp-card">
+        <span class="dp-card-tag">Womb Work · Somatic Healing · London</span>
+        <div class="dp-card-title">Nao</div>
+        <div class="dp-card-sub">Womb Work Practitioner</div>
+        <div class="dp-card-body">Somatic womb work — connecting to the body's wisdom, releasing stored trauma and returning to cyclical living. Gatherings, 1-2-1 sessions and community healing circles.</div>
+        <a href="#" class="dp-card-link">Find out more →</a>
+      </div>
+
+      <div class="dp-card" style="opacity:0.6;border-style:dashed;">
+        <span class="dp-card-tag">Sex Educator · Coming</span>
+        <div class="dp-card-title">Your educator here</div>
+        <div class="dp-card-body">Sex educators, intimacy coaches and conscious relating facilitators. This space is being curated carefully.</div>
+        <a href="directory.html#submit" class="dp-card-link">Submit a listing →</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="divider" style="margin: 0; border-color: rgba(139,58,92,0.1);">
+
+<!-- EVENTS -->
+<div class="dp-section">
+  <div class="wrap">
+    <span class="section-label">🎟 Events</span>
+    <h2 class="section-title">Conscious <em>Gatherings</em></h2>
+    <p class="section-desc">Boundaried spaces for exploring intimacy, pleasure and relating. Workshops, conversations, somatic experiences — thoughtful and safe.</p>
+
+    <div class="dp-event">
+      <div class="dp-event-date"><span class="dp-day">TBC</span><span class="dp-mon">2027</span></div>
+      <div>
+        <span class="dp-event-type">🌹 Divine Play · Workshop</span>
+        <div class="dp-event-name">Conscious Relating Workshop</div>
+        <div class="dp-event-detail">Communication, boundaries, desire and connection. A facilitated workshop for people who want to engage with intimacy thoughtfully. Limited spaces.</div>
+      </div>
+      <button class="btn-event">Join waitlist</button>
+    </div>
+
+    <div class="dp-event">
+      <div class="dp-event-date"><span class="dp-day">TBC</span><span class="dp-mon">2027</span></div>
+      <div>
+        <span class="dp-event-type">🌹 Divine Play · Discussion</span>
+        <div class="dp-event-name">The Body, Race and Desire — Community Conversation</div>
+        <div class="dp-event-detail">An honest conversation about race, sexuality and how our identities shape our intimate lives. Facilitated, boundaried, community-held.</div>
+      </div>
+      <button class="btn-event">Join waitlist</button>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" style="margin: 0; border-color: rgba(139,58,92,0.1);">
+
+<!-- STORE -->
+<div class="dp-section">
+  <div class="wrap">
+    <span class="section-label">🛍 Store</span>
+    <h2 class="section-title">Conscious <em>Products</em></h2>
+    <p class="section-desc">Books, tools and resources for conscious intimacy and sexual wellbeing. Curated with the same care as everything on KIN-NECT.</p>
+
+    <div class="store-grid">
+
+      <div class="store-card">
+        <div class="store-img">📚</div>
+        <div class="store-body">
+          <div class="store-vendor">Shan Boodram</div>
+          <div class="store-name">The Game of Desire</div>
+          <div class="store-price">£14.99</div>
+          <div class="store-desc">Five surprising secrets to dating with intention. Essential reading.</div>
+          <button class="btn-add">Find the book ✦</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-img">🌹</div>
+        <div class="store-body">
+          <div class="store-vendor">KIN-NECT · Digital</div>
+          <div class="store-name">Conscious Relating Guide</div>
+          <div class="store-price">£12.00 · Coming soon</div>
+          <div class="store-desc">Communication, consent and connection. A practical guide to intentional intimacy.</div>
+          <button class="btn-add" style="background:rgba(139,58,92,0.3);cursor:default;">Coming soon</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-img">🕯️</div>
+        <div class="store-body">
+          <div class="store-vendor">DANKH</div>
+          <div class="store-name">Sacred Smoke & Soak Blend</div>
+          <div class="store-price">£18.00 · Coming soon</div>
+          <div class="store-desc">Herbal blends for smoke, tea or ritual soak. Intention-setting, grounding, ceremonial.</div>
+          <button class="btn-add" style="background:rgba(139,58,92,0.3);cursor:default;">Coming soon</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-img">🪔</div>
+        <div class="store-body">
+          <div class="store-vendor">DANKH</div>
+          <div class="store-name">Incense & Incense Holder Set</div>
+          <div class="store-price">£16.00 · Coming soon</div>
+          <div class="store-desc">Ritual incense and hand-crafted holder. Sacred space starts with the senses.</div>
+          <button class="btn-add" style="background:rgba(139,58,92,0.3);cursor:default;">Coming soon</button>
+        </div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-img">🍵</div>
+        <div class="store-body">
+          <div class="store-vendor">DANKH</div>
+          <div class="store-name">Ritual Tea Blend</div>
+          <div class="store-price">£14.00 · Coming soon</div>
+          <div class="store-desc">Botanical tea blend for slowing down, coming home to the body. Aphrodisiac herbs, adaptogens, intention.</div>
+          <button class="btn-add" style="background:rgba(139,58,92,0.3);cursor:default;">Coming soon</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr class="divider" style="margin: 0; border-color: rgba(139,58,92,0.1);">
+
+<!-- RESEARCH -->
+<div class="dp-section">
+  <div class="wrap">
+    <span class="section-label">🔬 Research</span>
+    <h2 class="section-title">Evidence for <em>Change</em></h2>
+    <p class="section-desc">Psychosexual wellbeing research — for and by the community. Educational, therapeutic and culturally rooted.</p>
+
+    <div class="research-quote">
+      <p>"The research begins with lived experience — the practitioner as subject, the community as co-researcher. What we know about pleasure, identity and healing comes first from the body, then from the literature."</p>
+      <cite>— Jai F., Integrative Counsellor & Researcher · KIN-NECT</cite>
+    </div>
+
+    <div class="card-grid">
+
+      <div class="dp-card">
+        <span class="dp-card-tag">Dissertation · Auto-ethnography · 2026</span>
+        <div class="dp-card-title">From Pleasure to Practice</div>
+        <div class="dp-card-sub">Jai F. — Available on portfolio</div>
+        <div class="dp-card-body">An auto-ethnographic navigation of the intersections between BDSM, racial identity and counselling training. Original research sitting at the frontier of psychosexual and psychodynamic practice.</div>
+        <a href="#" class="dp-card-link">Read on portfolio →</a>
+      </div>
+
+      <div class="dp-card" style="opacity:0.6;border-style:dashed;">
+        <span class="dp-card-tag">Year 2-3 · Formal Research</span>
+        <div class="dp-card-title">🌹 Psychosexual Wellbeing Research Programme</div>
+        <div class="dp-card-body">Community-based participatory research into psychosexual wellbeing — for and by the community. University partnerships developing the formal research strand.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">KIN<span>-</span>NECT</div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--blush);opacity:0.5;margin:0.5rem 0;">"The body is not a problem to be solved. It is a home to return to."</p>
+  <p style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--rose);opacity:0.4;margin-top:1rem;">18+ · Trauma-informed · Culturally rooted ✦</p>
+</footer>
+
+</body>
+</html>

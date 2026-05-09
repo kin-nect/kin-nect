@@ -1996,9 +1996,11 @@
     <li><a href="editorial.html" onclick="closeNav()">Editorial</a></li>
     <li><a href="events.html" onclick="closeNav()">Events</a></li>
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
-    <li><a href="#list-with-us" onclick="closeNav(); setTimeout(()=>document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'}),100);" style="color:var(--gold);">Join the KIN</a></li>
   </ul>
-  <button onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}" style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--ochre);color:var(--night);border:none;border-radius:20px;padding:0.4rem 1rem;cursor:pointer;font-weight:700;margin-right:0.5rem;">Stay KIN-nected ✦</button>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;margin-right:0.8rem;">
+    <a href="#" onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}return false;" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.9;transition:opacity 0.2s;">Stay KIN-nected ✦</a>
+    <a href="#list-with-us" onclick="closeNav(); setTimeout(()=>document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'}),100);" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.6;transition:opacity 0.2s;">Get Listed</a>
+  </div>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>

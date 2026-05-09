@@ -442,6 +442,10 @@
 
 <nav>
   <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;margin-right:0.8rem;">
+    <a href="#" onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}return false;" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.9;transition:opacity 0.2s;">Stay KIN-nected ✦</a>
+    <a href="index.html#list-with-us" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.6;transition:opacity 0.2s;">Get Listed</a>
+  </div>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   <a href="index.html#editorial" class="nav-back">← Back to Editorial</a>
 </nav>

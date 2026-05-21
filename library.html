@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // THEME INIT — runs before paint to prevent flash
+  (function(){
+    var t = localStorage.getItem('kin-theme');
+    if(t === 'light') {
+      document.documentElement.classList.add('light-mode');
+      document.documentElement.style.background = '#F7F1E6';
+    } else {
+      document.documentElement.classList.remove('light-mode');
+      document.documentElement.style.background = '#0D0A06';
+    }
+  })();
+</script>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H05X6JMTCK"></script>
 <script>
@@ -2103,30 +2116,36 @@
   body.light-mode .lib-card { background: #F9F4EB !important; border-color: rgba(184,98,26,0.15) !important; }
   body.light-mode .lib-card:hover { background: #EDE7DA !important; }
 
+
+  /* ── THEME FLASH FIX ── */
+  html.light-mode {
+    background: #F7F1E6 !important;
+  }
+  html.light-mode body {
+    background: #F7F1E6 !important;
+  }
+  html:not(.light-mode) {
+    background: #0D0A06 !important;
+  }
+  html:not(.light-mode) body {
+    background: #0D0A06 !important;
+  }
+
 </style>
 </head>
 <body>
 
-<script>
-  // LIGHT MODE FIX — prevent brown spreading between pages
-  (function() {
-    var theme = localStorage.getItem('kin-theme');
-    if (theme === 'light') {
-      document.documentElement.style.background = '#F7F1E6';
-      document.body && (document.body.style.background = '#F7F1E6');
-    }
-  })();
-</script>
+
 
 <nav>
   <a class="nav-logo" href="index.html">KIN<span>-</span>NECT</a>
-  <ul class="nav-links" id="nav-links">
+    <ul class="nav-links" id="nav-links">
     <li><a href="about.html" onclick="closeNav()">About</a></li>
     <li><a href="editorial.html" onclick="closeNav()">Editorial</a></li>
     <li><a href="the-calendar.html" onclick="closeNav()">Calendar</a></li>
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
     <li><a href="directory.html" onclick="closeNav()">Directory</a></li>
-    <li><a href="index.html#list-with-us" style="color:var(--gold);">Get Listed</a></li>
+    <li><a href="index.html#list-with-us" style="color:var(--gold);" onclick="closeNav()">Get Listed</a></li>
   </ul>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;margin-right:0.8rem;">
     <a href="#" onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}return false;" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.9;transition:opacity 0.2s;">Stay KIN-nected ✦</a>

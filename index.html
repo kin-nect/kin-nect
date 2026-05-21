@@ -2038,11 +2038,12 @@
 <nav>
   <a class="nav-logo" href="index.html">KIN<span>-</span>NECT</a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="about.html" onclick="closeNav()" style="color:var(--gold);">About</a></li>
-    <li><a href="directory.html" onclick="closeNav()">Directory</a></li>
+    <li><a href="about.html" onclick="closeNav()">About</a></li>
     <li><a href="editorial.html" onclick="closeNav()">Editorial</a></li>
-    <li><a href="the-calendar.html" onclick="closeNav()">The Calendar</a></li>
+    <li><a href="the-calendar.html" onclick="closeNav()">Calendar</a></li>
     <li><a href="library.html" onclick="closeNav()">Library</a></li>
+    <li><a href="directory.html" onclick="closeNav()">Directory</a></li>
+    <li><a href="index.html#list-with-us" style="color:var(--gold);">Get Listed</a></li>
   </ul>
   <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;margin-right:0.8rem;">
     <a href="#" onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}return false;" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.9;transition:opacity 0.2s;">Stay KIN-nected ✦</a>
@@ -2086,16 +2087,8 @@
   </div>
 
   <div class="pillars-grid">
-    <a href="directory.html" class="pillar-card">
-      <span class="pillar-number">01</span>
-      <span class="pillar-icon">🌿</span>
-      <div class="pillar-name">The Directory</div>
-      <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
-      <span class="pillar-tag">Find · Discover · KIN-NECT</span>
-    </a>
-
     <a href="editorial.html" class="pillar-card">
-      <span class="pillar-number">02</span>
+      <span class="pillar-number">01</span>
       <span class="pillar-icon">✍🏿</span>
       <div class="pillar-name">The Editorial</div>
       <p class="pillar-desc">News, articles, and cultural commentary written with care. Stories that centre our perspectives, our histories, our futures.</p>
@@ -2103,7 +2096,7 @@
     </a>
 
     <a href="the-calendar.html" class="pillar-card">
-      <span class="pillar-number">03</span>
+      <span class="pillar-number">02</span>
       <span class="pillar-icon">🌙</span>
       <div class="pillar-name">The Calendar</div>
       <p class="pillar-desc">Equinox dates, cultural moments, community gatherings. Time held with intention.</p>
@@ -2111,11 +2104,19 @@
     </a>
 
     <a href="library.html" class="pillar-card">
-      <span class="pillar-number">04</span>
+      <span class="pillar-number">03</span>
       <span class="pillar-icon">📚</span>
       <div class="pillar-name">The Library</div>
       <p class="pillar-desc">A gathering around words, ideas, and the literature that shapes us. Curated reading, collective discussion, a home for the curious mind.</p>
       <span class="pillar-tag">Read · Gather · Grow</span>
+    </a>
+
+    <a href="directory.html" class="pillar-card">
+      <span class="pillar-number">04</span>
+      <span class="pillar-icon">🌿</span>
+      <div class="pillar-name">The Directory</div>
+      <p class="pillar-desc">Food spots, healers, practitioners, spaces, makers, art. A living, curated map of the community — conscious, intentional, curated with care. If it elevates, it's here.</p>
+      <span class="pillar-tag">Find · Discover · KIN-NECT</span>
     </a>
 
     <a href="about.html" class="pillar-card">
@@ -2212,10 +2213,10 @@
     </a>
   </div>
   <ul class="footer-links">
-    <li><a href="directory.html">Directory</a></li>
     <li><a href="editorial.html">Editorial</a></li>
-    <li><a href="the-calendar.html">The Calendar</a></li>
+    <li><a href="the-calendar.html">Calendar</a></li>
     <li><a href="library.html">Library</a></li>
+    <li><a href="directory.html">Directory</a></li>
     <li><a href="index.html#list-with-us">Get Listed</a></li>
   </ul>
   <div class="footer-copy">© 2026 KIN-NECT. Built with intention.</div>

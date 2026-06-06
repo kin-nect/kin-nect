@@ -3,954 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIN-NECT — My Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>My Portal — KIN-NECT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ochre: #C8732A;
-    --gold: #C8732A;
-    --cream: #F5EDD8;
-    --sage: #6B7C5E;
-    --blush: #E8C9A0;
     --night: #0D0A06;
+    --ochre: #C8732A;
+    --gold: #B8621A;
+    --cream: #F5EDD8;
+    --blush: #E8C9A0;
+    --sage: #6B7C5E;
     --dark: #1A0E06;
+    --mid: #2C1A0E;
     --border: rgba(200,115,42,0.15);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--night);
-    color: var(--cream);
-    font-family: 'Cormorant Garamond', serif;
-    min-height: 100vh;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(13,10,6,0.95) 0%, transparent 100%);
-  }
-
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: 0.15em; color: var(--ochre); text-decoration: none; }
-  .nav-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
-  .nav-links a { color: var(--blush); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
-  .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--ochre); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--night); color:var(--cream); font-family:'Cormorant Garamond',serif; min-height:100vh; }
 
   /* LAYOUT */
-  .portal-layout {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 7rem 3rem 6rem;
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 2.5rem;
-    align-items: start;
-  }
+  .portal-wrap { display:grid; grid-template-columns:240px 1fr; min-height:100vh; }
 
   /* SIDEBAR */
-  .portal-sidebar { position: sticky; top: 6rem; }
+  .sidebar { background:var(--dark); border-right:1px solid var(--border); padding:2rem 0; position:sticky; top:0; height:100vh; overflow-y:auto; }
+  .sidebar-logo { padding:0 1.5rem 2rem; border-bottom:1px solid var(--border); }
+  .sidebar-logo .wordmark { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; letter-spacing:0.1em; color:var(--ochre); }
+  .sidebar-logo .sub { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--blush); opacity:0.4; margin-top:0.3rem; }
 
-  .profile-card {
-    background: rgba(26,14,6,0.7);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.8rem;
-    margin-bottom: 1.2rem;
-    position: relative;
-    overflow: hidden;
-  }
+  /* PROFILE MINI */
+  .profile-mini { padding:1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.75rem; }
+  .avatar { width:40px; height:40px; border-radius:50%; background:var(--ochre); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:1rem; color:var(--night); font-weight:700; flex-shrink:0; }
+  .profile-mini-info { overflow:hidden; }
+  .profile-mini-name { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--cream); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .profile-mini-handle { font-family:'Space Mono',monospace; font-size:0.5rem; color:var(--ochre); letter-spacing:0.1em; }
 
-  .profile-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--ochre), transparent);
-  }
+  /* NAV */
+  .sidebar-nav { padding:1rem 0; }
+  .nav-section-label { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--blush); opacity:0.3; padding:1rem 1.5rem 0.5rem; }
+  .nav-item { display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1.5rem; cursor:pointer; transition:all 0.2s; font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blush); opacity:0.5; border-left:2px solid transparent; }
+  .nav-item:hover { opacity:0.8; background:rgba(200,115,42,0.05); }
+  .nav-item.active { opacity:1; color:var(--ochre); border-left-color:var(--ochre); background:rgba(200,115,42,0.08); }
+  .nav-item .icon { font-size:0.9rem; width:16px; text-align:center; }
+  .nav-badge { margin-left:auto; background:var(--ochre); color:var(--night); font-size:0.45rem; padding:0.1rem 0.4rem; border-radius:10px; font-weight:700; }
 
-  .avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(200,115,42,0.3), rgba(107,124,94,0.3));
-    border: 2px solid rgba(200,115,42,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-  }
+  /* MAIN */
+  .main { padding:2.5rem 3rem; overflow-y:auto; }
+  .page-header { margin-bottom:2.5rem; }
+  .page-eyebrow { font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--ochre); opacity:0.7; margin-bottom:0.5rem; }
+  .page-title { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--cream); }
+  .page-sub { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--blush); opacity:0.6; margin-top:0.3rem; }
 
-  .profile-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 0.2rem;
-  }
-
-  .profile-handle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
-    color: var(--ochre);
-    opacity: 0.7;
-    margin-bottom: 1rem;
-  }
-
-  .profile-bio {
-    font-size: 0.9rem;
-    color: var(--blush);
-    opacity: 0.65;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-  }
-
-  .profile-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-    border-top: 1px solid var(--border);
-    padding-top: 1rem;
-  }
-
-  .stat { text-align: center; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ochre); display: block; }
-  .stat-label { font-family: 'Space Mono', monospace; font-size: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blush); opacity: 0.4; }
-
-  /* NAV SIDEBAR */
-  .portal-nav {
-    background: rgba(26,14,6,0.6);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 1.2rem;
-  }
-
-  .portal-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0.9rem 1.2rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.52rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--blush);
-    opacity: 0.6;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(200,115,42,0.06);
-    transition: all 0.2s;
-  }
-
-  .portal-nav-item:last-child { border-bottom: none; }
-  .portal-nav-item:hover, .portal-nav-item.active { opacity: 1; color: var(--ochre); background: rgba(200,115,42,0.04); }
-  .portal-nav-item .icon { font-size: 0.9rem; }
-
-  .prefs-card {
-    background: rgba(26,14,6,0.6);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.2rem;
-  }
-
-  .prefs-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--blush);
-    opacity: 0.5;
-    margin-bottom: 0.8rem;
-  }
-
-  .pref-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid rgba(200,115,42,0.05);
-  }
-
-  .pref-row:last-child { border-bottom: none; }
-  .pref-name { font-size: 0.85rem; color: var(--blush); opacity: 0.7; }
-
-  .toggle {
-    width: 32px;
-    height: 18px;
-    background: rgba(200,115,42,0.2);
-    border-radius: 9px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .toggle.on { background: var(--ochre); }
-  .toggle::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: var(--cream);
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: left 0.2s;
-  }
-
-  .toggle.on::after { left: 16px; }
-
-  /* MAIN CONTENT */
-  .portal-main { }
-
-  .portal-greeting {
-    margin-bottom: 2rem;
-  }
-
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ochre);
-    opacity: 0.7;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  .greeting-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-  }
-
-  .greeting-title em { color: var(--ochre); font-style: italic; }
-
-  .greeting-sub {
-    font-size: 1rem;
-    color: var(--blush);
-    opacity: 0.6;
-    line-height: 1.7;
-  }
+  /* STATS ROW */
+  .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2.5rem; }
+  .stat-card { background:var(--dark); border:1px solid var(--border); border-radius:10px; padding:1.25rem; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--ochre); }
+  .stat-label { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--blush); opacity:0.5; margin-top:0.3rem; }
 
   /* SECTION */
-  .portal-section {
-    margin-bottom: 2.5rem;
-  }
+  .section { margin-bottom:2.5rem; }
+  .section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; }
+  .section-title { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--cream); }
+  .section-link { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ochre); cursor:pointer; opacity:0.7; }
+  .section-link:hover { opacity:1; }
 
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding-bottom: 0.8rem;
-    border-bottom: 1px solid var(--border);
-  }
+  /* CARDS */
+  .card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .card-grid-2 { grid-template-columns:repeat(2,1fr); }
+  .item-card { background:var(--dark); border:1px solid var(--border); border-radius:10px; padding:1.25rem; position:relative; transition:border-color 0.2s; }
+  .item-card:hover { border-color:rgba(200,115,42,0.4); }
+  .item-tag { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ochre); opacity:0.7; margin-bottom:0.5rem; }
+  .item-name { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--cream); margin-bottom:0.3rem; }
+  .item-sub { font-family:'Cormorant Garamond',serif; font-size:0.85rem; color:var(--blush); opacity:0.5; line-height:1.5; }
+  .item-action { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.1em; color:var(--ochre); cursor:pointer; margin-top:0.75rem; opacity:0.6; }
+  .item-action:hover { opacity:1; }
+  .remove-btn { position:absolute; top:0.75rem; right:0.75rem; font-size:0.6rem; color:var(--blush); opacity:0.2; cursor:pointer; }
+  .remove-btn:hover { opacity:0.6; }
 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--cream);
-  }
+  /* APOTHECARY */
+  .apoth-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .apoth-card { background:var(--dark); border:1px solid var(--border); border-radius:10px; overflow:hidden; transition:border-color 0.2s; }
+  .apoth-card:hover { border-color:rgba(200,115,42,0.4); }
+  .apoth-img { height:80px; display:flex; align-items:center; justify-content:center; font-size:2rem; background:rgba(200,115,42,0.06); }
+  .apoth-body { padding:1rem; }
+  .apoth-tag { font-family:'Space Mono',monospace; font-size:0.42rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sage); margin-bottom:0.4rem; }
+  .apoth-name { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--cream); margin-bottom:0.2rem; }
+  .apoth-desc { font-family:'Cormorant Garamond',serif; font-size:0.8rem; color:var(--blush); opacity:0.5; line-height:1.5; margin-bottom:0.75rem; }
+  .apoth-row { display:flex; align-items:center; justify-content:space-between; }
+  .apoth-price { font-family:'Space Mono',monospace; font-size:0.55rem; color:var(--ochre); }
+  .apoth-btn { font-family:'Space Mono',monospace; font-size:0.42rem; letter-spacing:0.08em; text-transform:uppercase; background:var(--ochre); color:var(--night); border:none; padding:0.4rem 0.8rem; border-radius:20px; cursor:pointer; font-weight:700; }
 
-  .section-link {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.45rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ochre);
-    opacity: 0.7;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  /* SAVED GRID */
-  .saved-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.8rem;
-  }
-
-  .saved-card {
-    background: rgba(26,14,6,0.6);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem;
-    position: relative;
-    transition: border-color 0.2s, transform 0.2s;
-    cursor: pointer;
-  }
-
-  .saved-card:hover { border-color: rgba(200,115,42,0.35); transform: translateY(-2px); }
-
-  .saved-type {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.42rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ochre);
-    opacity: 0.6;
-    margin-bottom: 0.4rem;
-  }
-
-  .saved-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--cream);
-    line-height: 1.3;
-    margin-bottom: 0.3rem;
-  }
-
-  .saved-sub {
-    font-size: 0.8rem;
-    color: var(--blush);
-    opacity: 0.5;
-    line-height: 1.5;
-  }
-
-  .saved-remove {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
-    background: none;
-    border: none;
-    color: var(--blush);
-    opacity: 0.2;
-    cursor: pointer;
-    font-size: 0.7rem;
-    transition: opacity 0.2s;
-  }
-
-  .saved-card:hover .saved-remove { opacity: 0.5; }
-
-  /* ORDERS */
-  .order-row {
-    display: grid;
-    grid-template-columns: 40px 1fr auto;
-    gap: 1rem;
-    align-items: center;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(200,115,42,0.06);
-  }
-
-  .order-row:last-child { border-bottom: none; }
-  .order-icon { font-size: 1.4rem; text-align: center; }
-
-  .order-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
-  .order-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
-
-  .order-status {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.42rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
-    border-radius: 10px;
-  }
-
-  .status-delivered { background: rgba(107,124,94,0.2); color: var(--sage); }
-  .status-pending { background: rgba(200,115,42,0.15); color: var(--ochre); }
-
-  /* EVENTS GOING */
-  .event-going-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(200,115,42,0.06);
-  }
-
-  .event-going-row:last-child { border-bottom: none; }
-
-  .event-date-pill {
-    background: rgba(200,115,42,0.1);
-    border: 1px solid rgba(200,115,42,0.2);
-    border-radius: 8px;
-    padding: 0.4rem 0.6rem;
-    text-align: center;
-    flex-shrink: 0;
-    min-width: 50px;
-  }
-
-  .edp-day { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ochre); display: block; line-height: 1; }
-  .edp-mon { font-family: 'Space Mono', monospace; font-size: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ochre); opacity: 0.7; }
-
-  .event-going-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
-  .event-going-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+  /* EVENTS */
+  .event-list { display:flex; flex-direction:column; gap:0.75rem; }
+  .event-item { background:var(--dark); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem; display:flex; align-items:center; gap:1.25rem; }
+  .event-date-block { text-align:center; min-width:40px; }
+  .event-day { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--ochre); line-height:1; }
+  .event-mon { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--blush); opacity:0.4; }
+  .event-info { flex:1; }
+  .event-name { font-family:'Playfair Display',serif; font-size:0.95rem; color:var(--cream); }
+  .event-where { font-family:'Space Mono',monospace; font-size:0.5rem; color:var(--blush); opacity:0.4; margin-top:0.2rem; letter-spacing:0.08em; }
+  .event-tag { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.3rem 0.6rem; border-radius:20px; background:rgba(200,115,42,0.12); color:var(--ochre); }
 
   /* SUBMISSIONS */
-  .submission-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(200,115,42,0.06);
-  }
+  .sub-list { display:flex; flex-direction:column; gap:0.75rem; }
+  .sub-item { background:var(--dark); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem; }
+  .sub-icon { font-size:1.2rem; }
+  .sub-info { flex:1; }
+  .sub-name { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--cream); }
+  .sub-type { font-family:'Space Mono',monospace; font-size:0.45rem; color:var(--blush); opacity:0.4; margin-top:0.2rem; letter-spacing:0.08em; }
+  .sub-status { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.3rem 0.7rem; border-radius:20px; }
+  .status-accepted { background:rgba(107,124,94,0.2); color:#8FAE7A; }
+  .status-review { background:rgba(200,115,42,0.12); color:var(--ochre); }
 
-  .submission-row:last-child { border-bottom: none; }
+  /* SETTINGS */
+  .settings-form { display:flex; flex-direction:column; gap:1.25rem; max-width:480px; }
+  .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+  .form-label { font-family:'Space Mono',monospace; font-size:0.5rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ochre); opacity:0.7; }
+  .form-input { background:var(--dark); border:1px solid var(--border); border-radius:8px; padding:0.75rem 1rem; color:var(--cream); font-family:'Cormorant Garamond',serif; font-size:1rem; outline:none; transition:border-color 0.2s; }
+  .form-input:focus { border-color:rgba(200,115,42,0.5); }
+  .form-textarea { resize:vertical; min-height:80px; }
+  .save-btn { background:var(--ochre); color:var(--night); font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.12em; text-transform:uppercase; padding:0.8rem 1.5rem; border:none; border-radius:25px; cursor:pointer; font-weight:700; align-self:flex-start; transition:opacity 0.2s; }
+  .save-btn:hover { opacity:0.85; }
 
-  .sub-icon { font-size: 1.4rem; flex-shrink: 0; }
+  /* DIVIDER */
+  .divider { border:none; border-top:1px solid var(--border); margin:2rem 0; }
 
-  .sub-name { font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem; }
-  .sub-meta { font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.08em; color: var(--blush); opacity: 0.4; }
+  /* PANEL */
+  .panel { display:none; }
+  .panel.active { display:block; }
 
-  .sub-status {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.42rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
-    border-radius: 10px;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-
-  .sub-accepted { background: rgba(107,124,94,0.2); color: var(--sage); }
-  .sub-review { background: rgba(200,115,42,0.15); color: var(--ochre); }
-
-  /* EMPTY STATE */
-  .empty-state {
-    padding: 2rem;
-    text-align: center;
-    border: 1px dashed rgba(200,115,42,0.15);
-    border-radius: 12px;
-  }
-
-  .empty-state p { font-size: 0.95rem; color: var(--blush); opacity: 0.5; line-height: 1.7; margin-bottom: 1rem; }
-
-  .btn-explore {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.48rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.6rem 1.2rem;
-    background: var(--ochre);
-    color: var(--night);
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 700;
-  }
-
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 3rem;
-    text-align: center;
-  }
-
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--ochre); letter-spacing: 0.15em; }
-  .footer-logo span { color: var(--cream); font-style: italic; font-weight: 400; }
-
-  @media (max-width: 900px) {
-    .portal-layout { grid-template-columns: 1fr; padding: 5rem 1.5rem 4rem; }
-    .portal-sidebar { position: static; }
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-  }
+  /* FOOTER */
+  footer { border-top:1px solid var(--border); padding:1.5rem 3rem; text-align:center; }
+  footer p { font-family:'Space Mono',monospace; font-size:0.45rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--blush); opacity:0.25; }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">KIN<span>-</span>NECT</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="directory.html">Directory</a></li>
-    <li><a href="marketplace.html">Marketplace</a></li>
-    <li><a href="events-mockup.html">Events</a></li>
-    <li><a href="#" class="active">My Portal</a></li>
-  </ul>
-</nav>
-
-<div class="portal-layout">
+<div class="portal-wrap">
 
   <!-- SIDEBAR -->
-  <div class="portal-sidebar">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">KIN-NECT</div>
+      <div class="sub">My Portal ✦</div>
+    </div>
 
-    <div class="profile-card">
-      <div class="avatar">🌱</div>
-      <div class="profile-name">Jai F.</div>
-      <div class="profile-handle">@jai · Member since March 2026</div>
-      <div class="profile-bio">Integrative counsellor. Community builder. Conscious living, plant medicine, music. London.</div>
-      <div class="profile-stats">
-        <div class="stat">
-          <span class="stat-num">12</span>
-          <span class="stat-label">Saved</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">3</span>
-          <span class="stat-label">Orders</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">2</span>
-          <span class="stat-label">Events</span>
-        </div>
+    <div class="profile-mini">
+      <div class="avatar">J</div>
+      <div class="profile-mini-info">
+        <div class="profile-mini-name">Jayde</div>
+        <div class="profile-mini-handle">@jayde.kin</div>
       </div>
     </div>
 
-    <div class="portal-nav">
-      <div class="portal-nav-item active" onclick="showPanel('saved')">
-        <span class="icon">✦</span> Saved
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">My Space</div>
+      <div class="nav-item active" onclick="showPanel('overview')">
+        <span class="icon">✦</span> Overview
       </div>
-      <div class="portal-nav-item" onclick="showPanel('orders')">
-        <span class="icon">🛍</span> Orders
+      <div class="nav-item" onclick="showPanel('saved')">
+        <span class="icon">🔖</span> Saved
+        <span class="nav-badge">12</span>
       </div>
-      <div class="portal-nav-item" onclick="showPanel('events')">
-        <span class="icon">🎟</span> My Events
+      <div class="nav-item" onclick="showPanel('apothecary')">
+        <span class="icon">🌿</span> My Apothecary
       </div>
-      <div class="portal-nav-item" onclick="showPanel('submissions')">
-        <span class="icon">📤</span> Submissions
+      <div class="nav-item" onclick="showPanel('events')">
+        <span class="icon">🌙</span> My Events
+        <span class="nav-badge">3</span>
       </div>
-      <div class="portal-nav-item" onclick="showPanel('settings')">
+      <div class="nav-item" onclick="showPanel('submissions')">
+        <span class="icon">📬</span> Submissions
+      </div>
+
+      <div class="nav-section-label">Account</div>
+      <div class="nav-item" onclick="showPanel('settings')">
         <span class="icon">⚙</span> Settings
       </div>
-    </div>
-
-    <div class="prefs-card">
-      <div class="prefs-title">My notifications</div>
-      <div class="pref-row">
-        <span class="pref-name">🌿 New listings</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      <div class="nav-item" style="margin-top:auto;">
+        <span class="icon">←</span>
+        <a href="index.html" style="color:inherit;text-decoration:none;">Back to KIN-NECT</a>
       </div>
-      <div class="pref-row">
-        <span class="pref-name">✦ Editorial posts</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="pref-row">
-        <span class="pref-name">🌍 IRL gatherings</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="pref-row">
-        <span class="pref-name">🌕 Moon cycles</span>
-        <div class="toggle" onclick="this.classList.toggle('on')"></div>
-      </div>
-      <div class="pref-row">
-        <span class="pref-name">📚 Library adds</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
-      </div>
-    </div>
-
-  </div>
+    </nav>
+  </aside>
 
   <!-- MAIN -->
-  <div class="portal-main">
+  <main class="main">
 
-    <div class="portal-greeting">
-      <span class="section-label">✦ Welcome back</span>
-      <h1 class="greeting-title">Your <em>KIN-NECT</em><br>portal.</h1>
-      <p class="greeting-sub">Everything you've saved, ordered, submitted and signed up for — all in one place.</p>
-    </div>
+    <!-- OVERVIEW -->
+    <div id="panel-overview" class="panel active">
+      <div class="page-header">
+        <div class="page-eyebrow">Welcome back</div>
+        <div class="page-title">Your portal. Your collection.</div>
+        <div class="page-sub">Everything you've saved, attended and contributed — all in one place.</div>
+      </div>
 
-    <!-- SAVED PANEL -->
-    <div id="panel-saved">
-
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">Saved Listings</div>
-          <a class="section-link" href="directory.html">Browse directory →</a>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Saved</div>
         </div>
-        <div class="saved-grid">
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">🌿 Directory · Herbs</div>
-            <div class="saved-name">Wyld Herbs</div>
-            <div class="saved-sub">Sea moss gel, botanicals</div>
-          </div>
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">🧘🏾 Directory · Movement</div>
-            <div class="saved-name">Nathan L — Yoga</div>
-            <div class="saved-sub">Sunday community yoga</div>
-          </div>
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">🍵 Directory · Space</div>
-            <div class="saved-name">Shai Space</div>
-            <div class="saved-sub">Late night tea, community</div>
-          </div>
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">✦ Directory · Loctician</div>
-            <div class="saved-name">One Stop Dreadlock</div>
-            <div class="saved-sub">Natural hair, locs</div>
-          </div>
-
+        <div class="stat-card">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Events</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Apothecary</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Submissions</div>
         </div>
       </div>
 
-      <div class="portal-section">
+      <div class="section">
         <div class="section-header">
-          <div class="section-title">Saved Editorial</div>
-          <a class="section-link" href="editorial.html">Browse editorial →</a>
+          <div class="section-title">Recently saved</div>
+          <div class="section-link" onclick="showPanel('saved')">See all →</div>
         </div>
-        <div class="saved-grid">
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">✦ From the Tribe</div>
-            <div class="saved-name">The Wheel of the Year</div>
-            <div class="saved-sub">Spring Equinox 2026</div>
+        <div class="card-grid">
+          <div class="item-card">
+            <div class="item-tag">🌿 Directory</div>
+            <div class="item-name">Wyld Herbs</div>
+            <div class="item-sub">Organic sea moss, herbal blends. Women-owned, Black-founded.</div>
+            <div class="item-action">Visit listing →</div>
+            <div class="remove-btn">✕</div>
           </div>
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">🌿 Conscious Travel</div>
-            <div class="saved-name">Conscious Jamaica</div>
-            <div class="saved-sub">Plant medicine & retreats</div>
+          <div class="item-card">
+            <div class="item-tag">✍🏾 Editorial</div>
+            <div class="item-name">The Wheel of the Year</div>
+            <div class="item-sub">What the equinoxes and solstices actually mean — and how to move with them.</div>
+            <div class="item-action">Read →</div>
+            <div class="remove-btn">✕</div>
           </div>
-
-        </div>
-      </div>
-
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">Saved Library</div>
-          <a class="section-link" href="library.html">Browse library →</a>
-        </div>
-        <div class="saved-grid">
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">📚 Library · Research</div>
-            <div class="saved-name">Sacred Texts Archive</div>
-            <div class="saved-sub">sacred-texts.com</div>
-          </div>
-
-          <div class="saved-card">
-            <button class="saved-remove">✕</button>
-            <div class="saved-type">🌿 Library · Health</div>
-            <div class="saved-name">Earth Clinic</div>
-            <div class="saved-sub">Natural remedies</div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ORDERS PANEL -->
-    <div id="panel-orders" style="display:none;">
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">My Orders</div>
-          <a class="section-link" href="marketplace.html">Shop marketplace →</a>
-        </div>
-        <div class="order-row">
-          <div class="order-icon">🃏</div>
-          <div>
-            <div class="order-name">HINDZSIGHT Affirmation Card Deck — Hindz</div>
-            <div class="order-meta">Ordered 10 April 2026 · £22.00</div>
-          </div>
-          <span class="order-status status-delivered">Delivered</span>
-        </div>
-        <div class="order-row">
-          <div class="order-icon">🌿</div>
-          <div>
-            <div class="order-name">Raw Irish Sea Moss Gel — Wyld Herbs</div>
-            <div class="order-meta">Ordered 15 April 2026 · £24.99</div>
-          </div>
-          <span class="order-status status-delivered">Delivered</span>
-        </div>
-        <div class="order-row">
-          <div class="order-icon">📄</div>
-          <div>
-            <div class="order-name">The Conscious Smoke Guide — DANKH</div>
-            <div class="order-meta">Ordered 20 April 2026 · £15.00</div>
-          </div>
-          <span class="order-status status-delivered">Downloaded</span>
-        </div>
-        <div class="order-row">
-          <div class="order-icon">👜</div>
-          <div>
-            <div class="order-name">KIN-NECT Tote Bag</div>
-            <div class="order-meta">Ordered 1 May 2026 · £20.00</div>
-          </div>
-          <span class="order-status status-pending">On its way</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- EVENTS PANEL -->
-    <div id="panel-events" style="display:none;">
-
-      <!-- IRL / PAID EVENTS -->
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">Events I'm attending</div>
-          <a class="section-link" href="eventsmockup.html">Browse events →</a>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">20</span>
-            <span class="edp-mon">Mar 27</span>
-          </div>
-          <div>
-            <div class="event-going-name">Spring Equinox Gathering — KIN-NECT</div>
-            <div class="event-going-meta">Shai Space, London · £20 · 1 ticket</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">Rec</span>
-            <span class="edp-mon">urring</span>
-          </div>
-          <div>
-            <div class="event-going-name">🍵 Shai Space Late Night Tea</div>
-            <div class="event-going-meta">Shai Space, London · £6 — £18</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">2×</span>
-            <span class="edp-mon">weekly</span>
-          </div>
-          <div>
-            <div class="event-going-name">🎵 Orri Jam Sessions</div>
-            <div class="event-going-meta">Colour Factory / Jumbi, London · Free — £10</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">28</span>
-            <span class="edp-mon">May</span>
-          </div>
-          <div>
-            <div class="event-going-name">🎨 Yes Gurl — Paint Your Mate</div>
-            <div class="event-going-meta">BOXPARK Wembley · From £16.96</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">20</span>
-            <span class="edp-mon">May</span>
-          </div>
-          <div>
-            <div class="event-going-name">🎤 Underground Barz × Writer's Block</div>
-            <div class="event-going-meta">House of Ora, SW17 · Singers, poets, open mic</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">Rec</span>
-            <span class="edp-mon">urring</span>
-          </div>
-          <div>
-            <div class="event-going-name">🧘🏾 Reformer Pilates</div>
-            <div class="event-going-meta">London · TBC</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">TBC</span>
-            <span class="edp-mon">2027</span>
-          </div>
-          <div>
-            <div class="event-going-name">🍽 Medicated Moments — DANKH</div>
-            <div class="event-going-meta">Legal city TBC · £65 — £85 · Waitlisted</div>
-          </div>
-        </div>
-
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">19</span>
-            <span class="edp-mon">Jul</span>
-          </div>
-          <div>
-            <div class="event-going-name">✍🏾 Zine Making Workshop — First Born</div>
-            <div class="event-going-meta">London TBC · £25 · 1 ticket</div>
+          <div class="item-card">
+            <div class="item-tag">📚 Library</div>
+            <div class="item-name">Braiding Sweetgrass</div>
+            <div class="item-sub">Robin Wall Kimmerer. Indigenous wisdom, scientific knowledge and the teachings of plants.</div>
+            <div class="item-action">View in library →</div>
+            <div class="remove-btn">✕</div>
           </div>
         </div>
       </div>
 
-      <!-- SPIRITUAL DATES -->
-      <div class="portal-section">
+      <div class="section">
         <div class="section-header">
-          <div class="section-title">Spiritual dates & moon cycles</div>
+          <div class="section-title">Upcoming events</div>
+          <div class="section-link" onclick="showPanel('events')">See all →</div>
         </div>
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">01</span>
-            <span class="edp-mon">May</span>
+        <div class="event-list">
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">20</div>
+              <div class="event-mon">Mar</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Spring Equinox — KIN-NECT Launch Gathering</div>
+              <div class="event-where">Shai Space · London</div>
+            </div>
+            <div class="event-tag">🌱 Seasonal</div>
           </div>
-          <div>
-            <div class="event-going-name">🌕 Flower Moon — Full Moon in Scorpio</div>
-          </div>
-        </div>
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">21</span>
-            <span class="edp-mon">Jun</span>
-          </div>
-          <div>
-            <div class="event-going-name">☀️ Summer Solstice</div>
-          </div>
-        </div>
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">23</span>
-            <span class="edp-mon">Sep</span>
-          </div>
-          <div>
-            <div class="event-going-name">🍂 Autumn Equinox</div>
-          </div>
-        </div>
-        <div class="event-going-row">
-          <div class="event-date-pill">
-            <span class="edp-day">21</span>
-            <span class="edp-mon">Dec</span>
-          </div>
-          <div>
-            <div class="event-going-name">❄️ Winter Solstice</div>
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">21</div>
+              <div class="event-mon">Jun</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Summer Solstice</div>
+              <div class="event-where">The Calendar · Spiritual</div>
+            </div>
+            <div class="event-tag">☀️ Seasonal</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SUBMISSIONS PANEL -->
-    <div id="panel-submissions" style="display:none;">
-      <div class="portal-section">
+    <!-- SAVED -->
+    <div id="panel-saved" class="panel">
+      <div class="page-header">
+        <div class="page-eyebrow">Your collection</div>
+        <div class="page-title">Saved</div>
+        <div class="page-sub">Listings, editorial posts and library resources you've bookmarked.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Directory</div></div>
+        <div class="card-grid">
+          <div class="item-card">
+            <div class="item-tag">🌿 Directory</div>
+            <div class="item-name">Wyld Herbs</div>
+            <div class="item-sub">Organic sea moss, herbal blends. Women-owned, Black-founded.</div>
+            <div class="item-action">Visit listing →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+          <div class="item-card">
+            <div class="item-tag">🎵 Directory</div>
+            <div class="item-name">Shai Space</div>
+            <div class="item-sub">Conscious late night events space. Tea, music, community. London.</div>
+            <div class="item-action">Visit listing →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+          <div class="item-card">
+            <div class="item-tag">🧘🏾 Practitioner</div>
+            <div class="item-name">Nathan — Men's Yoga</div>
+            <div class="item-sub">Weekly men's yoga sessions. Community-focused, conscious practice.</div>
+            <div class="item-action">Book a session →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Editorial</div></div>
+        <div class="card-grid">
+          <div class="item-card">
+            <div class="item-tag">✍🏾 From the Tribe</div>
+            <div class="item-name">The Wheel of the Year</div>
+            <div class="item-sub">What the equinoxes and solstices actually mean — and how to move with them.</div>
+            <div class="item-action">Read →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Library</div></div>
+        <div class="card-grid">
+          <div class="item-card">
+            <div class="item-tag">📚 Library · Book</div>
+            <div class="item-name">Braiding Sweetgrass</div>
+            <div class="item-sub">Robin Wall Kimmerer. Indigenous wisdom, scientific knowledge and the teachings of plants.</div>
+            <div class="item-action">View in library →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+          <div class="item-card">
+            <div class="item-tag">🎬 Library · Film</div>
+            <div class="item-name">Daughters of the Dust</div>
+            <div class="item-sub">Julie Dash, 1991. The Gullah people of the Sea Islands. Ancestral memory, womanhood and roots.</div>
+            <div class="item-action">View in library →</div>
+            <div class="remove-btn">✕</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY APOTHECARY -->
+    <div id="panel-apothecary" class="panel">
+      <div class="page-header">
+        <div class="page-eyebrow">Personal ritual</div>
+        <div class="page-title">My Apothecary</div>
+        <div class="page-sub">Your saved remedies, blends, herbs and conscious products. A living ritual toolkit.</div>
+      </div>
+
+      <div class="section">
         <div class="section-header">
-          <div class="section-title">My Submissions & Published</div>
+          <div class="section-title">Saved products</div>
+          <div class="section-link">Browse the marketplace →</div>
         </div>
-
-        <div class="submission-row">
-          <div class="sub-icon">✦</div>
-          <div>
-            <div class="sub-name">The Wheel of the Year — Spring Equinox 2026</div>
-            <div class="sub-meta">By KIN-NECT · Editorial · Published March 20th 2026</div>
+        <div class="apoth-grid">
+          <div class="apoth-card">
+            <div class="apoth-img">🌿</div>
+            <div class="apoth-body">
+              <div class="apoth-tag">Wyld Herbs · Sea Moss</div>
+              <div class="apoth-name">Organic Irish Sea Moss Gel</div>
+              <div class="apoth-desc">97 of the 102 minerals the body needs. Jamaican and St Lucian sourced. Unflavoured.</div>
+              <div class="apoth-row">
+                <div class="apoth-price">£18.00</div>
+                <button class="apoth-btn">Add to cart</button>
+              </div>
+            </div>
           </div>
-          <span class="sub-status sub-accepted">Published ✓</span>
-        </div>
-
-        <div class="submission-row">
-          <div class="sub-icon">✍🏾</div>
-          <div>
-            <div class="sub-name">Conscious Cannabis: What You're Actually Smoking</div>
-            <div class="sub-meta">From the Tribe · Jai · Editorial · May 2026</div>
+          <div class="apoth-card">
+            <div class="apoth-img">🍵</div>
+            <div class="apoth-body">
+              <div class="apoth-tag">DANKH · Herbal Tea</div>
+              <div class="apoth-name">The Grounding Blend</div>
+              <div class="apoth-desc">Ashwagandha, tulsi, valerian root and chamomile. For stillness and nervous system support.</div>
+              <div class="apoth-row">
+                <div class="apoth-price">£14.00</div>
+                <button class="apoth-btn">Add to cart</button>
+              </div>
+            </div>
           </div>
-          <span class="sub-status sub-review">In review</span>
-        </div>
-
-        <div class="submission-row">
-          <div class="sub-icon">🌹</div>
-          <div>
-            <div class="sub-name">From Pleasure to Practice — Divine Play</div>
-            <div class="sub-meta">From the Tribe · Jai · Divine Play Editorial · Forthcoming</div>
+          <div class="apoth-card">
+            <div class="apoth-img">🌸</div>
+            <div class="apoth-body">
+              <div class="apoth-tag">DANKH · Herbal Tea</div>
+              <div class="apoth-name">The Rising Blend</div>
+              <div class="apoth-desc">Moringa, ginger, hibiscus and lemon myrtle. For energy, clarity and morning ritual.</div>
+              <div class="apoth-row">
+                <div class="apoth-price">£14.00</div>
+                <button class="apoth-btn">Add to cart</button>
+              </div>
+            </div>
           </div>
-          <span class="sub-status sub-review">Drafting</span>
+          <div class="apoth-card">
+            <div class="apoth-img">🌑</div>
+            <div class="apoth-body">
+              <div class="apoth-tag">DANKH · Smoke Blend</div>
+              <div class="apoth-name">The Ceremony Blend</div>
+              <div class="apoth-desc">Mullein, damiana, blue lotus and lavender. A conscious ritual smoke for intention setting.</div>
+              <div class="apoth-row">
+                <div class="apoth-price">£16.00</div>
+                <button class="apoth-btn">Add to cart</button>
+              </div>
+            </div>
+          </div>
+          <div class="apoth-card">
+            <div class="apoth-img">🫚</div>
+            <div class="apoth-body">
+              <div class="apoth-tag">Marketplace · Oil</div>
+              <div class="apoth-name">Black Seed Oil — Cold Pressed</div>
+              <div class="apoth-desc">Nigella sativa. Anti-inflammatory, immune supporting, ancestral remedy. 250ml.</div>
+              <div class="apoth-row">
+                <div class="apoth-price">£12.00</div>
+                <button class="apoth-btn">Add to cart</button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="submission-row">
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">My ritual notes</div>
+        </div>
+        <div class="settings-form">
+          <div class="form-group">
+            <label class="form-label">Morning ritual</label>
+            <textarea class="form-input form-textarea" placeholder="Note your morning practice, supplements, intentions...">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga. Intention setting before screens.</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Evening ritual</label>
+            <textarea class="form-input form-textarea" placeholder="Evening wind down, teas, practices...">The Grounding Blend tea. Journaling. No screens after 9pm.</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Currently working with</label>
+            <input class="form-input" value="Ashwagandha, sea moss, lion's mane, magnesium glycinate" />
+          </div>
+          <button class="save-btn">Save ritual notes ✦</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MY EVENTS -->
+    <div id="panel-events" class="panel">
+      <div class="page-header">
+        <div class="page-eyebrow">Your calendar</div>
+        <div class="page-title">My Events</div>
+        <div class="page-sub">Events you're attending and spiritual dates marked in your calendar.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Attending</div></div>
+        <div class="event-list">
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">20</div>
+              <div class="event-mon">Mar</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Spring Equinox — KIN-NECT Launch Gathering</div>
+              <div class="event-where">Shai Space · London · 7pm</div>
+            </div>
+            <div class="event-tag">🌱 KIN-NECT</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">14</div>
+              <div class="event-mon">Jun</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Orri Jam Session</div>
+              <div class="event-where">Colour Factory · London · 8pm</div>
+            </div>
+            <div class="event-tag">🎵 Music</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">21</div>
+              <div class="event-mon">Jun</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Summer Solstice Gathering</div>
+              <div class="event-where">Community · London · TBC</div>
+            </div>
+            <div class="event-tag">☀️ Seasonal</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section">
+        <div class="section-header"><div class="section-title">Marked spiritual dates</div></div>
+        <div class="event-list">
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">24</div>
+              <div class="event-mon">Jun</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Full Moon — Strawberry Moon</div>
+              <div class="event-where">00:57 BST</div>
+            </div>
+            <div class="event-tag">🌕 Moon</div>
+          </div>
+          <div class="event-item">
+            <div class="event-date-block">
+              <div class="event-day">8</div>
+              <div class="event-mon">Aug</div>
+            </div>
+            <div class="event-info">
+              <div class="event-name">Lion's Gate — 8/8 Portal</div>
+              <div class="event-where">Sirius alignment · Peak manifestation energy</div>
+            </div>
+            <div class="event-tag">🌀 Portal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMISSIONS -->
+    <div id="panel-submissions" class="panel">
+      <div class="page-header">
+        <div class="page-eyebrow">What you've shared</div>
+        <div class="page-title">Submissions</div>
+        <div class="page-sub">Things you've submitted to KIN-NECT for the editorial, library or directory.</div>
+      </div>
+
+      <div class="sub-list">
+        <div class="sub-item">
           <div class="sub-icon">📚</div>
-          <div>
-            <div class="sub-name">Saint Heron — saintheron.com</div>
-            <div class="sub-meta">Submitted to Library · April 2026</div>
+          <div class="sub-info">
+            <div class="sub-name">Braiding Sweetgrass — Robin Wall Kimmerer</div>
+            <div class="sub-type">Library · Book · Submitted 2 weeks ago</div>
           </div>
-          <span class="sub-status sub-accepted">Accepted ✓</span>
+          <div class="sub-status status-accepted">✓ Accepted</div>
         </div>
-
-        <div class="submission-row">
-          <div class="sub-icon">✍🏾</div>
-          <div>
-            <div class="sub-name">Essay: On Ancestral Healing</div>
-            <div class="sub-meta">Submitted to Editorial · April 2026</div>
+        <div class="sub-item">
+          <div class="sub-icon">🎵</div>
+          <div class="sub-info">
+            <div class="sub-name">ISO-1 — Music Therapy App</div>
+            <div class="sub-type">Directory · App · Submitted 1 week ago</div>
           </div>
-          <span class="sub-status sub-review">In review</span>
-        </div>
-
-      </div>
-
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">Forthcoming — From the Tribe</div>
-        </div>
-        <div style="background:rgba(200,115,42,0.04);border:1px solid rgba(200,115,42,0.1);border-radius:10px;padding:1rem;">
-          <div style="font-size:0.85rem;color:var(--blush);opacity:0.7;line-height:1.8;">
-            <div style="padding:0.3rem 0;border-bottom:1px solid rgba(200,115,42,0.06);">Black & Kinky — identity, desire and the politics of pleasure</div>
-            <div style="padding:0.3rem 0;border-bottom:1px solid rgba(200,115,42,0.06);">Understanding Intersectionality when combining Sex, Kink & Cultural Components</div>
-            <div style="padding:0.3rem 0;border-bottom:1px solid rgba(200,115,42,0.06);">Shades of Submission: Balancing being a submissive and a 'strong Black woman'</div>
-            <div style="padding:0.3rem 0;border-bottom:1px solid rgba(200,115,42,0.06);">Glastonbury — the heart chakra, the Tor and what I found there</div>
-            <div style="padding:0.3rem 0;">Queens — Cleopatra, Nefertiti and what we can learn from them</div>
-          </div>
+          <div class="sub-status status-review">In review</div>
         </div>
       </div>
     </div>
 
-    <!-- SETTINGS PANEL -->
-    <div id="panel-settings" style="display:none;">
-      <div class="portal-section">
-        <div class="section-header">
-          <div class="section-title">Account Settings</div>
+    <!-- SETTINGS -->
+    <div id="panel-settings" class="panel">
+      <div class="page-header">
+        <div class="page-eyebrow">Your account</div>
+        <div class="page-title">Settings</div>
+      </div>
+
+      <div class="settings-form">
+        <div class="form-group">
+          <label class="form-label">Display name</label>
+          <input class="form-input" value="Jayde" />
         </div>
-        <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div>
-            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Display name</div>
-            <input type="text" value="Jai F." style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;">
-          </div>
-          <div>
-            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Email</div>
-            <input type="email" value="jai@example.com" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;">
-          </div>
-          <div>
-            <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush);opacity:0.5;margin-bottom:0.4rem;">Short bio</div>
-            <textarea rows="3" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1rem;outline:none;width:100%;max-width:360px;resize:vertical;">Integrative counsellor. Community builder. Conscious living, plant medicine, music. London.</textarea>
-          </div>
-          <button style="background:var(--ochre);color:var(--night);font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:25px;cursor:pointer;font-weight:700;align-self:flex-start;">Save changes ✦</button>
+        <div class="form-group">
+          <label class="form-label">Handle</label>
+          <input class="form-input" value="@jayde.kin" />
         </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" value="hello@kin-nect.co.uk" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bio</label>
+          <textarea class="form-input form-textarea">Community builder. Conscious living, plant medicine, music. London.</textarea>
+        </div>
+        <button class="save-btn">Save changes ✦</button>
       </div>
     </div>
 
-  </div>
+  </main>
 </div>
-
-<footer>
-  <div class="footer-logo">KIN<span>-</span>NECT</div>
-  <p style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--blush);opacity:0.3;margin-top:0.8rem;">Your portal. Your collection. Your community. ✦</p>
-</footer>
 
 <script>
   function showPanel(name) {
-    ['saved','orders','events','submissions','settings'].forEach(p => {
-      document.getElementById('panel-' + p).style.display = p === name ? 'block' : 'none';
-    });
-    document.querySelectorAll('.portal-nav-item').forEach(item => {
-      item.classList.toggle('active', item.textContent.trim().toLowerCase().includes(name));
-    });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
   }
 </script>
 

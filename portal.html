@@ -6,343 +6,518 @@
 <title>My Portal — KIN-NECT</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0d0a06;--dark:#131008;--border:rgba(232,220,200,0.08);--border2:rgba(232,220,200,0.15);--cream:#e8dcc8;--muted:#8a7a5a;--dim:#5a4a3a;--ochre:#c8732a;}
+  :root{--bg:#0d0a06;--card:#131008;--card2:#1a1208;--ochre:#c8732a;--cream:#e8dcc8;--muted:#8a7a5a;--dim:#5a4a3a;--border:rgba(232,220,200,0.08);--border2:rgba(232,220,200,0.15);}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;min-height:100vh;}
-  .wrap{display:grid;grid-template-columns:210px 1fr;min-height:100vh;}
+  .wrap{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
 
   /* SIDEBAR */
-  .sidebar{background:var(--dark);border-right:1px solid var(--border2);padding:0;position:sticky;top:0;height:100vh;overflow-y:auto;}
-  .sb-logo{padding:1.25rem;border-bottom:1px solid var(--border2);}
-  .sb-logo .mark{font-family:'Playfair Display',serif;font-size:1rem;color:#c8b890;letter-spacing:0.08em;font-weight:normal;}
-  .sb-logo .sub{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-top:0.2rem;}
+  .sidebar{background:rgba(10,7,3,0.98);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+  .sb-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);}
+  .sb-logo{font-size:1.1rem;color:var(--ochre);letter-spacing:0.12em;}
+  .sb-sub{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
 
-  /* FOUNDER */
-  .founder{padding:1.1rem;border-bottom:1px solid var(--border2);}
-  .f-av{width:40px;height:40px;border-radius:50%;background:rgba(200,115,42,0.2);border:1px solid rgba(200,115,42,0.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1rem;color:var(--ochre);margin-bottom:0.65rem;}
-  .f-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--cream);font-weight:normal;}
-  .f-role{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);opacity:0.7;margin-top:0.2rem;}
-  .f-bio{font-size:0.78rem;color:var(--muted);margin-top:0.45rem;line-height:1.5;font-style:italic;}
+  /* VIEW TOGGLE */
+  .view-toggle{padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
+  .vt-label{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;}
+  .vt-btns{display:flex;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+  .vt-btn{flex:1;padding:0.5rem 0;font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all 0.15s;text-align:center;}
+  .vt-btn.active{background:var(--ochre);color:#0d0a06;font-weight:700;}
 
-  /* NAV */
-  .nav-sec{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);padding:0.9rem 1.1rem 0.35rem;}
-  .nav-item{display:flex;align-items:center;gap:0.55rem;padding:0.6rem 1.1rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;}
-  .nav-item:hover{color:var(--cream);background:rgba(232,220,200,0.03);}
-  .nav-item.active{color:var(--ochre);border-left-color:var(--ochre);background:rgba(200,115,42,0.06);}
-  .nav-badge{margin-left:auto;background:rgba(200,115,42,0.2);color:var(--ochre);font-size:0.38rem;padding:0.1rem 0.35rem;border-radius:10px;}
+  .profile{padding:1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;}
+  .av{width:36px;height:36px;border-radius:50%;border:1px solid var(--ochre);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--ochre);flex-shrink:0;}
+  .pn{font-size:0.9rem;color:var(--cream);}
+  .pb{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;color:var(--ochre);opacity:0.7;margin-top:0.2rem;}
 
-  /* MAIN */
-  .main{padding:2.25rem 2.5rem;}
-  .eye{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.3rem;}
-  .ptitle{font-size:1.8rem;color:var(--cream);font-weight:normal;letter-spacing:0.03em;}
-  .psub{font-size:0.95rem;color:var(--muted);margin-top:0.25rem;margin-bottom:1.75rem;font-style:italic;}
+  nav{padding:0.75rem 0;flex:1;}
+  .nsec{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);padding:0.75rem 1.25rem 0.3rem;}
+  .ni{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.25rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;}
+  .ni:hover{color:var(--cream);background:rgba(200,115,42,0.05);}
+  .ni.active{color:var(--ochre);border-left-color:var(--ochre);background:rgba(200,115,42,0.06);}
+  .nb{margin-left:auto;background:var(--ochre);color:#0d0a06;font-size:0.38rem;padding:0.1rem 0.35rem;border-radius:8px;font-weight:700;}
+  .founder-only{} /* shown/hidden via JS */
+  .community-only{}
 
-  /* STATS */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1.75rem;}
-  .stat{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:0.9rem;}
-  .stat-n{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ochre);font-weight:normal;}
-  .stat-l{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.15rem;}
+  .sb-back{padding:1rem 1.25rem;border-top:1px solid var(--border);}
+  .sb-back a{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;}
+  .sb-back a:hover{color:var(--muted);}
 
-  /* SECTION */
-  .section{margin-bottom:1.75rem;}
-  .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem;}
-  .sec-title{font-size:1rem;color:var(--cream);font-weight:normal;letter-spacing:0.03em;}
-  .sec-link{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);cursor:pointer;opacity:0.6;}
+  main{padding:2rem 2.5rem;overflow-y:auto;}
+  .panel{display:none;} .panel.active{display:block;}
+  .ph{margin-bottom:1.75rem;}
+  .pe{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.4rem;}
+  .pt{font-size:1.8rem;font-weight:normal;color:var(--cream);letter-spacing:0.04em;}
+  .ps{font-size:0.9rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
 
-  /* BACKEND HUB */
-  .hub-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;}
-  .hub-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1.1rem;cursor:pointer;text-decoration:none;display:block;transition:all 0.2s;}
-  .hub-card:hover{background:rgba(200,115,42,0.06);border-color:rgba(200,115,42,0.3);transform:translateY(-1px);}
-  .hub-icon{font-size:1.4rem;margin-bottom:0.5rem;}
-  .hub-tag{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-bottom:0.25rem;}
-  .hub-name{font-size:0.95rem;color:var(--cream);margin-bottom:0.2rem;}
-  .hub-desc{font-size:0.78rem;color:var(--muted);line-height:1.5;margin-bottom:0.65rem;}
-  .hub-status{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:2px;display:inline-block;}
-  .s-draft{background:rgba(90,74,58,0.3);color:var(--muted);}
-  .s-prev{background:rgba(200,115,42,0.12);color:var(--ochre);}
+  /* VIEW BANNER */
+  .view-banner{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1rem;border-radius:3px;margin-bottom:1.5rem;display:inline-block;}
+  .view-banner.founder{background:rgba(200,115,42,0.12);color:var(--ochre);border:1px solid rgba(200,115,42,0.2);}
+  .view-banner.community{background:rgba(107,124,94,0.12);color:#8FAE7A;border:1px solid rgba(107,124,94,0.2);}
 
-  /* CARDS */
-  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
-  .item-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1rem;position:relative;transition:all 0.15s;}
-  .item-card:hover{background:rgba(200,115,42,0.05);border-color:rgba(200,115,42,0.2);}
-  .item-tag{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.3rem;}
-  .item-name{font-size:0.9rem;color:var(--cream);}
-  .item-sub{font-size:0.78rem;color:var(--muted);line-height:1.5;margin-top:0.2rem;}
-  .item-action{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.08em;color:var(--ochre);cursor:pointer;margin-top:0.6rem;opacity:0.5;}
-  .rm{position:absolute;top:0.6rem;right:0.6rem;font-size:0.5rem;color:var(--dim);cursor:pointer;opacity:0.3;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+  .sn{font-size:1.7rem;color:var(--ochre);}
+  .sl{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
+
+  .sec{margin-bottom:2rem;}
+  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+  .st{font-size:1rem;color:var(--cream);font-weight:normal;letter-spacing:0.04em;}
+  .sl2{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);cursor:pointer;opacity:0.6;}
+  .sl2:hover{opacity:1;}
+
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+  .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;position:relative;transition:border-color 0.2s;}
+  .card:hover{border-color:var(--border2);}
+  .ct{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.5rem;}
+  .cn{font-size:0.95rem;color:var(--cream);margin-bottom:0.3rem;}
+  .cd{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+  .ca{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ochre);text-decoration:none;display:block;margin-top:0.75rem;opacity:0.6;}
+  .ca:hover{opacity:1;}
+  .rb{position:absolute;top:0.75rem;right:0.75rem;font-size:0.6rem;color:var(--dim);cursor:pointer;background:none;border:none;}
+  .hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+
+  /* BACKEND CARDS */
+  .be-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;text-decoration:none;display:block;transition:border-color 0.2s;}
+  .be-card:hover{border-color:rgba(200,115,42,0.4);}
+  .be-icon{font-size:1.6rem;margin-bottom:0.75rem;display:block;}
+  .be-tag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.5;margin-bottom:0.35rem;}
+  .be-name{font-size:1rem;color:var(--cream);margin-bottom:0.25rem;font-weight:normal;}
+  .be-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+  .be-badge{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:2px;margin-top:0.75rem;display:inline-block;}
+
+  /* APOTHECARY */
+  .af-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+  .af-btn{padding:4px 12px;border:1px solid var(--border);border-radius:2rem;background:transparent;color:var(--muted);font-size:0.75rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s;}
+  .af-btn.active{border-color:var(--border2);color:var(--cream);}
+  .hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;}
+  .hc{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative;}
+  .hc-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7;}
+  .hc-emoji{font-size:1.8rem;margin-bottom:8px;display:block;}
+  .hc-name{font-size:0.95rem;color:var(--cream);margin:0 0 3px;}
+  .hc-tag{font-size:0.75rem;font-style:italic;margin:0 0 10px;}
+  .hc-list{list-style:none;padding:0;margin:0 0 10px;}
+  .hc-list li{font-size:0.73rem;color:var(--muted);padding:2px 0 2px 10px;position:relative;line-height:1.4;}
+  .hc-list li::before{content:'·';position:absolute;left:0;}
+  .hc-tap{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);}
 
   /* EVENTS */
-  .ev-list{display:flex;flex-direction:column;gap:0.6rem;}
-  .ev-item{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:0.85rem 1rem;display:flex;align-items:center;gap:0.9rem;}
-  .ev-day{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--ochre);line-height:1;font-weight:normal;}
-  .ev-mon{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);}
-  .ev-name{font-size:0.88rem;color:var(--cream);}
-  .ev-where{font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.15rem;letter-spacing:0.06em;}
-  .ev-tag{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.5rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);margin-left:auto;flex-shrink:0;}
-
-  /* APOTH — botanical dark style */
-  .apoth-grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:0.9rem;}
-  .apoth2{background:rgba(255,255,255,0.02);border:1px solid rgba(232,220,200,0.08);border-radius:4px;padding:1.25rem;cursor:pointer;position:relative;transition:all 0.2s;}
-  .apoth-dot{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;opacity:0.7;}
-  .apoth-emoji{font-size:2rem;margin-bottom:8px;display:block;}
-  .apoth-name2{font-size:0.95rem;color:var(--cream);margin:0 0 3px;font-weight:normal;}
-  .apoth-tl2{font-size:0.72rem;font-style:italic;letter-spacing:0.08em;margin:0 0 10px;}
-  .apoth-list{list-style:none;padding:0;margin:0 0 10px;}
-  .apoth-list li{font-size:0.72rem;color:var(--muted);padding:2px 0 2px 10px;position:relative;line-height:1.4;}
-  .apoth-list li::before{content:'·';position:absolute;left:0;}
-  .apoth-tap{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);}
+  .elist{display:flex;flex-direction:column;gap:0.75rem;}
+  .ei{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;}
+  .edb{text-align:center;min-width:36px;}
+  .ed{font-size:1.3rem;color:var(--ochre);line-height:1;}
+  .em2{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);}
+  .einfo{flex:1;}
+  .ename{font-size:0.9rem;color:var(--cream);}
+  .ewhere{font-family:'Space Mono',monospace;font-size:0.42rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;}
+  .etag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.08);color:var(--ochre);}
 
   /* SETTINGS */
-  .sf{display:flex;flex-direction:column;gap:1rem;max-width:420px;}
-  .fl{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;display:block;margin-bottom:0.3rem;}
-  .fi{background:rgba(255,255,255,0.03);border:1px solid var(--border2);border-radius:3px;padding:0.6rem 0.85rem;color:var(--cream);font-family:Georgia,serif;font-size:0.9rem;width:100%;outline:none;}
-  .fi:focus{border-color:rgba(200,115,42,0.4);}
-  textarea.fi{resize:vertical;min-height:65px;}
-  .sv{background:none;border:1px solid rgba(200,115,42,0.4);color:var(--ochre);font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.1rem;border-radius:2px;cursor:pointer;}
+  .sform{display:flex;flex-direction:column;gap:1.25rem;max-width:460px;}
+  .fg{display:flex;flex-direction:column;gap:0.4rem;}
+  .fl{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;}
+  .fi{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:0.7rem 1rem;color:var(--cream);font-family:Georgia,serif;font-size:0.95rem;outline:none;}
+  .fi:focus{border-color:var(--border2);}
+  .fta{resize:vertical;min-height:72px;}
+  .sbtn{background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:2rem;cursor:pointer;font-weight:700;align-self:flex-start;}
 
-  .divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
-  .panel{display:none;}
-  .panel.active{display:block;}
+  /* HERB MODAL */
+  .moverlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:9999;backdrop-filter:blur(3px);}
+  .moverlay.open{display:flex;}
+  .mbox{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
+  .mc{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--dim);font-size:1.5rem;cursor:pointer;line-height:1;}
+  .me{font-size:2.5rem;display:block;margin-bottom:10px;}
+  .mn{font-size:1.7rem;color:var(--cream);font-weight:normal;margin:0 0 3px;}
+  .msl{font-style:italic;font-size:0.85rem;margin:0 0 1.25rem;}
+  .ib{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem;}
+  .ib p{margin:0;font-size:0.85rem;font-style:italic;color:#c8b890;line-height:1.6;}
+  .msec{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.25em;text-transform:uppercase;margin:0 0 8px;}
+  .mlist{list-style:none;padding:0;margin:0 0 1.25rem;}
+  .mlist li{font-size:0.85rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5;}
+  .mlist li::before{content:'✦';position:absolute;left:0;font-size:9px;top:7px;}
+  .musage{font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem;}
+  .mcaut{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px;}
+  .mcaut p{margin:0;font-size:0.78rem;color:#a06050;line-height:1.5;}
 </style>
 </head>
 <body>
 <div class="wrap">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sb-logo">
-      <div class="mark">KIN-NECT</div>
-      <div class="sub">Founder Portal ✦</div>
+    <div class="sb-top">
+      <div class="sb-logo">KIN-NECT</div>
+      <div class="sb-sub">My Portal ✦</div>
     </div>
 
-    <div class="founder">
-      <div class="f-av">J</div>
-      <div class="f-name">Jayde Frances Gilkes</div>
-      <div class="f-role">Founder & Director — KIN-NECT</div>
-      <div class="f-bio">Integrative mental health therapist. Holistic practitioner of 7 years. NED, Stoke Newington Music School CIC.</div>
+    <!-- VIEW TOGGLE -->
+    <div class="view-toggle">
+      <div class="vt-label">View as</div>
+      <div class="vt-btns">
+        <button class="vt-btn active" onclick="setView('founder',this)">Founder</button>
+        <button class="vt-btn" onclick="setView('community',this)">Community</button>
+      </div>
     </div>
 
-    <nav>
-      <div class="nav-sec">My Space</div>
-      <div class="nav-item active" onclick="show2('overview',this)">✦ Overview</div>
-      <div class="nav-item" onclick="show2('backend',this)">🗂 Backend Hub <span class="nav-badge">5</span></div>
-      <div class="nav-item" onclick="show2('saved',this)">🔖 Saved <span class="nav-badge">12</span></div>
-      <div class="nav-item" onclick="show2('apothecary',this)">🌿 My Apothecary</div>
-      <div class="nav-item" onclick="show2('events',this)">🌙 My Events</div>
-      <div class="nav-item" onclick="show2('submissions',this)">📬 Submissions</div>
-      <div class="nav-sec">Account</div>
-      <div class="nav-item" onclick="show2('settings',this)">⚙ Settings</div>
-      <div class="nav-item"><a href="index.html" style="color:inherit;text-decoration:none;">← Back to KIN-NECT</a></div>
+    <div class="profile">
+      <div class="av">J</div>
+      <div>
+        <div class="pn" id="sb-name">Jayde</div>
+        <div class="pb" id="sb-role">✦ Founder & Director</div>
+      </div>
+    </div>
+
+    <nav id="sidebar-nav">
+      <!-- Populated by JS -->
     </nav>
+
+    <div class="sb-back"><a href="index.html">← Back to KIN-NECT</a></div>
   </aside>
 
-  <main class="main">
-
-    <!-- OVERVIEW -->
-    <div id="p-overview" class="panel active">
-      <div class="eye">Welcome back, Jayde</div>
-      <div class="ptitle">Founder Portal.</div>
-      <div class="psub">Your master hub — backend pages, saved content, apothecary and everything in between.</div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">5</div><div class="stat-l">Backend pages</div></div>
-        <div class="stat"><div class="stat-n">12</div><div class="stat-l">Saved</div></div>
-        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Events</div></div>
-        <div class="stat"><div class="stat-n">8</div><div class="stat-l">Herbs</div></div>
-      </div>
-      <div class="section">
-        <div class="sec-hd"><div class="sec-title">Backend pages</div><div class="sec-link" onclick="show2('backend',document.querySelector('[onclick*=backend]'))">See all →</div></div>
-        <div class="hub-grid">
-          <a href="kinnect-full-vision.html" class="hub-card" target="_blank"><div class="hub-icon">🌍</div><div class="hub-tag">Vision · Preview</div><div class="hub-name">Full Vision Page</div><div class="hub-desc">Complete KIN-NECT platform vision — all pillars, not yet live.</div><span class="hub-status s-draft">Draft</span></a>
-          <a href="/mnt/user-data/uploads/marketplace__3_.html" class="hub-card" target="_blank"><div class="hub-icon">🛍</div><div class="hub-tag">Commerce · Realm</div><div class="hub-name">The Marketplace</div><div class="hub-desc">Vendor marketplace mockup. Products, commission model and checkout.</div><span class="hub-status s-prev">Preview</span></a>
-        </div>
-      </div>
-      <div class="section">
-        <div class="sec-hd"><div class="sec-title">Recently saved</div><div class="sec-link" onclick="show2('saved',document.querySelector('[onclick*=saved]'))">See all →</div></div>
-        <div class="card-grid">
-          <div class="item-card"><div class="item-tag">🌿 Directory</div><div class="item-name">Wyld Herbs</div><div class="item-sub">Organic sea moss. Women-owned, Black-founded.</div><div class="item-action">Visit →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">✍🏾 Editorial</div><div class="item-name">Wheel of the Year</div><div class="item-sub">What the equinoxes actually mean.</div><div class="item-action">Read →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">📚 Library</div><div class="item-name">Braiding Sweetgrass</div><div class="item-sub">Robin Wall Kimmerer.</div><div class="item-action">View →</div><div class="rm">✕</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BACKEND -->
-    <div id="p-backend" class="panel">
-      <div class="eye">Internal pages</div>
-      <div class="ptitle">Backend Hub.</div>
-      <div class="psub">Pages built but not yet live on kin-nect.co.uk. Internal review, grant presentations and designer handoff only.</div>
-      <div class="hub-grid">
-        <a href="kinnect-full-vision.html" class="hub-card" target="_blank"><div class="hub-icon">🌍</div><div class="hub-tag">Vision · Preview</div><div class="hub-name">Full Vision Page</div><div class="hub-desc">The complete KIN-NECT platform vision — all pillars, marketplace, library, directory and community content.</div><span class="hub-status s-draft">Draft — not live</span></a>
-        <a href="/mnt/user-data/uploads/marketplace__3_.html" class="hub-card" target="_blank"><div class="hub-icon">🛍</div><div class="hub-tag">Commerce · The Realm</div><div class="hub-name">The Marketplace</div><div class="hub-desc">Vendor marketplace. Products, DANKH store, 15% commission model. Etsy model — vendors keep 85%.</div><span class="hub-status s-prev">Preview — not live</span></a>
-        <a href="/mnt/user-data/uploads/divine-play__1_.html" class="hub-card" target="_blank"><div class="hub-icon">✨</div><div class="hub-tag">18+ · Future pillar</div><div class="hub-name">Divine Play</div><div class="hub-desc">Conscious sexuality and intimacy pillar. Editorial, library and practitioner directory. 18+ gated when live.</div><span class="hub-status s-draft">Draft — internal only</span></a>
-        <a href="/mnt/user-data/uploads/events-mockup__1_.html" class="hub-card" target="_blank"><div class="hub-icon">🎟</div><div class="hub-tag">Events · Ticketing</div><div class="hub-name">Events + Ticket Purchase</div><div class="hub-desc">Events calendar with embedded ticket purchase flow. Spiritual dates and community events with live booking.</div><span class="hub-status s-prev">Preview — not live</span></a>
-        <a href="portal.html" class="hub-card" target="_blank"><div class="hub-icon">👤</div><div class="hub-tag">Community · Member</div><div class="hub-name">Personal Portal</div><div class="hub-desc">Member portal mockup — saved listings, orders, events, apothecary and submissions. Requires backend build.</div><span class="hub-status s-draft">Draft — not live</span></a>
-      </div>
-    </div>
-
-    <!-- SAVED -->
-    <div id="p-saved" class="panel">
-      <div class="eye">Your collection</div>
-      <div class="ptitle">Saved.</div>
-      <div class="psub">Listings, editorial posts and library resources you've bookmarked.</div>
-      <div class="section"><div class="sec-hd"><div class="sec-title">Directory</div></div>
-        <div class="card-grid">
-          <div class="item-card"><div class="item-tag">🌿 Directory</div><div class="item-name">Wyld Herbs</div><div class="item-sub">Organic sea moss, herbal blends.</div><div class="item-action">Visit listing →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">🎵 Directory</div><div class="item-name">Shai Space</div><div class="item-sub">Conscious late night events space.</div><div class="item-action">Visit listing →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">🧘🏾 Practitioner</div><div class="item-name">Nathan — Men's Yoga</div><div class="item-sub">Weekly yoga sessions. Community-focused.</div><div class="item-action">Book →</div><div class="rm">✕</div></div>
-        </div>
-      </div>
-      <hr class="divider">
-      <div class="section"><div class="sec-hd"><div class="sec-title">Editorial & Library</div></div>
-        <div class="card-grid">
-          <div class="item-card"><div class="item-tag">✍🏾 Editorial</div><div class="item-name">The Wheel of the Year</div><div class="item-sub">What the equinoxes and solstices mean.</div><div class="item-action">Read →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">📚 Library · Book</div><div class="item-name">Braiding Sweetgrass</div><div class="item-sub">Robin Wall Kimmerer.</div><div class="item-action">View →</div><div class="rm">✕</div></div>
-          <div class="item-card"><div class="item-tag">🎬 Library · Film</div><div class="item-name">Daughters of the Dust</div><div class="item-sub">Julie Dash, 1991.</div><div class="item-action">View →</div><div class="rm">✕</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- APOTHECARY -->
-    <div id="p-apothecary" class="panel">
-      <div class="eye">Personal ritual</div>
-      <div class="ptitle">My Apothecary.</div>
-      <div class="psub" style="margin-bottom:1rem;">Your herbal reference. The cupboard — tap any herb to open.</div>
-
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.1rem;" id="apo2-filters"></div>
-      <div class="apoth-grid2" id="apo2-grid"></div>
-
-      <hr class="divider">
-      <div class="section"><div class="sec-hd"><div class="sec-title">My ritual notes</div></div>
-        <div class="sf">
-          <div><label class="fl">Morning ritual</label><textarea class="fi">Sea moss gel. Hot water with lemon and ginger. 20 min yoga. Intention setting before screens.</textarea></div>
-          <div><label class="fl">Evening ritual</label><textarea class="fi">The Grounding Blend tea. Journaling. No screens after 9pm.</textarea></div>
-          <div><label class="fl">Currently working with</label><input class="fi" value="Ashwagandha, sea moss, lion's mane, magnesium glycinate" /></div>
-          <button class="sv">Save ritual notes ✦</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- EVENTS -->
-    <div id="p-events" class="panel">
-      <div class="eye">Your calendar</div>
-      <div class="ptitle">My Events.</div>
-      <div class="psub">Events you're attending and spiritual dates marked.</div>
-      <div class="section"><div class="sec-hd"><div class="sec-title">Attending</div></div>
-        <div class="ev-list">
-          <div class="ev-item"><div style="text-align:center;min-width:34px;"><div class="ev-day">20</div><div class="ev-mon">Mar</div></div><div style="flex:1;"><div class="ev-name">Spring Equinox — KIN-NECT Launch</div><div class="ev-where">Shai Space · London · 7pm</div></div><div class="ev-tag">🌱 KIN-NECT</div></div>
-          <div class="ev-item"><div style="text-align:center;min-width:34px;"><div class="ev-day">14</div><div class="ev-mon">Jun</div></div><div style="flex:1;"><div class="ev-name">Orri Jam Session</div><div class="ev-where">Colour Factory · 8pm</div></div><div class="ev-tag">🎵 Music</div></div>
-        </div>
-      </div>
-      <hr class="divider">
-      <div class="section"><div class="sec-hd"><div class="sec-title">Marked spiritual dates</div></div>
-        <div class="ev-list">
-          <div class="ev-item"><div style="text-align:center;min-width:34px;"><div class="ev-day">24</div><div class="ev-mon">Jun</div></div><div style="flex:1;"><div class="ev-name">Full Moon — Strawberry Moon</div><div class="ev-where">00:57 BST</div></div><div class="ev-tag">🌕 Moon</div></div>
-          <div class="ev-item"><div style="text-align:center;min-width:34px;"><div class="ev-day">8</div><div class="ev-mon">Aug</div></div><div style="flex:1;"><div class="ev-name">Lion's Gate — 8/8 Portal</div><div class="ev-where">Sirius alignment</div></div><div class="ev-tag">🌀 Portal</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUBMISSIONS -->
-    <div id="p-submissions" class="panel">
-      <div class="eye">What you've shared</div>
-      <div class="ptitle">Submissions.</div>
-      <div class="psub">Things submitted to KIN-NECT for review.</div>
-      <div class="ev-list">
-        <div class="ev-item"><span style="font-size:1.1rem;">📚</span><div style="flex:1;"><div class="ev-name">Braiding Sweetgrass — Robin Wall Kimmerer</div><div class="ev-where">Library · Book · 2 weeks ago</div></div><span class="hub-status s-prev" style="font-size:0.38rem;margin-left:auto;">✓ Accepted</span></div>
-        <div class="ev-item"><span style="font-size:1.1rem;">🎵</span><div style="flex:1;"><div class="ev-name">ISO-1 — Music Therapy App</div><div class="ev-where">Directory · 1 week ago</div></div><span class="hub-status s-draft" style="font-size:0.38rem;margin-left:auto;">In review</span></div>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div id="p-settings" class="panel">
-      <div class="eye">Your account</div>
-      <div class="ptitle">Settings.</div>
-      <div class="sf" style="margin-top:1.25rem;">
-        <div><label class="fl">Display name</label><input class="fi" value="Jayde Frances Gilkes" /></div>
-        <div><label class="fl">Role</label><input class="fi" value="Founder & Director — KIN-NECT" /></div>
-        <div><label class="fl">Email</label><input class="fi" value="hello@kin-nect.co.uk" /></div>
-        <div><label class="fl">Bio</label><textarea class="fi">Integrative mental health therapist. Holistic practitioner of 7 years. Building the digital village for the conscious community.</textarea></div>
-        <button class="sv">Save changes ✦</button>
-      </div>
-    </div>
-
+  <!-- MAIN -->
+  <main id="main-content">
+    <!-- Populated by JS -->
   </main>
 </div>
 
 <!-- HERB MODAL -->
-<div id="herb2-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);" onclick="if(event.target===this)this.style.display='none'">
-  <div id="herb2-modal" style="background:#131008;border-radius:6px;padding:2rem;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative;">
-    <button onclick="document.getElementById('herb2-bg').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#5a4a3a;font-size:1.5rem;cursor:pointer;font-family:Georgia,serif;">×</button>
-    <span id="h2-emoji" style="font-size:3rem;display:block;margin-bottom:10px;"></span>
-    <h3 id="h2-name" style="font-size:1.7rem;color:#e8dcc8;margin:0 0 3px;font-weight:normal;"></h3>
-    <p id="h2-tl" style="font-style:italic;letter-spacing:0.1em;font-size:0.85rem;margin:0 0 1.4rem;"></p>
-    <div id="h2-ital-box" style="border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem;"><p id="h2-ital" style="margin:0;font-size:0.85rem;font-style:italic;color:#c8b890;line-height:1.6;"></p></div>
-    <p id="h2-bl" style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 8px;"></p>
-    <ul id="h2-benefits" style="list-style:none;padding:0;margin:0 0 1.25rem;"></ul>
-    <p id="h2-ul" style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 6px;"></p>
-    <p id="h2-usage" style="font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem;"></p>
-    <div style="background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px;"><p style="margin:0;font-size:0.78rem;color:#a06050;line-height:1.6;"><strong style="color:#c07060;letter-spacing:0.08em;">CAUTION: </strong><span id="h2-caution"></span></p></div>
+<div class="moverlay" id="hm" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="mbox" id="hm-box">
+    <button class="mc" onclick="document.getElementById('hm').classList.remove('open')">×</button>
+    <span class="me" id="hm-e"></span>
+    <h3 class="mn" id="hm-n"></h3>
+    <p class="msl" id="hm-t"></p>
+    <div class="ib" id="hm-ib"><p id="hm-i"></p></div>
+    <p class="msec" id="hm-bl">Benefits</p>
+    <ul class="mlist" id="hm-b"></ul>
+    <p class="msec" style="color:var(--ochre)">How to use</p>
+    <p class="musage" id="hm-u"></p>
+    <p class="msec" style="color:#a06050">Caution</p>
+    <div class="mcaut"><p><strong style="color:#c07060;letter-spacing:0.08em">NOTE: </strong><span id="hm-c"></span></p></div>
   </div>
 </div>
 
 <script>
-function show2(name, el) {
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('p-'+name).classList.add('active');
-  if(el) el.classList.add('active');
-}
-
-const herbs2 = [
-  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Calms the nervous system — aids sleep and anxiety","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
-  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink 1 cup before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
-  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy. Consult a midwife before use in late pregnancy."},
-  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C","Powerful antioxidant — anti-ageing"],usage:"Steep 1–2 tsp dried petals for 5–10 minutes. Stunning ruby red. Pairs well with ginger.",ital:"Sorrel — as it's known in the Caribbean — is deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly. Avoid in pregnancy."},
-  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines"],usage:"1 tsp flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
-  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
-  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Historically used for spiritual practices"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
-  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to the Scrophulariaceae plant family."},
+const herbs=[
+  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress","Calms the nervous system — aids sleep and anxiety","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
+  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation","Rich in iron, calcium and magnesium","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily.",ital:"A gift specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy. Consult a midwife before use in late pregnancy."},
+  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL cholesterol","Extremely high in Vitamin C","Powerful antioxidant — anti-ageing"],usage:"Steep 1–2 tsp dried petals for 5–10 minutes. Stunning ruby red. Hot or cold.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Clears sinuses and respiratory congestion","Natural pain relief for headaches","Refreshes without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido","Antidepressant and mood-elevating","Reduces anxiety and emotional exhaustion","Historically used for spiritual practices"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon.",ital:"Used by the Maya — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects."},
+  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health","Soothes bronchitis and asthma","Supports recovery from smoking damage","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein keeps that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family."}
 ];
 
-const cats2 = {all:"All",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory"};
-let ac2 = "all";
+const herbCats={all:"All",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory"};
+let herbFilter="all";
 
-function rf2() {
-  document.getElementById("apo2-filters").innerHTML = Object.entries(cats2).map(([k,v])=>
-    `<button onclick="sa2('${k}')" style="padding:4px 12px;border:1px solid ${k===ac2?'rgba(232,220,200,0.4)':'rgba(232,220,200,0.15)'};border-radius:2rem;background:transparent;color:${k===ac2?'#e8dcc8':'#8a7a5a'};font-family:Georgia,serif;font-size:12px;letter-spacing:0.08em;cursor:pointer;">${v}</button>`).join("");
+// ── NAV CONFIGS ──
+const founderNav = [
+  {sec:"My Space"},
+  {id:"f-overview",icon:"✦",label:"Overview"},
+  {id:"f-saved",icon:"🔖",label:"Saved",badge:"12"},
+  {id:"f-apothecary",icon:"🌿",label:"Apothecary"},
+  {id:"f-events",icon:"🌙",label:"Events",badge:"3"},
+  {id:"f-submissions",icon:"📬",label:"Submissions"},
+  {sec:"In Development"},
+  {id:"f-backend",icon:"⚙",label:"Vision & Previews"},
+  {sec:"Account"},
+  {id:"f-settings",icon:"⚙",label:"Settings"},
+];
+
+const communityNav = [
+  {sec:"My Space"},
+  {id:"c-overview",icon:"✦",label:"Overview"},
+  {id:"c-saved",icon:"🔖",label:"Saved",badge:"12"},
+  {id:"c-apothecary",icon:"🌿",label:"Apothecary"},
+  {id:"c-events",icon:"🌙",label:"Events",badge:"3"},
+  {id:"c-submissions",icon:"📬",label:"Submissions"},
+  {sec:"Account"},
+  {id:"c-settings",icon:"⚙",label:"Settings"},
+];
+
+// ── PANEL HTML ──
+const panels = {
+
+'f-overview': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Welcome back, Founder</div><div class="pt">Your portal.</div><div class="ps">Everything KIN-NECT — live, saved and in development.</div></div>
+  <div class="stats">
+    <div class="stat"><div class="sn">4</div><div class="sl">Founding Partners</div></div>
+    <div class="stat"><div class="sn">12</div><div class="sl">Saved Items</div></div>
+    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
+    <div class="stat"><div class="sn">5</div><div class="sl">Backend Pages</div></div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('f-saved')">See all →</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Backend pages</div><div class="sl2" onclick="gotoPanel('f-backend')">See all →</div></div>
+    <div class="g2">
+      <a class="be-card" href="kinnect-full-vision.html" target="_blank"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept. Built for pitch decks and grants.</div><span class="be-badge">Not live · Preview only</span></a>
+      <a class="be-card" href="marketplace__3_.html" target="_blank"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm. Commission model mockup.</div><span class="be-badge">Not live · Mockup</span></a>
+    </div>
+  </div>`,
+
+'f-saved': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Listings, editorial and library items you've bookmarked.</div></div>
+  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening. Mood, focus, calm and reflection through journaling.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Library</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>`,
+
+'f-apothecary': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Your herbal reference and ritual toolkit. Tap any herb to open.</div></div>
+  <div class="af-row" id="af-row"></div>
+  <div class="hg" id="hg"></div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Ritual notes</div></div>
+    <div class="sform">
+      <div class="fg"><label class="fl">Morning ritual</label><textarea class="fi fta">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga. Intention setting before screens.</textarea></div>
+      <div class="fg"><label class="fl">Evening ritual</label><textarea class="fi fta">The Grounding Blend tea. Journaling. No screens after 9pm.</textarea></div>
+      <div class="fg"><label class="fl">Currently working with</label><input class="fi" value="Ashwagandha, sea moss, lion's mane, magnesium glycinate"/></div>
+      <button class="sbtn">Save ritual notes ✦</button>
+    </div>
+  </div>`,
+
+'f-events': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
+  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
+      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
+    </div>
+  </div>`,
+
+'f-submissions': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div></div>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
+  </div>`,
+
+'f-backend': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">In development</div><div class="pt">Vision & Previews</div><div class="ps">Backend pages, mockups and concepts. Not live on the main site — for grants, developers and your own reference.</div></div>
+  <div class="g2">
+    <a class="be-card" href="kinnect-full-vision.html" target="_blank"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept — directory, marketplace, events, community. Built for pitch decks and grant applications.</div><span class="be-badge">Not live · Preview only</span></a>
+    <a class="be-card" href="marketplace__3_.html" target="_blank"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm, products. Commission model mockup for developer brief and grant pitch.</div><span class="be-badge">Not live · Mockup</span></a>
+    <a class="be-card" href="divine-play__1_.html" target="_blank"><span class="be-icon">✨</span><div class="be-tag">18+ · Future Pillar</div><div class="be-name">Divine Play</div><div class="be-desc">Conscious sexuality, intimacy and education. A future KIN-NECT pillar behind an 18+ restriction.</div><span class="be-badge">Not live · Concept only</span></a>
+    <a class="be-card" href="events-mockup__1_.html" target="_blank"><span class="be-icon">🎟</span><div class="be-tag">Events Calendar</div><div class="be-name">Events + Ticketing</div><div class="be-desc">Calendar with integrated ticket purchasing. Full vision of the events pillar. Not yet live on site.</div><span class="be-badge">Not live · Mockup</span></a>
+    <a class="be-card" href="portal-v1-clean.html" target="_blank"><span class="be-icon">👤</span><div class="be-tag">Personal Portal</div><div class="be-name">Member Portal — Clean Version</div><div class="be-desc">Alternative portal design in KIN-NECT light/dark style. For comparison and developer brief.</div><span class="be-badge">Not live · Mockup</span></a>
+  </div>`,
+
+'f-settings': `
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
+  <div class="sform">
+    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Jayde"/></div>
+    <div class="fg"><label class="fl">Role</label><input class="fi" value="Founder & Director, KIN-NECT"/></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" value="hello@kin-nect.co.uk"/></div>
+    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Integrative mental health therapist, community builder and founder of KIN-NECT. Building the digital village.</textarea></div>
+    <button class="sbtn">Save changes ✦</button>
+  </div>`,
+
+// ── COMMUNITY PANELS ──
+
+'c-overview': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Welcome back</div><div class="pt">Your portal.</div><div class="ps">Everything you've saved, attended and contributed — all in one place.</div></div>
+  <div class="stats">
+    <div class="stat"><div class="sn">12</div><div class="sl">Saved</div></div>
+    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
+    <div class="stat"><div class="sn">5</div><div class="sl">Apothecary</div></div>
+    <div class="stat"><div class="sn">2</div><div class="sl">Submissions</div></div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('c-saved')">See all →</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Upcoming events</div><div class="sl2" onclick="gotoPanel('c-events')">See all →</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+    </div>
+  </div>`,
+
+'c-saved': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Everything you've bookmarked — find it all here.</div></div>
+  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community. London.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening — mood, focus, calm and reflection.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Library</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>`,
+
+'c-apothecary': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Your herbal reference and ritual toolkit. Tap any herb to open.</div></div>
+  <div class="af-row" id="af-row"></div>
+  <div class="hg" id="hg"></div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Ritual notes</div></div>
+    <div class="sform">
+      <div class="fg"><label class="fl">Morning ritual</label><textarea class="fi fta">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga.</textarea></div>
+      <div class="fg"><label class="fl">Evening ritual</label><textarea class="fi fta">Chamomile tea. Journaling. No screens after 9pm.</textarea></div>
+      <div class="fg"><label class="fl">Currently working with</label><input class="fi" value="Sea moss, chamomile, peppermint"/></div>
+      <button class="sbtn">Save ritual notes ✦</button>
+    </div>
+  </div>`,
+
+'c-events': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
+  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
+      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
+    </div>
+  </div>`,
+
+'c-submissions': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div><div class="ps">Things you've submitted to KIN-NECT. We review everything.</div></div>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
+  </div>`,
+
+'c-settings': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
+  <div class="sform">
+    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Muna"/></div>
+    <div class="fg"><label class="fl">Handle</label><input class="fi" value="@muna.kin"/></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" value="muna@example.com"/></div>
+    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Yoga teacher. Holistic practitioner. Community seeker. London.</textarea></div>
+    <button class="sbtn">Save changes ✦</button>
+  </div>`
+};
+
+// ── STATE ──
+let currentView = 'founder';
+let currentPanel = 'f-overview';
+
+function setView(view, btn) {
+  currentView = view;
+  document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Update profile
+  if (view === 'founder') {
+    document.getElementById('sb-name').textContent = 'Jayde';
+    document.getElementById('sb-role').textContent = '✦ Founder & Director';
+    document.getElementById('sb-role').style.color = 'var(--ochre)';
+    renderNav(founderNav);
+    loadPanel('f-overview');
+  } else {
+    document.getElementById('sb-name').textContent = 'Muna';
+    document.getElementById('sb-role').textContent = '🌿 Community Member';
+    document.getElementById('sb-role').style.color = '#8FAE7A';
+    renderNav(communityNav);
+    loadPanel('c-overview');
+  }
 }
 
-function rg2() {
-  const f = ac2==="all"?herbs2:herbs2.filter(h=>h.cat===ac2);
-  document.getElementById("apo2-grid").innerHTML = f.map(h=>`
-    <div class="apoth2" onclick='oh2(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20'">
-      <div class="apoth-dot" style="background:${h.color}"></div>
-      <span class="apoth-emoji">${h.emoji}</span>
-      <p class="apoth-name2">${h.name}</p>
-      <p class="apoth-tl2" style="color:${h.color}">${h.tagline}</p>
-      <ul class="apoth-list">${h.benefits.slice(0,2).map(b=>`<li><span style="color:${h.color}">·</span> ${b.split("—")[0].trim()}</li>`).join("")}</ul>
-      <p class="apoth-tap">TAP TO OPEN →</p>
-    </div>`).join("");
+function renderNav(navConfig) {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = navConfig.map(item => {
+    if (item.sec) return `<div class="nsec">${item.sec}</div>`;
+    return `<div class="ni" id="nav-${item.id}" onclick="loadPanel('${item.id}');setActiveNav('${item.id}')">${item.icon} ${item.label}${item.badge ? `<span class="nb">${item.badge}</span>` : ''}</div>`;
+  }).join('');
+  // Set first item active
+  const firstItem = navConfig.find(i => i.id);
+  if (firstItem) setActiveNav(firstItem.id);
 }
 
-function sa2(cat) { ac2=cat; rf2(); rg2(); }
-rf2(); rg2();
-
-function oh2(h) {
-  document.getElementById("h2-emoji").textContent=h.emoji;
-  document.getElementById("h2-name").textContent=h.name;
-  document.getElementById("h2-tl").textContent=h.tagline;
-  document.getElementById("h2-tl").style.color=h.color;
-  document.getElementById("h2-ital").textContent=h.ital;
-  document.getElementById("h2-ital-box").style.borderLeftColor=h.color;
-  document.getElementById("h2-ital-box").style.background=h.color+"15";
-  document.getElementById("h2-bl").textContent="Benefits";
-  document.getElementById("h2-bl").style.color=h.color;
-  document.getElementById("h2-ul").textContent="How to Use";
-  document.getElementById("h2-ul").style.color=h.color;
-  document.getElementById("h2-benefits").innerHTML=h.benefits.map(b=>`<li style="font-size:0.85rem;color:#c8b890;padding:4px 0 4px 18px;position:relative;line-height:1.5;"><span style="position:absolute;left:0;top:6px;font-size:10px;color:${h.color}">✦</span>${b}</li>`).join("");
-  document.getElementById("h2-usage").textContent=h.usage;
-  document.getElementById("h2-caution").textContent=h.caution;
-  document.getElementById("herb2-bg").style.display="flex";
+function setActiveNav(id) {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
 }
+
+function loadPanel(id) {
+  currentPanel = id;
+  const main = document.getElementById('main-content');
+  main.innerHTML = `<div id="panel-${id}" class="panel active">${panels[id] || '<p style="color:var(--muted)">Coming soon.</p>'}</div>`;
+  // Init herbs if needed
+  if (id === 'f-apothecary' || id === 'c-apothecary') {
+    herbFilter = 'all';
+    renderHerbFilters();
+    renderHerbs();
+  }
+}
+
+function gotoPanel(id) {
+  loadPanel(id);
+  setActiveNav(id);
+}
+
+// ── HERBS ──
+function renderHerbs() {
+  const f = herbFilter === 'all' ? herbs : herbs.filter(h => h.cat === herbFilter);
+  const hg = document.getElementById('hg');
+  if (!hg) return;
+  hg.innerHTML = f.map(h => `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'"><div class="hc-dot" style="background:${h.color}"></div><span class="hc-emoji">${h.emoji}</span><p class="hc-name">${h.name}</p><p class="hc-tag" style="color:${h.color}">${h.tagline}</p><ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul><p class="hc-tap">TAP TO OPEN →</p></div>`).join('');
+}
+
+function renderHerbFilters() {
+  const row = document.getElementById('af-row');
+  if (!row) return;
+  row.innerHTML = Object.entries(herbCats).map(([k,v]) => `<button class="af-btn ${k===herbFilter?'active':''}" onclick="setHerbFilter('${k}')">${v}</button>`).join('');
+}
+
+function setHerbFilter(c) { herbFilter = c; renderHerbFilters(); renderHerbs(); }
+
+function oH(h) {
+  document.getElementById('hm-e').textContent = h.emoji;
+  document.getElementById('hm-n').textContent = h.name;
+  document.getElementById('hm-t').textContent = h.tagline;
+  document.getElementById('hm-t').style.color = h.color;
+  document.getElementById('hm-i').textContent = h.ital;
+  document.getElementById('hm-ib').style.borderLeftColor = h.color;
+  document.getElementById('hm-ib').style.background = h.color + '12';
+  document.getElementById('hm-bl').style.color = h.color;
+  document.getElementById('hm-b').innerHTML = h.benefits.map(b => `<li>${b}</li>`).join('');
+  document.getElementById('hm-u').textContent = h.usage;
+  document.getElementById('hm-c').textContent = h.caution;
+  document.getElementById('hm-box').style.borderColor = h.color + '40';
+  document.getElementById('hm').classList.add('open');
+}
+
+// ── INIT ──
+renderNav(founderNav);
+loadPanel('f-overview');
 </script>
 </body>
 </html>

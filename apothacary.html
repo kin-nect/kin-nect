@@ -1,513 +1,419 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ital Apothecary — Tea Cupboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { background: #0d0b08; color: #e8dcc8; font-family: Georgia, 'Times New Roman', serif; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0d0b08; }
+    ::-webkit-scrollbar-thumb { background: #3a3020; border-radius: 3px; }
+    .card { transition: background 0.25s, border-color 0.25s, transform 0.25s; }
+    .card:hover { transform: translateY(-2px); }
+    .filter-btn { transition: all 0.2s; font-family: Georgia, serif; }
+    .modal-scroll::-webkit-scrollbar { width: 4px; }
+    .modal-scroll::-webkit-scrollbar-thumb { background: #3a3020; border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
 
-const teas = [
-  {
-    name: "Soursop Leaf",
-    emoji: "🌿",
-    category: "healing",
-    color: "#2d5a27",
-    tagline: "The Cancer Fighter",
-    benefits: [
-      "Potent anti-cancer properties — leaves contain acetogenins which inhibit abnormal cell growth",
-      "Antioxidant-rich, combating oxidative stress and inflammation",
-      "Supports immune system strength",
-      "Calms the nervous system — aids sleep and anxiety",
-      "Antimicrobial and antifungal properties",
-      "Supports healthy blood pressure",
-    ],
-    usage: "Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",
-    ital: "Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",
-    caution: "Avoid in pregnancy. Do not combine with blood pressure medication without guidance.",
-  },
-  {
-    name: "Thai Tea",
-    emoji: "🍵",
-    category: "energy",
-    color: "#c17f3a",
-    tagline: "The Golden Energiser",
-    benefits: [
-      "Rich in antioxidants — fights free radicals",
-      "Natural energy boost from black tea base",
-      "Contains spices like star anise and tamarind seed — aids digestion",
-      "Anti-inflammatory properties",
-      "Supports immune health",
-    ],
-    usage: "Brew strong with boiling water for 5 minutes. Traditionally served with condensed milk, but for Ital use: oat milk or coconut milk. Best in the morning.",
-    ital: "The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",
-    caution: "Contains caffeine — avoid late in the evening.",
-  },
-  {
-    name: "Elderflower",
-    emoji: "🌸",
-    category: "healing",
-    color: "#b8a96a",
-    tagline: "The Immune Blossom",
-    benefits: [
-      "Powerful immune booster — especially for colds and flu",
-      "Natural antihistamine — relieves hay fever and allergies",
-      "Anti-inflammatory, supports sinus health",
-      "Gentle detoxifying and diuretic properties",
-      "Rich in Vitamin C and flavonoids",
-      "Promotes healthy skin from within",
-    ],
-    usage: "Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season or daily as a tonic.",
-    ital: "The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",
-    caution: "Use flowers only — elderberries and raw bark can be toxic in large amounts.",
-  },
-  {
-    name: "Chamomile",
-    emoji: "🌼",
-    category: "calm",
-    color: "#d4a853",
-    tagline: "The Gentle Healer",
-    benefits: [
-      "Powerful sleep aid — reduces insomnia and restlessness",
-      "Reduces anxiety and stress naturally",
-      "Anti-inflammatory — soothes gut and IBS symptoms",
-      "Antispasmodic — relieves menstrual cramps",
-      "Supports skin health internally",
-      "Gentle enough for children",
-    ],
-    usage: "Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink 1 cup before bed or when anxious. Can add raw honey and lemon.",
-    ital: "One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",
-    caution: "Allergy possible if sensitive to ragweed family.",
-  },
-  {
-    name: "Raspberry Leaf",
-    emoji: "🍃",
-    category: "woman",
-    color: "#8b3a52",
-    tagline: "The Womb Tonic",
-    benefits: [
-      "Tones and strengthens uterine muscles",
-      "Eases painful menstruation (dysmenorrhea)",
-      "Rich in iron, calcium, magnesium and B vitamins",
-      "Traditionally used in late pregnancy to prepare the womb",
-      "Balances hormones naturally",
-      "Supports milk production when breastfeeding",
-    ],
-    usage: "Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",
-    ital: "A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",
-    caution: "Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy.",
-  },
-  {
-    name: "Hibiscus",
-    emoji: "🌺",
-    category: "heart",
-    color: "#b5294e",
-    tagline: "The Heart Flower",
-    benefits: [
-      "Significantly lowers high blood pressure (hypertension)",
-      "Lowers LDL (bad) cholesterol",
-      "Extremely high in Vitamin C — boosts immunity",
-      "Powerful antioxidant — anti-ageing",
-      "Supports liver health",
-      "Natural diuretic — reduces water retention",
-    ],
-    usage: "Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red colour. Drink hot or cold. Pairs well with ginger.",
-    ital: "Sorrel — as it's known in the Caribbean — is deeply rooted in African and Ital tradition. Red like life itself.",
-    caution: "May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",
-  },
-  {
-    name: "Lavender",
-    emoji: "💜",
-    category: "calm",
-    color: "#7b5ea7",
-    tagline: "The Peace Herb",
-    benefits: [
-      "Powerful anxiety and stress reducer",
-      "Promotes deep, restorative sleep",
-      "Antidepressant properties — lifts mood naturally",
-      "Relieves headaches and migraines",
-      "Anti-inflammatory and antimicrobial",
-      "Balances the nervous system",
-    ],
-    usage: "Use sparingly — 1 tsp of flowers per cup, steep 5 minutes. Too strong can be bitter. Blend with chamomile for a potent sleep tea.",
-    ital: "Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",
-    caution: "Excessive use may cause drowsiness. Avoid if pregnant without guidance.",
-  },
-  {
-    name: "Peppermint",
-    emoji: "🌱",
-    category: "digestive",
-    color: "#1a7a4a",
-    tagline: "The Digestive Warrior",
-    benefits: [
-      "Powerful relief for IBS, bloating and gas",
-      "Antispasmodic — relaxes intestinal muscles",
-      "Clears sinuses and respiratory congestion",
-      "Natural pain relief for tension headaches",
-      "Antimicrobial properties",
-      "Refreshes and energises without caffeine",
-    ],
-    usage: "Steep 1–2 tsp fresh or dried leaves for 5–7 minutes. Drink after meals for digestion. Can also inhale the steam for sinus relief.",
-    ital: "Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",
-    caution: "Avoid in acid reflux — can relax the oesophageal sphincter. Not recommended for infants.",
-  },
-  {
-    name: "Damiana",
-    emoji: "🌾",
-    category: "spirit",
-    color: "#8b6914",
-    tagline: "The Spirit Lifter",
-    benefits: [
-      "Traditional aphrodisiac — supports libido naturally",
-      "Antidepressant and mood-elevating properties",
-      "Reduces anxiety and emotional exhaustion",
-      "Supports the adrenal and reproductive systems",
-      "Historically used for spiritual and visionary practices",
-      "Hormonal balancing — beneficial for both men and women",
-    ],
-    usage: "Steep 1 tsp in boiling water for 10 minutes. Drink 1–2 cups. Can blend with rose petals and cinnamon for a warming tonic.",
-    ital: "Used by the Maya and carried forward in Ital practice — a herb that reconnects you to your vital life force.",
-    caution: "Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention.",
-  },
-  {
-    name: "Mullein",
-    emoji: "🌿",
-    category: "respiratory",
-    color: "#5a7a3a",
-    tagline: "The Lung Cleanser",
-    benefits: [
-      "Premier herb for lung health — expectorant clears mucus",
-      "Soothes bronchitis, asthma and chest tightness",
-      "Anti-inflammatory for the respiratory tract",
-      "Supports recovery from smoking damage",
-      "Antimicrobial — fights respiratory infections",
-      "Soothes sore throats",
-    ],
-    usage: "Steep 1–2 tsp dried leaf in boiling water for 10–15 minutes. Strain well (fine hairs can irritate throat). Drink 2–3 cups daily for respiratory support.",
-    ital: "Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",
-    caution: "Strain thoroughly. Avoid if allergic to the Scrophulariaceae plant family.",
-  },
-  {
-    name: "Roasted Green Tea",
-    emoji: "🍵",
-    category: "energy",
-    color: "#6b7c3a",
-    tagline: "The Grounding Brew",
-    benefits: [
-      "Lower caffeine than regular green tea — gentle sustained energy",
-      "Rich in antioxidants (catechins)",
-      "Supports metabolism and healthy weight",
-      "Calming L-theanine reduces stress while maintaining focus",
-      "Supports heart and liver health",
-      "Earthy, nutty flavour from the roasting process",
-    ],
-    usage: "Steep at 80°C (not boiling) for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",
-    ital: "The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",
-    caution: "Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals).",
-  },
-  {
-    name: "Neem Leaf",
-    emoji: "🌿",
-    category: "kidney",
-    color: "#3d6b2a",
-    tagline: "The Blood Purifier",
-    benefits: [
-      "Powerful blood purifier — removes toxins from the bloodstream",
-      "Supports kidney function through detoxification",
-      "Antimicrobial, antifungal and antibacterial",
-      "Anti-inflammatory for urinary tract health",
-      "Traditionally used against parasites",
-      "Supports liver and lymphatic health",
-    ],
-    usage: "Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink 1 cup daily, preferably in the morning on an empty stomach.",
-    ital: "Called the 'Village Pharmacy' across Africa and India — neem is the great cleanser Jah provided for deep systemic healing.",
-    caution: "Very potent — do not use for extended periods without breaks. Avoid in pregnancy. May interact with diabetes medication.",
-  },
-  {
-    name: "Alfalfa",
-    emoji: "🌱",
-    category: "kidney",
-    color: "#4a8c3a",
-    tagline: "The Mineral Builder",
-    benefits: [
-      "Exceptional diuretic — flushes kidneys naturally",
-      "Rich in chlorophyll, minerals and vitamins K, C, B",
-      "Alkalises the body — supports kidney stone prevention",
-      "Anti-inflammatory for urinary tract",
-      "Supports bone density with high calcium and magnesium",
-      "Detoxifies and rebuilds the blood",
-    ],
-    usage: "Steep 1–2 tsp in boiling water for 5–7 minutes. Can blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",
-    ital: "Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",
-    caution: "Avoid with autoimmune conditions (lupus). Contains Vitamin K — interact with blood thinners.",
-  },
-  {
-    name: "Dandelion",
-    emoji: "🌼",
-    category: "kidney",
-    color: "#c4a000",
-    tagline: "The Kidney Tonic",
-    benefits: [
-      "Premier kidney tonic and diuretic herb",
-      "Supports liver detoxification",
-      "Rich in potassium — replenishes what diuretics remove",
-      "Anti-inflammatory for urinary tract",
-      "Supports healthy blood pressure",
-      "Prebiotic — feeds beneficial gut bacteria",
-    ],
-    usage: "Steep 1–2 tsp dried root or leaf in boiling water for 10 minutes. Roasted dandelion root makes a rich, coffee-like brew. Drink 2–3 cups daily.",
-    ital: "The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",
-    caution: "May increase frequency of urination. Avoid if allergic to ragweed family.",
-  },
-];
+  <script type="text/babel">
+    const { useState } = React;
 
-const categories = {
-  all: { label: "All", color: "#5a4a3a" },
-  healing: { label: "Deep Healing", color: "#2d5a27" },
-  calm: { label: "Calm & Sleep", color: "#7b5ea7" },
-  energy: { label: "Energy", color: "#c17f3a" },
-  digestive: { label: "Digestive", color: "#1a7a4a" },
-  heart: { label: "Heart & Blood", color: "#b5294e" },
-  respiratory: { label: "Respiratory", color: "#5a7a3a" },
-  woman: { label: "Womb Wisdom", color: "#8b3a52" },
-  spirit: { label: "Spirit", color: "#8b6914" },
-  kidney: { label: "Kidney Cleanse", color: "#3d6b2a" },
-};
+    const teas = [
+      {
+        name: "Soursop Leaf", emoji: "🌿", category: "healing", color: "#2d5a27",
+        tagline: "The Cancer Fighter",
+        benefits: [
+          "Potent anti-cancer properties — leaves contain acetogenins which inhibit abnormal cell growth",
+          "Antioxidant-rich, combating oxidative stress and inflammation",
+          "Supports immune system strength",
+          "Calms the nervous system — aids sleep and anxiety",
+          "Antimicrobial and antifungal properties",
+          "Supports healthy blood pressure",
+        ],
+        usage: "Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",
+        ital: "Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",
+        caution: "Avoid in pregnancy. Do not combine with blood pressure medication without guidance.",
+      },
+      {
+        name: "Thai Tea", emoji: "🍵", category: "energy", color: "#c17f3a",
+        tagline: "The Golden Energiser",
+        benefits: [
+          "Rich in antioxidants — fights free radicals",
+          "Natural energy boost from black tea base",
+          "Contains spices like star anise and tamarind seed — aids digestion",
+          "Anti-inflammatory properties",
+          "Supports immune health",
+        ],
+        usage: "Brew strong with boiling water for 5 minutes. Traditionally served with condensed milk, but for Ital use: oat milk or coconut milk. Best in the morning.",
+        ital: "The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",
+        caution: "Contains caffeine — avoid late in the evening.",
+      },
+      {
+        name: "Elderflower", emoji: "🌸", category: "healing", color: "#b8a96a",
+        tagline: "The Immune Blossom",
+        benefits: [
+          "Powerful immune booster — especially for colds and flu",
+          "Natural antihistamine — relieves hay fever and allergies",
+          "Anti-inflammatory, supports sinus health",
+          "Gentle detoxifying and diuretic properties",
+          "Rich in Vitamin C and flavonoids",
+          "Promotes healthy skin from within",
+        ],
+        usage: "Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season or daily as a tonic.",
+        ital: "The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",
+        caution: "Use flowers only — elderberries and raw bark can be toxic in large amounts.",
+      },
+      {
+        name: "Chamomile", emoji: "🌼", category: "calm", color: "#d4a853",
+        tagline: "The Gentle Healer",
+        benefits: [
+          "Powerful sleep aid — reduces insomnia and restlessness",
+          "Reduces anxiety and stress naturally",
+          "Anti-inflammatory — soothes gut and IBS symptoms",
+          "Antispasmodic — relieves menstrual cramps",
+          "Supports skin health internally",
+          "Gentle enough for children",
+        ],
+        usage: "Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink 1 cup before bed or when anxious. Can add raw honey and lemon.",
+        ital: "One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",
+        caution: "Allergy possible if sensitive to ragweed family.",
+      },
+      {
+        name: "Raspberry Leaf", emoji: "🍃", category: "woman", color: "#8b3a52",
+        tagline: "The Womb Tonic",
+        benefits: [
+          "Tones and strengthens uterine muscles",
+          "Eases painful menstruation (dysmenorrhea)",
+          "Rich in iron, calcium, magnesium and B vitamins",
+          "Traditionally used in late pregnancy to prepare the womb",
+          "Balances hormones naturally",
+          "Supports milk production when breastfeeding",
+        ],
+        usage: "Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",
+        ital: "A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",
+        caution: "Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy.",
+      },
+      {
+        name: "Hibiscus", emoji: "🌺", category: "heart", color: "#b5294e",
+        tagline: "The Heart Flower",
+        benefits: [
+          "Significantly lowers high blood pressure (hypertension)",
+          "Lowers LDL (bad) cholesterol",
+          "Extremely high in Vitamin C — boosts immunity",
+          "Powerful antioxidant — anti-ageing",
+          "Supports liver health",
+          "Natural diuretic — reduces water retention",
+        ],
+        usage: "Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red colour. Drink hot or cold. Pairs well with ginger.",
+        ital: "Sorrel — as it's known in the Caribbean — is deeply rooted in African and Ital tradition. Red like life itself.",
+        caution: "May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",
+      },
+      {
+        name: "Lavender", emoji: "💜", category: "calm", color: "#7b5ea7",
+        tagline: "The Peace Herb",
+        benefits: [
+          "Powerful anxiety and stress reducer",
+          "Promotes deep, restorative sleep",
+          "Antidepressant properties — lifts mood naturally",
+          "Relieves headaches and migraines",
+          "Anti-inflammatory and antimicrobial",
+          "Balances the nervous system",
+        ],
+        usage: "Use sparingly — 1 tsp of flowers per cup, steep 5 minutes. Too strong can be bitter. Blend with chamomile for a potent sleep tea.",
+        ital: "Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",
+        caution: "Excessive use may cause drowsiness. Avoid if pregnant without guidance.",
+      },
+      {
+        name: "Peppermint", emoji: "🌱", category: "digestive", color: "#1a7a4a",
+        tagline: "The Digestive Warrior",
+        benefits: [
+          "Powerful relief for IBS, bloating and gas",
+          "Antispasmodic — relaxes intestinal muscles",
+          "Clears sinuses and respiratory congestion",
+          "Natural pain relief for tension headaches",
+          "Antimicrobial properties",
+          "Refreshes and energises without caffeine",
+        ],
+        usage: "Steep 1–2 tsp fresh or dried leaves for 5–7 minutes. Drink after meals for digestion. Can also inhale the steam for sinus relief.",
+        ital: "Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",
+        caution: "Avoid in acid reflux — can relax the oesophageal sphincter. Not recommended for infants.",
+      },
+      {
+        name: "Damiana", emoji: "🌾", category: "spirit", color: "#8b6914",
+        tagline: "The Spirit Lifter",
+        benefits: [
+          "Traditional aphrodisiac — supports libido naturally",
+          "Antidepressant and mood-elevating properties",
+          "Reduces anxiety and emotional exhaustion",
+          "Supports the adrenal and reproductive systems",
+          "Historically used for spiritual and visionary practices",
+          "Hormonal balancing — beneficial for both men and women",
+        ],
+        usage: "Steep 1 tsp in boiling water for 10 minutes. Drink 1–2 cups. Can blend with rose petals and cinnamon for a warming tonic.",
+        ital: "Used by the Maya and carried forward in Ital practice — a herb that reconnects you to your vital life force.",
+        caution: "Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention.",
+      },
+      {
+        name: "Mullein", emoji: "🌿", category: "respiratory", color: "#5a7a3a",
+        tagline: "The Lung Cleanser",
+        benefits: [
+          "Premier herb for lung health — expectorant clears mucus",
+          "Soothes bronchitis, asthma and chest tightness",
+          "Anti-inflammatory for the respiratory tract",
+          "Supports recovery from smoking damage",
+          "Antimicrobial — fights respiratory infections",
+          "Soothes sore throats",
+        ],
+        usage: "Steep 1–2 tsp dried leaf in boiling water for 10–15 minutes. Strain well (fine hairs can irritate throat). Drink 2–3 cups daily for respiratory support.",
+        ital: "Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",
+        caution: "Strain thoroughly. Avoid if allergic to the Scrophulariaceae plant family.",
+      },
+      {
+        name: "Roasted Green Tea", emoji: "🍵", category: "energy", color: "#6b7c3a",
+        tagline: "The Grounding Brew",
+        benefits: [
+          "Lower caffeine than regular green tea — gentle sustained energy",
+          "Rich in antioxidants (catechins)",
+          "Supports metabolism and healthy weight",
+          "Calming L-theanine reduces stress while maintaining focus",
+          "Supports heart and liver health",
+          "Earthy, nutty flavour from the roasting process",
+        ],
+        usage: "Steep at 80°C (not boiling) for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",
+        ital: "The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",
+        caution: "Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals).",
+      },
+      {
+        name: "Neem Leaf", emoji: "🌿", category: "kidney", color: "#3d6b2a",
+        tagline: "The Blood Purifier",
+        benefits: [
+          "Powerful blood purifier — removes toxins from the bloodstream",
+          "Supports kidney function through detoxification",
+          "Antimicrobial, antifungal and antibacterial",
+          "Anti-inflammatory for urinary tract health",
+          "Traditionally used against parasites",
+          "Supports liver and lymphatic health",
+        ],
+        usage: "Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink 1 cup daily, preferably in the morning on an empty stomach.",
+        ital: "Called the 'Village Pharmacy' across Africa and India — neem is the great cleanser Jah provided for deep systemic healing.",
+        caution: "Very potent — do not use for extended periods without breaks. Avoid in pregnancy. May interact with diabetes medication.",
+      },
+      {
+        name: "Alfalfa", emoji: "🌱", category: "kidney", color: "#4a8c3a",
+        tagline: "The Mineral Builder",
+        benefits: [
+          "Exceptional diuretic — flushes kidneys naturally",
+          "Rich in chlorophyll, minerals and vitamins K, C, B",
+          "Alkalises the body — supports kidney stone prevention",
+          "Anti-inflammatory for urinary tract",
+          "Supports bone density with high calcium and magnesium",
+          "Detoxifies and rebuilds the blood",
+        ],
+        usage: "Steep 1–2 tsp in boiling water for 5–7 minutes. Can blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",
+        ital: "Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",
+        caution: "Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners.",
+      },
+      {
+        name: "Dandelion", emoji: "🌼", category: "kidney", color: "#c4a000",
+        tagline: "The Kidney Tonic",
+        benefits: [
+          "Premier kidney tonic and diuretic herb",
+          "Supports liver detoxification",
+          "Rich in potassium — replenishes what diuretics remove",
+          "Anti-inflammatory for urinary tract",
+          "Supports healthy blood pressure",
+          "Prebiotic — feeds beneficial gut bacteria",
+        ],
+        usage: "Steep 1–2 tsp dried root or leaf in boiling water for 10 minutes. Roasted dandelion root makes a rich, coffee-like brew. Drink 2–3 cups daily.",
+        ital: "The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",
+        caution: "May increase frequency of urination. Avoid if allergic to ragweed family.",
+      },
+    ];
 
-export default function TeaCupboard() {
-  const [selected, setSelected] = useState(null);
-  const [filter, setFilter] = useState("all");
+    const categories = {
+      all:         { label: "All",            color: "#8a7a5a" },
+      healing:     { label: "Deep Healing",   color: "#2d5a27" },
+      calm:        { label: "Calm & Sleep",   color: "#7b5ea7" },
+      energy:      { label: "Energy",         color: "#c17f3a" },
+      digestive:   { label: "Digestive",      color: "#1a7a4a" },
+      heart:       { label: "Heart & Blood",  color: "#b5294e" },
+      respiratory: { label: "Respiratory",    color: "#5a7a3a" },
+      woman:       { label: "Womb Wisdom",    color: "#8b3a52" },
+      spirit:      { label: "Spirit",         color: "#8b6914" },
+      kidney:      { label: "Kidney Cleanse", color: "#3d6b2a" },
+    };
 
-  const filtered = filter === "all" ? teas : teas.filter((t) => t.category === filter);
+    function App() {
+      const [selected, setSelected] = useState(null);
+      const [filter, setFilter]     = useState("all");
+      const filtered = filter === "all" ? teas : teas.filter(t => t.category === filter);
 
-  return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0d0b08",
-      fontFamily: "'Georgia', 'Times New Roman', serif",
-      color: "#e8dcc8",
-      position: "relative",
-      overflowX: "hidden",
-    }}>
-      {/* Grain texture overlay */}
-      <div style={{
-        position: "fixed", inset: 0, opacity: 0.03, pointerEvents: "none", zIndex: 0,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-        backgroundRepeat: "repeat",
-      }} />
+      return (
+        <div style={{ minHeight:"100vh", background:"#0d0b08", color:"#e8dcc8",
+                      fontFamily:"Georgia,'Times New Roman',serif", overflowX:"hidden" }}>
 
-      {/* Header */}
-      <header style={{
-        padding: "3rem 2rem 2rem",
-        textAlign: "center",
-        borderBottom: "1px solid rgba(232,220,200,0.1)",
-        position: "relative",
-        zIndex: 1,
-      }}>
-        <p style={{ letterSpacing: "0.4em", fontSize: "0.7rem", color: "#8a7a5a", textTransform: "uppercase", marginBottom: "1rem" }}>
-          Ital Apothecary
-        </p>
-        <h1 style={{
-          fontSize: "clamp(2.2rem, 6vw, 4rem)",
-          fontWeight: "normal",
-          letterSpacing: "0.05em",
-          color: "#e8dcc8",
-          lineHeight: 1.1,
-          margin: "0 0 0.5rem",
-        }}>
-          The Tea Cupboard
-        </h1>
-        <p style={{ color: "#8a7a5a", fontSize: "1rem", fontStyle: "italic", marginTop: "0.5rem" }}>
-          "Herbs are the healing of a nation" — Rastafari
-        </p>
+          {/* Header */}
+          <header style={{ padding:"3rem 2rem 2rem", textAlign:"center",
+                           borderBottom:"1px solid rgba(232,220,200,0.1)" }}>
+            <p style={{ letterSpacing:"0.4em", fontSize:"0.7rem", color:"#8a7a5a",
+                        textTransform:"uppercase", marginBottom:"1rem" }}>
+              Ital Apothecary
+            </p>
+            <h1 style={{ fontSize:"clamp(2rem,6vw,3.8rem)", fontWeight:"normal",
+                         letterSpacing:"0.05em", color:"#e8dcc8", lineHeight:1.1, margin:"0 0 0.5rem" }}>
+              The Tea Cupboard
+            </h1>
+            <p style={{ color:"#8a7a5a", fontSize:"1rem", fontStyle:"italic", marginTop:"0.5rem" }}>
+              "Herbs are the healing of a nation" — Rastafari
+            </p>
 
-        {/* Category filters */}
-        <div style={{
-          display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center",
-          marginTop: "2rem",
-        }}>
-          {Object.entries(categories).map(([key, { label, color }]) => (
-            <button
-              key={key}
-              onClick={() => setFilter(key)}
-              style={{
-                padding: "0.4rem 1rem",
-                border: `1px solid ${filter === key ? color : "rgba(232,220,200,0.2)"}`,
-                borderRadius: "2rem",
-                background: filter === key ? `${color}22` : "transparent",
-                color: filter === key ? color : "#8a7a5a",
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                cursor: "pointer",
-                transition: "all 0.2s",
-                fontFamily: "Georgia, serif",
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </header>
-
-      {/* Grid */}
-      <main style={{
-        maxWidth: "1100px",
-        margin: "0 auto",
-        padding: "2rem 1.5rem 4rem",
-        position: "relative", zIndex: 1,
-      }}>
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-          gap: "1.2rem",
-        }}>
-          {filtered.map((tea) => (
-            <div
-              key={tea.name}
-              onClick={() => setSelected(tea)}
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: `1px solid rgba(232,220,200,0.1)`,
-                borderRadius: "4px",
-                padding: "1.5rem",
-                cursor: "pointer",
-                transition: "all 0.25s",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = `${tea.color}15`;
-                e.currentTarget.style.borderColor = `${tea.color}60`;
-                e.currentTarget.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                e.currentTarget.style.borderColor = "rgba(232,220,200,0.1)";
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
-            >
-              {/* Category dot */}
-              <div style={{
-                position: "absolute", top: "1rem", right: "1rem",
-                width: "8px", height: "8px", borderRadius: "50%",
-                background: tea.color, opacity: 0.7,
-              }} />
-
-              <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{tea.emoji}</div>
-              <h3 style={{
-                fontSize: "1rem", fontWeight: "normal", letterSpacing: "0.05em",
-                color: "#e8dcc8", margin: "0 0 0.25rem",
-              }}>
-                {tea.name}
-              </h3>
-              <p style={{ fontSize: "0.75rem", color: tea.color, letterSpacing: "0.1em", margin: "0 0 1rem", fontStyle: "italic" }}>
-                {tea.tagline}
-              </p>
-              <ul style={{ margin: 0, padding: "0 0 0 1rem", listStyle: "none" }}>
-                {tea.benefits.slice(0, 2).map((b, i) => (
-                  <li key={i} style={{
-                    fontSize: "0.78rem", color: "#8a7a5a", marginBottom: "0.3rem",
-                    position: "relative", paddingLeft: "0.8rem",
+            {/* Filters */}
+            <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem",
+                          justifyContent:"center", marginTop:"2rem" }}>
+              {Object.entries(categories).map(([key, {label, color}]) => (
+                <button key={key} className="filter-btn"
+                  onClick={() => setFilter(key)}
+                  style={{
+                    padding:"0.4rem 1rem",
+                    border:`1px solid ${filter===key ? color : "rgba(232,220,200,0.2)"}`,
+                    borderRadius:"2rem",
+                    background: filter===key ? color+"22" : "transparent",
+                    color: filter===key ? color : "#8a7a5a",
+                    fontSize:"0.75rem", letterSpacing:"0.1em", cursor:"pointer",
                   }}>
-                    <span style={{ position: "absolute", left: 0, color: tea.color }}>·</span>
-                    {b.split("—")[0]}
-                  </li>
-                ))}
-              </ul>
-              <p style={{ fontSize: "0.7rem", color: "#5a4a3a", marginTop: "1rem", letterSpacing: "0.1em" }}>
-                TAP TO OPEN →
-              </p>
-            </div>
-          ))}
-        </div>
-      </main>
-
-      {/* Detail Modal */}
-      {selected && (
-        <div
-          onClick={() => setSelected(null)}
-          style={{
-            position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)",
-            zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "1rem", backdropFilter: "blur(4px)",
-          }}
-        >
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{
-              background: "#131008",
-              border: `1px solid ${selected.color}40`,
-              borderRadius: "6px",
-              padding: "2.5rem",
-              maxWidth: "600px",
-              width: "100%",
-              maxHeight: "85vh",
-              overflowY: "auto",
-              position: "relative",
-            }}
-          >
-            <button
-              onClick={() => setSelected(null)}
-              style={{
-                position: "absolute", top: "1rem", right: "1rem",
-                background: "none", border: "none", color: "#5a4a3a",
-                fontSize: "1.5rem", cursor: "pointer", lineHeight: 1,
-              }}
-            >×</button>
-
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>{selected.emoji}</div>
-            <h2 style={{ fontSize: "1.8rem", fontWeight: "normal", color: "#e8dcc8", margin: "0 0 0.25rem" }}>
-              {selected.name}
-            </h2>
-            <p style={{ color: selected.color, fontStyle: "italic", letterSpacing: "0.1em", fontSize: "0.85rem", marginBottom: "2rem" }}>
-              {selected.tagline}
-            </p>
-
-            {/* Ital wisdom */}
-            <div style={{
-              background: `${selected.color}12`,
-              borderLeft: `3px solid ${selected.color}`,
-              padding: "1rem 1.25rem",
-              borderRadius: "0 4px 4px 0",
-              marginBottom: "1.5rem",
-            }}>
-              <p style={{ margin: 0, fontSize: "0.85rem", fontStyle: "italic", color: "#c8b890", lineHeight: 1.6 }}>
-                {selected.ital}
-              </p>
-            </div>
-
-            {/* Benefits */}
-            <h4 style={{ fontSize: "0.7rem", letterSpacing: "0.3em", color: selected.color, textTransform: "uppercase", margin: "0 0 0.75rem" }}>
-              Benefits
-            </h4>
-            <ul style={{ margin: "0 0 1.5rem", padding: 0, listStyle: "none" }}>
-              {selected.benefits.map((b, i) => (
-                <li key={i} style={{
-                  fontSize: "0.85rem", color: "#c8b890", marginBottom: "0.5rem",
-                  paddingLeft: "1.2rem", position: "relative", lineHeight: 1.5,
-                }}>
-                  <span style={{ position: "absolute", left: 0, color: selected.color }}>✦</span>
-                  {b}
-                </li>
+                  {label}
+                </button>
               ))}
-            </ul>
-
-            {/* Usage */}
-            <h4 style={{ fontSize: "0.7rem", letterSpacing: "0.3em", color: selected.color, textTransform: "uppercase", margin: "0 0 0.5rem" }}>
-              How to Use
-            </h4>
-            <p style={{ fontSize: "0.85rem", color: "#c8b890", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-              {selected.usage}
-            </p>
-
-            {/* Caution */}
-            <div style={{
-              background: "rgba(180,50,30,0.08)",
-              border: "1px solid rgba(180,50,30,0.2)",
-              borderRadius: "4px",
-              padding: "0.85rem 1rem",
-            }}>
-              <p style={{ margin: 0, fontSize: "0.78rem", color: "#a06050", lineHeight: 1.6 }}>
-                <strong style={{ color: "#c07060", letterSpacing: "0.1em" }}>CAUTION: </strong>
-                {selected.caution}
-              </p>
             </div>
-          </div>
+          </header>
+
+          {/* Grid */}
+          <main style={{ maxWidth:"1100px", margin:"0 auto", padding:"2rem 1.5rem 4rem" }}>
+            <div style={{ display:"grid",
+                          gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",
+                          gap:"1.2rem" }}>
+              {filtered.map(tea => (
+                <div key={tea.name} className="card"
+                  onClick={() => setSelected(tea)}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = tea.color+"15";
+                    e.currentTarget.style.borderColor = tea.color+"60";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                    e.currentTarget.style.borderColor = "rgba(232,220,200,0.1)";
+                  }}
+                  style={{ background:"rgba(255,255,255,0.03)",
+                           border:"1px solid rgba(232,220,200,0.1)",
+                           borderRadius:"4px", padding:"1.5rem",
+                           cursor:"pointer", position:"relative", overflow:"hidden" }}>
+
+                  <div style={{ position:"absolute", top:"1rem", right:"1rem",
+                                width:"8px", height:"8px", borderRadius:"50%",
+                                background:tea.color, opacity:0.7 }} />
+
+                  <div style={{ fontSize:"2rem", marginBottom:"0.75rem" }}>{tea.emoji}</div>
+                  <h3 style={{ fontSize:"1rem", fontWeight:"normal", letterSpacing:"0.05em",
+                               color:"#e8dcc8", margin:"0 0 0.25rem" }}>{tea.name}</h3>
+                  <p style={{ fontSize:"0.75rem", color:tea.color, letterSpacing:"0.1em",
+                              margin:"0 0 1rem", fontStyle:"italic" }}>{tea.tagline}</p>
+                  <ul style={{ margin:0, padding:0, listStyle:"none" }}>
+                    {tea.benefits.slice(0,2).map((b,i) => (
+                      <li key={i} style={{ fontSize:"0.78rem", color:"#8a7a5a",
+                                           marginBottom:"0.3rem", position:"relative",
+                                           paddingLeft:"0.8rem" }}>
+                        <span style={{ position:"absolute", left:0, color:tea.color }}>·</span>
+                        {b.split("—")[0]}
+                      </li>
+                    ))}
+                  </ul>
+                  <p style={{ fontSize:"0.7rem", color:"#5a4a3a", marginTop:"1rem",
+                              letterSpacing:"0.1em" }}>TAP TO OPEN →</p>
+                </div>
+              ))}
+            </div>
+          </main>
+
+          {/* Modal */}
+          {selected && (
+            <div onClick={() => setSelected(null)}
+              style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)",
+                       zIndex:100, display:"flex", alignItems:"center",
+                       justifyContent:"center", padding:"1rem",
+                       backdropFilter:"blur(4px)" }}>
+              <div className="modal-scroll" onClick={e => e.stopPropagation()}
+                style={{ background:"#131008",
+                         border:`1px solid ${selected.color}40`,
+                         borderRadius:"6px", padding:"2.5rem",
+                         maxWidth:"600px", width:"100%",
+                         maxHeight:"85vh", overflowY:"auto", position:"relative" }}>
+
+                <button onClick={() => setSelected(null)}
+                  style={{ position:"absolute", top:"1rem", right:"1rem",
+                           background:"none", border:"none", color:"#5a4a3a",
+                           fontSize:"1.5rem", cursor:"pointer", lineHeight:1 }}>×</button>
+
+                <div style={{ fontSize:"3rem", marginBottom:"1rem" }}>{selected.emoji}</div>
+                <h2 style={{ fontSize:"1.8rem", fontWeight:"normal", color:"#e8dcc8",
+                             margin:"0 0 0.25rem" }}>{selected.name}</h2>
+                <p style={{ color:selected.color, fontStyle:"italic", letterSpacing:"0.1em",
+                            fontSize:"0.85rem", marginBottom:"2rem" }}>{selected.tagline}</p>
+
+                {/* Ital wisdom */}
+                <div style={{ background:`${selected.color}12`,
+                              borderLeft:`3px solid ${selected.color}`,
+                              padding:"1rem 1.25rem", borderRadius:"0 4px 4px 0",
+                              marginBottom:"1.5rem" }}>
+                  <p style={{ margin:0, fontSize:"0.85rem", fontStyle:"italic",
+                              color:"#c8b890", lineHeight:1.6 }}>{selected.ital}</p>
+                </div>
+
+                {/* Benefits */}
+                <h4 style={{ fontSize:"0.7rem", letterSpacing:"0.3em", color:selected.color,
+                             textTransform:"uppercase", margin:"0 0 0.75rem" }}>Benefits</h4>
+                <ul style={{ margin:"0 0 1.5rem", padding:0, listStyle:"none" }}>
+                  {selected.benefits.map((b,i) => (
+                    <li key={i} style={{ fontSize:"0.85rem", color:"#c8b890",
+                                         marginBottom:"0.5rem", paddingLeft:"1.2rem",
+                                         position:"relative", lineHeight:1.5 }}>
+                      <span style={{ position:"absolute", left:0, color:selected.color }}>✦</span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Usage */}
+                <h4 style={{ fontSize:"0.7rem", letterSpacing:"0.3em", color:selected.color,
+                             textTransform:"uppercase", margin:"0 0 0.5rem" }}>How to Use</h4>
+                <p style={{ fontSize:"0.85rem", color:"#c8b890", lineHeight:1.7,
+                            marginBottom:"1.5rem" }}>{selected.usage}</p>
+
+                {/* Caution */}
+                <div style={{ background:"rgba(180,50,30,0.08)",
+                              border:"1px solid rgba(180,50,30,0.2)",
+                              borderRadius:"4px", padding:"0.85rem 1rem" }}>
+                  <p style={{ margin:0, fontSize:"0.78rem", color:"#a06050", lineHeight:1.6 }}>
+                    <strong style={{ color:"#c07060", letterSpacing:"0.1em" }}>CAUTION: </strong>
+                    {selected.caution}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-}
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

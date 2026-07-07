@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Earth Blueprint</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Kin-nect dark mode palette */
+    --night: #0D0A06;
+    --earth: #2C1A0E;
+    --gold: #C8732A;
+    --gold-light: #E8C9A0;
+    --gold-dark: #9A541A;
+    --cream: #F5EDD8;
+    --blush: #E8C9A0;
+    --sage: #6B7C5E;
+    --card-bg: #131008;
+    --text-primary: #F5EDD8;
+    --text-secondary: #E8C9A0;
+    --text-muted: #9A8070;
+    --border: rgba(200,115,42,0.15);
+    --border-strong: rgba(200,115,42,0.35);
+    --surface: rgba(200,115,42,0.05);
+    --surface-dark: rgba(200,115,42,0.08);
+    --glow: radial-gradient(ellipse, rgba(200,115,42,0.12), transparent);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--night);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--night);
+    color: var(--cream);
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--glow);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.5rem auto;
+    opacity: 0.5;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--blush);
+    max-width: 560px;
+    margin: 0 auto;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    opacity: 0.8;
+  }
+
+  /* ROOT QUESTION BANNER */
+  .root-q {
+    background: var(--earth);
+    color: var(--cream);
+    padding: 1.75rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .root-q-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .root-q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.4;
+  }
+
+  /* MAIN NAV */
+  .main-nav-wrap {
+    background: var(--night);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+  }
+  .main-nav {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .main-nav::-webkit-scrollbar { display: none; }
+  .main-nav-btn {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--blush);
+    opacity: 0.5;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .main-nav-btn:hover { opacity: 0.85; color: var(--blush); }
+  .main-nav-btn.on {
+    color: var(--gold);
+    opacity: 1;
+    border-bottom-color: var(--gold);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .section { display: none; }
+  .section.on { display: block; }
+
+  /* SECTION HEADER */
+  .sec-header { margin-bottom: 2rem; }
+  .sec-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .sec-body {
+    font-size: 15px;
+    color: var(--blush);
+    max-width: 680px;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  /* LIST ITEMS */
+  .li {
+    font-size: 13.5px;
+    color: var(--blush);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    line-height: 1.55;
+    align-items: flex-start;
+    opacity: 0.9;
+  }
+  .li:last-child { border-bottom: none; }
+  .li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-size: 13px; margin-top: 1px; opacity: 0.7; }
+
+  /* PULL QUOTE */
+  .pull {
+    border-left: 3px solid var(--gold);
+    padding: 1.1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--surface-dark);
+    border-radius: 0 8px 8px 0;
+  }
+  .pull-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.55;
+  }
+  .pull-source {
+    font-size: 12px;
+    color: var(--blush);
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+    opacity: 0.6;
+  }
+
+  /* INFO / HIGHLIGHT BOXES */
+  .info-box {
+    background: var(--earth);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .info-box-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .info-box-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--blush);
+    opacity: 0.9;
+  }
+
+  .warn-box {
+    background: rgba(200,115,42,0.08);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .warn-box-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .warn-box-text { font-size: 14px; color: var(--blush); line-height: 1.7; opacity: 0.85; }
+
+  .danger-box {
+    background: rgba(44,26,14,0.8);
+    border-left: 4px solid #C0392B;
+    border-radius: 0 12px 12px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .danger-box-label { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #E74C3C; margin-bottom: 8px; }
+  .danger-box-text { font-size: 14px; color: var(--blush); line-height: 1.7; opacity: 0.85; }
+
+  /* TIMELINE */
+  .timeline { border-left: 2px solid var(--border-strong); padding-left: 1.5rem; margin-bottom: 1.5rem; }
+  .t-item { position: relative; margin-bottom: 1.75rem; }
+  .t-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .t-label { font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 0.5px; margin-bottom: 3px; opacity: 0.8; }
+  .t-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+  .t-body { font-size: 14px; color: var(--blush); line-height: 1.65; opacity: 0.85; }
+
+  /* CIVILISATION SUB-NAV */
+  .sub-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.75rem; }
+  .sub-btn {
+    padding: 7px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--blush);
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sub-btn:hover { border-color: var(--border-strong); opacity: 0.9; }
+  .sub-btn.on { background: var(--earth); color: var(--gold); border-color: var(--border-strong); opacity: 1; }
+
+  .sub-section { display: none; }
+  .sub-section.on { display: block; }
+
+  /* MA'AT GRID */
+  .maat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 1rem; }
+  .maat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .maat-card:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .maat-card.on { background: var(--earth); border-color: var(--border-strong); }
+  .maat-card.on .maat-name { color: var(--gold); }
+  .maat-card.on .maat-word { color: var(--blush); opacity: 0.5; }
+  .maat-icon { font-size: 22px; margin-bottom: 6px; }
+  .maat-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .maat-word { font-size: 10px; color: var(--blush); opacity: 0.55; }
+
+  .maat-detail {
+    background: var(--earth);
+    border: 1px solid var(--border-strong);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    min-height: 90px;
+    transition: all 0.2s;
+  }
+  .maat-detail-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .maat-detail-body { font-size: 14px; line-height: 1.7; color: var(--blush); margin-bottom: 10px; opacity: 0.9; }
+  .maat-detail-practice { font-size: 13px; color: var(--gold); font-style: italic; opacity: 0.85; }
+
+  /* PRACTICE ITEMS */
+  .practice-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .p-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .p-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500; color: var(--cream); margin-bottom: 5px; }
+  .p-body { font-size: 13.5px; color: var(--blush); line-height: 1.6; opacity: 0.85; }
+  .p-freq { font-size: 11px; color: var(--gold); font-weight: 500; margin-top: 6px; letter-spacing: 0.3px; opacity: 0.8; }
+
+  /* WEEK RHYTHM */
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 1.5rem; }
+  .day-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .day-name { font-size: 9px; font-weight: 500; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px; text-transform: uppercase; opacity: 0.7; }
+  .day-icon { font-size: 18px; }
+  .day-label { font-size: 9px; color: var(--blush); margin-top: 5px; line-height: 1.35; opacity: 0.65; }
+
+  /* DNA GRID */
+  .dna-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
+  .dna-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .dna-icon { font-size: 24px; margin-bottom: 6px; }
+  .dna-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .dna-desc { font-size: 11px; color: var(--blush); line-height: 1.45; opacity: 0.6; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  /* SECTION RULE */
+  .sec-rule {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--cream);
+    margin: 1.75rem 0 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--earth);
+    color: var(--blush);
+    opacity: 0.5;
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border);
+  }
+  .footer strong { color: var(--gold); font-weight: 500; opacity: 1; }
+
+  @media (max-width: 600px) {
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    .content { padding: 1.75rem 1rem 3rem; }
+    .main-nav-btn { padding: 12px 14px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Kin-nect · A living document</div>
+  <h1 class="hero-title">New Earth<br><em>Blueprint</em></h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">Ancient wisdom · Sovereign community · Holistic healing · Technological harmony</p>
+</div>
+
+<!-- ROOT QUESTION -->
+<div class="root-q">
+  <div class="root-q-label">The root question</div>
+  <div class="root-q-text">How do we build the New Earth?</div>
+</div>
+
+<!-- MAIN NAV -->
+<div class="main-nav-wrap">
+  <nav class="main-nav" role="navigation" aria-label="Main sections">
+    <button class="main-nav-btn on" onclick="showMain('ancestral')">Ancestral models</button>
+    <button class="main-nav-btn" onclick="showMain('spiritual')">Spiritual foundation</button>
+  </nav>
+</div>
+
+<div class="content">
+
+<!-- ======== ANCESTRAL SECTION ======== -->
+<div id="ancestral" class="section on">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Part One</div>
+    <h2 class="sec-title">What was built before us</h2>
+    <p class="sec-body">Our people built some of the greatest civilisations the world has ever known — before and after slavery. These are not distant history. They are the blueprints already in our lineage. Every single one shared the same core architecture. We build it again.</p>
+  </div>
+
+  <div class="sub-nav">
+    <button class="sub-btn on" onclick="showCiv('kemet')">Kemet</button>
+    <button class="sub-btn" onclick="showCiv('mali')">Mali & Timbuktu</button>
+    <button class="sub-btn" onclick="showCiv('bws')">Black Wall Street</button>
+    <button class="sub-btn" onclick="showCiv('seneca')">Seneca Village</button>
+    <button class="sub-btn" onclick="showCiv('maroon')">Maroon communities</button>
+    <button class="sub-btn" onclick="showCiv('dna')">What we build now</button>
+  </div>
+
+  <!-- KEMET -->
+  <div id="kemet" class="sub-section on">
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">3100 BCE – 30 BCE · Over 3,000 years of continuous civilisation</div>
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Kemet — Ancient Egypt</h3>
+    <p class="sec-body">A civilisation built on Ma'at — cosmic order, truth, justice, and balance — as the operating system for every aspect of life. Not just a religious idea but the actual constitution of how government, economics, medicine, and education functioned. The pyramids were built by paid, fed workers. Every level of society understood their role in the collective prosperity.</p>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <div class="card-label">Food & water</div>
+        <div class="li">Nile irrigation systems — canals, shaduf water-lifts, seasonal flood management</div>
+        <div class="li">Grain storehouses redistributed to the entire population — central food security</div>
+        <div class="li">Organised farming calendar aligned to flooding, planting, and harvest seasons</div>
+        <div class="li">Bread and beer as staple foods — mass-produced at state level</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Medicine</div>
+        <div class="li">Ebers Papyrus — 700+ herbal remedies and surgical procedures documented</div>
+        <div class="li">Specialised physicians — eye doctors, dentists, surgeons with defined roles</div>
+        <div class="li">First civilisation to understand the heart as central to circulation</div>
+        <div class="li">Herbs, oils, honey used as medicine — integrated with spiritual practice</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Education</div>
+        <div class="li">Children with mothers until age 4 — motherhood honoured as first teacher</div>
+        <div class="li">Age 7: 40-year education in temples — maths, astronomy, medicine, architecture, law</div>
+        <div class="li">Teachers were priests AND scribes AND military — no separation of knowledge</div>
+        <div class="li">Education was holistic — spiritual, scientific, practical, communal as one</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Governance</div>
+        <div class="li">Ma'at as the constitution — cosmic law above any individual ruler</div>
+        <div class="li">Vizier administered the state — checks on the pharaoh's power</div>
+        <div class="li">Regional governors managed local areas — decentralised execution</div>
+        <div class="li">Tax collected as goods, redistributed as wages — no money-based inequality</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Architecture & building</div>
+        <div class="li">Mudbrick homes for all — natural material, cool in heat, locally made</div>
+        <div class="li">Pyramids and temples built by paid, organised, fed workers</div>
+        <div class="li">Stone carving, mathematics, and engineering mastered over centuries</div>
+        <div class="li">Buildings aligned to stars and seasons — structure in harmony with cosmos</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Economy</div>
+        <div class="li">State-organised redistribution — goods not hoarded but circulated</div>
+        <div class="li">Workers paid in grain, oil, cloth — real goods, not symbolic money</div>
+        <div class="li">Trade routes to Nubia, Punt, Mediterranean — external wealth without dependency</div>
+        <div class="li">Temples as economic hubs — stored goods, employed people, fed communities</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">What we take from Kemet</div>
+      <div class="info-box-text">Ma'at as governance — the principle that every individual action either upholds or disrupts the collective harmony. The integration of education: spiritual, scientific, practical, and communal taught as one body of knowledge. The temple as the centre of community life — not just worship but food storage, medicine, education, and economics. Mudbrick homes built from the land itself. Workers fed and paid in real goods.</div>
+    </div>
+  </div>
+
+  <!-- MALI -->
+  <div id="mali" class="sub-section">
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">1235 – 1600 CE · The wealthiest civilisation on Earth at its peak</div>
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Mali Empire & Timbuktu</h3>
+    <p class="sec-body">Mansa Musa's Mali Empire demonstrated that African civilisation could be simultaneously the richest and the most educated in the world. Timbuktu was not a city of gold — it was a city of knowledge. Wealth came second to wisdom. A single pilgrimage to Mecca in 1324 distributed so much gold it caused inflation across North Africa and the Middle East for twelve years.</p>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <div class="card-label">Knowledge infrastructure</div>
+        <div class="li">Sankore University — 25,000 students in law, medicine, astronomy, maths, theology</div>
+        <div class="li">Over 700,000 manuscripts — many never yet translated or published</div>
+        <div class="li">3 major universities in Timbuktu — Sankore, Djinguereber, Sidi Yahia</div>
+        <div class="li">Libraries as the most valued buildings in the city</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Economy</div>
+        <div class="li">Gold and salt trade — controlled the routes between West and North Africa</div>
+        <div class="li">Trans-Saharan trade network — self-sustaining, not dependent on outside powers</div>
+        <div class="li">Taxation used to build public infrastructure, not hoard personal wealth</div>
+        <div class="li">Mansa Musa's wealth — shared freely, not accumulated privately</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Governance</div>
+        <div class="li">Provincial governors with autonomy — federated structure</div>
+        <div class="li">Military protection of trade routes as a state function</div>
+        <div class="li">Diplomacy — Mansa Musa sent ambassadors across the known world</div>
+        <div class="li">Law and scholarship treated as inseparable — judges were also scholars</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Architecture</div>
+        <div class="li">Djinguereber Mosque — built 1327, still standing — mud brick and wood</div>
+        <div class="li">Sudano-Sahelian architecture — natural materials, thermally efficient</div>
+        <div class="li">Cities planned around knowledge institutions first, not markets or palaces</div>
+        <div class="li">Buildings maintained communally — annual replastering as a shared ritual</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">What we take from Mali</div>
+      <div class="info-box-text">Knowledge is the most valuable currency. A civilisation that built universities before markets understood that informed people create lasting wealth. The manuscript tradition — documenting everything — means knowledge survives disruption. Mud architecture that has stood for 700 years proves natural building is not primitive. Trade routes the community controlled meant no dependency on outside economies. Wealth redistribution through public building, not personal accumulation.</div>
+    </div>
+  </div>
+
+  <!-- BLACK WALL STREET -->
+  <div id="bws" class="sub-section">
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">1906 – 1921 · Post-slavery Black economic sovereignty on American soil</div>
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Black Wall Street — Greenwood District</h3>
+    <p class="sec-body">The most complete modern proof of what a self-sufficient Black community looks like. Built post-slavery, under Jim Crow, against every legal and social barrier — and it thrived so powerfully it was destroyed by the state. The dollar circulated 19 to 36 times before leaving the community. Today the Black dollar circulates for 6 hours.</p>
+
+    <div class="pull">
+      <div class="pull-text">"When O.W. Gurley purchased over 40 acres of land, he committed to selling it to Black people only. His investments became an economic model of community determination, economic power, and resilience."</div>
+      <div class="pull-source">Black Wall Street — the founding principle</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">What was built</div>
+        <div class="li">2 newspapers — information controlled by the community</div>
+        <div class="li">2 schools, banks, hospitals, and law firms</div>
+        <div class="li">Hotels, theatres, grocery stores, pharmacies, barber shops</div>
+        <div class="li">Over 300 businesses in a 35-block area</div>
+        <div class="li">Every service a community needs — inside the community</div>
+      </div>
+      <div class="card">
+        <div class="card-label">The economic model</div>
+        <div class="li">Dollar circulated 19–36 times before leaving — multiplied internal wealth</div>
+        <div class="li">Community deliberately chose to spend with each other first</div>
+        <div class="li">Credit and banking within — no reliance on external financial institutions</div>
+        <div class="li">Professional class resident — doctors, lawyers, teachers all inside</div>
+        <div class="li">Churches as community anchors — spiritual and social centre</div>
+      </div>
+    </div>
+
+    <div class="danger-box">
+      <div class="danger-box-label">Why it was destroyed — June 1, 1921</div>
+      <div class="danger-box-text">A white mob, aided by local police, the Oklahoma National Guard, and private aircraft, burned 35 blocks to the ground. 300+ residents killed. 10,000 made homeless. $150 million in today's money destroyed overnight. Then zoning laws were changed to prevent rebuilding. The message was explicit: a fully self-sufficient Black community is an existential threat to any system that profits from Black dependency. You do not destroy what does not threaten you.</div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">What we take from Black Wall Street</div>
+      <div class="info-box-text">The circulating dollar is the single most replicable lesson. Every time you spend inside the community, it multiplies. Every time it leaves, it's gone. The complete institution model: every service your community needs must exist inside it. Conscious economic loyalty: Greenwood didn't happen by accident — people chose each other deliberately. And the protection lesson: the New Earth must be distributed, legally protected, and networked so no single act can destroy the whole.</div>
+    </div>
+  </div>
+
+  <!-- SENECA VILLAGE -->
+  <div id="seneca" class="sub-section">
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">1825 – 1857 · Manhattan's first significant Black property-owning community</div>
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Seneca Village — Central Park</h3>
+    <p class="sec-body">Built two years before slavery was abolished in New York State. A 25-year-old shoeshiner named Andrew Williams bought the first three lots for $125. Within weeks, a church had purchased land. Within years, a village existed. By 1855: 50 homes, 3 churches, 2 schools, gardens, livestock, and a natural spring. This is how fast a community can be built when people move with intention.</p>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <div class="card-label">What was actually built</div>
+        <div class="li">50 homes — mostly two-storey, stone foundation walls confirmed by archaeologists</div>
+        <div class="li">3 churches — community spiritual and social centres</div>
+        <div class="li">2 schools — including one for Black children excluded from city schools</div>
+        <div class="li">2 cemeteries — community burial on their own land</div>
+        <div class="li">Streets, barns, gardens, and livestock pens</div>
+      </div>
+      <div class="card">
+        <div class="card-label">How they lived</div>
+        <div class="li">Gardens and livestock — partial food sovereignty from day one</div>
+        <div class="li">Hudson River fishing — free protein from the surrounding land</div>
+        <div class="li">Tanner's Spring — natural water source on the land itself</div>
+        <div class="li">Children attended school — education a community priority</div>
+        <div class="li">Multiracial — Black, Irish, and German families living side by side</div>
+      </div>
+    </div>
+
+    <div class="danger-box">
+      <div class="danger-box-label">Why it was destroyed — 1857</div>
+      <div class="danger-box-text">The city wanted the land for Central Park. The community was labelled a "shantytown" and residents were called "squatters and vagabonds" in the press — the same language used to justify displacement throughout history. Eminent domain was used. Residents fought for two years. Police removed those who resisted by force. When they left, losing land meant losing the right to vote. The destruction erased a community and its political power simultaneously. No photographs of Seneca Village exist.</div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">What we take from Seneca Village</div>
+      <div class="info-box-text">Land + water source + food growing + school + church is the complete minimum viable community. It can be built faster than you think — from zero to 50 homes and three churches in 30 years, starting with one shoeshiner's $125. Community Land Trusts exist precisely to prevent eminent domain — the land held collectively, so no individual can be bought out and no single act can dispossess everyone. This time, the structure protects the vision.</div>
+    </div>
+  </div>
+
+  <!-- MAROON -->
+  <div id="maroon" class="sub-section">
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">1600s – present · Free African sovereign communities built inside slave territories</div>
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Maroon communities</h3>
+    <p class="sec-body">The most radical proof of all. People who escaped slavery — with nothing — built free communities in hostile terrain and held them for centuries. Queen Nanny of the Jamaican Maroons defeated the British Empire so thoroughly that Britain signed a peace treaty with her in 1739. A sovereign people, negotiating as equals with a colonial power.</p>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <div class="card-label">What was built</div>
+        <div class="li">Mountain and forest communities — difficult terrain was the first defence</div>
+        <div class="li">Food growing in hidden clearings — self-sufficient from the first days</div>
+        <div class="li">Knowledge of local plants for medicine and food — the critical survival skill</div>
+        <div class="li">Networks of trails and escape routes known only to community members</div>
+        <div class="li">African traditional governance maintained — councils of elders</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Diplomatic achievement</div>
+        <div class="li">1739 Treaty of Cudjoe — British legally recognised Maroon sovereignty</div>
+        <div class="li">Cockpit Country granted to the Maroons — land sovereignty in perpetuity</div>
+        <div class="li">Suriname Maroons — 6 sovereign peoples still existing today</div>
+        <div class="li">Quilombo dos Palmares in Brazil — 30,000 people, lasted 100 years</div>
+        <div class="li">African spiritual traditions preserved through generations of pressure</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">What we take from the Maroons</div>
+      <div class="info-box-text">Freedom is always possible, even from the most extreme oppression. The terrain matters — build where you have natural protection. African spiritual practice and governance survived centuries because it was embedded in daily life, not kept separate. Guerrilla resilience: when you can't win by force, you win by endurance, terrain, and community cohesion. Queen Nanny knew when to fight and when to negotiate. The New Earth needs both capacities.</div>
+    </div>
+  </div>
+
+  <!-- DNA -->
+  <div id="dna" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">The DNA — what every civilisation had</h3>
+    <p class="sec-body">Every single one of these civilisations, across thousands of years and different continents, shared the same core building blocks. This is the architecture. This is what we build.</p>
+
+    <div class="dna-grid" style="margin-top:1.5rem;">
+      <div class="dna-card"><div class="dna-icon">🌊</div><div class="dna-name">Water sovereignty</div><div class="dna-desc">Nile canals · Tanner's Spring · Maroon mountain streams. Every one controlled their water.</div></div>
+      <div class="dna-card"><div class="dna-icon">🌾</div><div class="dna-name">Food production</div><div class="dna-desc">Kemet grain stores · Seneca gardens · Maroon forest clearings. Always growing their own.</div></div>
+      <div class="dna-card"><div class="dna-icon">🏛</div><div class="dna-name">Knowledge centre</div><div class="dna-desc">Kemet temples · Timbuktu universities · Greenwood newspapers. Knowledge housed in community.</div></div>
+      <div class="dna-card"><div class="dna-icon">🏥</div><div class="dna-name">Healing system</div><div class="dna-desc">Ebers Papyrus · Greenwood hospitals · Maroon plant medicine. Health inside the community.</div></div>
+      <div class="dna-card"><div class="dna-icon">🏠</div><div class="dna-name">Natural shelter</div><div class="dna-desc">Kemet mudbrick · Mali earthen mosques · Seneca stone homes. Built from the land.</div></div>
+      <div class="dna-card"><div class="dna-icon">🙏</div><div class="dna-name">Spiritual foundation</div><div class="dna-desc">Ma'at · Sankore scholarship · Greenwood churches · Maroon Obeah. Spirit as operating system.</div></div>
+      <div class="dna-card"><div class="dna-icon">💰</div><div class="dna-name">Internal economy</div><div class="dna-desc">Kemet grain wages · Mali trade routes · Greenwood dollar. Wealth stayed inside.</div></div>
+      <div class="dna-card"><div class="dna-icon">⚖️</div><div class="dna-name">Governance system</div><div class="dna-desc">Ma'at constitution · Mali structure · Maroon councils. Law from within, not above.</div></div>
+      <div class="dna-card"><div class="dna-icon">📚</div><div class="dna-name">Children's education</div><div class="dna-desc">Kemet temple schools · Greenwood schools · Seneca schools. Every community educated its own.</div></div>
+      <div class="dna-card"><div class="dna-icon">🛡</div><div class="dna-name">Legal protection</div><div class="dna-desc">Every one was destroyed through law or force. The New Earth must be legally armoured.</div></div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">The one thing none of them had — that we must now build</div>
+      <div class="info-box-text">A distributed network. Every community was a single location. One act of destruction ended it. The New Earth cannot be one place — it must be a network of communities, legally protected, spiritually connected, economically interlinked, and resilient enough that destroying one makes the others stronger. This is the upgrade the ancestors didn't have the technology to build. We do.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SPIRITUAL SECTION ======== -->
+<div id="spiritual" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Part Two</div>
+    <h2 class="sec-title">The spiritual & inner foundation</h2>
+    <p class="sec-body">Before a single brick is laid or a seed planted, the inner ground must be prepared. Every great civilisation — Kemet, Mali, the Maroons — built its physical world on a spiritual operating system. The New Earth is no different.</p>
+  </div>
+
+  <div class="sub-nav">
+    <button class="sub-btn on" onclick="showSpi('root')">The root question</button>
+    <button class="sub-btn" onclick="showSpi('maat')">Ma'at — 7 principles</button>
+    <button class="sub-btn" onclick="showSpi('ubuntu')">Ubuntu</button>
+    <button class="sub-btn" onclick="showSpi('inner')">Inner work first</button>
+    <button class="sub-btn" onclick="showSpi('collective')">Collective practice</button>
+    <button class="sub-btn" onclick="showSpi('rhythm')">Daily & weekly rhythm</button>
+  </div>
+
+  <!-- ROOT -->
+  <div id="root" class="sub-section on">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">What is a spiritual foundation — really?</h3>
+    <p class="sec-body">Not religion. Not performance. The operating system beneath everything. The thing that answers: Why do we build this? What holds us together when it gets hard? What do we owe each other? What do we owe those who come after?</p>
+
+    <div class="pull" style="margin-top:1.5rem;">
+      <div class="pull-text">In Kemet, Ma'at was not a belief system people chose to adopt. It was the air. It governed the stars, the floods, the courts, the medicine, the buildings, the harvest, and the way people greeted each other. There was no separation between spiritual life and daily life. The New Earth cannot have that separation either.</div>
+      <div class="pull-source">Principle of integration — Kemetic civilisation</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">What the spiritual foundation is not</div>
+        <div class="li">A Sunday practice separate from the rest of life</div>
+        <div class="li">A belief system that must be agreed on by everyone</div>
+        <div class="li">A hierarchy of who is more spiritual than others</div>
+        <div class="li">Performances of piety or rituals without inner meaning</div>
+        <div class="li">Something that can be built later, once everything else is in place</div>
+      </div>
+      <div class="card">
+        <div class="card-label">What the spiritual foundation actually is</div>
+        <div class="li">The shared values that everyone acts from, even in disagreement</div>
+        <div class="li">The practices that keep people connected to themselves and each other</div>
+        <div class="li">The memory of where we come from — ancestors, land, lineage</div>
+        <div class="li">The understanding that we build for the seventh generation</div>
+        <div class="li">The thing that makes every task — farming, healing, building — sacred</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">The three layers</div>
+      <div class="info-box-text">Every strong spiritual foundation operates at three levels: <strong style="color:var(--gold);">Personal</strong> — the individual's inner life, healing, and relationship to the Most High. <strong style="color:var(--gold);">Relational</strong> — how people treat each other, resolve conflict, and hold each other accountable. <strong style="color:var(--gold);">Cosmic</strong> — the community's relationship to land, ancestors, seasons, and the divine order. All three must be built. Inner first, then relational, then cosmic.</div>
+    </div>
+  </div>
+
+  <!-- MA'AT -->
+  <div id="maat-s" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">Ma'at — the seven principles</h3>
+    <p class="sec-body">The oldest written constitutional system on Earth. Not commandments from above — descriptions of how the universe actually works. Living by Ma'at is not obedience. It is alignment. Select each principle to see how it applies to the New Earth.</p>
+
+    <div class="maat-grid" style="margin-top:1.5rem;">
+      <div class="maat-card on" onclick="selectMaat(0,this)"><div class="maat-icon">⚖️</div><div class="maat-name">Truth</div><div class="maat-word">Maat itself</div></div>
+      <div class="maat-card" onclick="selectMaat(1,this)"><div class="maat-icon">🌊</div><div class="maat-name">Balance</div><div class="maat-word">Opposing forces</div></div>
+      <div class="maat-card" onclick="selectMaat(2,this)"><div class="maat-icon">🎶</div><div class="maat-name">Harmony</div><div class="maat-word">Authentic expression</div></div>
+      <div class="maat-card" onclick="selectMaat(3,this)"><div class="maat-icon">📐</div><div class="maat-name">Order</div><div class="maat-word">Clarity of structure</div></div>
+      <div class="maat-card" onclick="selectMaat(4,this)"><div class="maat-icon">🔄</div><div class="maat-name">Reciprocity</div><div class="maat-word">Give and receive</div></div>
+      <div class="maat-card" onclick="selectMaat(5,this)"><div class="maat-icon">🌿</div><div class="maat-name">Propriety</div><div class="maat-word">Do no harm</div></div>
+      <div class="maat-card" onclick="selectMaat(6,this)"><div class="maat-icon">🏛</div><div class="maat-name">Justice</div><div class="maat-word">Right action</div></div>
+    </div>
+
+    <div class="maat-detail">
+      <div class="maat-detail-title" id="md-title">Truth — the first principle</div>
+      <div class="maat-detail-body" id="md-body">The ability to distinguish the real from the unreal. Not just intellectual honesty, but the deeper commitment to see things as they are — in yourself, in your community, in the world. Truth includes the recognition that all living beings are sacred. You cannot build on a lie, a pretence, or a performance. The New Earth begins with people willing to see clearly.</div>
+      <div class="maat-detail-practice" id="md-practice">Practice: Before any community decision — "Are we telling the truth about what is actually happening here?" Personally: morning journaling to track the gap between who you are and who you are becoming.</div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">Ma'at as community constitution</div>
+      <div class="info-box-text">In Kemet, these principles weren't aspirational — they were operational. Every court, every dispute, every agricultural decision was measured against Ma'at. The community charter of the New Earth should be written in Ma'at's language: not "our rules" but "what we align with." Rules can be broken. Cosmic principles can only be violated — and the consequences come from the universe itself.</div>
+    </div>
+  </div>
+
+  <!-- UBUNTU -->
+  <div id="ubuntu-s" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">Ubuntu — I am because we are</h3>
+    <p class="sec-body">The Southern African philosophical foundation of collective identity. Not a belief system — a description of reality. You did not become who you are alone. Your community made you. Which means: building the community is building yourself.</p>
+
+    <div class="pull" style="margin-top:1.5rem;">
+      <div class="pull-text">"A person is a person through other people. My humanity is caught up, is inextricably bound up, in yours. When I dehumanise you, I dehumanise myself."</div>
+      <div class="pull-source">Archbishop Desmond Tutu — on Ubuntu</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">What Ubuntu teaches about building</div>
+        <div class="li">You cannot build the New Earth alone — the attempt proves you haven't understood Ubuntu</div>
+        <div class="li">The community's wellbeing is your personal spiritual practice</div>
+        <div class="li">Conflict in the community is information — it shows where Ubuntu is blocked</div>
+        <div class="li">Children are raised by all — parenting is a collective spiritual act</div>
+        <div class="li">Elders are not optional extras — they are the memory of the collective</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Ubuntu in practice</div>
+        <div class="li">Food is shared before any individual eats — Ubuntu at the table</div>
+        <div class="li">Decisions wait for the quietest voice to be heard</div>
+        <div class="li">When one is in crisis, the community responds — not charities, not services</div>
+        <div class="li">Restorative justice: not "how do we punish?" but "how do we heal?"</div>
+        <div class="li">Celebration is collective — no one's victory belongs to them alone</div>
+      </div>
+    </div>
+
+    <div class="warn-box">
+      <div class="warn-box-label">The individualism trap</div>
+      <div class="warn-box-text">The greatest weapon the system used against Black communities was individualism — the idea that your success is yours alone, and others' failures are theirs alone. Ubuntu is the direct antidote. But it must be consciously chosen, because the dominant culture programmes the opposite from birth. The inner work of Ubuntu is catching yourself thinking "mine" when the truth is "ours."</div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">Ubuntu and the New Earth economy</div>
+      <div class="info-box-text">Ubuntu is not just a spiritual principle — it is an economic one. Cooperative land ownership is Ubuntu in practice. Sharing seeds is Ubuntu. The circulating dollar of Black Wall Street was Ubuntu. When you understand that your neighbour's prosperity is your prosperity, you stop competing and start compounding. This is why Greenwood's dollar circulated 19–36 times — people were practising Ubuntu economically without necessarily naming it.</div>
+    </div>
+  </div>
+
+  <!-- INNER WORK -->
+  <div id="inner-s" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">Inner work — the work that must come first</h3>
+    <p class="sec-body">You cannot build a New Earth from an unexamined self. Every unhealed wound you carry will appear in the community you try to build. The inner work is not a detour from the mission — it is the mission's foundation.</p>
+
+    <div style="margin-top:1.5rem;">
+      <div class="practice-item"><div class="p-icon">🪞</div><div><div class="p-title">Know what you are building from</div><div class="p-body">Fear or love? Trauma or vision? The same action — building a community, growing food, healing others — can be driven by two completely different energies. One builds something that lasts. The other collapses when the fear is resolved or the wound is triggered. Before you build anything outside, spend time with this question: what am I running from, and what am I building toward?</div><div class="p-freq">Journaling practice — weekly minimum</div></div></div>
+      <div class="practice-item"><div class="p-icon">🧬</div><div><div class="p-title">Ancestral healing — releasing what was carried</div><div class="p-body">Trauma passes through the bloodline. The fear, the shame, the rage, the grief of your ancestors lives in your nervous system. You did not choose it. But it is yours to resolve. Ancestral healing is not about dwelling in pain — it is about consciously completing what previous generations could not. When you heal, you heal backwards and forwards simultaneously.</div><div class="p-freq">Ancestral altar practice · guided sessions with an elder or healer</div></div></div>
+      <div class="practice-item"><div class="p-icon">🫀</div><div><div class="p-title">Emotional sovereignty</div><div class="p-body">You cannot govern a community if you cannot govern yourself. Emotional sovereignty means knowing what you feel, why you feel it, and choosing how to respond rather than react. The person who can stay present and calm when the community is in conflict is worth ten people who can build with their hands. Develop this capacity before you need it.</div><div class="p-freq">Breathwork · meditation · somatic practice · therapeutic support</div></div></div>
+      <div class="practice-item"><div class="p-icon">🔥</div><div><div class="p-title">Clarify your purpose — your specific gift</div><div class="p-body">What did you come here to do? Not in vague terms — specifically. Your gift is not your job title. It is the thing you cannot help but do, the thing that makes you feel most alive and most useful. When you know this, every decision — who to align with, what to build, what to sacrifice — becomes clearer.</div><div class="p-freq">Vision work · mentorship · contemplative retreat</div></div></div>
+      <div class="practice-item"><div class="p-icon">🌙</div><div><div class="p-title">Silence and stillness as discipline</div><div class="p-body">The system is designed to keep you in perpetual noise — phones, news, outrage, urgency. Silence is radical. In silence you hear what you actually think, feel what you actually feel, and receive what the Most High is actually trying to give you. Every great teacher across every tradition built silence into their daily practice. You cannot receive guidance if you are always broadcasting.</div><div class="p-freq">Minimum 20 minutes daily — before the phone, before the world</div></div></div>
+    </div>
+  </div>
+
+  <!-- COLLECTIVE PRACTICE -->
+  <div id="collective-s" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">Building it collectively</h3>
+    <p class="sec-body">A community with shared spiritual practice is orders of magnitude more resilient than one held together by shared ideology alone. Practice — the things you do together repeatedly — is what builds the felt sense of being one body.</p>
+
+    <div style="margin-top:1.5rem;">
+      <div class="practice-item"><div class="p-icon">🌅</div><div><div class="p-title">Morning gathering — the daily anchor</div><div class="p-body">Even 15 minutes. Greeting the day together. A moment of intention, gratitude, and alignment before the day's work begins. This is not a meeting — it has no agenda. It is a practice of recognising each other as part of the same body. In Kemet, workers began each day with an offering to Ma'at. The Maroons began each day with ancestral acknowledgement.</div><div class="p-freq">Daily — non-negotiable</div></div></div>
+      <div class="practice-item"><div class="p-icon">🔵</div><div><div class="p-title">Community council circle — the weekly truth-telling</div><div class="p-body">A structured time for the community to speak honestly about what is working and what is not. Each person speaks without interruption. No one responds until all have spoken. The circle is the form because the circle has no head. This is where Ubuntu becomes operational — where "I am because we are" is tested and proven in real time.</div><div class="p-freq">Weekly — held in a circle, never around a table</div></div></div>
+      <div class="practice-item"><div class="p-icon">🥁</div><div><div class="p-title">Music, movement, and celebration</div><div class="p-body">Not entertainment — medicine. Drumming, singing, dance, and shared movement regulate the nervous system, synchronise the community, and create the felt experience of being one body. This is why every African civilisation had music at the centre of communal life. Schedule celebration like you schedule work — because it is work. It is the work of staying human.</div><div class="p-freq">Weekly minimum · monthly full celebration</div></div></div>
+      <div class="practice-item"><div class="p-icon">🕯</div><div><div class="p-title">Ancestral remembrance — the monthly honouring</div><div class="p-body">Light a candle. Speak the names. Pour libation. Tell the stories. When you know who came before you, and what they endured to get you here, you make different decisions. You build differently. You treat the land differently. The seventh-generation principle begins with honouring the seven generations behind you.</div><div class="p-freq">Monthly new or full moon · births, deaths, seasonal transitions</div></div></div>
+      <div class="practice-item"><div class="p-icon">🌍</div><div><div class="p-title">Land ceremony — the seasonal alignment</div><div class="p-body">Mark the solstices, equinoxes, new moons, and harvest moments. The land is not your resource — it is your partner. Ceremony at seasonal transitions is the practice of remembering this. It prevents the extractive relationship that destroys communities and environments simultaneously. Kemet's entire agricultural calendar was organised around ceremony.</div><div class="p-freq">Four seasonal ceremonies · aligned to equinoxes and solstices</div></div></div>
+      <div class="practice-item"><div class="p-icon">📖</div><div><div class="p-title">Study circle — the weekly deep knowing</div><div class="p-body">Reading, discussing, debating — together. History, science, philosophy, medicine, governance. What Timbuktu built was not just a physical university — it was a culture where study was considered a spiritual act. The community that studies together develops a shared intellectual and spiritual vocabulary.</div><div class="p-freq">Weekly · rotate who leads · read primary texts, not just summaries</div></div></div>
+      <div class="practice-item"><div class="p-icon">🤲</div><div><div class="p-title">Conflict as ceremony — restorative justice</div><div class="p-body">Every community has conflict. The question is not how to prevent it but how to metabolise it. Restorative justice asks: what harm was done, what does the harmed person need, and how does the community heal? Not punishment — restoration. When conflict is held as ceremony — a sacred process of truth-telling and repair — it strengthens the community rather than fracturing it.</div><div class="p-freq">As needed — but the process must be designed in advance, in peace</div></div></div>
+    </div>
+  </div>
+
+  <!-- RHYTHM -->
+  <div id="rhythm-s" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,32px); margin-bottom:10px;">The daily & weekly rhythm</h3>
+    <p class="sec-body">Civilisation is built not by grand gestures but by what people do every single day. These practices are the architecture of a spiritually grounded life — personally and collectively.</p>
+
+    <div class="sec-rule" style="margin-top:1.5rem;">Personal daily rhythm</div>
+    <div class="practice-item"><div class="p-icon">🌄</div><div><div class="p-title">Dawn — before the world</div><div class="p-body">Wake before noise. 20 minutes of silence — no phone, no music, no news. Breathe. Set one intention for the day aligned to one of the seven principles of Ma'at. Drink water. This is the hinge of the day. Everything else flows from this.</div><div class="p-freq">Daily — 5 to 6am ideally</div></div></div>
+    <div class="practice-item"><div class="p-icon">🫁</div><div><div class="p-title">Breath and body</div><div class="p-body">10 minutes of breathwork — box breathing, 4-7-8, or pranayama. Then movement: stretching, yoga, walking in nature. The body is the first community you govern. If it is chaotic, your outer world reflects that. If it is regulated, your outer world does too.</div><div class="p-freq">Daily — follows the silence</div></div></div>
+    <div class="practice-item"><div class="p-icon">🌿</div><div><div class="p-title">Herbal morning protocol</div><div class="p-body">Following Dr. Flame's guidance — your morning herbs are not separate from your spiritual practice. The act of preparing and drinking medicine consciously, with gratitude for the plant, is a spiritual act. The body being clean and alkaline is what makes spiritual clarity possible. They are not separate paths.</div><div class="p-freq">Daily — sorrel 3× week, protocol as prescribed</div></div></div>
+    <div class="practice-item"><div class="p-icon">📓</div><div><div class="p-title">Evening reflection</div><div class="p-body">Before sleep: three questions. Where did I act in Ma'at today? Where did I fall short? What do I offer to the ancestors with gratitude? Five minutes. Not punishment — honest accounting. The Kemetic evening practice was exactly this — an internal review against the seven principles before rest.</div><div class="p-freq">Daily — before sleep</div></div></div>
+
+    <div class="sec-rule">The collective week</div>
+    <div class="week-grid">
+      <div class="day-card"><div class="day-name">Mon</div><div class="day-icon">🌅</div><div class="day-label">Morning gathering — set the week's intention</div></div>
+      <div class="day-card"><div class="day-name">Tue</div><div class="day-icon">📖</div><div class="day-label">Study circle — history, medicine, philosophy</div></div>
+      <div class="day-card"><div class="day-name">Wed</div><div class="day-icon">🌱</div><div class="day-label">Land work — farming as spiritual practice</div></div>
+      <div class="day-card"><div class="day-name">Thu</div><div class="day-icon">🔵</div><div class="day-label">Community council — truth circle</div></div>
+      <div class="day-card"><div class="day-name">Fri</div><div class="day-icon">🧘</div><div class="day-label">Individual quiet day — personal practice</div></div>
+      <div class="day-card"><div class="day-name">Sat</div><div class="day-icon">🥁</div><div class="day-label">Celebration — music, food, community</div></div>
+      <div class="day-card"><div class="day-name">Sun</div><div class="day-icon">🕯</div><div class="day-label">Ancestral remembrance — libation, names, stories</div></div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">The principle beneath the rhythm</div>
+      <div class="info-box-text">The rhythm does not need to be followed rigidly. What matters is that the community has a rhythm — a predictable, recurring heartbeat of shared practice. This is what the Maroons had in the mountains, what Kemet had through its festival calendar, what Black Wall Street had through its churches. The rhythm is the container that holds the community together when external pressure comes. And it will come.</div>
+    </div>
+  </div>
+
+</div>
+<!-- end spiritual section -->
+
+</div><!-- end content -->
+
+<div class="footer">
+  <strong>New Earth Blueprint</strong> · Kin-nect · Built on the wisdom of our ancestors
+</div>
+
+<script>
+  const maatData = [
+    { title: "Truth — the first principle", body: "The ability to distinguish the real from the unreal. Not just intellectual honesty, but the deeper commitment to see things as they are — in yourself, in your community, in the world. Truth includes the recognition that all living beings are sacred. You cannot build on a lie, a pretence, or a performance. The New Earth begins with people willing to see clearly.", practice: "Practice: Before any community decision — 'Are we telling the truth about what is actually happening here?' Personally: morning journaling to track the gap between who you are and who you are becoming." },
+    { title: "Balance — holding opposites", body: "A state in which the internal and external worlds are aligned. Not the absence of tension — the ability to hold opposing forces without being destroyed by either. Day and night. Masculine and feminine. Rest and labour. The New Earth must hold the tension between urgency and patience, between tradition and innovation, between individual needs and collective demands.", practice: "Practice: When you notice yourself in extreme — overworking, over-consuming, in rage or in fear — this is a Ma'at signal. Ask: what is the opposite I have been neglecting?" },
+    { title: "Harmony — authentic expression", body: "The state where different expressions of nature move together in ways that create alignment and beauty. Harmony requires authenticity — you cannot be in harmony while pretending to be something you are not. The New Earth must make space for each person's authentic self. When everyone expresses their true nature fully, harmony emerges naturally.", practice: "Practice: Ask each community member — 'What is the thing you most want to contribute but feel unable to here?' The gap between what people are and what they express is where disharmony lives." },
+    { title: "Order — clarity without clutter", body: "A state of being in which things are arranged clearly, free of excess, mentally and physically uncluttered. This is not rigidity — it is the kind of order that makes space for life to flow. In the New Earth: clear agreements, clear roles, clear processes for decision-making and conflict resolution. Disorder is not freedom — it is the absence of the container that makes freedom possible.", practice: "Practice: Regularly review what is in excess — possessions, commitments, relationships, thoughts — and release what does not serve the collective direction. Clutter is always spiritual information." },
+    { title: "Reciprocity — the law of return", body: "Everything moves in cycles. What you give returns. Acts of generosity create positive energy cycles; extraction creates collapse. The circulating dollar of Black Wall Street was reciprocity in practice. The gift economy is reciprocity in practice. Every act of genuine service to the community returns multiplied.", practice: "Practice: Before spending money or energy outside the community, ask — 'Is there a way this can circulate inside first?' Consciously track where your resources go and what they return." },
+    { title: "Propriety — do no harm, beginning with self", body: "To be and do what is right, according to the truth that all living beings deserve to exist. Propriety begins with self — you cannot give what you have not given yourself. This is why the body protocol comes first, the inner work comes first. Self-care in the New Earth is not indulgence — it is a Ma'at obligation.", practice: "Practice: Regular self-assessment — 'Am I giving from my overflow or my depletion?' Build non-negotiable restoration into your schedule before adding more responsibilities." },
+    { title: "Justice — right action in the world", body: "Not punishment — alignment. Justice is the restoration of balance when it has been disrupted. In the New Earth, justice is restorative: when harm is done, the question is how the balance is restored, not how the wrongdoer is made to suffer. The 42 Laws of Ma'at were all framed as 'I have not...' — a personal declaration of alignment, not external rules imposed on people.", practice: "Practice: When conflict arises, begin with — 'What has been harmed, and what would restore the balance?' Hold this question before any response, verdict, or judgment." }
+  ];
+
+  function selectMaat(idx, el) {
+    document.querySelectorAll('.maat-card').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+    document.getElementById('md-title').textContent = maatData[idx].title;
+    document.getElementById('md-body').textContent = maatData[idx].body;
+    document.getElementById('md-practice').textContent = maatData[idx].practice;
+  }
+
+  function showMain(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  function showCiv(id) {
+    document.querySelectorAll('#ancestral .sub-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#ancestral .sub-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  const spiMap = { 'root':'root', 'maat':'maat-s', 'ubuntu':'ubuntu-s', 'inner':'inner-s', 'collective':'collective-s', 'rhythm':'rhythm-s' };
+  function showSpi(id) {
+    document.querySelectorAll('#spiritual .sub-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#spiritual .sub-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(spiMap[id]).classList.add('on');
+    event.target.classList.add('on');
+  }
+</script>
+</body>
+</html>

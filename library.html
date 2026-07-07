@@ -2194,35 +2194,42 @@
       </div>
     </div>
 
-    <!-- COMING SOON HEADER -->
-    <div style="text-align:center;padding:3rem 0 4rem;border-bottom:1px solid rgba(232,184,75,0.08);margin-bottom:3rem;">
-      <span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.5;display:block;margin-bottom:1rem;">Opening soon</span>
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--blush);opacity:0.7;line-height:1.8;max-width:560px;margin:0 auto;font-style:italic;">A gathering around words, ideas and the literature that shapes us. Books, films, research, collective discussion — a home for the curious mind.</p>
-    </div>
-
-    <!-- WHAT'S COMING -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:4rem;">
-      <div onclick="openBookshelf()" style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.15);border-radius:10px;padding:1.4rem;text-align:center;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.borderColor='rgba(200,115,42,0.4)';this.style.background='rgba(200,115,42,0.06)'" onmouseleave="this.style.borderColor='rgba(232,184,75,0.15)';this.style.background='rgba(232,184,75,0.03)'">
+    <!-- AVAILABLE NOW — BOOKS -->
+    <div style="margin-bottom:3rem;">
+      <span class="section-label" style="display:block;margin-bottom:1.5rem;">📚 Books — Available Now</span>
+      <div onclick="openBookshelf()" style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.15);border-radius:10px;padding:1.4rem;text-align:center;cursor:pointer;transition:all 0.2s;max-width:320px;" onmouseenter="this.style.borderColor='rgba(200,115,42,0.4)';this.style.background='rgba(200,115,42,0.06)'" onmouseleave="this.style.borderColor='rgba(232,184,75,0.15)';this.style.background='rgba(232,184,75,0.03)'">
         <div style="font-size:1.5rem;margin-bottom:0.6rem;">📚</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.8;margin-bottom:0.4rem;">Books</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.7;line-height:1.6;margin-bottom:0.75rem;">A curated reading list. Curated by the Library Director.</p>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.8;margin-bottom:0.4rem;">The Bookshelf</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.7;line-height:1.6;margin-bottom:0.75rem;">A curated reading list.</p>
         <span style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);opacity:0.7;">1 book · Browse →</span>
       </div>
-      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🎬</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Films & Docs</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">Films and documentaries worth watching. Curated by the Library Director.</p>
+    </div>
+
+    <!-- COMING SOON -->
+    <div style="margin-bottom:3rem;">
+      <span class="section-label" style="display:block;margin-bottom:1.5rem;">Opening soon</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">
+
+        <!-- Coming soon box 1: Films & Docs -->
+        <div style="background:rgba(232,184,75,0.02);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.75rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.75rem;">🎬</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.75rem;">Films & Documentaries</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.5;line-height:1.7;">Films and documentaries worth watching — from independent cinema to essential Black storytelling. Curated by the Library Director.</p>
+        </div>
+
+        <!-- Coming soon box 2: Articles, Zines & Featured Read -->
+        <div style="background:rgba(232,184,75,0.02);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.75rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.75rem;">✦</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.75rem;">Articles · Zines · Featured Reads</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--blush);opacity:0.5;line-height:1.7;">One piece highlighted each month — essays, zines, chapters and words worth sitting with. Articles from the collective and beyond.</p>
+        </div>
+
       </div>
-      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:0.6rem;">✦</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Featured Read</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">One piece highlighted each month. Essays, zines, chapters, words worth sitting with.</p>
-      </div>
-      <div style="background:rgba(232,184,75,0.03);border:1px solid rgba(232,184,75,0.08);border-radius:10px;padding:1.4rem;text-align:center;">
-        <div style="font-size:1.5rem;margin-bottom:0.6rem;">🔄</div>
-        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:0.4rem;">Book Swap</div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--blush);opacity:0.5;line-height:1.6;">Give a book, take a book. Community exchange — coming with the library launch.</p>
-      </div>
+    </div>
+
+    <!-- Book Swap note -->
+    <div style="text-align:center;padding:1.5rem;border-top:1px solid rgba(232,184,75,0.06);margin-top:1rem;">
+      <span style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--blush);opacity:0.3;">🔄 Book Swap — Community exchange, coming with the full library launch</span>
     </div>
 
   </div>
@@ -2628,8 +2635,6 @@ async function handleSubmission() {
 <!-- BOOKSHELF OVERLAY -->
 <div id="bookshelf-overlay" style="display:none;position:fixed;inset:0;background:rgba(13,10,6,0.95);z-index:2000;overflow-y:auto;padding:2rem 1.5rem;">
   <div style="max-width:900px;margin:0 auto;">
-    
-    <!-- Header -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem;">
       <div>
         <div style="font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.7;margin-bottom:0.4rem;">✦ The Library</div>
@@ -2637,16 +2642,10 @@ async function handleSubmission() {
       </div>
       <button onclick="closeBookshelf()" style="background:none;border:1px solid rgba(232,184,75,0.15);border-radius:50%;width:40px;height:40px;color:var(--blush);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
     </div>
-
-    <!-- Shelf wood effect -->
     <div style="position:relative;margin-bottom:3rem;">
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:1.5rem 2rem;padding-bottom:1.5rem;align-items:end;">
-        
-        <!-- Book 1: Maybe I Don't Belong Here -->
         <div onclick="openBook('harewood')" style="cursor:pointer;text-align:center;transition:transform 0.2s;" onmouseenter="this.style.transform='translateY(-8px)'" onmouseleave="this.style.transform='none'">
-          <!-- Book cover -->
           <div style="width:100%;aspect-ratio:2/3;background:linear-gradient(160deg,#e8c832,#c8a820);border-radius:3px 6px 6px 3px;box-shadow:6px 6px 20px rgba(0,0,0,0.6),-2px 0 8px rgba(0,0,0,0.4);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;margin-bottom:0.75rem;">
-            <!-- Spine -->
             <div style="position:absolute;left:0;top:0;bottom:0;width:10px;background:rgba(0,0,0,0.25);border-radius:3px 0 0 3px;"></div>
             <div style="text-align:center;padding-left:8px;">
               <div style="font-family:'Playfair Display',serif;font-size:0.75rem;font-weight:900;color:#1a1a1a;line-height:1.2;margin-bottom:0.5rem;">MAYBE I DON'T BELONG HERE</div>
@@ -2656,27 +2655,21 @@ async function handleSubmission() {
           <div style="font-family:'Cormorant Garamond',serif;font-size:0.8rem;color:var(--cream);opacity:0.8;line-height:1.3;">Maybe I Don't Belong Here</div>
           <div style="font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.6;margin-top:0.2rem;">David Harewood</div>
         </div>
-
-        <!-- More books coming placeholder -->
-        <div style="text-align:center;opacity:0.25;">
+        <div style="text-align:center;opacity:0.2;">
           <div style="width:100%;aspect-ratio:2/3;background:rgba(232,184,75,0.04);border:1px dashed rgba(232,184,75,0.15);border-radius:3px 6px 6px 3px;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
             <span style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--blush);letter-spacing:0.1em;">MORE<br>SOON</span>
           </div>
         </div>
-
       </div>
-      <!-- Shelf plank -->
       <div style="height:8px;background:linear-gradient(180deg,rgba(44,26,14,0.8),rgba(20,12,6,0.9));border-radius:2px;box-shadow:0 4px 12px rgba(0,0,0,0.4);"></div>
     </div>
-
   </div>
 </div>
 
-<!-- BOOK DETAIL MODAL -->
+<!-- BOOK DETAIL -->
 <div id="book-detail" style="display:none;position:fixed;inset:0;background:rgba(13,10,6,0.96);z-index:3000;overflow-y:auto;padding:2rem 1.5rem;">
   <div style="max-width:700px;margin:0 auto;">
     <button onclick="closeBookDetail()" style="background:none;border:none;color:var(--ochre);font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;margin-bottom:2rem;opacity:0.7;">← Back to shelf</button>
-    
     <div id="book-detail-content"></div>
   </div>
 </div>
@@ -2690,10 +2683,9 @@ const books = {
     cover_bg: "linear-gradient(160deg,#e8c832,#c8a820)",
     cover_text_color: "#1a1a1a",
     tag: "Mental Health · Race · Memoir",
-    review: "A powerful and thought-provoking memoir that demands to be read. David Harewood traces his journey from a working-class upbringing in Birmingham to experiencing psychosis and being sectioned under the Mental Health Act — telling his story with a honesty and vulnerability that is rare. The book illuminates the profound impact of racism on mental health and the deep inequalities faced by Black people navigating mental illness in the UK. Moving, eye-opening and important — this is a book that raises awareness and calls for greater understanding and compassion.",
+    review: "A powerful and thought-provoking memoir that demands to be read. David Harewood traces his journey from a working-class upbringing in Birmingham to experiencing psychosis and being sectioned under the Mental Health Act — telling his story with honesty and vulnerability that is rare. The book illuminates the profound impact of racism on mental health and the deep inequalities faced by Black people navigating mental illness in the UK. Moving, eye-opening and important — this is a book that raises awareness and calls for greater understanding and compassion.",
     curator: "Miah · Library Director",
-    affiliate: "https://uk.bookshop.org/a/17452/9781529064179",
-    isbn: "9781529064179"
+    affiliate: "https://uk.bookshop.org/a/17452/9781529064179"
   }
 };
 
@@ -2701,12 +2693,10 @@ function openBookshelf() {
   document.getElementById('bookshelf-overlay').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
-
 function closeBookshelf() {
   document.getElementById('bookshelf-overlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-
 function openBook(id) {
   const b = books[id];
   document.getElementById('book-detail-content').innerHTML = `
@@ -2737,7 +2727,6 @@ function openBook(id) {
   document.getElementById('book-detail').style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
-
 function closeBookDetail() {
   document.getElementById('book-detail').style.display = 'none';
   document.getElementById('bookshelf-overlay').style.display = 'block';

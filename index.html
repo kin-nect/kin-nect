@@ -2013,7 +2013,7 @@
   body.light-mode .form-group input:focus { border-color: #B8621A !important; }
   body.light-mode .form-group label { color: #B8621A !important; }
   /* ── LIGHT MODE: popup ── */
-  body.light-mode #kin-popup > div {
+  body.light-mode #kin-popup-inner {
     background: #F9F4EB !important;
     border-color: rgba(184,98,26,0.25) !important;
   }
@@ -2306,7 +2306,7 @@
 </script>
 <!-- SUBSCRIPTION POPUP -->
 <div id="kin-popup" style="display:none;position:fixed;inset:0;background:rgba(13,10,6,0.85);z-index:1000;align-items:center;justify-content:center;padding:1.5rem;">
-  <div style="background:#F9F4EB;border:1px solid rgba(184,98,26,0.25);border-radius:16px;max-width:480px;width:100%;padding:2.5rem;position:relative;">
+  <div id="kin-popup-inner" style="background:#131008;border:1px solid rgba(200,115,42,0.25);border-radius:16px;max-width:480px;width:100%;padding:2.5rem;position:relative;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ochre),rgba(200,115,42,0.2),transparent);border-radius:16px 16px 0 0;"></div>
     <button onclick="closePopup()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--blush);opacity:0.4;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.7rem;">✕</button>
 

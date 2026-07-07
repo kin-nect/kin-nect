@@ -23,13 +23,16 @@
 </head>
 <body>
   <div id="root"></div>
-
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const { useState } = React;
 
+    // ── BOARD 1: HERBALISM ──
     const teas = [
       {
-        name: "Soursop Leaf", emoji: "🌿", category: "healing", color: "#2d5a27",
+        name: "Soursop Leaf", emoji: "🌿", category: "cancer", color: "#2d5a27",
         tagline: "The Cancer Fighter",
         benefits: [
           "Potent anti-cancer properties — leaves contain acetogenins which inhibit abnormal cell growth",
@@ -39,7 +42,7 @@
           "Antimicrobial and antifungal properties",
           "Supports healthy blood pressure",
         ],
-        usage: "Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",
+        usage: "Fresh soursop juice: blend the fruit pulp with water, strain and drink immediately — the most potent form. Soursop leaf tea: bring water to a full boil, then remove from heat. Add 3–5 dried leaves to the resting water and steep covered for 10–15 minutes — do not boil the leaves directly, as heat destroys the medicinal compounds. Drink 1–2 cups daily. Best in the evening.",
         ital: "Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",
         caution: "Avoid in pregnancy. Do not combine with blood pressure medication without guidance.",
       },
@@ -237,183 +240,582 @@
         ital: "The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",
         caution: "May increase frequency of urination. Avoid if allergic to ragweed family.",
       },
+      {
+        name: "Eyebright", emoji: "👁️", category: "healing", color: "#4a7a9b",
+        tagline: "The Eye Healer",
+        benefits: [
+          "Soothes tired, irritated and inflamed eyes — traditional remedy for conjunctivitis and styes",
+          "Anti-inflammatory — tannins and flavonoids reduce inflammation in mucous membranes",
+          "Powerful support for hay fever, sinusitis and seasonal allergies",
+          "Helps dry up excess mucus and catarrh",
+          "Mild antibacterial properties — supports eye infection recovery",
+          "Liver and digestive support in some herbal traditions",
+        ],
+        usage: "Steep 1–2 tsp dried herb in boiling water for 10 minutes. Drink as tea for respiratory and allergy relief. For eyewash — preparation must be fully sterile. Available as tincture or capsule.",
+        ital: "Named for what it does. Eyebright has been used for centuries across European herbal traditions — a plant that sees clearly where the body struggles.",
+        caution: "Any eyewash preparation must be sterile — consult a herbalist before applying to eyes directly. Avoid during pregnancy. Not a substitute for medical eye care.",
+      },
+      {
+        name: "Cat's Claw", emoji: "🌿", category: "cancer", color: "#7a3a2a",
+        tagline: "The Rainforest Healer",
+        benefits: [
+          "Anti-tumour properties — alkaloids shown to inhibit cancer cell growth and promote apoptosis",
+          "Powerful anti-inflammatory — comparable to pharmaceutical anti-inflammatories in studies",
+          "Strengthens and modulates the immune system",
+          "Antioxidant-rich — protects cells from oxidative damage",
+          "Supports gut health and reduces intestinal inflammation",
+          "DNA repair support — shown to help repair DNA damage in cells",
+        ],
+        usage: "Steep 1 tsp bark or root in boiling water for 10–15 minutes. Drink 1–2 cups daily. Available as tincture, capsule or dried bark.",
+        ital: "From the Amazon rainforest. Indigenous communities of Peru have used cat's claw for centuries to treat inflammation, infections and cancer. The forest holds the medicine.",
+        caution: "Avoid during pregnancy or if taking blood thinners, immunosuppressants or blood pressure medication. Consult a practitioner if undergoing cancer treatment.",
+      },
+      {
+        name: "Turkey Tail Mushroom", emoji: "🍄", category: "cancer", color: "#8a6a3a",
+        tagline: "The Immune Architect",
+        benefits: [
+          "Contains PSK and PSP — polysaccharides shown in clinical trials to improve cancer survival rates",
+          "Enhances NK cell and T-cell activity — directly strengthens cancer-fighting immune response",
+          "Used alongside conventional cancer treatment in Japan and China since the 1970s",
+          "Powerful prebiotic — feeds beneficial gut bacteria",
+          "Antioxidant-rich and anti-inflammatory",
+          "Supports recovery during chemotherapy and radiation",
+        ],
+        usage: "Brew dried mushroom in hot water for 20–30 minutes. Drink as tea or take as capsule/tincture. Best used consistently over time.",
+        ital: "One of the most researched medicinal mushrooms in the world. The forest floor holds what the lab is only beginning to understand.",
+        caution: "Generally well tolerated. May cause digestive upset in some. Consult your oncologist if using alongside cancer treatment.",
+      },
+      {
+        name: "Frankincense (Boswellia)", emoji: "🫚", category: "cancer", color: "#c8a040",
+        tagline: "The Sacred Resin",
+        benefits: [
+          "AKBA compound shown to target cancer cells without harming healthy cells — brain, breast, colon and prostate cancer studied",
+          "Potent anti-inflammatory — inhibits the same inflammatory pathways as NSAIDs",
+          "Supports brain health and has been researched for brain tumour treatment",
+          "Reduces anxiety and depression — frankincense activates ion channels in the brain",
+          "Supports joint health and reduces arthritis pain",
+          "Used in Ayurveda and African healing traditions for millennia",
+        ],
+        usage: "Take as Boswellia extract capsule (400–500mg, 3x daily). Frankincense essential oil can be diffused or applied topically diluted in a carrier oil. Do not ingest the essential oil.",
+        ital: "Ancient medicine — burned in temples, used by healers across Africa, the Middle East and India. Sacred for a reason.",
+        caution: "Avoid during pregnancy. May interact with blood thinners. Use food-grade supplements — not essential oil — for internal use.",
+      },
+      {
+        name: "Turmeric (Curcumin)", emoji: "🌿", category: "cancer", color: "#d4a020",
+        tagline: "The Golden Healer",
+        benefits: [
+          "Curcumin shown to inhibit cancer cell proliferation across multiple cancer types",
+          "Induces apoptosis — programmes cancer cells to self-destruct",
+          "Blocks angiogenesis — starves tumours of blood supply",
+          "Among the most powerful anti-inflammatory compounds known",
+          "Protects the liver and supports detoxification",
+          "Crosses the blood-brain barrier — supports neurological health",
+        ],
+        usage: "Take with black pepper (piperine increases absorption by 2000%). Add to food, golden milk or tea. As supplement: 500–1000mg curcumin extract daily with fat and black pepper.",
+        ital: "Used for 4,000 years in Ayurvedic and traditional Chinese medicine. The science is finally catching up to what our ancestors already knew.",
+        caution: "High doses may interact with blood thinners and diabetes medication. Avoid therapeutic doses during pregnancy. Always take with black pepper for absorption.",
+      },
     ];
 
-    const categories = {
-      all:         { label: "All",            color: "#8a7a5a" },
-      healing:     { label: "Deep Healing",   color: "#2d5a27" },
-      calm:        { label: "Calm & Sleep",   color: "#7b5ea7" },
-      energy:      { label: "Energy",         color: "#c17f3a" },
-      digestive:   { label: "Digestive",      color: "#1a7a4a" },
-      heart:       { label: "Heart & Blood",  color: "#b5294e" },
-      respiratory: { label: "Respiratory",    color: "#5a7a3a" },
-      woman:       { label: "Womb Wisdom",    color: "#8b3a52" },
-      spirit:      { label: "Spirit",         color: "#8b6914" },
-      kidney:      { label: "Kidney Cleanse", color: "#3d6b2a" },
+    const herbCategories = {
+      all:         { label: "All",              color: "#8a7a5a" },
+      cancer:      { label: "Cancer Fighting",  color: "#7a3a2a" },
+      healing:     { label: "Deep Healing",     color: "#2d5a27" },
+      calm:        { label: "Calm & Sleep",     color: "#7b5ea7" },
+      woman:       { label: "Womb Health",      color: "#8b3a52" },
+      heart:       { label: "Heart & Blood",    color: "#b5294e" },
+      digestive:   { label: "Digestive",        color: "#1a7a4a" },
+      spirit:      { label: "Spirit",           color: "#8b6914" },
+      respiratory: { label: "Respiratory",      color: "#5a7a3a" },
     };
 
-    function App() {
-      const [selected, setSelected] = useState(null);
-      const [filter, setFilter]     = useState("all");
-      const filtered = filter === "all" ? teas : teas.filter(t => t.category === filter);
+    // ── BOARD 2: AROMATHERAPY ──
+    const oils = [
+      {
+        name: "Lavender Oil", emoji: "💜", category: "calm", color: "#7b5ea7",
+        tagline: "The Universal Healer",
+        method: ["Diffuse", "Topical", "Bath"],
+        benefits: [
+          "Reduces anxiety and stress — one of the most studied essential oils for calming the nervous system",
+          "Promotes deep, restorative sleep",
+          "Antiseptic and anti-inflammatory — speeds healing of burns, cuts and insect bites",
+          "Relieves headaches and migraines when applied to temples",
+          "Antidepressant — lifts mood naturally",
+          "Safe for children when diluted",
+        ],
+        usage: "Diffuse 4–6 drops in an oil diffuser. Apply 2–3 drops diluted in a carrier oil (coconut, jojoba) to pulse points, temples or feet. Add 5–10 drops to a warm bath.",
+        note: "One of the few essential oils generally safe to apply neat (undiluted) in small amounts to skin. Always dilute for children.",
+        caution: "Avoid during first trimester of pregnancy. Can cause drowsiness — avoid before driving if sensitive.",
+      },
+      {
+        name: "Tea Tree Oil", emoji: "🌿", category: "healing", color: "#2d5a4a",
+        tagline: "Nature's Antiseptic",
+        method: ["Topical", "Diffuse", "Cleaning"],
+        benefits: [
+          "Powerful antibacterial — effective against many strains including MRSA",
+          "Antifungal — treats nail fungus, athlete's foot and thrush",
+          "Antiviral properties — supports immunity",
+          "Treats acne — reduces bacteria and inflammation on skin",
+          "Soothes scalp conditions — dandruff, dry scalp, seborrheic dermatitis",
+          "Natural household disinfectant",
+        ],
+        usage: "Skin: dilute 1–2 drops in a carrier oil or unscented cream. Scalp: add 5 drops to shampoo. Diffuse for air purification. Add to water for natural surface cleaner.",
+        note: "One of the most versatile oils in any apothecary. A true staple.",
+        caution: "NEVER ingest — toxic when swallowed. Always dilute before applying to skin. Keep away from pets, especially cats.",
+      },
+      {
+        name: "Frankincense Oil", emoji: "🫚", category: "spirit", color: "#c8a040",
+        tagline: "The Sacred Oil",
+        method: ["Diffuse", "Topical", "Meditation"],
+        benefits: [
+          "Deepens meditation and spiritual practice — activates ion channels in the brain associated with calm",
+          "Anti-tumour properties — researched for brain and breast cancer",
+          "Reduces anxiety and depression",
+          "Anti-inflammatory — supports joints and arthritis",
+          "Skin rejuvenating — reduces scars, stretch marks and signs of ageing",
+          "Grounding and centering — anchors scattered energy",
+        ],
+        usage: "Diffuse during meditation or before sleep. Dilute 2–3 drops in jojoba or rosehip oil and apply to skin or behind ears. Inhale directly from bottle for instant grounding.",
+        note: "If one oil belongs in every sacred space, it's this one. Burned in temples for thousands of years across Africa, the Middle East and India.",
+        caution: "Avoid during pregnancy. May interact with blood thinners. Do not ingest the essential oil — use Boswellia supplements for internal benefit.",
+      },
+      {
+        name: "Peppermint Oil", emoji: "🌱", category: "digestive", color: "#1a7a4a",
+        tagline: "The Cool Healer",
+        method: ["Diffuse", "Topical", "Inhale"],
+        benefits: [
+          "Relieves headaches and migraines when applied to temples",
+          "Energising and focus-enhancing — natural alternative to caffeine",
+          "Soothes digestive discomfort, nausea and IBS",
+          "Clears sinuses and respiratory congestion",
+          "Cooling pain relief for muscles and joints",
+          "Natural insect repellent",
+        ],
+        usage: "Headaches: dilute and apply to temples and back of neck. Diffuse for energy and focus. Add 1 drop to water or peppermint tea (food-grade only). Inhale directly for nausea.",
+        note: "Keep a bottle in your bag. One of the most immediately useful oils day to day.",
+        caution: "Do not apply undiluted near eyes or on children's faces. Avoid if you have acid reflux. Use food-grade oil only if ingesting.",
+      },
+      {
+        name: "Eucalyptus Oil", emoji: "🌿", category: "respiratory", color: "#5a7a3a",
+        tagline: "The Lung Opener",
+        method: ["Diffuse", "Steam", "Topical"],
+        benefits: [
+          "Opens airways and clears respiratory congestion — colds, flu, bronchitis",
+          "Antibacterial and antiviral — purifies air when diffused",
+          "Relieves muscle pain and tension",
+          "Stimulates immune function",
+          "Cooling and refreshing — reduces fever",
+          "Improves focus and mental clarity",
+        ],
+        usage: "Add 3–5 drops to a bowl of hot water, cover head with towel and inhale (steam inhalation). Diffuse during illness. Dilute and apply to chest. Add to shower floor for steam.",
+        note: "The classic sick-day oil. Your grandmother's medicine cabinet probably had something like this.",
+        caution: "Never ingest. Keep away from children under 2. Avoid near face of young children — can cause breathing difficulties.",
+      },
+      {
+        name: "Rose Oil", emoji: "🌹", category: "woman", color: "#8b3a52",
+        tagline: "The Heart Opener",
+        method: ["Diffuse", "Topical", "Bath"],
+        benefits: [
+          "Deeply supportive for grief, heartbreak and emotional pain",
+          "Balances hormones — supports menstrual regulation",
+          "One of the highest vibrational essential oils",
+          "Aphrodisiac — supports libido and intimacy",
+          "Anti-inflammatory and antibacterial for skin",
+          "Reduces anxiety and lifts depression",
+        ],
+        usage: "Diffuse for emotional healing. Dilute in rosehip oil and apply to heart centre. Add 3–4 drops to bath with Epsom salts. Wear as natural perfume diluted in jojoba.",
+        note: "It takes approximately 60 roses to make one drop of pure rose essential oil. It's expensive for a reason. Buy from a trusted source.",
+        caution: "Avoid during pregnancy. Ensure you buy genuine rose otto — many products are adulterated with synthetic fragrance.",
+      },
+    ];
 
+    const oilCategories = {
+      all:         { label: "All",          color: "#8a7a5a" },
+      calm:        { label: "Calm & Sleep", color: "#7b5ea7" },
+      healing:     { label: "Healing",      color: "#2d5a4a" },
+      spirit:      { label: "Spirit",       color: "#c8a040" },
+      digestive:   { label: "Digestive",    color: "#1a7a4a" },
+      respiratory: { label: "Respiratory",  color: "#5a7a3a" },
+      woman:       { label: "Womb & Heart", color: "#8b3a52" },
+    };
+
+    // ── BOARD 3: PLANT MEDICINE ──
+    const plants = [
+      {
+        name: "Ganja (Cannabis)", emoji: "🌿", category: "sacred", color: "#2d5a27",
+        tagline: "The Sacrament",
+        tradition: "Rastafarian · Vedic · Indigenous",
+        benefits: [
+          "Sacred sacrament in Rastafari — used for meditation, prayer and reasoning",
+          "Referenced in the Vedas as one of five sacred plants",
+          "Pain relief and anti-inflammatory — medical cannabis well established",
+          "Reduces anxiety, PTSD and depression",
+          "Supports sleep and nervous system regulation",
+          "Anti-nausea — used during chemotherapy",
+          "Cannabinoids shown to have anti-tumour properties in research",
+        ],
+        usage: "Ceremonial: smoked with intention, in community or in meditation. Medicinal: CBD oil, tinctures, edibles — start low and slow. Understand your lineage with this plant before using.",
+        note: "This plant has been criminalised to oppress the communities that hold it sacred. Know the history. Use with respect.",
+        caution: "Legal status varies by country — know your jurisdiction. Not recommended for those with personal or family history of psychosis. Avoid during pregnancy.",
+      },
+      {
+        name: "Ceremonial Cacao", emoji: "🍫", category: "heart", color: "#5a2d1a",
+        tagline: "The Heart Opener",
+        tradition: "Mayan · Aztec · Central American",
+        benefits: [
+          "Opens the heart centre — used ceremonially for emotional healing and connection",
+          "Contains theobromine — a gentle, sustained energy lift without the anxiety of caffeine",
+          "MAO inhibitor — enhances mood and sense of wellbeing",
+          "Rich in magnesium, iron and antioxidants",
+          "Facilitates emotional release and deep inner work",
+          "Enhances creativity, presence and empathy",
+        ],
+        usage: "Ceremonial dose: 40–42g cacao block melted in hot water with chilli, cinnamon and a little sweetener. Set an intention. Sit with it. Can be used with meditation, journaling or movement.",
+        note: "Not the same as chocolate. Ceremonial cacao is minimally processed, full-fat and used with intention. Source ethically — look for Guatemalan or Peruvian origin.",
+        caution: "Avoid if on antidepressants (MAOIs) without guidance. High doses can cause nausea, headache or racing heart in sensitive people. Not recommended during pregnancy in high doses.",
+      },
+      {
+        name: "Psilocybin Mushrooms", emoji: "🍄", category: "vision", color: "#6a4a8a",
+        tagline: "The Great Teacher",
+        tradition: "Mazatec · Mesoamerican · Global Indigenous",
+        benefits: [
+          "Clinically proven to reduce treatment-resistant depression — Johns Hopkins and Imperial College research",
+          "Dissolves ego defensiveness — allows deep trauma processing",
+          "Reduces end-of-life anxiety in terminal patients — trials show lasting relief after one session",
+          "Creates lasting personality changes toward openness and empathy",
+          "Shown to reduce addiction — smoking, alcohol, opioids",
+          "Mystical experiences reported by most participants — long-term positive impact on wellbeing",
+        ],
+        usage: "Set and setting are everything. Micro-dosing: 0.1–0.3g for subtle cognitive and mood benefits. Ceremonial/therapeutic dose: 2–3.5g in a safe, intentional space. Never alone for high doses. Integration after the experience is as important as the journey itself.",
+        note: "This medicine is having a clinical renaissance. What indigenous communities have known for millennia, science is now confirming.",
+        caution: "Illegal in most countries — know your jurisdiction. Not suitable for those with personal or family history of psychosis or schizophrenia. Avoid mixing with lithium or SSRIs without guidance. Never use recreationally without respect for the medicine.",
+      },
+    ];
+
+    const plantCategories = {
+      all:    { label: "All",         color: "#8a7a5a" },
+      sacred: { label: "Sacred",      color: "#2d5a27" },
+      heart:  { label: "Heart",       color: "#5a2d1a" },
+      vision: { label: "Vision",      color: "#6a4a8a" },
+    };
+
+    // ── BOARD 4: THE PANTRY ──
+    const pantry = [
+      {
+        name: "Sea Moss", emoji: "🌊", category: "mineral", color: "#2d5a7a",
+        tagline: "The Ocean Mineral",
+        form: ["Gel", "Capsule", "Raw"],
+        benefits: [
+          "Contains 92 of the 102 minerals the human body needs",
+          "Thyroid support — rich in iodine and selenium",
+          "Gut health — acts as a prebiotic, feeds beneficial bacteria",
+          "Immune boosting — antiviral and antimicrobial properties",
+          "Skin, hair and nail strength — collagen support",
+          "Energy and libido — historically used as an aphrodisiac in Caribbean tradition",
+        ],
+        usage: "Gel: blend soaked raw sea moss with water until smooth. Take 1–2 tablespoons daily in smoothies, teas or on its own. Capsule: 1000mg daily. Raw: rinse, soak overnight, add to food.",
+        note: "A staple of Caribbean and Ital culture long before the wellness industry discovered it. Source ethically — wild-crafted from clean waters, not pool-grown.",
+        caution: "Excess iodine can disrupt thyroid function — do not take in extremely high doses if you have a thyroid condition. Source matters enormously — poor quality sea moss may contain heavy metals.",
+      },
+      {
+        name: "Soursop (Fresh)", emoji: "🍈", category: "cancer", color: "#2d5a27",
+        tagline: "The Healing Fruit",
+        form: ["Juice", "Fruit", "Leaf Tea"],
+        benefits: [
+          "Fresh juice is the most bioavailable form of soursop medicine",
+          "Acetogenins — compounds unique to soursop shown to selectively kill cancer cells",
+          "Powerful immune system support",
+          "Antioxidant-rich — reduces oxidative stress",
+          "Anti-inflammatory and antimicrobial",
+          "Supports healthy blood pressure and blood sugar levels",
+        ],
+        usage: "Fresh juice: blend pulp with cold water, strain and drink immediately — do not heat. Eat the fruit fresh when in season. Leaf tea for more concentrated medicinal benefit.",
+        note: "The whole plant is medicine. The fruit feeds you. The leaves treat you. The juice bridges both.",
+        caution: "Avoid in large quantities during pregnancy. Very high doses of soursop leaf (not fruit) have been linked to atypical Parkinsonism in some studies — use leaf tea in moderation.",
+      },
+      {
+        name: "Turkey Tail Mushroom", emoji: "🍄", category: "cancer", color: "#8a6a3a",
+        tagline: "The Immune Architect",
+        form: ["Tea", "Capsule", "Powder"],
+        benefits: [
+          "PSK (Krestin) — approved cancer treatment drug in Japan, derived from Turkey Tail",
+          "Clinically proven to improve survival rates in breast, colon and gastric cancers",
+          "Enhances the effectiveness of chemotherapy and radiation",
+          "Powerful prebiotic — restores gut microbiome after antibiotic use",
+          "Antiviral — shown to be active against HPV",
+          "Reduces inflammation throughout the body",
+        ],
+        usage: "Tea: simmer dried mushroom for 20–30 minutes. Strain and drink. Powder: add 1–2 tsp to smoothies, soups or coffee. Capsule: 500–1000mg daily.",
+        note: "The most clinically researched medicinal mushroom in the world. Used in Japanese hospitals. The West is late.",
+        caution: "Generally very safe. May cause mild digestive upset initially. Consult your oncologist if using alongside cancer treatment — it enhances, not conflicts, but they should know.",
+      },
+      {
+        name: "Lion's Mane", emoji: "🍄", category: "mind", color: "#c8a040",
+        tagline: "The Brain Mushroom",
+        form: ["Capsule", "Powder", "Tea"],
+        benefits: [
+          "Stimulates Nerve Growth Factor (NGF) — promotes brain cell regeneration",
+          "Shown to reduce symptoms of anxiety and depression",
+          "Improves memory, focus and cognitive function",
+          "Neuroprotective — researched for Alzheimer's and Parkinson's prevention",
+          "Supports nervous system repair after injury",
+          "Anti-inflammatory throughout the body",
+        ],
+        usage: "Powder: 1–2 tsp in morning coffee, smoothie or hot water. Capsule: 500–1000mg daily. Effects build over weeks — consistency matters more than dose.",
+        note: "If you could only add one mushroom to your daily ritual for long-term brain health, this is it.",
+        caution: "Avoid if you have mushroom allergies. May enhance effects of diabetes and blood-thinning medications. Pregnant women should consult a practitioner.",
+      },
+      {
+        name: "Reishi", emoji: "🍄", category: "spirit", color: "#8a3a2a",
+        tagline: "The Mushroom of Immortality",
+        form: ["Tea", "Capsule", "Tincture"],
+        benefits: [
+          "Adaptogen — helps the body manage stress at a cellular level",
+          "Immune modulator — balances overactive or underactive immune response",
+          "Inhibits breast cancer cell proliferation — oestrogen receptor research",
+          "Supports deep, restorative sleep",
+          "Liver protection and detoxification support",
+          "Calms the nervous system — used in TCM for spirit (Shen) cultivation",
+        ],
+        usage: "Tea: simmer dried slices for 30–60 minutes — it's bitter, add honey or blend with cacao. Capsule: 500–1000mg extract daily. Dual-extract tincture for maximum potency.",
+        note: "In Chinese medicine, Reishi has been used for over 2,000 years. It was reserved for emperors. Now it belongs to everyone.",
+        caution: "May thin the blood — stop 2 weeks before surgery. Avoid if on immunosuppressants without guidance. Can cause dry mouth or digestive upset initially.",
+      },
+      {
+        name: "Chaga", emoji: "🍄", category: "cancer", color: "#3a2a1a",
+        tagline: "The King of Mushrooms",
+        form: ["Tea", "Tincture", "Powder"],
+        benefits: [
+          "Highest antioxidant content of any natural food — ORAC score off the charts",
+          "Anti-tumour — betulinic acid shown to induce apoptosis in cancer cells",
+          "Powerful immune system activation",
+          "Reduces inflammation — cytokine regulation",
+          "Balances blood sugar and supports metabolic health",
+          "Antimicrobial and antiviral — supports immunity during illness",
+        ],
+        usage: "Tea: simmer chunks or powder in water for 20–30 minutes — unlike other mushrooms, the taste is actually pleasant, slightly vanilla-like. Add to coffee as a caffeine alternative.",
+        note: "Grows on birch trees in cold climates. Used by Siberian and Northern European indigenous communities for centuries. Rare, slow-growing and powerful — source responsibly.",
+        caution: "High in oxalates — those with kidney stones should use cautiously. May interact with blood thinners and diabetes medication. Avoid during pregnancy.",
+      },
+      {
+        name: "Shiitake", emoji: "🍄", category: "immune", color: "#5a3a1a",
+        tagline: "The Everyday Healer",
+        form: ["Food", "Capsule", "Tea"],
+        benefits: [
+          "Lentinan — a beta-glucan compound approved as a cancer treatment in Japan",
+          "Significantly lowers LDL cholesterol",
+          "Antiviral — active against influenza, HIV and hepatitis viruses in research",
+          "Rich in B vitamins, zinc and selenium",
+          "Supports immune function and reduces inflammation",
+          "The most accessible medicinal mushroom — eat it as food",
+        ],
+        usage: "Eat fresh or dried in cooking — sauté in coconut oil with garlic. The most delicious medicine. Dried mushroom tea: simmer for 15–20 minutes. Capsule for concentrated extract.",
+        note: "The bridge between the kitchen and the apothecary. You can eat your medicine without anyone knowing that's what you're doing.",
+        caution: "Raw shiitake can cause 'shiitake dermatitis' — a skin rash — in sensitive people. Always cook thoroughly. Very rare allergic reactions possible.",
+      },
+    ];
+
+    const pantryCategories = {
+      all:     { label: "All",           color: "#8a7a5a" },
+      cancer:  { label: "Cancer Fighting",color: "#7a3a2a" },
+      mineral: { label: "Minerals",      color: "#2d5a7a" },
+      mind:    { label: "Mind",          color: "#c8a040" },
+      spirit:  { label: "Spirit",        color: "#8a3a2a" },
+      immune:  { label: "Immunity",      color: "#5a3a1a" },
+    };
+
+    // ── SHARED CARD COMPONENT ──
+    function ItemCard({ item, onClick, colorKey }) {
+      const [hovered, setHovered] = React.useState(false);
       return (
-        <div style={{ minHeight:"100vh", background:"#0d0b08", color:"#e8dcc8",
-                      fontFamily:"Georgia,'Times New Roman',serif", overflowX:"hidden" }}>
-
-          {/* Header */}
-          <header style={{ padding:"3rem 2rem 2rem", textAlign:"center",
-                           borderBottom:"1px solid rgba(232,220,200,0.1)" }}>
-            <p style={{ letterSpacing:"0.4em", fontSize:"0.7rem", color:"#8a7a5a",
-                        textTransform:"uppercase", marginBottom:"1rem" }}>
-              Ital Apothecary
-            </p>
-            <h1 style={{ fontSize:"clamp(2rem,6vw,3.8rem)", fontWeight:"normal",
-                         letterSpacing:"0.05em", color:"#e8dcc8", lineHeight:1.1, margin:"0 0 0.5rem" }}>
-              The Tea Cupboard
-            </h1>
-            <p style={{ color:"#8a7a5a", fontSize:"1rem", fontStyle:"italic", marginTop:"0.5rem" }}>
-              "Herbs are the healing of a nation" — Rastafari
-            </p>
-
-            {/* Filters */}
-            <div style={{ display:"flex", flexWrap:"wrap", gap:"0.5rem",
-                          justifyContent:"center", marginTop:"2rem" }}>
-              {Object.entries(categories).map(([key, {label, color}]) => (
-                <button key={key} className="filter-btn"
-                  onClick={() => setFilter(key)}
-                  style={{
-                    padding:"0.4rem 1rem",
-                    border:`1px solid ${filter===key ? color : "rgba(232,220,200,0.2)"}`,
-                    borderRadius:"2rem",
-                    background: filter===key ? color+"22" : "transparent",
-                    color: filter===key ? color : "#8a7a5a",
-                    fontSize:"0.75rem", letterSpacing:"0.1em", cursor:"pointer",
-                  }}>
-                  {label}
-                </button>
-              ))}
-            </div>
-          </header>
-
-          {/* Grid */}
-          <main style={{ maxWidth:"1100px", margin:"0 auto", padding:"2rem 1.5rem 4rem" }}>
-            <div style={{ display:"grid",
-                          gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",
-                          gap:"1.2rem" }}>
-              {filtered.map(tea => (
-                <div key={tea.name} className="card"
-                  onClick={() => setSelected(tea)}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = tea.color+"15";
-                    e.currentTarget.style.borderColor = tea.color+"60";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                    e.currentTarget.style.borderColor = "rgba(232,220,200,0.1)";
-                  }}
-                  style={{ background:"rgba(255,255,255,0.03)",
-                           border:"1px solid rgba(232,220,200,0.1)",
-                           borderRadius:"4px", padding:"1.5rem",
-                           cursor:"pointer", position:"relative", overflow:"hidden" }}>
-
-                  <div style={{ position:"absolute", top:"1rem", right:"1rem",
-                                width:"8px", height:"8px", borderRadius:"50%",
-                                background:tea.color, opacity:0.7 }} />
-
-                  <div style={{ fontSize:"2rem", marginBottom:"0.75rem" }}>{tea.emoji}</div>
-                  <h3 style={{ fontSize:"1rem", fontWeight:"normal", letterSpacing:"0.05em",
-                               color:"#e8dcc8", margin:"0 0 0.25rem" }}>{tea.name}</h3>
-                  <p style={{ fontSize:"0.75rem", color:tea.color, letterSpacing:"0.1em",
-                              margin:"0 0 1rem", fontStyle:"italic" }}>{tea.tagline}</p>
-                  <ul style={{ margin:0, padding:0, listStyle:"none" }}>
-                    {tea.benefits.slice(0,2).map((b,i) => (
-                      <li key={i} style={{ fontSize:"0.78rem", color:"#8a7a5a",
-                                           marginBottom:"0.3rem", position:"relative",
-                                           paddingLeft:"0.8rem" }}>
-                        <span style={{ position:"absolute", left:0, color:tea.color }}>·</span>
-                        {b.split("—")[0]}
-                      </li>
-                    ))}
-                  </ul>
-                  <p style={{ fontSize:"0.7rem", color:"#5a4a3a", marginTop:"1rem",
-                              letterSpacing:"0.1em" }}>TAP TO OPEN →</p>
-                </div>
-              ))}
-            </div>
-          </main>
-
-          {/* Modal */}
-          {selected && (
-            <div onClick={() => setSelected(null)}
-              style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.85)",
-                       zIndex:100, display:"flex", alignItems:"center",
-                       justifyContent:"center", padding:"1rem",
-                       backdropFilter:"blur(4px)" }}>
-              <div className="modal-scroll" onClick={e => e.stopPropagation()}
-                style={{ background:"#131008",
-                         border:`1px solid ${selected.color}40`,
-                         borderRadius:"6px", padding:"2.5rem",
-                         maxWidth:"600px", width:"100%",
-                         maxHeight:"85vh", overflowY:"auto", position:"relative" }}>
-
-                <button onClick={() => setSelected(null)}
-                  style={{ position:"absolute", top:"1rem", right:"1rem",
-                           background:"none", border:"none", color:"#5a4a3a",
-                           fontSize:"1.5rem", cursor:"pointer", lineHeight:1 }}>×</button>
-
-                <div style={{ fontSize:"3rem", marginBottom:"1rem" }}>{selected.emoji}</div>
-                <h2 style={{ fontSize:"1.8rem", fontWeight:"normal", color:"#e8dcc8",
-                             margin:"0 0 0.25rem" }}>{selected.name}</h2>
-                <p style={{ color:selected.color, fontStyle:"italic", letterSpacing:"0.1em",
-                            fontSize:"0.85rem", marginBottom:"2rem" }}>{selected.tagline}</p>
-
-                {/* Ital wisdom */}
-                <div style={{ background:`${selected.color}12`,
-                              borderLeft:`3px solid ${selected.color}`,
-                              padding:"1rem 1.25rem", borderRadius:"0 4px 4px 0",
-                              marginBottom:"1.5rem" }}>
-                  <p style={{ margin:0, fontSize:"0.85rem", fontStyle:"italic",
-                              color:"#c8b890", lineHeight:1.6 }}>{selected.ital}</p>
-                </div>
-
-                {/* Benefits */}
-                <h4 style={{ fontSize:"0.7rem", letterSpacing:"0.3em", color:selected.color,
-                             textTransform:"uppercase", margin:"0 0 0.75rem" }}>Benefits</h4>
-                <ul style={{ margin:"0 0 1.5rem", padding:0, listStyle:"none" }}>
-                  {selected.benefits.map((b,i) => (
-                    <li key={i} style={{ fontSize:"0.85rem", color:"#c8b890",
-                                         marginBottom:"0.5rem", paddingLeft:"1.2rem",
-                                         position:"relative", lineHeight:1.5 }}>
-                      <span style={{ position:"absolute", left:0, color:selected.color }}>✦</span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Usage */}
-                <h4 style={{ fontSize:"0.7rem", letterSpacing:"0.3em", color:selected.color,
-                             textTransform:"uppercase", margin:"0 0 0.5rem" }}>How to Use</h4>
-                <p style={{ fontSize:"0.85rem", color:"#c8b890", lineHeight:1.7,
-                            marginBottom:"1.5rem" }}>{selected.usage}</p>
-
-                {/* Caution */}
-                <div style={{ background:"rgba(180,50,30,0.08)",
-                              border:"1px solid rgba(180,50,30,0.2)",
-                              borderRadius:"4px", padding:"0.85rem 1rem" }}>
-                  <p style={{ margin:0, fontSize:"0.78rem", color:"#a06050", lineHeight:1.6 }}>
-                    <strong style={{ color:"#c07060", letterSpacing:"0.1em" }}>CAUTION: </strong>
-                    {selected.caution}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+        <div
+          onClick={() => onClick(item)}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            background: hovered ? item.color + '18' : 'rgba(255,255,255,0.02)',
+            border: `1px solid ${hovered ? item.color + '60' : item.color + '20'}`,
+            borderRadius: '8px',
+            padding: '1.25rem',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            transform: hovered ? 'translateY(-2px)' : 'none',
+            position: 'relative',
+          }}
+        >
+          <div style={{ position:'absolute', top:12, right:12, width:8, height:8, borderRadius:'50%', background:item.color, opacity:0.7 }}></div>
+          <span style={{ fontSize:'1.8rem', display:'block', marginBottom:8 }}>{item.emoji}</span>
+          <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'0.95rem', color:'#e8dcc8', marginBottom:3 }}>{item.name}</p>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.8rem', fontStyle:'italic', color:item.color, marginBottom:8 }}>{item.tagline}</p>
+          <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.38rem', letterSpacing:'0.1em', color:'#5a4a3a' }}>TAP TO OPEN →</p>
         </div>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    // ── MODAL COMPONENT ──
+    function Modal({ item, onClose, type }) {
+      if (!item) return null;
+      return (
+        <div
+          onClick={(e) => e.target === e.currentTarget && onClose()}
+          style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.88)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem', zIndex:9999, backdropFilter:'blur(3px)' }}
+        >
+          <div style={{ background:'#131008', borderRadius:6, padding:'2rem', maxWidth:540, width:'100%', maxHeight:'80vh', overflowY:'auto', position:'relative', border:`1px solid ${item.color}40` }}>
+            <button onClick={onClose} style={{ position:'absolute', top:12, right:16, background:'none', border:'none', color:'#5a4a3a', fontSize:'1.5rem', cursor:'pointer', lineHeight:1 }}>×</button>
+            <span style={{ fontSize:'2.5rem', display:'block', marginBottom:10 }}>{item.emoji}</span>
+            <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:'1.7rem', color:'#e8dcc8', fontWeight:'normal', margin:'0 0 3px' }}>{item.name}</h3>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:'italic', fontSize:'0.9rem', color:item.color, margin:'0 0 1.25rem' }}>{item.tagline}</p>
+            
+            {item.tradition && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.tradition}</p>}
+            {item.method && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.method.join(' · ')}</p>}
+            {item.form && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.form.join(' · ')}</p>}
+
+            {item.ital && (
+              <div style={{ borderLeft:`3px solid ${item.color}`, padding:'10px 14px', borderRadius:'0 4px 4px 0', marginBottom:'1.25rem', background:item.color+'12' }}>
+                <p style={{ margin:0, fontSize:'0.85rem', fontStyle:'italic', color:'#c8b890', lineHeight:1.6, fontFamily:"'Cormorant Garamond',serif" }}>{item.ital}</p>
+              </div>
+            )}
+            {item.note && (
+              <div style={{ borderLeft:`3px solid ${item.color}`, padding:'10px 14px', borderRadius:'0 4px 4px 0', marginBottom:'1.25rem', background:item.color+'12' }}>
+                <p style={{ margin:0, fontSize:'0.85rem', fontStyle:'italic', color:'#c8b890', lineHeight:1.6, fontFamily:"'Cormorant Garamond',serif" }}>{item.note}</p>
+              </div>
+            )}
+
+            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:item.color, margin:'0 0 8px' }}>Benefits</p>
+            <ul style={{ listStyle:'none', padding:0, margin:'0 0 1.25rem' }}>
+              {item.benefits.map((b,i) => (
+                <li key={i} style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.85rem', color:'#c8b890', padding:'3px 0 3px 16px', position:'relative', lineHeight:1.5 }}>
+                  <span style={{ position:'absolute', left:0, fontSize:'9px', top:7 }}>✦</span>{b}
+                </li>
+              ))}
+            </ul>
+
+            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:item.color, margin:'0 0 8px' }}>How to use</p>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.85rem', color:'#c8b890', lineHeight:1.7, margin:'0 0 1.25rem' }}>{item.usage}</p>
+
+            <div style={{ background:'rgba(180,50,30,0.08)', border:'1px solid rgba(180,50,30,0.2)', borderRadius:4, padding:'10px 12px' }}>
+              <p style={{ margin:0, fontSize:'0.78rem', color:'#a06050', lineHeight:1.5, fontFamily:"'Cormorant Garamond',serif" }}>
+                <strong style={{ color:'#c07060', letterSpacing:'0.08em' }}>NOTE: </strong>{item.caution}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ── MAIN APP ──
+    function App() {
+      const [board, setBoard] = React.useState('herbs');
+      const [herbCat, setHerbCat] = React.useState('all');
+      const [oilCat, setOilCat] = React.useState('all');
+      const [plantCat, setPlantCat] = React.useState('all');
+      const [pantryCat, setPantryCat] = React.useState('all');
+      const [modal, setModal] = React.useState(null);
+
+      const boards = [
+        { id:'herbs',   label:'🌿 Herbalism',      desc:'Teas, leaves, roots and bark. Everyday plant healing — what your grandmother knew.' },
+        { id:'oils',    label:'🫧 Aromatherapy',    desc:'Essential oils for healing, mood, space and ritual. The olfactory path to the nervous system.' },
+        { id:'plants',  label:'🌀 Plant Medicine',  desc:'Sacred plants that work on consciousness. Used ceremonially, with intention and respect.' },
+        { id:'pantry',  label:'🍽 The Pantry',      desc:'Food as medicine. Sea moss, medicinal mushrooms, healing fruits. The kitchen as apothecary.' },
+      ];
+
+      const filtered = (items, cat) => cat === 'all' ? items : items.filter(i => i.category === cat);
+
+      const currentItems = board === 'herbs' ? filtered(teas, herbCat)
+        : board === 'oils' ? filtered(oils, oilCat)
+        : board === 'plants' ? filtered(plants, plantCat)
+        : filtered(pantry, pantryCat);
+
+      const currentCats = board === 'herbs' ? herbCategories
+        : board === 'oils' ? oilCategories
+        : board === 'plants' ? plantCategories
+        : pantryCategories;
+
+      const currentCat = board === 'herbs' ? herbCat
+        : board === 'oils' ? oilCat
+        : board === 'plants' ? plantCat
+        : pantryCat;
+
+      const setCurrentCat = board === 'herbs' ? setHerbCat
+        : board === 'oils' ? setOilCat
+        : board === 'plants' ? setPlantCat
+        : setPantryCat;
+
+      const currentBoard = boards.find(b => b.id === board);
+
+      return (
+        <div style={{ minHeight:'100vh', background:'#0d0a06', color:'#e8dcc8', fontFamily:'Georgia,serif', padding:'2rem' }}>
+          
+          {/* Header */}
+          <div style={{ maxWidth:1200, margin:'0 auto 2rem' }}>
+            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:'#c8732a', opacity:0.7, marginBottom:'0.4rem' }}>✦ Personal Reference</p>
+            <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'2rem', fontWeight:'normal', color:'#e8dcc8', marginBottom:'0.3rem' }}>The <em style={{color:'#c8732a', fontStyle:'italic'}}>Apothecary</em></h1>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1rem', color:'#8a7a5a', fontStyle:'italic' }}>Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
+          </div>
+
+          {/* Board tabs */}
+          <div style={{ maxWidth:1200, margin:'0 auto 0.75rem', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'0.5rem' }}>
+            {boards.map(b => (
+              <button
+                key={b.id}
+                onClick={() => setBoard(b.id)}
+                style={{
+                  padding:'0.75rem 0.5rem',
+                  background: board === b.id ? 'rgba(200,115,42,0.12)' : 'transparent',
+                  border: board === b.id ? '1px solid rgba(200,115,42,0.4)' : '1px solid rgba(232,184,75,0.08)',
+                  borderRadius:6,
+                  color: board === b.id ? '#c8732a' : '#5a4a3a',
+                  fontFamily:"'Space Mono',monospace",
+                  fontSize:'0.42rem',
+                  letterSpacing:'0.06em',
+                  cursor:'pointer',
+                  textAlign:'center',
+                  transition:'all 0.15s',
+                }}
+              >{b.label}</button>
+            ))}
+          </div>
+
+          {/* Board description */}
+          <div style={{ maxWidth:1200, margin:'0 auto 1.5rem', padding:'0.75rem 1rem', background:'rgba(200,115,42,0.04)', border:'1px solid rgba(200,115,42,0.08)', borderRadius:6 }}>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.9rem', color:'#8a7a5a', fontStyle:'italic', margin:0 }}>{currentBoard.desc}</p>
+          </div>
+
+          {/* Category filters */}
+          <div style={{ maxWidth:1200, margin:'0 auto 1.5rem', display:'flex', gap:8, flexWrap:'wrap' }}>
+            {Object.entries(currentCats).map(([key, val]) => (
+              <button
+                key={key}
+                onClick={() => setCurrentCat(key)}
+                style={{
+                  padding:'4px 12px',
+                  border: currentCat === key ? `1px solid ${val.color}` : '1px solid rgba(232,184,75,0.1)',
+                  borderRadius:'2rem',
+                  background: currentCat === key ? val.color + '20' : 'transparent',
+                  color: currentCat === key ? '#e8dcc8' : '#5a4a3a',
+                  fontFamily:'Georgia,serif',
+                  fontSize:'0.75rem',
+                  cursor:'pointer',
+                  transition:'all 0.15s',
+                }}
+              >{val.label}</button>
+            ))}
+          </div>
+
+          {/* Grid */}
+          <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(175px,1fr))', gap:'1rem' }}>
+            {currentItems.map((item, i) => (
+              <ItemCard key={i} item={item} onClick={setModal} />
+            ))}
+          </div>
+
+          {/* Modal */}
+          {modal && <Modal item={modal} onClose={() => setModal(null)} />}
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
   </script>
 </body>
 </html>

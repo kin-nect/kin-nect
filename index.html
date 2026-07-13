@@ -2011,12 +2011,10 @@
   body.light-mode .form-group input:focus { border-color: #B8621A !important; }
   body.light-mode .form-group label { color: #B8621A !important; }
   /* ── LIGHT MODE: popup ── */
-  /* Dark mode popup — explicit */
   #kin-popup-inner {
     background: #131008 !important;
     border-color: rgba(200,115,42,0.25) !important;
   }
-  /* Light mode popup override */
   body.light-mode #kin-popup-inner {
     background: #F9F4EB !important;
     border-color: rgba(184,98,26,0.25) !important;
@@ -2077,10 +2075,7 @@
     <li><a href="directory.html" onclick="closeNav()">Directory</a></li>
     <li><a href="index.html#list-with-us" style="color:var(--gold);" onclick="closeNav()">Get Listed</a></li>
   </ul>
-  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.2rem;margin-right:0.8rem;">
-    <a href="#" onclick="const p=document.getElementById('kin-popup');if(p){p.style.display='flex';localStorage.removeItem('kin-popup-dismissed');}return false;" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.9;transition:opacity 0.2s;">Stay KIN-nected ✦</a>
-    <a href="#list-with-us" onclick="closeNav(); setTimeout(()=>document.getElementById('list-with-us').scrollIntoView({behavior:'smooth'}),100);" style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ochre);text-decoration:none;opacity:0.6;transition:opacity 0.2s;">Get Listed</a>
-  </div>
+  <a href="join-the-kin.html" style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;color:#0d0a06;background:var(--ochre);text-decoration:none;padding:0.5rem 1.1rem;border-radius:2rem;font-weight:700;margin-right:0.8rem;transition:opacity 0.15s;" onmouseenter="this.style.opacity='0.85'" onmouseleave="this.style.opacity='1'">Join the KIN ✦</a>
   <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>

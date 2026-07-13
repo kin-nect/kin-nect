@@ -1874,8 +1874,6 @@
     border-color: rgba(184,98,26,0.2);
     color: #1A0E06;
   }
-  body.light-mode .kin-popup > div,
-  body.light-mode #kin-popup > div,
   body.light-mode .save-modal-inner {
     background: #F9F4EB;
   }
@@ -2013,6 +2011,12 @@
   body.light-mode .form-group input:focus { border-color: #B8621A !important; }
   body.light-mode .form-group label { color: #B8621A !important; }
   /* ── LIGHT MODE: popup ── */
+  /* Dark mode popup — explicit */
+  #kin-popup-inner {
+    background: #131008 !important;
+    border-color: rgba(200,115,42,0.25) !important;
+  }
+  /* Light mode popup override */
   body.light-mode #kin-popup-inner {
     background: #F9F4EB !important;
     border-color: rgba(184,98,26,0.25) !important;

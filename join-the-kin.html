@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the KIN — KIN-NECT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0D0A06;
+    --earth: #2C1A0E;
+    --ochre: #C8732A;
+    --cream: #F5EDD8;
+    --blush: #E8C9A0;
+    --muted: #8a7a5a;
+    --dim: #5a4a3a;
+    --border: rgba(200,115,42,0.12);
+    --border2: rgba(200,115,42,0.3);
+    --card: rgba(200,115,42,0.03);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--night);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top:0; z-index:100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    background: rgba(13,10,6,0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 900;
+    color: var(--ochre); text-decoration: none;
+    letter-spacing: 0.08em;
+  }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-right { display:flex; align-items:center; gap:1rem; }
+  .nav-join {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--night);
+    background: var(--ochre); text-decoration: none;
+    padding: 0.5rem 1rem; border-radius: 2rem;
+    font-weight: 700; transition: opacity 0.15s;
+  }
+  .nav-join:hover { opacity: 0.85; }
+  .theme-toggle {
+    background: none; border: 1px solid var(--border2);
+    border-radius: 20px; padding: 0.3rem 0.8rem;
+    cursor: pointer; font-family: 'Space Mono', monospace;
+    font-size: 0.42rem; color: var(--muted);
+    letter-spacing: 0.1em; transition: all 0.15s;
+  }
+  .theme-toggle:hover { color: var(--cream); }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 5rem 3rem 4rem;
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .page-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--ochre);
+    opacity: 0.7; display: block; margin-bottom: 1rem;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700; color: var(--cream);
+    line-height: 1.1; margin-bottom: 1.25rem;
+  }
+  .page-title em { color: var(--ochre); font-style: italic; }
+  .page-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; color: var(--blush);
+    opacity: 0.75; line-height: 1.8;
+    max-width: 560px; margin: 0 auto;
+  }
+
+  /* ── THREE SECTION NAV ── */
+  .section-tabs {
+    display: flex; justify-content: center; gap: 0;
+    border-bottom: 1px solid var(--border);
+    max-width: 700px; margin: 0 auto 0;
+    padding: 0 2rem;
+  }
+  .section-tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.48rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; padding: 1rem 2rem;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .section-tab:hover { color: var(--cream); }
+  .section-tab.active {
+    color: var(--ochre);
+    border-bottom-color: var(--ochre);
+  }
+
+  /* ── SECTIONS ── */
+  .join-section {
+    max-width: 1100px; margin: 0 auto;
+    padding: 5rem 3rem 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .join-section:last-child { border-bottom: none; }
+
+  .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+
+  .section-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--ochre);
+    opacity: 0.5; display: block; margin-bottom: 0.75rem;
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700; color: var(--cream);
+    margin-bottom: 1rem; line-height: 1.15;
+  }
+  .section-heading em { color: var(--ochre); font-style: italic; }
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; color: var(--blush);
+    opacity: 0.8; line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+  .section-points { list-style: none; padding: 0; margin-bottom: 2rem; }
+  .section-points li {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; color: var(--blush);
+    opacity: 0.7; padding: 0.4rem 0 0.4rem 1.5rem;
+    position: relative; line-height: 1.6;
+  }
+  .section-points li::before {
+    content: '✦'; position: absolute; left: 0;
+    color: var(--ochre); font-size: 0.6rem; top: 0.55rem;
+  }
+
+  /* ── FORMS ── */
+  .join-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .fg { display: flex; flex-direction: column; gap: 0.4rem; }
+  .fl {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ochre); opacity: 0.6;
+  }
+  .fl span { color: var(--muted); }
+  .fi {
+    background: rgba(200,115,42,0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px; padding: 0.75rem 1rem;
+    color: var(--cream); font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; outline: none; transition: border-color 0.15s;
+    width: 100%;
+  }
+  .fi:focus { border-color: var(--border2); }
+  .fi::placeholder { color: var(--dim); opacity: 0.7; }
+  textarea.fi { resize: vertical; min-height: 100px; }
+  .btn-submit {
+    background: var(--ochre); color: var(--night);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 700;
+    padding: 0.9rem 2rem; border: none;
+    border-radius: 2rem; cursor: pointer;
+    align-self: flex-start; transition: opacity 0.15s;
+  }
+  .btn-submit:hover { opacity: 0.85; }
+
+  /* ── NEWSLETTER SECTION ── */
+  .newsletter-choices {
+    display: flex; flex-direction: column; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .nc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--ochre);
+    opacity: 0.6; margin-bottom: 0.25rem;
+    display: block;
+  }
+  .checkbox-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    cursor: pointer;
+  }
+  .checkbox-row input[type="checkbox"] {
+    accent-color: var(--ochre);
+    width: 16px; height: 16px; cursor: pointer;
+  }
+  .checkbox-row span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; color: var(--blush); opacity: 0.8;
+  }
+
+  /* ── SUCCESS ── */
+  .success-msg {
+    display: none;
+    background: rgba(200,115,42,0.08);
+    border: 1px solid rgba(200,115,42,0.2);
+    border-radius: 8px; padding: 1.25rem 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--ochre); line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+  .section-rule {
+    width: 40px; height: 1px;
+    background: var(--ochre); opacity: 0.3;
+    margin: 1.5rem 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--earth);
+    padding: 3rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; color: var(--ochre);
+    letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem;
+  }
+  .footer-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; color: var(--blush);
+    opacity: 0.5; font-style: italic; margin-bottom: 1.5rem;
+  }
+  .footer-links {
+    display: flex; justify-content: center; gap: 2rem;
+    list-style: none; margin-bottom: 1.5rem;
+  }
+  .footer-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.42rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .footer-links a:hover { color: var(--ochre); }
+  .footer-copy {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.4rem; color: var(--dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── LIGHT MODE ── */
+  body.light-mode {
+    --night: #F7F1E6; --earth: #EDE3D0;
+    --cream: #1A0E06; --blush: #3A2010;
+    --muted: #6a5a3a; --dim: #9a8a6a;
+    --border: rgba(44,26,14,0.1);
+    --border2: rgba(44,26,14,0.25);
+    --card: rgba(44,26,14,0.03);
+    background: #F7F1E6;
+  }
+  body.light-mode .fi {
+    background: rgba(44,26,14,0.04);
+    color: var(--cream);
+  }
+
+  @media (max-width: 768px) {
+    .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .join-section { padding: 3rem 1.5rem 4rem; }
+    .page-hero { padding: 3rem 1.5rem 2rem; }
+    .section-tabs { gap: 0; padding: 0; }
+    .section-tab { padding: 0.75rem 1rem; font-size: 0.42rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">KIN<span style="color:var(--cream)">-</span>NECT</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="the-calendar.html">Calendar</a></li>
+    <li><a href="library.html">Library</a></li>
+    <li><a href="directory.html">Directory</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="join-the-kin.html" class="nav-join">Join the KIN ✦</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">☀ Light</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <span class="page-eyebrow">✦ Get involved</span>
+  <h1 class="page-title">Join <em>the KIN</em></h1>
+  <p class="page-desc">Three ways to be part of what we're building. Whether you want to stay connected, get listed, or share something worth knowing — you're in the right place.</p>
+</div>
+
+<!-- SECTION TABS -->
+<div class="section-tabs">
+  <a href="#newsletter" class="section-tab active" onclick="setActive(this)">Stay KIN-NECTed</a>
+  <a href="#get-listed" class="section-tab" onclick="setActive(this)">Get Listed</a>
+  <a href="#submit" class="section-tab" onclick="setActive(this)">Submit Something</a>
+</div>
+
+<!-- ── SECTION 1: NEWSLETTER ── -->
+<section class="join-section" id="newsletter">
+  <div class="section-inner">
+    <div>
+      <span class="section-number">01 · Stay KIN-NECTed</span>
+      <h2 class="section-heading">Get updates from <em>the Collective</em></h2>
+      <div class="section-rule"></div>
+      <p class="section-body">New directory listings, editorial posts, gatherings, spiritual dates and library additions — delivered to your inbox. Choose exactly what you want to hear about. No noise, no spam.</p>
+      <ul class="section-points">
+        <li>New conscious businesses and practitioners in the directory</li>
+        <li>Original editorial from KIN-NECT and the wider collective</li>
+        <li>IRL gatherings, events and community moments</li>
+        <li>Moon cycles, equinoxes, solstices and spiritual portals</li>
+        <li>Library additions — books, films, research and articles</li>
+      </ul>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;color:var(--dim);">No spam. Unsubscribe anytime.</p>
+    </div>
+
+    <div>
+      <form class="join-form" id="newsletter-form" onsubmit="submitNewsletter(event)">
+        <div class="form-row">
+          <div class="fg">
+            <label class="fl">Your name <span>*</span></label>
+            <input class="fi" type="text" id="nl-name" placeholder="What do we call you?" required>
+          </div>
+          <div class="fg">
+            <label class="fl">Your email <span>*</span></label>
+            <input class="fi" type="email" id="nl-email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <div>
+          <span class="nc-label">I want updates about:</span>
+          <div class="newsletter-choices">
+            <label class="checkbox-row"><input type="checkbox" checked> <span>🌿 New directory listings</span></label>
+            <label class="checkbox-row"><input type="checkbox" checked> <span>✦ New editorial posts</span></label>
+            <label class="checkbox-row"><input type="checkbox" checked> <span>🌍 IRL gatherings & community</span></label>
+            <label class="checkbox-row"><input type="checkbox" checked> <span>🌕 Spiritual dates & moon cycles</span></label>
+            <label class="checkbox-row"><input type="checkbox" checked> <span>📚 Library — books, films & research</span></label>
+          </div>
+        </div>
+
+        <button class="btn-submit" type="submit">Stay KIN-NECTed ✦</button>
+        <div class="success-msg" id="nl-success">
+          ✦ You're KIN-NECTed. Welcome to the Collective — watch your inbox.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 2: GET LISTED ── -->
+<section class="join-section" id="get-listed">
+  <div class="section-inner">
+    <div>
+      <span class="section-number">02 · Get Listed</span>
+      <h2 class="section-heading">Are you doing <em>something worth knowing about?</em></h2>
+      <div class="section-rule"></div>
+      <p class="section-body">Artists. Creatives. Spaces. Plant-based food. Holistic practitioners. Businesses with soul. If what you do elevates consciousness and serves community — we want to know about you.</p>
+      <p class="section-body">We always ask before featuring anyone. This is just how you join the KIN directory.</p>
+      <ul class="section-points">
+        <li>Listed in the KIN-NECT directory — free</li>
+        <li>Featured in newsletter and editorial</li>
+        <li>Access to a conscious, engaged audience</li>
+        <li>London first — the UK, Europe and beyond next</li>
+      </ul>
+    </div>
+
+    <div>
+      <form class="join-form" id="listed-form" onsubmit="submitListed(event)">
+        <div class="form-row">
+          <div class="fg">
+            <label class="fl">Your name <span>*</span></label>
+            <input class="fi" type="text" id="gl-name" placeholder="Your name" required>
+          </div>
+          <div class="fg">
+            <label class="fl">Your email <span>*</span></label>
+            <input class="fi" type="email" id="gl-email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="fl">What do you do / what's your space? <span>*</span></label>
+          <input class="fi" type="text" id="gl-what" placeholder="e.g. Holistic healer, crystal shop, reiki, yoga teacher..." required>
+        </div>
+        <div class="fg">
+          <label class="fl">Where are you based? <span style="color:var(--dim)">— optional</span></label>
+          <input class="fi" type="text" id="gl-where" placeholder="City / online / both">
+        </div>
+        <div class="fg">
+          <label class="fl">A link to your work <span style="color:var(--dim)">— optional</span></label>
+          <input class="fi" type="url" id="gl-link" placeholder="Instagram, website, anything">
+        </div>
+        <button class="btn-submit" type="submit">Join the KIN ✦</button>
+        <div class="success-msg" id="gl-success">
+          ✦ We've received your listing. We review everything personally — we'll be in touch.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 3: SUBMIT SOMETHING ── -->
+<section class="join-section" id="submit">
+  <div class="section-inner">
+    <div>
+      <span class="section-number">03 · Submit Something</span>
+      <h2 class="section-heading">Share something <em>worth knowing</em></h2>
+      <div class="section-rule"></div>
+      <p class="section-body">Found something that belongs here? A book, film, podcast, article, resource, video, piece of writing — if it elevates, submit it. We review everything and reach out if it's a fit.</p>
+      <ul class="section-points">
+        <li>Books, films, documentaries and podcasts</li>
+        <li>Articles, essays and research resources</li>
+        <li>Events happening in the community</li>
+        <li>Businesses or practitioners you think belong in the directory</li>
+        <li>Your own writing — pitches for the editorial</li>
+      </ul>
+    </div>
+
+    <div>
+      <form class="join-form" id="submit-form" onsubmit="submitSomething(event)">
+        <div class="fg">
+          <label class="fl">What are you submitting? <span>*</span></label>
+          <input class="fi" type="text" id="sub-what" placeholder="e.g. Book, film, podcast episode, article, resource..." required>
+        </div>
+        <div class="fg">
+          <label class="fl">Link or reference <span>*</span></label>
+          <input class="fi" type="text" id="sub-link" placeholder="URL, ISBN, Spotify link, YouTube link..." required>
+        </div>
+        <div class="fg">
+          <label class="fl">Why does this belong on KIN-NECT? <span>*</span></label>
+          <textarea class="fi" id="sub-why" placeholder="Tell us why this resonates — what it speaks to, who it's for, why the community needs it..." required></textarea>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label class="fl">Your name <span style="color:var(--dim)">— optional</span></label>
+            <input class="fi" type="text" id="sub-name" placeholder="How we'll credit you">
+          </div>
+          <div class="fg">
+            <label class="fl">Your email <span style="color:var(--dim)">— optional</span></label>
+            <input class="fi" type="email" id="sub-email" placeholder="So we can let you know">
+          </div>
+        </div>
+        <button class="btn-submit" type="submit">Submit to KIN-NECT ✦</button>
+        <div class="success-msg" id="sub-success">
+          ✦ Received. We review everything with intention — thank you for sharing.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">KIN-NECT</span>
+  <p class="footer-tag">Stay KIN-nected with the Collective.</p>
+  <ul class="footer-links">
+    <li><a href="editorial.html">Editorial</a></li>
+    <li><a href="the-calendar.html">Calendar</a></li>
+    <li><a href="library.html">Library</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="join-the-kin.html">Join the KIN</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 KIN-NECT. Built with intention.</p>
+</footer>
+
+<script>
+  // Theme toggle
+  function toggleTheme() {
+    const body = document.body;
+    const btn = document.getElementById('theme-btn');
+    if (body.classList.contains('light-mode')) {
+      body.classList.remove('light-mode');
+      btn.textContent = '☀ Light';
+    } else {
+      body.classList.add('light-mode');
+      btn.textContent = '● Dark';
+    }
+  }
+
+  // Tab active state
+  function setActive(el) {
+    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Smooth scroll for tabs
+  document.querySelectorAll('.section-tab').forEach(tab => {
+    tab.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Highlight active tab on scroll
+  const sections = document.querySelectorAll('.join-section');
+  const tabs = document.querySelectorAll('.section-tab');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    tabs.forEach(t => {
+      t.classList.remove('active');
+      if (t.getAttribute('href') === '#' + current) t.classList.add('active');
+    });
+  });
+
+  // ── NEWSLETTER → Brevo ──
+  async function submitNewsletter(e) {
+    e.preventDefault();
+    const name = document.getElementById('nl-name').value.trim();
+    const email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+
+    try {
+      // Submit to Brevo via their form endpoint
+      const form = new FormData();
+      form.append('EMAIL', email);
+      form.append('FIRSTNAME', name);
+
+      const res = await fetch('https://sibforms.com/serve/MUIFAFyNHhngYh2TstiuD9MUkEIC4RJKG7ttgdg56gItcGp1GqFCvh5JUE5R6Pp6hRYzaDMZ3zkqvwZKnBgaGnW-JWvNAWP33FUJ1grtiIUjeovFMkohz0E2t013KI6BmQXqkN9-ceREDzxPtAnyp8fLJGu-W2PeV1Mc1Z7ujTSYLy_XqrkNTS40jK2GlMDyHUy9xKrMrvi9rT0ymw==', {
+        method: 'POST',
+        body: form,
+        mode: 'no-cors'
+      });
+
+      document.getElementById('newsletter-form').style.opacity = '0.4';
+      document.getElementById('nl-success').style.display = 'block';
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  // ── GET LISTED → Formspree ──
+  async function submitListed(e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('gl-name').value,
+      email: document.getElementById('gl-email').value,
+      what: document.getElementById('gl-what').value,
+      where: document.getElementById('gl-where').value,
+      link: document.getElementById('gl-link').value,
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xeerzwwv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('listed-form').style.opacity = '0.4';
+        document.getElementById('gl-success').style.display = 'block';
+      }
+    } catch(err) { console.error(err); }
+  }
+
+  // ── SUBMIT SOMETHING → Formspree (same endpoint for now) ──
+  async function submitSomething(e) {
+    e.preventDefault();
+    const data = {
+      type: 'SUBMISSION',
+      what: document.getElementById('sub-what').value,
+      link: document.getElementById('sub-link').value,
+      why: document.getElementById('sub-why').value,
+      name: document.getElementById('sub-name').value,
+      email: document.getElementById('sub-email').value,
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xeerzwwv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('submit-form').style.opacity = '0.4';
+        document.getElementById('sub-success').style.display = 'block';
+      }
+    } catch(err) { console.error(err); }
+  }
+</script>
+</body>
+</html>

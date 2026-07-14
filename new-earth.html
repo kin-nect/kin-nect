@@ -455,6 +455,64 @@
   }
   .footer strong { color: var(--gold); font-weight: 500; opacity: 1; }
 
+  /* EXPAND CARDS */
+  .expand-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .expand-card:hover { border-color: var(--border-strong); }
+  .expand-card.open { border-color: var(--border-strong); }
+  .expand-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    gap: 12px;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+  .expand-trigger-left { display: flex; align-items: center; gap: 12px; }
+  .expand-icon-wrap { font-size: 20px; flex-shrink: 0; }
+  .expand-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--cream); }
+  .expand-tag { font-size: 10px; color: var(--gold); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; opacity: 0.8; }
+  .expand-arrow { font-size: 14px; color: var(--gold); opacity: 0.6; flex-shrink: 0; transition: transform 0.2s; }
+  .expand-card.open .expand-arrow { transform: rotate(180deg); }
+  .expand-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .expand-card.open .expand-body { display: block; }
+  .expand-body-text { font-size: 13.5px; color: var(--blush); line-height: 1.65; opacity: 0.9; padding-top: 1rem; }
+  .expand-body-list { margin-top: 10px; }
+  .expand-cite { font-size: 12px; color: var(--gold); font-style: italic; margin-top: 10px; opacity: 0.8; }
+
+  /* FIGURE CARDS */
+  .figure-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .figure-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .figure-card:hover { border-color: var(--border-strong); }
+  .figure-card.open { border-color: var(--border-strong); background: var(--earth); }
+  .figure-era { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; opacity: 0.8; }
+  .figure-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .figure-role { font-size: 12px; color: var(--blush); opacity: 0.7; margin-bottom: 10px; }
+  .figure-detail { display: none; font-size: 13px; color: var(--blush); line-height: 1.6; opacity: 0.9; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+  .figure-card.open .figure-detail { display: block; }
+  .figure-card.open .figure-role { opacity: 1; color: var(--gold); }
+
   @media (max-width: 600px) {
     .week-grid { grid-template-columns: repeat(4, 1fr); }
     .hero { padding: 3rem 1.25rem 2rem; }
@@ -484,6 +542,7 @@
   <nav class="main-nav" role="navigation" aria-label="Main sections">
     <button class="main-nav-btn on" onclick="showMain('ancestral')">Ancestral models</button>
     <button class="main-nav-btn" onclick="showMain('spiritual')">Spiritual foundation</button>
+    <button class="main-nav-btn" onclick="showMain('history')">Our history</button>
   </nav>
 </div>
 
@@ -510,7 +569,13 @@
   <div id="kemet" class="sub-section on">
     <div class="t-label" style="font-size:12px; margin-bottom:6px;">3100 BCE – 30 BCE · Over 3,000 years of continuous civilisation</div>
     <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Kemet — Ancient Egypt</h3>
-    <p class="sec-body">A civilisation built on Ma'at — cosmic order, truth, justice, and balance — as the operating system for every aspect of life. Not just a religious idea but the actual constitution of how government, economics, medicine, and education functioned. The pyramids were built by paid, fed workers. Every level of society understood their role in the collective prosperity.</p>
+
+    <div class="pull">
+      <div class="pull-text">"I have not done wrong. I have not stolen. I have not killed. I have not caused suffering. I have not destroyed food. I have not told lies." The 42 Negative Confessions — spoken before Ma'at at the moment of judgement. Not aspiration. Daily standard.</div>
+      <div class="pull-source">The founding principle of Kemet — Ma'at as the operating system of life</div>
+    </div>
+
+    <p class="sec-body" style="margin-bottom:1.5rem;">A civilisation built on Ma'at — cosmic order, truth, justice, and balance — as the operating system for every aspect of life. Not just a religious idea but the actual constitution of how government, economics, medicine, and education functioned. The pyramids were built by paid, fed workers. Every level of society understood their role in the collective prosperity.</p>
 
     <div class="grid2" style="margin-top:1.5rem;">
       <div class="card">
@@ -521,11 +586,12 @@
         <div class="li">Bread and beer as staple foods — mass-produced at state level</div>
       </div>
       <div class="card">
-        <div class="card-label">Medicine</div>
-        <div class="li">Ebers Papyrus — 700+ herbal remedies and surgical procedures documented</div>
-        <div class="li">Specialised physicians — eye doctors, dentists, surgeons with defined roles</div>
-        <div class="li">First civilisation to understand the heart as central to circulation</div>
-        <div class="li">Herbs, oils, honey used as medicine — integrated with spiritual practice</div>
+        <div class="card-label">Medicine — the medical papyri</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Ebers Papyrus (c.1550 BCE)</strong> — 842 remedies across 110 pages, 20 metres long. Covers internal medicine, dermatology, gynaecology, dentistry, and psychiatry. Herbs documented include: aloe vera (burns, ulcers, skin disease), basil (heart medicine), frankincense (infections, wounds), cannabis (pain, inflammation), myrrh (antiseptic), garlic (infections, parasites), juniper (diuretic), castor oil (laxative), fennel (digestive), senna (purgative), henna (skin), thyme, opium. Birth control documented: dates, acacia, and honey paste as pessary. Guinea worm treatment: wrap emerging worm around a stick and slowly pull — still the standard treatment 3,500 years later.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Edwin Smith Papyrus (c.1600 BCE)</strong> — the world's oldest surgical textbook. 48 trauma cases documented with scientific precision: head injuries, spinal fractures, dislocations, tumours, wounds. First text to use the word "brain." Rational, evidence-based — no magic, just observation and technique. Originally from the Old Kingdom (c.3000 BCE), making it potentially 5,000 years old.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Kahun Gynaecological Papyrus (c.1825 BCE)</strong> — the oldest known medical text in Egyptian history. 34 segments addressing women's health: gynaecology, fertility, pregnancy, contraception. Acknowledged that many conditions were systemic rather than local.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Specialised physicians</strong> — ophthalmologists, dentists, proctologists, surgeons all documented as distinct specialisations. Court physicians were among the most respected people in the kingdom.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Research:</strong> <em>Herbal Medicine in Ancient Egypt</em> — Lans et al., J. Ethnobiology & Ethnomedicine · <em>The Edwin Smith Surgical Papyrus Vol.1</em> — James Henry Breasted (Oriental Institute, Chicago) · Ebers Papyrus — held at University of Leipzig Library</div>
       </div>
       <div class="card">
         <div class="card-label">Education</div>
@@ -535,11 +601,13 @@
         <div class="li">Education was holistic — spiritual, scientific, practical, communal as one</div>
       </div>
       <div class="card">
-        <div class="card-label">Governance</div>
-        <div class="li">Ma'at as the constitution — cosmic law above any individual ruler</div>
-        <div class="li">Vizier administered the state — checks on the pharaoh's power</div>
-        <div class="li">Regional governors managed local areas — decentralised execution</div>
-        <div class="li">Tax collected as goods, redistributed as wages — no money-based inequality</div>
+        <div class="card-label">Governance — how Ma'at was implemented</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Ma'at as constitution</strong> — not a written code but a lived standard. Every official wore or displayed Ma'at's feather as their oath of office. The pharaoh was required to "offer Ma'at daily" — meaning their legitimacy depended on demonstrating justice and balance, not just holding power. A pharaoh who violated Ma'at lost divine favour and risked political collapse.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">The Vizier</strong> — the pharaoh's chief administrator and supreme judge. Viziers were explicitly told: "Do not act willfully in cases where the law is unknown to you; acquaint yourself with it." Law required knowledge, not rank.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">The courts</strong> — judges were called "priests of Ma'at." They operated on precedent and moral instruction, not written codes. The goal was always restoration of balance, not punishment. Restorative justice, 3,000 years before the term was coined.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">In daily life</strong> — Ma'at was practical: accurate weights in the market, truth in disputes, care for family and community. An Egyptian merchant using false weights was not just breaking a rule — they were violating cosmic law and would face consequences in this life and the next.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">The 42 Negative Confessions</strong> — the standard against which every person was judged at death. Not "I tried to be good" — "I have not stolen. I have not lied. I have not caused suffering." A society that holds its people to that standard, in their daily actions, is a different kind of society.</div>
+        <div class="li"><strong style="color:var(--cream); font-weight:500;">Research:</strong> <em>The Role of Ma'at in Ancient Egyptian Law</em> — Brewminate.com · <em>Ma'at: The Moral Ideal in Ancient Egypt</em> — Maulana Karenga · <em>The Egyptian Book of the Dead</em> — E.A. Wallis Budge (trans.)</div>
       </div>
       <div class="card">
         <div class="card-label">Architecture & building</div>
@@ -565,44 +633,133 @@
 
   <!-- MALI -->
   <div id="mali" class="sub-section">
-    <div class="t-label" style="font-size:12px; margin-bottom:6px;">1235 – 1600 CE · The wealthiest civilisation on Earth at its peak</div>
+    <div class="t-label" style="font-size:12px; margin-bottom:6px;">989 CE – present · The Mali Empire at its peak: 1235–1600 CE</div>
     <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Mali Empire & Timbuktu</h3>
-    <p class="sec-body">Mansa Musa's Mali Empire demonstrated that African civilisation could be simultaneously the richest and the most educated in the world. Timbuktu was not a city of gold — it was a city of knowledge. Wealth came second to wisdom. A single pilgrimage to Mecca in 1324 distributed so much gold it caused inflation across North Africa and the Middle East for twelve years.</p>
 
-    <div class="grid2" style="margin-top:1.5rem;">
+    <div class="pull">
+      <div class="pull-text">Books were the most valuable commodity in Timbuktu. Merchants who arrived to trade gold and salt left having spent more on manuscripts than on any other goods. Knowledge was the founding principle of this civilisation — not wealth, not military power. Knowledge first. Everything else followed.</div>
+      <div class="pull-source">The founding principle of Timbuktu</div>
+    </div>
+
+    <p class="sec-body" style="margin-bottom:1.5rem;">Mansa Musa's Mali Empire was simultaneously the wealthiest and the most educated civilisation on Earth. Timbuktu was not a city of gold — it was a city of knowledge. A single pilgrimage to Mecca in 1324 distributed so much gold it caused inflation across North Africa and the Middle East for twelve years. He used that wealth to build universities. In 1324, Oxford had existed for 200 years. Sankore had been running for over 300.</p>
+
+    <!-- SUBJECT TABS -->
+    <div style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">What they studied — select a subject</div>
+    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:1rem;" id="subj-nav">
+      <button class="sub-btn on" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-law')">Law</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-med')">Medicine</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-astro')">Astronomy</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-maths')">Mathematics</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-phil')">Philosophy</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-gov')">Governance</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-trade')">Trade & economics</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-lang')">Language & linguistics</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-geo')">Geography & history</button>
+      <button class="sub-btn" style="font-size:11px; padding:5px 12px;" onclick="showSubj('s-practical')">Practical trades</button>
+    </div>
+
+    <div class="card" id="subj-detail" style="margin-bottom:1.5rem; min-height:160px;">
+      <div style="font-size:10px; font-weight:500; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;" id="sd-label">LAW — MANDATORY STUDY</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--cream); margin-bottom:10px;" id="sd-title">Islamic law, jurisprudence & the science of justice</div>
+      <div style="font-size:13.5px; color:var(--blush); line-height:1.65; margin-bottom:10px; opacity:0.9;" id="sd-body">Law was the core of the Sankore curriculum — not as a set of rules to memorise, but as a living discipline of ethical reasoning. Students studied the Maliki school of jurisprudence, learning how to apply divine principles to real disputes: inheritance, contracts, property, marriage, governance, and criminal justice. Judges in Timbuktu were also scholars — their authority came from their depth of knowledge, not their rank. The concept that law and scholarship are inseparable is one of the most important things Timbuktu has to teach. A community that cannot reason through its own disputes from its own principles is not yet sovereign.</div>
+      <div style="font-size:12px; color:var(--gold); font-style:italic;" id="sd-research">Research: <em>The Fate of the Timbuktu Manuscripts</em> — Shamil Jeppie & Souleymane Bachir Diagne (eds.) · <em>Timbuktu and the Songhay Empire</em> — John Hunwick · Al-Furqan Islamic Heritage Foundation catalogue (digitallibrary.al-furqan.com)</div>
+    </div>
+
+    <div class="grid2">
       <div class="card">
-        <div class="card-label">Knowledge infrastructure</div>
-        <div class="li">Sankore University — 25,000 students in law, medicine, astronomy, maths, theology</div>
-        <div class="li">Over 700,000 manuscripts — many never yet translated or published</div>
-        <div class="li">3 major universities in Timbuktu — Sankore, Djinguereber, Sidi Yahia</div>
-        <div class="li">Libraries as the most valued buildings in the city</div>
+        <div class="card-label">The university structure</div>
+        <div class="li">Founded 989 CE — older than Oxford (1096) by over 100 years</div>
+        <div class="li">Three institutions: Sankore, Djinguereber, Sidi Yahia — each independent, each run by a master scholar</div>
+        <div class="li">25,000 students in a city of 100,000 — one in four people was a student</div>
+        <div class="li">No central administration — each scholar ran their own college from their home or mosque courtyard</div>
+        <div class="li">Four degree levels, the highest equivalent to a PhD — taking 10 years minimum to complete</div>
+        <div class="li">Graduates received cloth, salt, livestock, and money — real goods, not symbolic certificates</div>
       </div>
+      <div class="card">
+        <div class="card-label">The manuscripts — what they are</div>
+        <div class="li">Estimated 700,000+ manuscripts across Timbuktu — written on paper, goat skin, sheep skin, fish skin</div>
+        <div class="li">Topics: medicine, astronomy, mathematics, law, theology, philosophy, geography, trade, music, poetry, history, magic</div>
+        <div class="li">Written primarily in Arabic — the lingua franca of scholarship — with some in Songhay and Fulani</div>
+        <div class="li">Held in family libraries for generations — passed down with the oath "I will protect this library for as long as I live"</div>
+        <div class="li">In 2012, jihadist forces occupied Timbuktu — Dr Abdel Kader Haidara organised the secret evacuation of 350,000 manuscripts to Bamako in the south</div>
+        <div class="li">4,203 manuscripts were burned before evacuation was complete</div>
+      </div>
+    </div>
+
+    <!-- MANUSCRIPTS ACCESS -->
+    <div style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:1.5rem 0 10px;">How to access the manuscripts — right now</div>
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:1.5rem;">
+      <div class="card" style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="font-size:20px; flex-shrink:0;">🌐</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--cream); margin-bottom:4px;">Google Arts & Culture — Mali Magic</div>
+          <div style="font-size:13px; color:var(--blush); line-height:1.55; opacity:0.85;">Over 40,000 manuscript pages digitised over eight years by Malian archivists with Google equipment. Available in Arabic, English, Spanish, and French. This is your first port of call. Search: <em>artsandculture.google.com/project/mali-magic</em></div>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="font-size:20px; flex-shrink:0;">📚</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--cream); margin-bottom:4px;">Hill Museum & Manuscript Library (HMML) — Online Reading Room</div>
+          <div style="font-size:13px; color:var(--blush); line-height:1.55; opacity:0.85;">Since 2013, HMML at Saint John's University has photographed over 150,000 manuscripts in partnership with SAVAMA-DCI. Available through their online reading room. Search: <em>hmml.org/readingroom</em> — search "Timbuktu" or "Mali"</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="font-size:20px; flex-shrink:0;">🏛</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--cream); margin-bottom:4px;">Library of Congress — Mamma Haidara Collection</div>
+          <div style="font-size:13px; color:var(--blush); line-height:1.55; opacity:0.85;">Digital images donated by Dr Abdel Kader Haidara from his family's Mamma Haidara Commemorative Library. Free access. Search: <em>loc.gov</em> — "Timbuktu manuscripts Haidara"</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="font-size:20px; flex-shrink:0;">📖</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--cream); margin-bottom:4px;">Al-Furqan Islamic Heritage Foundation — 5-volume catalogue</div>
+          <div style="font-size:13px; color:var(--blush); line-height:1.55; opacity:0.85;">Published a full handlist of 9,000 manuscripts held at the Ahmed Baba Institute. The catalogue itself (in English and Arabic) is a research tool to understand what exists. Search: <em>digitallibrary.al-furqan.com</em></div>
+        </div>
+      </div>
+      <div class="card" style="display:flex; gap:14px; align-items:flex-start;">
+        <div style="font-size:20px; flex-shrink:0;">🤝</div>
+        <div>
+          <div style="font-size:13px; font-weight:500; color:var(--cream); margin-bottom:4px;">Direct engagement — the families still hold most of them</div>
+          <div style="font-size:13px; color:var(--blush); line-height:1.55; opacity:0.85;">The majority of manuscripts remain in private family collections in Mali. Many families are protective after centuries of colonial looting. The route to those collections is through the Ahmed Baba Institute (IHERI-AB) in Timbuktu and SAVAMA-DCI in Bamako — both welcome scholarly partnerships. This is a long-term relationship to build.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2">
       <div class="card">
         <div class="card-label">Economy</div>
-        <div class="li">Gold and salt trade — controlled the routes between West and North Africa</div>
-        <div class="li">Trans-Saharan trade network — self-sustaining, not dependent on outside powers</div>
-        <div class="li">Taxation used to build public infrastructure, not hoard personal wealth</div>
-        <div class="li">Mansa Musa's wealth — shared freely, not accumulated privately</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Governance</div>
-        <div class="li">Provincial governors with autonomy — federated structure</div>
-        <div class="li">Military protection of trade routes as a state function</div>
-        <div class="li">Diplomacy — Mansa Musa sent ambassadors across the known world</div>
-        <div class="li">Law and scholarship treated as inseparable — judges were also scholars</div>
+        <div class="li">Gold and salt trade — controlled trans-Saharan routes between West and North Africa</div>
+        <div class="li">Books were more valuable than gold at market — a scholar's library was their greatest asset</div>
+        <div class="li">Taxation used to build public infrastructure, not accumulate personal wealth</div>
+        <div class="li">Mansa Musa's 1324 pilgrimage: 60,000 people, 12,000 slaves carrying gold, inflation for 12 years</div>
       </div>
       <div class="card">
         <div class="card-label">Architecture</div>
-        <div class="li">Djinguereber Mosque — built 1327, still standing — mud brick and wood</div>
-        <div class="li">Sudano-Sahelian architecture — natural materials, thermally efficient</div>
-        <div class="li">Cities planned around knowledge institutions first, not markets or palaces</div>
-        <div class="li">Buildings maintained communally — annual replastering as a shared ritual</div>
+        <div class="li">Djinguereber Mosque — commissioned 1327 by Mansa Musa, still standing today</div>
+        <div class="li">Built from mud brick and wood — Sudano-Sahelian style, thermally efficient in desert heat</div>
+        <div class="li">Annual replastering festival — the entire community maintains the buildings together each year</div>
+        <div class="li">Cities designed around knowledge institutions — libraries before palaces, schools before markets</div>
       </div>
     </div>
 
     <div class="info-box">
-      <div class="info-box-label">What we take from Mali</div>
-      <div class="info-box-text">Knowledge is the most valuable currency. A civilisation that built universities before markets understood that informed people create lasting wealth. The manuscript tradition — documenting everything — means knowledge survives disruption. Mud architecture that has stood for 700 years proves natural building is not primitive. Trade routes the community controlled meant no dependency on outside economies. Wealth redistribution through public building, not personal accumulation.</div>
+      <div class="info-box-label">What we take from Timbuktu</div>
+      <div class="info-box-text">Knowledge is the most valuable thing a community can produce and protect. Books were worth more than gold. The university had no central administration — it was a network of independent scholars, each running their own school. That is the model: distributed, decentralised, each node holding its own knowledge. The families who hid manuscripts in the desert and passed down the oath "I will protect this library for as long as I live" — that is the spirit of the New Earth's knowledge keeper. Document everything. The Timbuktu manuscripts were almost lost forever. Kin-nect exists so that what is known now cannot be erased.</div>
+    </div>
+
+    <div style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:1.25rem 0 10px;">Books to begin with</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="li"><em>Timbuktu and the Songhay Empire</em> — John Hunwick. The definitive English-language history. Start here.</div>
+        <div class="li"><em>The Fate of the Timbuktu Manuscripts</em> — Jeppie & Diagne (eds). Academic but essential — what the manuscripts contain and why they matter.</div>
+        <div class="li"><em>The Bad-Ass Librarians of Timbuktu</em> — Joshua Hammer. Readable account of the 2012 evacuation. Gripping.</div>
+      </div>
+      <div class="card">
+        <div class="li"><em>African Kingdoms</em> — Basil Davidson. Places Timbuktu within the full context of African civilisation.</div>
+        <div class="li"><em>The Destruction of Black Civilisation</em> — Chancellor Williams. Essential context for understanding what was taken and why.</div>
+        <div class="li"><em>Introduction to African Civilisations</em> — John G. Jackson. Wide-ranging, includes Mali Empire in depth.</div>
+      </div>
     </div>
   </div>
 
@@ -651,7 +808,11 @@
   <div id="seneca" class="sub-section">
     <div class="t-label" style="font-size:12px; margin-bottom:6px;">1825 – 1857 · Manhattan's first significant Black property-owning community</div>
     <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Seneca Village — Central Park</h3>
-    <p class="sec-body">Built two years before slavery was abolished in New York State. A 25-year-old shoeshiner named Andrew Williams bought the first three lots for $125. Within weeks, a church had purchased land. Within years, a village existed. By 1855: 50 homes, 3 churches, 2 schools, gardens, livestock, and a natural spring. This is how fast a community can be built when people move with intention.</p>
+    <div class="pull">
+      <div class="pull-text">Andrew Williams was 25 years old, a shoeshiner. In September 1825 he paid $125 for three lots of land in upper Manhattan. Within weeks, a church bought adjacent land. Within years, a village existed. The founding principle: begin before you are ready, with less than you think you need.</div>
+      <div class="pull-source">The founding principle of Seneca Village — one person, one act, one beginning</div>
+    </div>
+    <p class="sec-body" style="margin-bottom:1.5rem;">A 25-year-old shoeshiner named Andrew Williams bought the first three lots for $125 in 1825 — two years before slavery was even abolished in New York State. Within weeks, a church had purchased land. Within years, a village existed. By 1855: 50 homes, 3 churches, 2 schools, gardens, livestock, and a natural spring. This is how fast a community can be built when people move with intention.</p>
 
     <div class="grid2" style="margin-top:1.5rem;">
       <div class="card">
@@ -687,7 +848,11 @@
   <div id="maroon" class="sub-section">
     <div class="t-label" style="font-size:12px; margin-bottom:6px;">1600s – present · Free African sovereign communities built inside slave territories</div>
     <h3 class="sec-title" style="font-size:clamp(22px,3vw,34px); margin-bottom:10px;">Maroon communities</h3>
-    <p class="sec-body">The most radical proof of all. People who escaped slavery — with nothing — built free communities in hostile terrain and held them for centuries. Queen Nanny of the Jamaican Maroons defeated the British Empire so thoroughly that Britain signed a peace treaty with her in 1739. A sovereign people, negotiating as equals with a colonial power.</p>
+    <div class="pull">
+      <div class="pull-text">Queen Nanny. Leader of the Windward Maroons. Military commander. Spiritual guide. Obeah woman. She defeated the British Empire so decisively that it signed a peace treaty with her in 1739, legally recognising the sovereignty of her people. The founding principle: freedom is not given. It is taken, held, and defended — spiritually, physically, and diplomatically.</div>
+      <div class="pull-source">The founding principle of the Maroon communities — sovereignty is not negotiated, it is established</div>
+    </div>
+    <p class="sec-body" style="margin-bottom:1.5rem;">The most radical proof of all. People who escaped slavery — with nothing — built free communities in hostile terrain and held them for centuries. A sovereign people, negotiating as equals with a colonial power.</p>
 
     <div class="grid2" style="margin-top:1.5rem;">
       <div class="card">
@@ -919,6 +1084,264 @@
 </div>
 <!-- end spiritual section -->
 
+<!-- ======== OUR HISTORY ======== -->
+<div id="history" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Our History</div>
+    <h2 class="sec-title">Integral figures, inventors & scientists</h2>
+    <p class="sec-body">This is not a history of suffering. This is a history of genius, creation, discovery, and resilience. Every person below changed the world. Most were never taught in school. Tap any card to go deeper.</p>
+  </div>
+
+  <div class="sub-nav">
+    <button class="sub-btn on" onclick="showHist('ancient')">Ancient world</button>
+    <button class="sub-btn" onclick="showHist('scientists')">Scientists & inventors</button>
+    <button class="sub-btn" onclick="showHist('healers')">Healers & philosophers</button>
+    <button class="sub-btn" onclick="showHist('leaders')">Leaders & builders</button>
+    <button class="sub-btn" onclick="showHist('artists')">Artists & writers</button>
+  </div>
+
+  <!-- ANCIENT WORLD -->
+  <div id="ancient" class="sub-section on">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The ancient world was shaped by African minds. These are not myths — they are documented historical figures whose contributions were later attributed to others, renamed, or simply erased.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.2650 BCE · Kemet</div>
+        <div class="figure-name">Imhotep</div>
+        <div class="figure-role">Architect · Physician · Engineer · First named genius in recorded history</div>
+        <div class="figure-detail">Imhotep designed the Step Pyramid of Djoser at Saqqara — the world's first large-scale stone structure. He was also chief physician to Pharaoh Djoser, an architect, astronomer, and philosopher. Deified after his death, he was worshipped as a god of medicine for 3,000 years. The Greeks later renamed him Asclepius and made him their own god of medicine. Hippocrates — credited as the father of medicine — was writing 2,000 years after Imhotep had already documented medicine systematically. Research: <em>Imhotep the African</em> — Molefi Kete Asante</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.2350 BCE · Kemet</div>
+        <div class="figure-name">Amenhotep, Son of Hapu</div>
+        <div class="figure-role">Architect · Philosopher · Healer · Second most revered sage of ancient Egypt</div>
+        <div class="figure-detail">Chief architect to Pharaoh Amenhotep III, he oversaw the construction of the Colossi of Memnon and the Luxor temple complex. He was one of only two commoners to be deified after death. His philosophical writings influenced Egyptian thought for centuries. A direct ancestor of the tradition Imhotep began — genius recognised and honoured within a civilisation that understood what genius was for. Research: <em>Ancient Egyptian Science</em> — Marshall Clagett (3 volumes)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1550 BCE · Kemet</div>
+        <div class="figure-name">Merit-Ptah</div>
+        <div class="figure-role">Physician · First named woman in the history of science</div>
+        <div class="figure-detail">Chief physician to the Pharaoh around 2700 BCE — the first woman in history known by name to have practised medicine. Her image was placed in her son's tomb with the inscription "chief physician." Predates Hippocrates by over 2,000 years. The fact that a woman was chief physician tells you something important about how Kemet actually worked: Ma'at did not discriminate by sex. Competence was the standard. Research: <em>Women in Science</em> — H.J. Mozans · Ancient Egyptian Medical Papyri</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1350 BCE · Kemet</div>
+        <div class="figure-name">Nefertiti</div>
+        <div class="figure-role">Queen · Co-ruler · Political architect of the Amarna period</div>
+        <div class="figure-detail">Wife of Pharaoh Akhenaten, Nefertiti was likely the most powerful woman in ancient Egypt. Evidence suggests she may have ruled as Pharaoh herself after her husband's death under the name Neferneferuaten. She co-authored one of history's most radical political experiments: the shift to monotheism under Aten. Whether that experiment was visionary or destructive is debated — but her power and influence are not. Research: <em>Nefertiti: Egypt's Sun Queen</em> — Joyce Tyldesley</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1700s BCE · Kemet & Nubia</div>
+        <div class="figure-name">Ahmose-Nefertari</div>
+        <div class="figure-role">Queen · Founder of a religious order · Patron of artisans</div>
+        <div class="figure-detail">Queen of Egypt during the 18th Dynasty and one of the most venerated women in Egyptian history. Deified after her death, she was worshipped for over 500 years — longer than most pharaohs. She founded and led a religious order, negotiated with the pharaoh for rights for the priesthood, and was patron of the craftsmen who built the royal tombs. Depicted with black skin — a mark of divinity and fertility in Egyptian art. Research: <em>The Oxford History of Ancient Egypt</em> — Ian Shaw (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.51 BCE · Kemet</div>
+        <div class="figure-name">Cleopatra VII</div>
+        <div class="figure-role">Pharaoh · Linguist · Political strategist · Last ruler of independent Egypt</div>
+        <div class="figure-detail">The last active ruler of the Ptolemaic Kingdom of Egypt. Spoke nine languages — the only Ptolemaic ruler to learn Egyptian. A trained mathematician and philosopher. She was not a passive figure manipulated by Roman men — she was the one manipulating Rome, using Caesar and Antony as political tools to maintain Egyptian independence for as long as possible. When she failed, she chose death over captivity and a Roman triumph. Research: <em>Cleopatra: A Life</em> — Stacy Schiff</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.400 BCE · Carthage (modern Tunisia)</div>
+        <div class="figure-name">Mago of Carthage</div>
+        <div class="figure-role">Agricultural scientist · Author of the world's first agricultural encyclopaedia</div>
+        <div class="figure-detail">Mago wrote a 28-volume encyclopaedia on agriculture — so highly regarded that when Rome destroyed Carthage in 146 BCE, the Roman Senate ordered Mago's work to be translated into Latin and distributed across the empire. It was considered the foundational text of European agriculture for centuries. An African scientist whose work fed Rome. Research: <em>Roman Agriculture</em> — K.D. White · Encyclopaedia Britannica entry on Mago</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1312 CE · Mali Empire</div>
+        <div class="figure-name">Mansa Musa I</div>
+        <div class="figure-role">Emperor · Patron of learning · Wealthiest individual in recorded history</div>
+        <div class="figure-detail">Emperor of the Mali Empire from 1312 to 1337. His 1324 pilgrimage to Mecca — with 60,000 people and tonnes of gold — caused inflation across North Africa and the Middle East for twelve years. He used his wealth to build universities, import scholars, and expand the libraries of Timbuktu. His empire spanned modern-day Mali, Senegal, Gambia, Guinea, Niger, Nigeria, Chad, and Mauritania. Some historians estimate his wealth at $400 billion in today's terms. Research: <em>Timbuktu and the Songhay Empire</em> — John Hunwick</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENTISTS & INVENTORS -->
+  <div id="scientists" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">Black scientists and inventors who changed the world — most without credit, many without recognition. These are the people who built modernity.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1731–1806 · Maryland, USA</div>
+        <div class="figure-name">Benjamin Banneker</div>
+        <div class="figure-role">Astronomer · Mathematician · Surveyor · Published scientist</div>
+        <div class="figure-detail">Self-taught astronomer and mathematician who published almanacs from 1792 to 1797, containing astronomical calculations, tide tables, and medical remedies. He wrote to Thomas Jefferson challenging the hypocrisy of slavery in a nation claiming liberty. He helped survey the boundaries of Washington DC. Jefferson owned enslaved people and claimed Africans were intellectually inferior — Banneker's work was the direct refutation. Research: <em>The Life of Benjamin Banneker</em> — Silvio Bedini</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1807–1893 · Maryland, USA</div>
+        <div class="figure-name">Lewis Howard Latimer</div>
+        <div class="figure-role">Inventor · Engineer · Draftsman for Edison and Bell</div>
+        <div class="figure-detail">Latimer invented the carbon filament for the light bulb — making Edison's invention practical and affordable for mass use. Without Latimer's filament, electric light would have remained a laboratory curiosity. He also drafted the patent drawings for Alexander Graham Bell's telephone. He was the only Black member of Edison's elite team of inventors. His name appears on none of the famous patents. Research: <em>Lewis Howard Latimer</em> — Winifred Norman & Lily Patterson</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1864–1943 · Missouri, USA</div>
+        <div class="figure-name">George Washington Carver</div>
+        <div class="figure-role">Agricultural scientist · Botanist · Inventor of 300+ peanut products</div>
+        <div class="figure-detail">Developed over 300 products from peanuts and 100 from sweet potatoes — dyes, plastics, fuel, cosmetics, medicines — as part of a deliberate strategy to free Black Southern farmers from dependency on cotton. His agricultural science regenerated depleted Southern soil. He turned down a $100,000 salary from Thomas Edison, choosing to remain at Tuskegee. He donated his life savings to a foundation for agricultural research. Research: <em>George Washington Carver: An American Biography</em> — Rackham Holt</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1893–1958 · Oklahoma, USA</div>
+        <div class="figure-name">Garrett Morgan</div>
+        <div class="figure-role">Inventor · Traffic signal · Gas mask · Safety hood</div>
+        <div class="figure-detail">Invented the three-position traffic signal — the model used worldwide today. Invented the safety hood (precursor to the gas mask) and personally used it to rescue workers trapped in a tunnel under Lake Erie in 1916. Sold his traffic signal patent to General Electric for $40,000. When his identity became known after the tunnel rescue, some Southern cities cancelled their orders for his safety hood. Research: US Patent Office records — Patent No. 1,475,024 (traffic signal)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1918–2020 · Virginia, USA</div>
+        <div class="figure-name">Katherine Johnson</div>
+        <div class="figure-role">Mathematician · NASA · Calculated trajectories for moon landing</div>
+        <div class="figure-detail">Her orbital mechanics calculations were critical to the success of the first US crewed spaceflights. John Glenn refused to fly unless Katherine Johnson personally verified the computer's calculations. She calculated the trajectory for Apollo 11 — the moon landing. She worked at NASA for 35 years, initially in a segregated computing pool. She received the Presidential Medal of Freedom in 2015. Research: <em>Hidden Figures</em> — Margot Lee Shetterly</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1891–1923 · Texas, USA</div>
+        <div class="figure-name">Bessie Coleman</div>
+        <div class="figure-role">Aviator · First Black woman to hold a pilot's licence</div>
+        <div class="figure-detail">Denied flight training in the US because she was Black and a woman, she taught herself French, moved to France, and earned her international pilot's licence in 1921 — the first Black woman anywhere in the world to do so. She returned to the US and performed aerial stunts to raise money to open a flight school for Black Americans. She died in a plane crash at 34, before the school was built. It was built anyway, by her admirers. Research: <em>Queen Bess: Daredevil Aviator</em> — Doris L. Rich</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1875–1965 · USA & Caribbean</div>
+        <div class="figure-name">Elijah McCoy</div>
+        <div class="figure-role">Mechanical engineer · Inventor · "The Real McCoy"</div>
+        <div class="figure-detail">Invented automatic lubrication devices for steam engines — allowing trains to run without stopping to be oiled manually, transforming rail travel efficiency. He held 57 patents. Engineers specifying his devices over inferior imitations coined the phrase "the real McCoy." Born in Canada to formerly enslaved parents who escaped via the Underground Railroad, he could only find work as a fireman despite his engineering degree. Research: US Patent records · <em>Black Inventors in the Age of Segregation</em> — Rayvon Fouché</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1916–2003 · Alabama, USA</div>
+        <div class="figure-name">Dr Percy Julian</div>
+        <div class="figure-role">Chemist · Synthesised cortisone · Pioneer of steroid chemistry</div>
+        <div class="figure-detail">Synthesised physostigmine from the Calabar bean, pioneering the treatment of glaucoma. Later synthesised cortisone from soya beans — making it affordable for the first time and transforming treatment of arthritis and inflammatory diseases. He held over 130 chemical patents. His home was firebombed twice after he moved to a white Chicago suburb. He continued working. Research: <em>Forgotten Genius</em> — PBS documentary · Journal of Chemical Education</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALERS & PHILOSOPHERS -->
+  <div id="healers" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The healers, philosophers, and thinkers who gave us the frameworks to understand ourselves and the world. These are the ones whose ideas built civilisations and sustained communities through the unsurvivable.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1905–1988 · Honduras & New York</div>
+        <div class="figure-name">Dr Alfredo Darrington Bowman — Dr Sebi</div>
+        <div class="figure-role">Herbalist · Healer · Nutritionist · Alkaline medicine pioneer</div>
+        <div class="figure-detail">Self-educated healer who developed an alkaline, plant-based approach to healing that claimed to address the cellular causes of disease rather than its symptoms. He was arrested by the New York Attorney General after advertising cures for AIDS and other diseases — and was acquitted after producing over 70 witnesses who testified he had healed them. His approach: the body is electrical, disease thrives in acid, alkaline plants restore the body's natural state. His influence runs through every serious conversation about natural healing in the Black diaspora. Research: <em>Sebi's Natural Vegetation Cell Food</em> — Dr Sebi · numerous lectures on YouTube</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1918–1963 · Jamaica & USA</div>
+        <div class="figure-name">Claudia Jones</div>
+        <div class="figure-role">Political philosopher · Activist · Founded the Notting Hill Carnival</div>
+        <div class="figure-detail">Trinidadian-born communist, feminist, and Black liberation thinker. Deported from the US, she came to Britain where she founded the West Indian Gazette — the UK's first major Black newspaper — and created the Notting Hill Carnival in 1959 in response to the race riots, as an act of cultural resistance and community healing. She theorised the "triple oppression" of Black women — by race, class, and sex — decades before "intersectionality" was named. Research: <em>Claudia Jones: Beyond Containment</em> — Carole Boyce Davies</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1887–1940 · Jamaica & USA</div>
+        <div class="figure-name">Marcus Mosiah Garvey</div>
+        <div class="figure-role">Political philosopher · Pan-Africanist · Founded the UNIA</div>
+        <div class="figure-detail">Founded the Universal Negro Improvement Association — the largest mass movement in Black history with over 6 million members at its peak. Organised the Black Star Line shipping company — a Black-owned transatlantic fleet. His philosophy: Africa for Africans, economic self-determination, and racial pride as a prerequisite for political freedom. He was prosecuted by the US government, imprisoned, and deported. His influence on Malcolm X, Martin Luther King, Nelson Mandela, and the Rastafari movement is direct and documented. Research: <em>The Philosophy and Opinions of Marcus Garvey</em> — Amy Jacques Garvey (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1923–2005 · Senegal</div>
+        <div class="figure-name">Cheikh Anta Diop</div>
+        <div class="figure-role">Historian · Anthropologist · Physicist · Proved Ancient Egypt was Black African</div>
+        <div class="figure-detail">Produced the first rigorous scientific and historical evidence that ancient Egyptian civilisation was Black African — using melanin testing of mummies, linguistic analysis, and cultural comparison. His doctoral thesis was rejected twice by the French university system before being accepted. He went on to become a nuclear physicist, a senator in Senegal, and a UNESCO-recognised scholar. His work is the academic foundation for everything in the Kemet section of this blueprint. Research: <em>The African Origin of Civilisation: Myth or Reality</em> — Cheikh Anta Diop · <em>Civilisation or Barbarism</em> — Cheikh Anta Diop</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1915–2005 · Barbados & UK</div>
+        <div class="figure-name">Dr Ivan Van Sertima</div>
+        <div class="figure-role">Historian · Linguist · Proved African contact with the Americas before Columbus</div>
+        <div class="figure-detail">Author of <em>They Came Before Columbus</em> — the most rigorous academic case for African presence in the Americas pre-1492, using botanical evidence, skeletal analysis, linguistic traces, and the Olmec colossal heads (which bear unmistakably African features). A linguist and literary critic as well as a historian, he testified before a US Congressional committee on the rewriting of history. Research: <em>They Came Before Columbus</em> — Ivan Van Sertima · <em>African Presence in Early America</em> — Ivan Van Sertima (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1867–1963 · USA</div>
+        <div class="figure-name">W.E.B. Du Bois</div>
+        <div class="figure-role">Sociologist · Historian · Co-founder of the NAACP · First Black Harvard PhD</div>
+        <div class="figure-detail">First Black American to receive a PhD from Harvard. His concept of "double consciousness" — the sense of always looking at oneself through the eyes of others — remains one of the most precise descriptions of the psychological experience of Blackness in a white world. His work <em>The Souls of Black Folk</em> is one of the most important books ever written. He co-founded the NAACP at 41, organised multiple Pan-African Congresses, and moved to Ghana at 93. Research: <em>The Souls of Black Folk</em> — W.E.B. Du Bois · <em>Black Reconstruction in America</em> — W.E.B. Du Bois</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERS & BUILDERS -->
+  <div id="leaders" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The people who built institutions, led movements, and created the structures our communities depended on — often against every obstacle the system could place in front of them.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1686–1733 · Jamaica</div>
+        <div class="figure-name">Queen Nanny of the Maroons</div>
+        <div class="figure-role">Military commander · Spiritual leader · National hero of Jamaica</div>
+        <div class="figure-detail">Leader of the Windward Maroons of Jamaica. Escaped slavery and built a free community in the Blue Mountains. Led guerrilla warfare against the British so successfully that they signed a peace treaty in 1739, legally recognising Maroon sovereignty over Cockpit Country. She was an Obeah woman — her spiritual authority was inseparable from her military authority. She is one of only seven Jamaican National Heroes and the only woman among them. Her face is on the Jamaican $500 bill. Research: <em>Queen of the Mountain</em> — Werner Zips</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1743–1803 · Haiti</div>
+        <div class="figure-name">Toussaint L'Ouverture</div>
+        <div class="figure-role">General · Revolutionary · Architect of Haitian independence</div>
+        <div class="figure-detail">Born into slavery, became the leader of the Haitian Revolution — the only successful slave revolt in history that established a sovereign nation. He defeated the armies of three empires: France, Britain, and Spain. Napoleon sent 86,000 soldiers to retake Haiti. They were defeated. Toussaint was captured by treachery, imprisoned in France, and died in a cold mountain prison in 1803 — but Haiti declared independence six months later. He proved that enslaved people could defeat the most powerful military forces on Earth. Research: <em>The Black Jacobins</em> — C.L.R. James</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1820–1913 · Maryland, USA</div>
+        <div class="figure-name">Harriet Tubman</div>
+        <div class="figure-role">Freedom fighter · Union spy · Conductor of the Underground Railroad</div>
+        <div class="figure-detail">Escaped slavery and returned South thirteen times, leading approximately 70 people to freedom via the Underground Railroad. She never lost a passenger. She served as a spy and scout for the Union Army during the Civil War, leading the Combahee River Raid that freed over 700 enslaved people — the first military operation in US history planned and led by a woman. She suffered a traumatic brain injury as a child (from being hit with a heavy metal weight by an overseer) and experienced visions she attributed to God. She followed them. Research: <em>Bound for the Promised Land</em> — Kate Clifford Larson</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1867–1919 · Durham, USA</div>
+        <div class="figure-name">Maggie Lena Walker</div>
+        <div class="figure-role">Banker · First Black woman to found and lead a US bank</div>
+        <div class="figure-detail">Founded the St Luke Penny Savings Bank in Richmond, Virginia in 1903 — becoming the first Black woman to charter and serve as president of a bank in the United States. She built it from $31,500 in deposits to over $645,000 in assets. She said: "Let us put our money together; let us use our money; let us put our money out at usury among ourselves." This is the Black Wall Street principle stated explicitly. She built a department store, a newspaper, and an insurance company — all owned and operated by the Black community. Research: <em>Maggie Lena Walker</em> — Gertrude Marlowe</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1875–1938 · Oklahoma, USA</div>
+        <div class="figure-name">O.W. Gurley</div>
+        <div class="figure-role">Educator · Entrepreneur · Architect of Black Wall Street</div>
+        <div class="figure-detail">Moved to Tulsa in 1906 with $150 and bought 40 acres of land — committing to sell only to Black people. He built the first building in what became the Greenwood District and rented rooms to Black newcomers at affordable rates. A former educator and school principal, he understood that community required both economic infrastructure and cultural investment. Without Gurley's founding decision, Black Wall Street does not exist. His home was destroyed in the 1921 massacre. He was never fully compensated. Research: <em>The Burning: Massacre, Destruction, and the Tulsa Race Riot of 1921</em> — Tim Madigan</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1918–1987 · Jamaica & UK</div>
+        <div class="figure-name">Sam Selvon</div>
+        <div class="figure-role">Author · First major chronicler of Black British life</div>
+        <div class="figure-detail">Arrived in Britain in 1950 on the same ship as George Lamming. His 1956 novel <em>The Lonely Londoners</em> was the first major literary account of the Windrush generation — their hopes, humiliations, humour, and survival in a hostile Britain. Written in Trinidadian dialect, it refused to translate itself for a white audience. He gave the community language for its own experience. Research: <em>The Lonely Londoners</em> — Sam Selvon · <em>Moses Ascending</em> — Sam Selvon</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTISTS & WRITERS -->
+  <div id="artists" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">Culture is the soul of a civilisation. These are the people who gave us the words, music, images, and stories that kept us human, kept us whole, and told the world who we were — on our own terms.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1928–2014 · USA</div>
+        <div class="figure-name">Maya Angelou</div>
+        <div class="figure-role">Poet · Author · Activist · "I Know Why the Caged Bird Sings"</div>
+        <div class="figure-detail">Her 1969 autobiography <em>I Know Why the Caged Bird Sings</em> was the first non-fiction bestseller by a Black woman in America. She worked with Malcolm X and Martin Luther King. She wrote the poem for Bill Clinton's inauguration. She said: "You may not control all the events that happen to you, but you can decide not to be reduced by them." Her writing gave language to experiences that had never been spoken aloud in literature. Research: <em>I Know Why the Caged Bird Sings</em> · <em>Gather Together in My Name</em> · all seven autobiographies</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1931–2019 · USA</div>
+        <div class="figure-name">Toni Morrison</div>
+        <div class="figure-role">Nobel Prize-winning author · Editor · "Beloved"</div>
+        <div class="figure-detail">Nobel Prize in Literature 1993. Her novel <em>Beloved</em> — about the aftermath of slavery — is one of the most important novels ever written in the English language. She was also a senior editor at Random House for almost twenty years, where she published the work of Angela Davis, Muhammad Ali, and Toni Cade Bambara. She said: "If you have some power, then your job is to empower somebody else." Research: <em>Beloved</em> · <em>Song of Solomon</em> · <em>The Bluest Eye</em> · Nobel Lecture 1993</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1889–1960 · Jamaica & USA</div>
+        <div class="figure-name">Zora Neale Hurston</div>
+        <div class="figure-role">Anthropologist · Folklorist · Author · Harlem Renaissance figure</div>
+        <div class="figure-detail">Trained anthropologist who documented African American and Caribbean folklore, music, and cultural traditions at a time when they were being dismissed as primitive. Her novel <em>Their Eyes Were Watching God</em> was largely ignored in her lifetime — she died in poverty. Alice Walker rediscovered her work in the 1970s. She is now recognised as one of the most important American writers of the twentieth century. She refused to make Black life tragic for white consumption. Research: <em>Their Eyes Were Watching God</em> · <em>Mules and Men</em> · <em>Tell My Horse</em></div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1926–1972 · Ghana</div>
+        <div class="figure-name">Kwame Nkrumah</div>
+        <div class="figure-role">Political philosopher · First President of Ghana · Pan-Africanist</div>
+        <div class="figure-detail">Led Ghana to independence in 1957 — the first sub-Saharan African country to gain independence from colonial rule. His vision went beyond one nation: he believed in a United States of Africa and worked to make it happen. His concept of "neo-colonialism" — political independence without economic independence — named a reality that is still being lived today. He was overthrown in a CIA-backed coup in 1966 while he was away. Research: <em>Neo-Colonialism: The Last Stage of Imperialism</em> — Kwame Nkrumah · <em>Ghana: The Autobiography of Kwame Nkrumah</em></div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1924–1987 · Jamaica</div>
+        <div class="figure-name">Bob Marley</div>
+        <div class="figure-role">Musician · Prophet · Cultural ambassador of the African diaspora</div>
+        <div class="figure-detail">Reggae as a form carried the philosophy of Rastafari — a Black liberation theology rooted in Marcus Garvey's Pan-Africanism, Kemetic spirituality, and resistance to Babylon (the oppressive system). Marley's music reached audiences in Africa, the Caribbean, Europe, and Asia simultaneously, spreading a message of Black dignity, sovereignty, and love. He survived an assassination attempt in 1976 and performed two nights later. He said: "The people who are trying to make this world worse aren't taking a day off. How can I?" Research: <em>Catch a Fire: The Life of Bob Marley</em> — Timothy White</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1952–2023 · USA</div>
+        <div class="figure-name">bell hooks</div>
+        <div class="figure-role">Cultural critic · Feminist · Author of 40 books</div>
+        <div class="figure-detail">One of the most important cultural critics of the twentieth century. Her work linked race, gender, class, and capitalism into a unified analysis of how oppression works — and how love, specifically, is the force that dismantles it. Her book <em>All About Love</em> is the most practical philosophical text on what it actually means to love as a political act. She wrote for everyone — her books were never academic gatekept. Research: <em>All About Love</em> · <em>Ain't I a Woman</em> · <em>Teaching to Transgress</em> · <em>The Will to Change</em></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end history section -->
+
 </div><!-- end content -->
 
 <div class="footer">
@@ -944,6 +1367,21 @@
     document.getElementById('md-practice').textContent = maatData[idx].practice;
   }
 
+  function toggleFigure(el) {
+    el.classList.toggle('open');
+  }
+
+  function showHist(id) {
+    document.querySelectorAll('#history .sub-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#history .sub-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  function toggleExpand(el) {
+    el.classList.toggle('open');
+  }
+
   function showMain(id) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
     document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('on'));
@@ -963,6 +1401,81 @@
     document.querySelectorAll('#spiritual .sub-section').forEach(s => s.classList.remove('on'));
     document.querySelectorAll('#spiritual .sub-btn').forEach(b => b.classList.remove('on'));
     document.getElementById(spiMap[id]).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  // Subject switcher for Timbuktu
+  const subjData = {
+    's-law': {
+      label: 'LAW — MANDATORY STUDY',
+      title: 'Islamic law, jurisprudence & the science of justice',
+      body: 'Law was the core of the Sankore curriculum — not as a set of rules to memorise, but as a living discipline of ethical reasoning. Students studied the Maliki school of jurisprudence, learning how to apply divine principles to real disputes: inheritance, contracts, property, marriage, governance, and criminal justice. Judges in Timbuktu were also scholars — their authority came from their depth of knowledge, not their rank. The concept that law and scholarship are inseparable is one of the most important things Timbuktu has to teach. A community that cannot reason through its own disputes from its own principles is not yet sovereign.',
+      research: 'Research: The Fate of the Timbuktu Manuscripts — Jeppie & Diagne (eds.) · Timbuktu and the Songhay Empire — John Hunwick · Al-Furqan Islamic Heritage Foundation catalogue (digitallibrary.al-furqan.com)'
+    },
+    's-med': {
+      label: 'MEDICINE — OPTIONAL ADVANCED STUDY',
+      title: 'Medicine, surgery, pharmacology & the healing arts',
+      body: 'Medical manuscripts from Timbuktu covered diagnosis, herbal pharmacology, surgical techniques, and the relationship between spiritual and physical health. Scholars drew on both the African traditional medicine of the region and the broader Islamic medical tradition — including translations of Greek texts preserved by Arab scholars. Medicine was taught alongside theology — the body and the soul were not separated. Many manuscripts covering medical knowledge have been digitised and are accessible via the HMML Reading Room and the Google Mali Magic portal.',
+      research: 'Research: Herbal Medicine in Ancient Egypt — Lans et al., Journal of Ethnobiology and Ethnomedicine · Islamic Medical Manuscripts at the National Library of Medicine (nlm.nih.gov) · HMML Reading Room — search "tibb" (medicine) in the Timbuktu collection'
+    },
+    's-astro': {
+      label: 'ASTRONOMY — OPTIONAL ADVANCED STUDY',
+      title: 'Astronomy, celestial navigation & astrological charts',
+      body: 'Timbuktu scholars produced detailed astronomical charts and manuscripts on celestial navigation. The stars were understood as both a practical navigation tool and a spiritual map — the movement of planets and constellations correlated with human affairs and agricultural calendars. Surviving manuscripts include star charts, calculations of lunar cycles, and texts on the use of astronomical instruments. Several of these have been digitised and are visible in the Mali Magic collection. The connection to Kemetic astronomy is direct — both civilisations understood the cosmos as an expression of divine order.',
+      research: 'Research: The Timbuktu Manuscripts on Mathematics and Astronomy — documented in Wikipedia Commons with images · Google Arts & Culture Mali Magic portal — search "astronomy" · African Cosmology of the Bantu-Kongo — Kimbwandende Bunseki Fu-Kiau'
+    },
+    's-maths': {
+      label: 'MATHEMATICS — OPTIONAL ADVANCED STUDY',
+      title: 'Algebra, arithmetic, geometry & the science of calculation',
+      body: 'Mathematical manuscripts from Timbuktu included texts on algebra (al-jabr), arithmetic, geometry, and what were called "the sciences of calculation." These were both theoretical and applied — used in architecture, trade, land measurement, and astronomy. The famous manuscript images of Timbuktu that circulate online — the ones showing equations and diagrams — are mathematical texts. Algebra itself was transmitted to Europe from the Islamic world, which preserved and advanced the work of African, Greek, and Indian mathematicians simultaneously.',
+      research: 'Research: Africa Counts: Number and Pattern in African Cultures — Claudia Zaslavsky · The Crest of the Peacock: Non-European Roots of Mathematics — George Gheverghese Joseph · Timbuktu Manuscripts Project catalogue (University of Oslo)'
+    },
+    's-phil': {
+      label: 'PHILOSOPHY — MANDATORY STUDY',
+      title: 'Philosophy, theology, logic & the nature of existence',
+      body: 'Philosophy was mandatory at Sankore — understood as the discipline that underlies all other disciplines. Students engaged with the great questions: the nature of God, the relationship between reason and revelation, the ethics of action, the meaning of justice. This was not abstract — it was the foundation of how judgments were made, how communities were governed, and how individuals understood their place in the cosmos. The Sufi tradition was woven through the philosophical curriculum — the inward journey (the path of the heart) was considered inseparable from the outward discipline of scholarship.',
+      research: 'Research: Sufi Brotherhoods in the Sudan — J. Spencer Trimingham · African Philosophy: An Introduction — Richard Wright (ed.) · Blackpast.org entry on Sankore Mosque and University'
+    },
+    's-gov': {
+      label: 'GOVERNANCE — MANDATORY STUDY',
+      title: 'Political theory, statecraft & the ethics of leadership',
+      body: 'Governance was studied as a moral and intellectual discipline — not merely a technical one. Students learned the principles of just rule, the responsibilities of leaders to the people, the management of complex multi-ethnic empires, and the use of diplomacy over military force wherever possible. Mansa Musa\'s empire spanned modern-day Mali, Senegal, Gambia, Guinea, Niger, Nigeria, Chad, and Mauritania. Managing that required governance theory translated into practice. The principle that judges must also be scholars — that authority comes from knowledge, not power — is the most important governance lesson Timbuktu offers.',
+      research: 'Research: Timbuktu and the Songhay Empire — John Hunwick · The African Origin of Civilisation: Myth or Reality — Cheikh Anta Diop · African Political Systems — Fortes & Evans-Pritchard (eds.)'
+    },
+    's-trade': {
+      label: 'TRADE & ECONOMICS — PRACTICAL STUDY',
+      title: 'Commercial law, trade ethics, accounting & economic theory',
+      body: 'The university also produced the merchants and accountants who managed Timbuktu\'s extraordinary wealth. Commercial law — contracts, debt, inheritance, partnership structures — was taught formally. Trade ethics were grounded in Islamic principles: no usury, fair weights and measures, honesty in transactions. The concept that books were worth more than gold at market is not metaphorical — a merchant who arrived with manuscripts could command better prices than one who arrived with salt. Knowledge as currency is a Timbuktu principle that applies directly to Kin-nect.',
+      research: 'Research: The Muqaddimah — Ibn Khaldun (written in 1377, the world\'s first systematic social science text — covers economics, trade, and the rise and fall of civilisations in depth) · African Economic History — Paul Lovejoy'
+    },
+    's-lang': {
+      label: 'LANGUAGE & LINGUISTICS — MANDATORY STUDY',
+      title: 'Arabic grammar, rhetoric, poetry & multiple languages',
+      body: 'Mastery of the Arabic language was compulsory — it was the lingua franca of scholarship, trade, and diplomacy. Students studied grammar to a level of precision that would embarrass most modern language students: the ability to understand every nuance of the Quran required understanding Arabic at a grammatical depth that English simply cannot match. But scholars also preserved and used African languages — Songhay, Fulani, Hausa — keeping local knowledge alive within the universal scholarly language. The multilingual scholar was the norm, not the exception.',
+      research: 'Research: Timbuktu manuscripts themselves — many are linguistic and grammatical texts · The Arabic Literary Heritage — Gustave von Grunebaum · Blackpast.org on Sankore'
+    },
+    's-geo': {
+      label: 'GEOGRAPHY & HISTORY — OPTIONAL STUDY',
+      title: 'Maps, travel writing, historical chronicles & the world beyond',
+      body: 'Geography and history were unusual inclusions — history was not typically part of Islamic curricula at the time, making Timbuktu distinctive. Scholars produced detailed maps, travel accounts, and historical chronicles. The Tarikh al-Sudan (History of the Sudan) and the Tarikh al-Fattash (Chronicle of the Seeker) — two of the most important pre-colonial African historical documents — were written by Timbuktu scholars. They documented the Mali and Songhai empires in extraordinary detail. These books exist. They have been translated. They are available. Your ancestors wrote their own history and it survived.',
+      research: 'Research: Tarikh al-Sudan — Al-Sa\'di (translated by John Hunwick, published by Brill) · Tarikh al-Fattash — Mahmud Kati (also translated) · Africa: A Biography of the Continent — John Reader'
+    },
+    's-practical': {
+      label: 'PRACTICAL TRADES — TAUGHT ALONGSIDE SCHOLARSHIP',
+      title: 'Carpentry, farming, fishing, building, navigation, tailoring',
+      body: 'What makes Sankore genuinely different from European universities of the same era is that practical trades were taught alongside scholarship. The university trade workshops offered classes in business, carpentry, farming, fishing, construction, shoe-making, tailoring, and navigation. This was not considered lesser than academic study — it was considered part of it. A scholar who could not feed themselves or build a shelter was considered incomplete. This integration of intellectual and practical knowledge is the model the New Earth\'s education system should follow. No separation. Everything taught as one body of knowledge.',
+      research: 'Research: Muslim Heritage article — The University of Sankore, Timbuktu (muslimheritage.com) · Researchgate — The World-Class University of Sankore, Timbuktu (Piga, 2003)'
+    }
+  };
+
+  function showSubj(id) {
+    const d = subjData[id];
+    if (!d) return;
+    document.getElementById('sd-label').textContent = d.label;
+    document.getElementById('sd-title').textContent = d.title;
+    document.getElementById('sd-body').textContent = d.body;
+    document.getElementById('sd-research').innerHTML = d.research;
+    document.querySelectorAll('#subj-nav .sub-btn').forEach(b => b.classList.remove('on'));
     event.target.classList.add('on');
   }
 </script>

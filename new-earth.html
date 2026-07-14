@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400i&family=Inter:wght@300;400;500&display=swap">
+<meta http-equiv="Content-Security-Policy" content="font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>New Earth Blueprint</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -33,7 +35,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     background: var(--night);
     color: var(--text-primary);
     min-height: 100vh;
@@ -58,7 +60,7 @@
     pointer-events: none;
   }
   .hero-eyebrow {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 3px;
@@ -67,7 +69,7 @@
     margin-bottom: 1.25rem;
   }
   .hero-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: clamp(42px, 7vw, 80px);
     font-weight: 400;
     line-height: 1.05;
@@ -113,7 +115,7 @@
     margin-bottom: 6px;
   }
   .root-q-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: clamp(18px, 3vw, 26px);
     font-weight: 400;
     font-style: italic;
@@ -179,7 +181,7 @@
     margin-bottom: 8px;
   }
   .sec-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: clamp(28px, 4vw, 42px);
     font-weight: 500;
     color: var(--cream);
@@ -214,7 +216,7 @@
     margin-bottom: 8px;
   }
   .card-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: 18px;
     font-weight: 500;
     color: var(--cream);
@@ -245,7 +247,7 @@
     border-radius: 0 8px 8px 0;
   }
   .pull-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: 19px;
     font-style: italic;
     color: var(--cream);
@@ -325,7 +327,7 @@
     box-shadow: 0 0 0 2px var(--gold);
   }
   .t-label { font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 0.5px; margin-bottom: 3px; opacity: 0.8; }
-  .t-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
+  .t-title { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 6px; }
   .t-body { font-size: 14px; color: var(--blush); line-height: 1.65; opacity: 0.85; }
 
   /* CIVILISATION SUB-NAV */
@@ -364,7 +366,7 @@
   .maat-card.on .maat-name { color: var(--gold); }
   .maat-card.on .maat-word { color: var(--blush); opacity: 0.5; }
   .maat-icon { font-size: 22px; margin-bottom: 6px; }
-  .maat-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .maat-name { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
   .maat-word { font-size: 10px; color: var(--blush); opacity: 0.55; }
 
   .maat-detail {
@@ -378,7 +380,7 @@
     transition: all 0.2s;
   }
   .maat-detail-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: 22px;
     font-weight: 500;
     color: var(--gold);
@@ -399,7 +401,7 @@
     align-items: flex-start;
   }
   .p-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-  .p-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500; color: var(--cream); margin-bottom: 5px; }
+  .p-title { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 19px; font-weight: 500; color: var(--cream); margin-bottom: 5px; }
   .p-body { font-size: 13.5px; color: var(--blush); line-height: 1.6; opacity: 0.85; }
   .p-freq { font-size: 11px; color: var(--gold); font-weight: 500; margin-top: 6px; letter-spacing: 0.3px; opacity: 0.8; }
 
@@ -426,7 +428,7 @@
     text-align: center;
   }
   .dna-icon { font-size: 24px; margin-bottom: 6px; }
-  .dna-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .dna-name { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 15px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
   .dna-desc { font-size: 11px; color: var(--blush); line-height: 1.45; opacity: 0.6; }
 
   /* DIVIDER */
@@ -434,7 +436,7 @@
 
   /* SECTION RULE */
   .sec-rule {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif;
     font-size: 17px;
     font-weight: 500;
     color: var(--cream);
@@ -481,7 +483,7 @@
   }
   .expand-trigger-left { display: flex; align-items: center; gap: 12px; }
   .expand-icon-wrap { font-size: 20px; flex-shrink: 0; }
-  .expand-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--cream); }
+  .expand-title { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 17px; font-weight: 500; color: var(--cream); }
   .expand-tag { font-size: 10px; color: var(--gold); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; opacity: 0.8; }
   .expand-arrow { font-size: 14px; color: var(--gold); opacity: 0.6; flex-shrink: 0; transition: transform 0.2s; }
   .expand-card.open .expand-arrow { transform: rotate(180deg); }
@@ -508,7 +510,7 @@
   .figure-card:hover { border-color: var(--border-strong); }
   .figure-card.open { border-color: var(--border-strong); background: var(--earth); }
   .figure-era { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; opacity: 0.8; }
-  .figure-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
+  .figure-name { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 20px; font-weight: 500; color: var(--cream); margin-bottom: 3px; }
   .figure-role { font-size: 12px; color: var(--blush); opacity: 0.7; margin-bottom: 10px; }
   .figure-detail { display: none; font-size: 13px; color: var(--blush); line-height: 1.6; opacity: 0.9; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
   .figure-card.open .figure-detail { display: block; }
@@ -532,7 +534,7 @@
   .era-section.on { display: block; }
   .era-header { margin-bottom: 2.5rem; }
   .era-label { font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; opacity: 0.8; }
-  .era-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 3.5vw, 38px); font-weight: 500; color: var(--cream); line-height: 1.1; margin-bottom: 10px; }
+  .era-title { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: clamp(24px, 3.5vw, 38px); font-weight: 500; color: var(--cream); line-height: 1.1; margin-bottom: 10px; }
   .era-desc { font-size: 14px; color: var(--blush); line-height: 1.7; max-width: 640px; opacity: 0.85; margin-bottom: 1.5rem; }
   /* TIMELINE ENTRIES */
   .t-entry { position: relative; margin-bottom: 1.25rem; cursor: pointer; }
@@ -543,7 +545,7 @@
   .t-entry.open .t-head { border-color: var(--border-strong); border-radius: 10px 10px 0 0; }
   .t-head:hover { border-color: var(--border-strong); }
   .t-date { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 4px; }
-  .t-event { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 3px; line-height: 1.3; }
+  .t-event { font-family: 'Cormorant Garamond', 'Garamond', 'Georgia', 'Book Antiqua', 'Palatino Linotype', serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 3px; line-height: 1.3; }
   .t-place { font-size: 11px; color: var(--blush); opacity: 0.6; }
   .t-arrow { float: right; color: var(--gold); opacity: 0.5; font-size: 13px; margin-top: -20px; transition: transform 0.2s; }
   .t-entry.open .t-arrow { transform: rotate(180deg); }

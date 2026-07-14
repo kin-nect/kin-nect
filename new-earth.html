@@ -519,6 +519,41 @@
     .content { padding: 1.75rem 1rem 3rem; }
     .main-nav-btn { padding: 12px 14px; font-size: 11px; }
   }
+
+  /* TIMELINE ERA NAV */
+  .era-nav { background: var(--night); border-bottom: 1px solid var(--border); margin-bottom: 0; }
+  .era-nav-inner { display: flex; overflow-x: auto; scrollbar-width: none; max-width: 1100px; margin: 0 auto; }
+  .era-nav-inner::-webkit-scrollbar { display: none; }
+  .era-btn { padding: 11px 16px; font-size: 11px; font-weight: 500; letter-spacing: 0.5px; color: var(--blush); opacity: 0.5; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .era-btn:hover { opacity: 0.85; }
+  .era-btn.on { color: var(--gold); opacity: 1; border-bottom-color: var(--gold); }
+  .era-section { display: none; }
+  .era-section.on { display: block; }
+  .era-header { margin-bottom: 2.5rem; }
+  .era-label { font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; opacity: 0.8; }
+  .era-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 3.5vw, 38px); font-weight: 500; color: var(--cream); line-height: 1.1; margin-bottom: 10px; }
+  .era-desc { font-size: 14px; color: var(--blush); line-height: 1.7; max-width: 640px; opacity: 0.85; margin-bottom: 1.5rem; }
+  /* TIMELINE ENTRIES */
+  .t-entry { position: relative; margin-bottom: 1.25rem; cursor: pointer; }
+  .t-entry::before { content: ''; position: absolute; left: -2rem; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: 2px solid var(--night); box-shadow: 0 0 0 2px var(--gold); transition: all 0.15s; }
+  .t-entry:hover::before { box-shadow: 0 0 0 4px rgba(200,115,42,0.3); }
+  .t-entry.open::before { background: var(--cream); box-shadow: 0 0 0 3px var(--gold); }
+  .t-head { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; transition: border-color 0.15s; }
+  .t-entry.open .t-head { border-color: var(--border-strong); border-radius: 10px 10px 0 0; }
+  .t-head:hover { border-color: var(--border-strong); }
+  .t-date { font-size: 10px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 4px; }
+  .t-event { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 3px; line-height: 1.3; }
+  .t-place { font-size: 11px; color: var(--blush); opacity: 0.6; }
+  .t-arrow { float: right; color: var(--gold); opacity: 0.5; font-size: 13px; margin-top: -20px; transition: transform 0.2s; }
+  .t-entry.open .t-arrow { transform: rotate(180deg); }
+  .t-body { display: none; background: var(--earth); border: 1px solid var(--border-strong); border-top: none; border-radius: 0 0 10px 10px; padding: 1rem 1.25rem; }
+  .t-entry.open .t-body { display: block; }
+  .t-body-text { font-size: 13.5px; color: var(--blush); line-height: 1.65; opacity: 0.9; }
+  .t-why { font-size: 12px; color: var(--gold); font-style: italic; margin-top: 8px; line-height: 1.5; }
+  .t-research { font-size: 11px; color: var(--blush); opacity: 0.5; margin-top: 6px; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+
 </style>
 </head>
 <body>
@@ -543,6 +578,7 @@
     <button class="main-nav-btn on" onclick="showMain('ancestral')">Ancestral models</button>
     <button class="main-nav-btn" onclick="showMain('spiritual')">Spiritual foundation</button>
     <button class="main-nav-btn" onclick="showMain('history')">Our history</button>
+    <button class="main-nav-btn" onclick="showMain('timeline')">Our timeline</button>
   </nav>
 </div>
 
@@ -1342,6 +1378,416 @@
 </div>
 <!-- end history section -->
 
+
+<!-- ======== OUR HISTORY TIMELINE ======== -->
+<div id="timeline" class="section">
+<!-- ANCIENT AFRICA -->
+<div id="ancient" class="era-section on">
+  <div class="era-header">
+    <div class="era-label">3100 BCE – 600 CE</div>
+    <h2 class="era-title">Ancient Africa — the first civilisations</h2>
+    <p class="era-desc">The world's oldest civilisations were African. Before Greece, before Rome, before any European power — there was Kemet, Nubia, Carthage, Aksum. Everything that came after borrowed from what was built here.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.3100 BCE</div>
+        <div class="t-event">King Narmer unifies Upper and Lower Egypt — Kemet is born</div>
+        <div class="t-place">Nile Valley, North Africa</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">The first nation-state in recorded history. Narmer — also known as Menes — unified the two kingdoms of Upper and Lower Egypt, establishing a centralised state that would endure for over 3,000 years. He is depicted on the Narmer Palette, one of the earliest historical documents. This was not conquest for conquest's sake: unification created the conditions for one of the most sophisticated civilisations Earth has ever seen.</div>
+        <div class="t-why">Why it matters: 3,000 years of continuous civilisation. Every institution we are trying to build — governance, medicine, education, economics, spirituality integrated as one — was functioning in Kemet. This is not inspiration. This is proof.</div>
+        <div class="t-research">Research: The Oxford History of Ancient Egypt — Ian Shaw (ed.) · Kemet and the African Worldview — Maulana Karenga</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.2650 BCE</div>
+        <div class="t-event">Imhotep designs the Step Pyramid — the world's first large-scale stone structure</div>
+        <div class="t-place">Saqqara, Kemet</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Imhotep was chief architect, physician, and philosopher to Pharaoh Djoser. He designed the Step Pyramid — the first large-scale stone construction in human history. He was also the world's first named physician, documenting medical practice in scrolls that influenced Egyptian medicine for 2,000 years. He was deified after death and worshipped as a god of medicine for 3,000 years. The Greeks renamed him Asclepius. History renamed the credit.</div>
+        <div class="t-why">Why it matters: One man — architect, doctor, philosopher, engineer simultaneously. This is what the New Earth's integrated education system produces: people who are not one thing but many, whose knowledge serves the community in multiple dimensions at once.</div>
+        <div class="t-research">Research: Imhotep the African — Molefi Kete Asante · Ancient Egyptian Science — Marshall Clagett</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.2700 BCE</div>
+        <div class="t-event">Merit-Ptah — the first named woman in the history of science</div>
+        <div class="t-place">Kemet</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Chief physician to the Pharaoh — the first woman in recorded history known by name to have practised medicine. Her image in her son's tomb is inscribed "chief physician." This is 2,000 years before Hippocrates. Her existence tells you something profound about Kemet: a society governed by Ma'at — cosmic balance and truth — does not waste talent based on gender. Competence was the qualification.</div>
+        <div class="t-why">Why it matters: The New Earth does not waste the gifts of half its people. The divine feminine is not separate from governance, medicine, or leadership. Merit-Ptah is the ancestral proof.</div>
+        <div class="t-research">Research: Women in Science — H.J. Mozans · Ancient Egyptian Medical Papyri (Ebers, Edwin Smith, Kahun)</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.1550 BCE</div>
+        <div class="t-event">The Ebers Papyrus — 842 medical remedies documented</div>
+        <div class="t-place">Thebes, Kemet</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">A 110-page scroll, 20 metres long, containing 842 medical remedies covering internal medicine, dermatology, gynaecology, dentistry, and psychiatry. Herbs documented include aloe vera, cannabis, myrrh, frankincense, garlic, castor oil, senna, henna, juniper, opium, and thyme. It documents the circulatory system with the heart at its centre — 3,500 years before William Harvey is credited with "discovering" it. Still in existence. Held at the University of Leipzig.</div>
+        <div class="t-why">Why it matters: This is Dr Sebi's entire philosophy — plants as medicine, the body as a system to be understood not suppressed — documented 3,500 years ago. The knowledge was always there.</div>
+        <div class="t-research">Research: Ebers Papyrus — University of Leipzig digital archive · Herbal Medicine in Ancient Egypt — Lans et al.</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.1600 BCE</div>
+        <div class="t-event">Edwin Smith Papyrus — the world's oldest surgical textbook</div>
+        <div class="t-place">Kemet</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">48 cases of trauma documented with clinical precision — head injuries, spinal fractures, dislocations, tumours. First text in history to use the word "brain" and describe its function. Completely rational, evidence-based — no magic, only observation. Likely based on texts from the Old Kingdom, making it potentially 5,000 years old. Originally attributed to Imhotep. Acquired by Edwin Smith in 1862. Now held at the New York Academy of Medicine.</div>
+        <div class="t-why">Why it matters: 5,000 years ago, African physicians were performing surgery with documented protocols. The "primitive" narrative is not just wrong — it is a deliberate inversion of the historical record.</div>
+        <div class="t-research">Research: The Edwin Smith Surgical Papyrus Vol.1 — James Henry Breasted (Oriental Institute, University of Chicago)</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">814 BCE</div>
+        <div class="t-event">Dido of Carthage founds the city — one of the ancient world's greatest trading powers</div>
+        <div class="t-place">Carthage (modern Tunisia)</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Dido (also known as Elissa) was a Phoenician princess who fled a murderous brother and founded Carthage on the North African coast. The city became one of the Mediterranean's dominant powers, controlling trade routes across the western Mediterranean. Hannibal — one of history's greatest military commanders — was Carthaginian. Mago of Carthage wrote the world's first agricultural encyclopaedia. When Rome finally destroyed Carthage in 146 BCE, it ordered Mago's work translated into Latin immediately — because even in destruction, they recognised the knowledge was too valuable to lose.</div>
+        <div class="t-why">Why it matters: An African woman founded one of the ancient world's most powerful cities. The history of Africa before colonialism is a history of power, sovereignty, and genius — not absence.</div>
+        <div class="t-research">Research: Carthage Must Be Destroyed — Richard Miles · Encyclopaedia Britannica on Carthage</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.100–940 CE</div>
+        <div class="t-event">Kingdom of Aksum — Africa's first Christian empire and Red Sea trade power</div>
+        <div class="t-place">Ethiopia & Eritrea</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">One of the four great powers of the ancient world alongside Rome, Persia, and China — as described by the Persian prophet Mani in the 3rd century CE. Aksum controlled Red Sea trade routes between the Mediterranean, Arabia, and India. It produced its own currency — one of only five kingdoms in the ancient world to do so. It adopted Christianity in the 4th century CE, before most of Europe. Its currency was gold. Its architecture included the Aksumite stelae — granite towers up to 33 metres tall — some of which are still standing.</div>
+        <div class="t-why">Why it matters: Africa was not on the periphery of the ancient world. It was at the centre of it — connected, trading, innovating, and governing sovereign states for millennia.</div>
+        <div class="t-research">Research: The Kingdom of Aksum — Stuart Munro-Hay · Ancient Ethiopia — David Phillipson</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEDIEVAL -->
+<div id="medieval" class="era-section">
+  <div class="era-header">
+    <div class="era-label">600 CE – 1600 CE</div>
+    <h2 class="era-title">Medieval Africa & the Islamic golden age</h2>
+    <p class="era-desc">While Europe was in the Dark Ages, Africa was in a golden one. The Mali Empire, Timbuktu, the Songhai Empire, Great Zimbabwe, and the Swahili Coast were building civilisations of extraordinary sophistication.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">989 CE</div>
+        <div class="t-event">The University of Sankore founded in Timbuktu</div>
+        <div class="t-place">Timbuktu, Mali</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Founded by Al-Qadi Aqib Ibn Mahmud — a judge and scholar. The university grew from a mosque into one of the world's most important centres of learning. At its peak: 25,000 students in a city of 100,000. Four degree levels, the highest taking 10 years to complete. Subjects: law, medicine, astronomy, mathematics, physics, chemistry, philosophy, geography, history, art, and practical trades. Oxford was founded 107 years later and had a fraction of the students. The intellectual freedom enjoyed in Western universities was directly inspired by institutions like Sankore.</div>
+        <div class="t-why">Why it matters: The Kin-nect library, the study circles, the knowledge commons — this is what they are building toward. Timbuktu did it first and for centuries. We know it works.</div>
+        <div class="t-research">Research: Timbuktu and the Songhay Empire — John Hunwick · The World-Class University of Sankore — Piga (ResearchGate)</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1235 CE</div>
+        <div class="t-event">Sundiata Keita founds the Mali Empire after the Battle of Kirina</div>
+        <div class="t-place">West Africa</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Sundiata Keita — the "Lion King" — defeated Sumanguru Kante of the Sosso Empire at the Battle of Kirina and founded the Mali Empire. His story is preserved in the Sundiata Epic — one of the great oral epics of world literature, still performed by griots (oral historians) today. The Mali Empire at its peak covered an area larger than Western Europe. Its founding was not just military: Sundiata established a constitution called the Kouroukan Fouga, which guaranteed rights to women, prohibited slavery for certain groups, and enshrined environmental protection. Written down in the 1990s. Predates Magna Carta by 22 years.</div>
+        <div class="t-why">Why it matters: The Kouroukan Fouga is a constitution from 1235 that included environmental protections and women's rights. Our ancestors had this figured out 800 years ago.</div>
+        <div class="t-research">Research: Sundiata: An Epic of Old Mali — D.T. Niane · The Oral Epic of Sundiata — performed traditions</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1324 CE</div>
+        <div class="t-event">Mansa Musa's pilgrimage to Mecca — the wealthiest journey in history</div>
+        <div class="t-place">Mali to Mecca</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Mansa Musa set out for Mecca with 60,000 people including 12,000 personal servants and a baggage train carrying tonnes of gold. He gave gold away freely along the route — to the poor, to foreign dignitaries, to mosques. The sheer quantity of gold he introduced into the economies of Egypt and the Middle East caused inflation that lasted twelve years. His generosity alone disrupted the global economy. He used his wealth on return to commission the Djinguereber Mosque, expand the universities, and import scholars from across the Islamic world.</div>
+        <div class="t-why">Why it matters: The wealthiest person in recorded history was African. He used his wealth to build knowledge infrastructure. This is the model: wealth in service of community, not personal accumulation.</div>
+        <div class="t-research">Research: Mansa Musa and the Empire of Mali — P. James Oliver · Timbuktu and the Songhay Empire — John Hunwick</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">c.1100–1450 CE</div>
+        <div class="t-event">Great Zimbabwe — the largest stone structure in sub-Saharan Africa</div>
+        <div class="t-place">Zimbabwe</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">A city of 18,000 people at its peak, governed by the Shona people. Its stone enclosures — built without mortar — include walls 11 metres high and 5 metres thick. At its centre, the Great Enclosure is the largest ancient structure in sub-Saharan Africa. It controlled the gold trade routes between the interior and the Swahili Coast ports. When European colonisers first encountered it in the 19th century, they refused to believe Africans had built it — attributing it to Phoenicians, Arabs, anyone but the Shona. The buildings were literally signed by their builders in the stone.</div>
+        <div class="t-why">Why it matters: Natural building, community at scale, trade sovereignty — Great Zimbabwe had all of it. The country named itself after this place in 1980. The ancestors left their names in stone.</div>
+        <div class="t-research">Research: Great Zimbabwe — Peter Garlake · Zimbabwe Before 1890 — D.N. Beach</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1375 CE</div>
+        <div class="t-event">Ibn Khaldun writes the Muqaddimah — the world's first social science</div>
+        <div class="t-place">North Africa (born in Tunisia)</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Ibn Khaldun's Muqaddimah (Introduction to History) is the world's first systematic work of sociology, economics, and political science. He developed theories of social cohesion (asabiyyah), the rise and fall of civilisations, economic cycles, and the relationship between climate and culture — 400 years before European scholars would attempt the same. His analysis of why civilisations collapse is more sophisticated than most modern political theory. Available in English translation. Mandatory reading for anyone building a community.</div>
+        <div class="t-why">Why it matters: He identified exactly the patterns — internal cohesion, economic exploitation, corruption of leadership — that destroy communities. Understanding them is how you build one that lasts.</div>
+        <div class="t-research">Research: The Muqaddimah — Ibn Khaldun (trans. Franz Rosenthal, Princeton University Press)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIASPORA & RESISTANCE -->
+<div id="diaspora" class="era-section">
+  <div class="era-header">
+    <div class="era-label">1600 CE – 1900 CE</div>
+    <h2 class="era-title">Diaspora & resistance</h2>
+    <p class="era-desc">The period of the transatlantic slave trade and its aftermath. Not a history of victimhood — a history of resistance, survival, and the extraordinary things built against every possible obstacle.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1600s–present</div>
+        <div class="t-event">The Maroon communities — free cities in the mountains</div>
+        <div class="t-place">Jamaica, Suriname, Brazil, USA</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Across the Caribbean and Americas, enslaved Africans escaped and built free communities — the Maroons of Jamaica, the Quilombos of Brazil (Palmares had 30,000 people and lasted 100 years), the Saramaka and Ndyuka of Suriname (still sovereign peoples today). They maintained African governance, spiritual practices, food systems, and languages. Queen Nanny defeated the British so decisively they signed a peace treaty in 1739. The Suriname Maroons signed a similar treaty in 1762. These were sovereign states built by people who had been enslaved.</div>
+        <div class="t-why">Why it matters: Every argument that Black people "can't" build self-sufficient communities is answered by the Maroons. They built them with nothing, in hostile terrain, against an empire. We have more.</div>
+        <div class="t-research">Research: The Maroons of Jamaica — Barbara Kopytoff · Maroon Societies — Richard Price (ed.)</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1739 CE</div>
+        <div class="t-event">Treaty of Cudjoe — Britain legally recognises Maroon sovereignty</div>
+        <div class="t-place">Jamaica</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">After decades of guerrilla warfare in which the Jamaican Maroons — under Captain Cudjoe and the spiritual leadership of Queen Nanny — consistently defeated British regular forces, Britain signed a peace treaty. The treaty granted the Maroons land rights, freedom, and self-governance in perpetuity in exchange for not harbouring newly escaped enslaved people. It was a compromise. But it was also a British Empire legally acknowledging that a community of formerly enslaved Africans had defeated it. That has never been taught in British schools.</div>
+        <div class="t-why">Why it matters: Diplomatic sovereignty is possible. The New Earth does not only build — it negotiates, strategically, from a position of demonstrated power.</div>
+        <div class="t-research">Research: The Maroons of Jamaica — Carey Robinson · Treaty text available via National Library of Jamaica</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1791–1804 CE</div>
+        <div class="t-event">Haitian Revolution — the only successful slave revolt in history</div>
+        <div class="t-place">Haiti (then Saint-Domingue)</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Enslaved people in Saint-Domingue (now Haiti) rose up in 1791, led by Toussaint L'Ouverture, Jean-Jacques Dessalines, and Henri Christophe. They defeated the armies of France, Britain, and Spain. Napoleon sent 86,000 soldiers — they were defeated. Haiti declared independence on January 1, 1804, becoming the first Black republic in the world and the second republic in the Western Hemisphere. France then forced Haiti to pay reparations for the "property" (enslaved people) that had freed itself — a debt not fully paid until 1947. Haiti has been economically strangled for its audacity ever since.</div>
+        <div class="t-why">Why it matters: Haiti proved it was possible. The entire Western world spent the next two centuries making sure it paid a price for that proof — which tells you exactly how threatening it was.</div>
+        <div class="t-research">Research: The Black Jacobins — C.L.R. James · Haiti: The Aftershocks of History — Laurent Dubois</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1825–1857 CE</div>
+        <div class="t-event">Seneca Village — a Black community where Central Park now stands</div>
+        <div class="t-place">Manhattan, New York</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">A 25-year-old shoeshiner named Andrew Williams paid $125 for three lots of land in upper Manhattan in 1825 — two years before slavery was abolished in New York State. Within 30 years: 50 homes, 3 churches, 2 schools, gardens, livestock, a natural spring, and a community that owned its land and therefore its right to vote. Demolished by the city in 1857 for Central Park. Residents called squatters. No photographs exist. The city changed the zoning laws to prevent rebuilding. Archaeologists confirmed the site in 2011.</div>
+        <div class="t-why">Why it matters: The minimum viable community — land, water, food, school, church — can be built in 30 years from $125. And it will be destroyed if it is not legally protected. Both lessons are essential.</div>
+        <div class="t-research">Research: Before Central Park — Sara Cedar Miller · New York Public Library Seneca Village archive</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1865 CE onwards</div>
+        <div class="t-event">The Freedom Colonies — hundreds of land-based communities built by freed people</div>
+        <div class="t-place">American South</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Immediately after emancipation, formerly enslaved people pooled resources and bought land. In Texas alone, over 500 Freedom Colonies were established. They built churches first, schools second, farms third. Eatonville, Florida — founded 1887 — is the oldest continuously inhabited Black township in the United States. Most Freedom Colonies were eventually destroyed by land theft, highway construction, or economic strangulation. A few survive. Royal, Florida — under threat from turnpike extension today — is described as "one of the last remaining Black communities left largely intact since emancipation."</div>
+        <div class="t-why">Why it matters: Formerly enslaved people with nothing immediately understood: land first. Church. School. Food. In that order. They were right then. They are right now.</div>
+        <div class="t-research">Research: Freedom Colonies: Independent Black Texans in the Time of Jim Crow — Andrea Roberts</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODERN ERA -->
+<div id="modern" class="era-section">
+  <div class="era-header">
+    <div class="era-label">1900 CE – 2000 CE</div>
+    <h2 class="era-title">The modern era</h2>
+    <p class="era-desc">The twentieth century: economic sovereignty built and destroyed, independence won across the continent, the Harlem Renaissance, the civil rights era, Caribbean independence, and the global spread of Black cultural and intellectual power.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1906–1921 CE</div>
+        <div class="t-event">Black Wall Street — the most prosperous Black community in American history</div>
+        <div class="t-place">Greenwood District, Tulsa, Oklahoma</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">O.W. Gurley bought 40 acres and sold only to Black people. Within 15 years: 300+ businesses, 2 schools, 2 newspapers, banks, hospitals, law firms, hotels, cinemas. The dollar circulated 19–36 times before leaving the community. Every professional service a community needs — inside the community. Destroyed June 1, 1921 by a white mob aided by the Oklahoma National Guard. 300+ killed. 10,000 homeless. $150 million in today's money destroyed. Zoning laws changed to prevent rebuilding. Never taught in schools until the late 1990s.</div>
+        <div class="t-why">Why it matters: The circulating dollar. Every service inside. Conscious economic loyalty. This is the economic model of the New Earth — proven to work, proven to be targeted.</div>
+        <div class="t-research">Research: The Burning — Tim Madigan · Death in a Promised Land — Scott Ellsworth · 1921 Tulsa Race Massacre Commission Report</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1920s CE</div>
+        <div class="t-event">The Harlem Renaissance — Black cultural explosion</div>
+        <div class="t-place">New York City, USA</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">A flowering of Black artistic, literary, and intellectual life centred on Harlem, New York. Langston Hughes, Zora Neale Hurston, Claude McKay, Countee Cullen, Duke Ellington, Louis Armstrong, Paul Robeson — an unprecedented concentration of Black genius creating a new cultural identity. The Harlem Renaissance was also a political statement: that Black life had beauty, depth, sophistication, and joy that the dominant culture was not able to see or did not want to acknowledge. It planted seeds that grew into the civil rights movement, the Black Arts Movement, and every major Black cultural expression since.</div>
+        <div class="t-why">Why it matters: Culture is not decoration. The Harlem Renaissance proves that when Black people are given space and resources to create on their own terms, the result changes the world.</div>
+        <div class="t-research">Research: The Harlem Renaissance — Nathan Huggins · When Harlem Was in Vogue — David Levering Lewis</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1957 CE</div>
+        <div class="t-event">Ghana gains independence — Africa's decolonisation begins</div>
+        <div class="t-place">Ghana, West Africa</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Kwame Nkrumah led Ghana to independence from Britain on March 6, 1957 — the first sub-Saharan African country to gain independence. His declaration: "We are going to demonstrate to the world, to the other nations, young as we are, that we are prepared to lay our own foundation." Between 1957 and 1966, 32 more African countries gained independence. Nkrumah's vision was a United States of Africa — political independence without economic independence (what he called neo-colonialism) was not enough. He was overthrown in a CIA-backed coup in 1966. His analysis proved correct.</div>
+        <div class="t-why">Why it matters: Political independence without economic independence is not freedom. The New Earth must be economically self-sufficient — not just politically autonomous. Nkrumah named this lesson in 1965.</div>
+        <div class="t-research">Research: Neo-Colonialism: The Last Stage of Imperialism — Kwame Nkrumah · Ghana: The Autobiography of Kwame Nkrumah</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1948–1971 CE</div>
+        <div class="t-event">The Windrush Generation arrives in Britain</div>
+        <div class="t-place">Caribbean to UK</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Between 1948 and 1971, approximately 500,000 people from the Caribbean arrived in Britain — invited to help rebuild after World War II. They came to a country that had depended on their colonies for wealth and their people for labour, and found a country that didn't want them. They built communities anyway — in Notting Hill, Brixton, Handsworth, Moss Side, St Pauls. They created sound system culture, the carnival, Black British literature, the foundation of UK reggae, jungle, drum and bass, grime. The culture the world associates with Britain — particularly its music — was made by the children and grandchildren of Windrush.</div>
+        <div class="t-why">Why it matters: In hostile territory, with limited resources, the community built culture. Culture sustained identity. Identity sustained community. The New Earth is being built by the grandchildren of these people.</div>
+        <div class="t-research">Research: Small Island — Andrea Levy · Windrush: The Irresistible Rise of Multi-Racial Britain — Trevor Phillips & Mike Phillips</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1994 CE</div>
+        <div class="t-event">South Africa's first democratic election — Mandela becomes President</div>
+        <div class="t-place">South Africa</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Nelson Mandela, after 27 years in prison on Robben Island, became the first Black President of South Africa on May 10, 1994. The transition from apartheid to democracy was one of the most watched political events in history. The Truth and Reconciliation Commission — chaired by Archbishop Desmond Tutu — used restorative justice principles rooted in Ubuntu philosophy to process the trauma of apartheid without civil war. It was imperfect. But it was a model of how a society can look honestly at its history and try to heal rather than only punish.</div>
+        <div class="t-why">Why it matters: The TRC is the Ubuntu model of restorative justice applied at national scale. The New Earth's conflict resolution practice is rooted in exactly this: truth, restoration, and community healing.</div>
+        <div class="t-research">Research: Long Walk to Freedom — Nelson Mandela · No Future Without Forgiveness — Desmond Tutu</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOW & NEXT -->
+<div id="now" class="era-section">
+  <div class="era-header">
+    <div class="era-label">2000 CE – present</div>
+    <h2 class="era-title">Now — and what comes next</h2>
+    <p class="era-desc">The work continues. Across the diaspora, across the continent, people are building — platforms, communities, businesses, movements. This is the moment the timeline has been building toward.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">2003 CE</div>
+        <div class="t-event">Maggie Walker's St Luke Bank legacy — the cooperative banking model</div>
+        <div class="t-place">Richmond, Virginia (legacy)</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Maggie Lena Walker founded the St Luke Penny Savings Bank in 1903 with the explicit philosophy: "Let us put our money together; let us use our money; let us put our money out at usury among ourselves." Her bank grew to $645,000 in assets. It merged with other banks and eventually became Consolidated Bank and Trust — the oldest continuously operating African American bank in the United States, still operating today. The cooperative banking model she established is the blueprint for the New Earth's financial infrastructure: community-owned, community-serving, wealth circulating within.</div>
+        <div class="t-why">Why it matters: Community banking that has survived for over 100 years. Cooperative finance is not utopian — it has a 120-year track record.</div>
+        <div class="t-research">Research: Maggie Lena Walker — Gertrude Marlowe · National Park Service — Maggie L. Walker National Historic Site</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">2012–2022 CE</div>
+        <div class="t-event">The Timbuktu manuscripts saved — 350,000 documents evacuated from jihadist forces</div>
+        <div class="t-place">Mali, West Africa</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">When jihadist forces occupied Timbuktu in 2012, Dr Abdel Kader Haidara organised the secret evacuation of 350,000 manuscripts to Bamako in the south — hiding them in trunks, transporting them on donkeys and in cars, house by house. 4,203 manuscripts were burned before the evacuation was complete. By 2022, 40,000 pages had been digitised and made available via Google Arts & Culture's "Mali Magic" portal. The knowledge that families had protected for centuries — some buried in the desert — now exists online. You can read it.</div>
+        <div class="t-why">Why it matters: The ancestors hid manuscripts to save them. Dr Haidara moved them by donkey in the night. Now they are on your phone. Access: artsandculture.google.com/project/mali-magic</div>
+        <div class="t-research">Research: The Bad-Ass Librarians of Timbuktu — Joshua Hammer · Google Arts & Culture: Mali Magic portal</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">Now</div>
+        <div class="t-event">The New Earth — being built</div>
+        <div class="t-place">The diaspora · Caribbean · Africa · Wherever the people are</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">The timeline has been building to this moment. Every civilisation documented above — Kemet, Timbuktu, Black Wall Street, Seneca Village, the Maroons, the Freedom Colonies — was building toward a New Earth on the tools available to them. We have more tools. We have the internet. We have Kin-nect. We have 5,000 years of documented evidence that our people build extraordinary things. The question is not whether it is possible. History answers that. The question is: who will begin?</div>
+        <div class="t-why">"The most powerful weapon in the hands of the oppressor is the mind of the oppressed." — Steve Biko. The timeline is the antidote. Know what was built. Know what was destroyed and why. Then build again, with better protection, and a network so that this time, destroying one only makes the others stronger.</div>
+        <div class="t-research">You are here. The next entry in this timeline is written by the people reading it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- end timeline section -->
+
 </div><!-- end content -->
 
 <div class="footer">
@@ -1478,6 +1924,14 @@
     document.querySelectorAll('#subj-nav .sub-btn').forEach(b => b.classList.remove('on'));
     event.target.classList.add('on');
   }
+
+  function showEra(id) {
+    document.querySelectorAll('#timeline .era-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#timeline .era-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
 </script>
 </body>
 </html>

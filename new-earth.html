@@ -581,6 +581,8 @@
     <button class="main-nav-btn on" onclick="showMain('ancestral')">Ancestral models</button>
     <button class="main-nav-btn" onclick="showMain('spiritual')">Spiritual foundation</button>
     <button class="main-nav-btn" onclick="showMain('history')">Our history</button>
+    <button class="main-nav-btn" onclick="showMain('queens')">Queens & visionaries</button>
+    <button class="main-nav-btn" onclick="showMain('reparations')">Reparations</button>
     <button class="main-nav-btn" onclick="showMain('timeline')">Our timeline</button>
   </nav>
 </div>
@@ -626,11 +628,122 @@
       </div>
       <div class="card">
         <div class="card-label">Medicine — the medical papyri</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">Ebers Papyrus (c.1550 BCE)</strong> — 842 remedies across 110 pages, 20 metres long. Covers internal medicine, dermatology, gynaecology, dentistry, and psychiatry. Herbs documented include: aloe vera (burns, ulcers, skin disease), basil (heart medicine), frankincense (infections, wounds), cannabis (pain, inflammation), myrrh (antiseptic), garlic (infections, parasites), juniper (diuretic), castor oil (laxative), fennel (digestive), senna (purgative), henna (skin), thyme, opium. Birth control documented: dates, acacia, and honey paste as pessary. Guinea worm treatment: wrap emerging worm around a stick and slowly pull — still the standard treatment 3,500 years later.</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">Edwin Smith Papyrus (c.1600 BCE)</strong> — the world's oldest surgical textbook. 48 trauma cases documented with scientific precision: head injuries, spinal fractures, dislocations, tumours, wounds. First text to use the word "brain." Rational, evidence-based — no magic, just observation and technique. Originally from the Old Kingdom (c.3000 BCE), making it potentially 5,000 years old.</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">Kahun Gynaecological Papyrus (c.1825 BCE)</strong> — the oldest known medical text in Egyptian history. 34 segments addressing women's health: gynaecology, fertility, pregnancy, contraception. Acknowledged that many conditions were systemic rather than local.</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">Specialised physicians</strong> — ophthalmologists, dentists, proctologists, surgeons all documented as distinct specialisations. Court physicians were among the most respected people in the kingdom.</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">Research:</strong> <em>Herbal Medicine in Ancient Egypt</em> — Lans et al., J. Ethnobiology & Ethnomedicine · <em>The Edwin Smith Surgical Papyrus Vol.1</em> — James Henry Breasted (Oriental Institute, Chicago) · Ebers Papyrus — held at University of Leipzig Library</div>
+        <div style="font-size:13px; color:var(--blush); opacity:0.7; margin-bottom:10px; line-height:1.5;">Kemet produced the world's oldest documented medical system. Three major papyri survive. Tap each to expand.</div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">📜</div>
+              <div>
+                <div class="expand-title">Ebers Papyrus — c.1550 BCE</div>
+                <div class="expand-tag">842 remedies · internal medicine · dermatology · gynaecology · dentistry · psychiatry</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">110 pages, 20 metres long — the most comprehensive medical document from the ancient world. Written in hieratic script, it was copied from even older texts dating to around 3400 BCE. It covers internal medicine, dermatology, gynaecology, dentistry, and psychiatry — treating the body as a complete system.</div>
+            <div style="margin-top:12px;">
+              <div style="font-size:11px; font-weight:500; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">Herbs and their documented uses</div>
+              <div class="expand-body-list">
+                <div class="li">Aloe vera — burns, ulcers, skin disease, wound healing</div>
+                <div class="li">Basil — heart medicine and blood pressure</div>
+                <div class="li">Frankincense — infections, wound treatment, anti-inflammatory</div>
+                <div class="li">Cannabis — pain relief, inflammation, glaucoma</div>
+                <div class="li">Myrrh — antiseptic, wound dressing, oral health</div>
+                <div class="li">Garlic — infections, parasites, cardiovascular health</div>
+                <div class="li">Juniper — diuretic, urinary tract infections</div>
+                <div class="li">Castor oil — laxative, skin conditions, eye drops</div>
+                <div class="li">Fennel — digestive disorders, colic, flatulence</div>
+                <div class="li">Senna — powerful purgative, constipation</div>
+                <div class="li">Henna — skin conditions, fungal infections</div>
+                <div class="li">Thyme — antiseptic, respiratory conditions</div>
+                <div class="li">Opium — pain relief, sedation, cough suppression</div>
+                <div class="li">Honey — wound dressing, antibacterial (still used in modern medicine)</div>
+              </div>
+              <div style="font-size:11px; font-weight:500; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin:12px 0 8px;">Notable documented treatments</div>
+              <div class="expand-body-list">
+                <div class="li">Birth control — dates, acacia, and honey paste as pessary (acacia ferments to lactic acid — a documented spermicide still used today)</div>
+                <div class="li">Guinea worm treatment — wrap the emerging worm around a stick and slowly extract over days. Still the only effective treatment 3,500 years later, used by the Carter Center today</div>
+                <div class="li">Diabetes symptoms — described as "too great emptying of the urine" — first documented reference to diabetes mellitus</div>
+                <div class="li">Cancer — tumours of the breast described as "there is no treatment" — the first documented cancer diagnosis</div>
+              </div>
+            </div>
+            <div class="expand-cite">Held at: University of Leipzig Library · Research: Herbal Medicine in Ancient Egypt — Lans et al., Journal of Ethnobiology and Ethnomedicine (open access)</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">⚕️</div>
+              <div>
+                <div class="expand-title">Edwin Smith Papyrus — c.1600 BCE</div>
+                <div class="expand-tag">World's oldest surgical textbook · 48 trauma cases · first use of the word "brain"</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">The most rational medical text from the ancient world — no magic, no incantations, just clinical observation. 48 cases of trauma are documented in systematic order from head to foot. Each case follows the same structure: examination, diagnosis, prognosis, and treatment. Originally from the Old Kingdom (c.3000 BCE), making it potentially 5,000 years old. Attributed to Imhotep.</div>
+            <div class="expand-body-list" style="margin-top:10px;">
+              <div class="li">First text in history to use the word "brain" and describe its relationship to bodily function</div>
+              <div class="li">Documents the observation that brain injuries on one side of the head cause symptoms on the opposite side of the body — contralateral neurological function, rediscovered by European medicine in the 19th century</div>
+              <div class="li">48 cases: head fractures, spinal injuries, dislocations, tumours, open wounds — all with rational, evidence-based treatment</div>
+              <div class="li">Surgical sutures, wound closure with adhesive tape, and splinting of fractures all documented</div>
+              <div class="li">Distinguishes between treatable, uncertain, and untreatable conditions — the first medical triage system</div>
+            </div>
+            <div class="expand-cite">Held at: New York Academy of Medicine · Research: The Edwin Smith Surgical Papyrus Vol.1 — James Henry Breasted, Oriental Institute, University of Chicago (available via Oriental Institute publications)</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">🌸</div>
+              <div>
+                <div class="expand-title">Kahun Gynaecological Papyrus — c.1825 BCE</div>
+                <div class="expand-tag">Oldest medical text in Egyptian history · women's health · fertility · contraception</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">The oldest known medical text from ancient Egypt — predating the Ebers by 275 years. 34 sections address women's health exclusively: gynaecology, fertility, pregnancy complications, contraception, and infant care. It acknowledges that many conditions were systemic — that a problem presenting in one part of the body may originate in another. This systemic understanding of the body did not reappear in Western medicine until the 20th century.</div>
+            <div class="expand-body-list" style="margin-top:10px;">
+              <div class="li">Contraceptive methods documented: crocodile dung pessary, acacia and honey (both have documented medical basis)</div>
+              <div class="li">Pregnancy testing: placing an onion inside the vagina overnight — if the woman's breath smelled of onion by morning, she was not pregnant (referenced in later Greek medical texts)</div>
+              <div class="li">Treatment for painful menstruation, uterine prolapse, and gynaecological infections</div>
+              <div class="li">Infant feeding instructions and weaning protocols</div>
+            </div>
+            <div class="expand-cite">Held at: Petrie Museum of Egyptian Archaeology, University College London · Research: The Gynaecology of the Kahun Papyrus — S. Blackwell</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">👁️</div>
+              <div>
+                <div class="expand-title">Specialised physicians — a complete medical system</div>
+                <div class="expand-tag">Ophthalmologists · dentists · surgeons · psychiatrists · defined specialisations</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">Kemet had the world's first documented system of medical specialisation. Physicians were not generalists — they trained in specific areas and were known by speciality title. This was not informal: it was an organised, state-supported medical profession.</div>
+            <div class="expand-body-list" style="margin-top:10px;">
+              <div class="li">Ir-swnw — "physician of the eye" (ophthalmologist) — documented by name in inscriptions</div>
+              <div class="li">Swnw n ibh — "physician of the tooth" (dentist) — dental work confirmed by examination of mummies</div>
+              <div class="li">Court physicians — the most prestigious medical role, documented in tomb inscriptions</div>
+              <div class="li">Temple physicians — trained at the Per-ankh (House of Life) in temple complexes</div>
+              <div class="li">Sekhmet priests — specialists in infectious disease, working alongside physicians</div>
+              <div class="li">Female physicians documented — Merit-Ptah (c.2700 BCE) is the first named woman physician in history</div>
+            </div>
+            <div class="expand-cite">Research: Medicine in the Days of the Pharaohs — Bruno Halioua & Bernard Ziskind · Ancient Egyptian Medicine — John Nunn (University of Oklahoma Press)</div>
+          </div>
+        </div>
       </div>
       <div class="card">
         <div class="card-label">Education</div>
@@ -645,7 +758,61 @@
         <div class="li"><strong style="color:var(--cream); font-weight:500;">The Vizier</strong> — the pharaoh's chief administrator and supreme judge. Viziers were explicitly told: "Do not act willfully in cases where the law is unknown to you; acquaint yourself with it." Law required knowledge, not rank.</div>
         <div class="li"><strong style="color:var(--cream); font-weight:500;">The courts</strong> — judges were called "priests of Ma'at." They operated on precedent and moral instruction, not written codes. The goal was always restoration of balance, not punishment. Restorative justice, 3,000 years before the term was coined.</div>
         <div class="li"><strong style="color:var(--cream); font-weight:500;">In daily life</strong> — Ma'at was practical: accurate weights in the market, truth in disputes, care for family and community. An Egyptian merchant using false weights was not just breaking a rule — they were violating cosmic law and would face consequences in this life and the next.</div>
-        <div class="li"><strong style="color:var(--cream); font-weight:500;">The 42 Negative Confessions</strong> — the standard against which every person was judged at death. Not "I tried to be good" — "I have not stolen. I have not lied. I have not caused suffering." A society that holds its people to that standard, in their daily actions, is a different kind of society.</div>
+        <div class="li" style="display:block; padding-bottom:8px;">
+          <div style="display:flex; gap:10px; align-items:flex-start; cursor:pointer;" onclick="this.parentElement.querySelector('.conf-detail').style.display = this.parentElement.querySelector('.conf-detail').style.display === 'none' ? 'block' : 'none'">
+            <span style="color:var(--gold); flex-shrink:0;">—</span>
+            <div><strong style="color:var(--cream); font-weight:500;">The 42 Negative Confessions</strong> — spoken before Ma'at at the Hall of Two Truths at the moment of death. Not aspirational — the daily standard every person was held to. <span style="color:var(--gold); font-size:11px;">(tap to see all 42)</span></div>
+          </div>
+          <div class="conf-detail" style="display:none; margin-top:12px; padding:12px; background:var(--night); border-radius:8px; border:1px solid var(--border);">
+            <div style="font-size:12px; color:var(--blush); line-height:1.65; margin-bottom:10px; opacity:0.85;">At the moment of death, the soul entered the Hall of Two Truths and made the 42 Negative Confessions before Ma'at and 42 divine assessors — one for each confession. The heart was then weighed against Ma'at's feather. If the heart was heavier than the feather — burdened by wrongdoing — it was devoured by Ammit. If lighter, the soul passed into eternal life. This was not a one-time religious ceremony. It was the governing standard of an entire civilisation. Every daily action was measured against the question: could I say this at the end of my life?</div>
+            <div style="font-size:11px; font-weight:500; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">The 42 Confessions (selected — full list in the Book of the Dead)</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 16px;">
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not committed sin</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not committed robbery with violence</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not stolen</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not slain men or women</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not stolen grain</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not purloined offerings</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not stolen the property of God</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not uttered lies</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not carried away food</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not uttered curses</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not committed adultery</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not made any man to weep</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not eaten the heart (acted treacherously)</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not attacked any man</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I am not a man of deceit</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not stolen cultivated land</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not been an eavesdropper</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not falsely accused any man</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not been angry without cause</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not debauched the wife of any man</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not polluted myself</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not terrorised any man</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not transgressed the law</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not been wroth</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not shut my ears to words of truth</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not blasphemed</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I am not a man of violence</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not been a stirrer-up of strife</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not acted with undue haste</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not pried into matters</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not multiplied my words in speaking</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have wronged none, I have done no evil</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not worked witchcraft against the king</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have never stopped the flow of water</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have never raised my voice</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not cursed or despised God</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not acted with arrogance</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not stolen the bread of the gods</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not carried away the khenfu cakes from the spirits of the dead</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not filched food from the child</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not failed to observe the days of meat offerings</div>
+              <div style="font-size:12px; color:var(--blush); padding:3px 0; opacity:0.85;">I have not withheld cattle from the gods</div>
+            </div>
+            <div style="font-size:12px; color:var(--gold); font-style:italic; margin-top:12px; line-height:1.6;">Source: The Egyptian Book of the Dead — translated by E.A. Wallis Budge (public domain, available free at sacred-texts.com) · The Book of Coming Forth by Day — translated by Maulana Karenga</div>
+          </div>
+        </div>
         <div class="li"><strong style="color:var(--cream); font-weight:500;">Research:</strong> <em>The Role of Ma'at in Ancient Egyptian Law</em> — Brewminate.com · <em>Ma'at: The Moral Ideal in Ancient Egypt</em> — Maulana Karenga · <em>The Egyptian Book of the Dead</em> — E.A. Wallis Budge (trans.)</div>
       </div>
       <div class="card">
@@ -816,19 +983,112 @@
     <div class="grid2">
       <div class="card">
         <div class="card-label">What was built</div>
-        <div class="li">2 newspapers — information controlled by the community</div>
-        <div class="li">2 schools, banks, hospitals, and law firms</div>
-        <div class="li">Hotels, theatres, grocery stores, pharmacies, barber shops</div>
-        <div class="li">Over 300 businesses in a 35-block area</div>
-        <div class="li">Every service a community needs — inside the community</div>
+        <div style="font-size:12px; color:var(--blush); opacity:0.7; margin-bottom:8px; line-height:1.5;">Tap each to expand</div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">📰</div>
+              <div>
+                <div class="expand-title">2 newspapers — the Tulsa Star & Oklahoma Sun</div>
+                <div class="expand-tag">Information controlled by the community</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">The Tulsa Star was founded by A.J. Smitherman — attorney, poet, and community leader. It covered local politics, national civil rights, community announcements, economic news, and cultural life. Smitherman used it to advocate for Black self-defence and economic sovereignty long before either was mainstream. The Oklahoma Sun covered similar ground. Together they gave Greenwood a media infrastructure entirely independent of white-owned press — its own narrative, its own news, its own voice. The papers did not cover Black people as problems. They covered Black people as citizens.</div>
+            <div class="expand-cite">Why it matters for Kin-nect: A community that controls its own information controls its own story. The editorial feed and library are the modern equivalent of the Tulsa Star. What gets published, what gets amplified, what gets remembered — this is power.</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">🏢</div>
+              <div>
+                <div class="expand-title">300+ businesses — a complete internal economy</div>
+                <div class="expand-tag">Every service a community needs — inside the community</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">In 35 blocks, Greenwood contained: hotels (The Stradford Hotel — 54 rooms, the largest Black-owned hotel in the US), theatres and cinemas, grocery stores, clothing boutiques, shoe shops, barber shops and beauty salons, pharmacies, law offices, medical and dental practices, a hospital, real estate offices, insurance companies, photography studios, a library, two schools, a post office, churches, a YMCA, and a bus system. Every dollar spent in Greenwood went to a Black business. Every professional need was met by a Black professional. This was not accidental — it was the result of deliberate choices made by thousands of people over 15 years.</div>
+            <div class="expand-cite">Research: Death in a Promised Land — Scott Ellsworth · Black Wall Street: From Riot to Renaissance in Tulsa's Historic Greenwood District — Hannibal B. Johnson</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">🏫</div>
+              <div>
+                <div class="expand-title">Schools, hospitals, law firms, banks</div>
+                <div class="expand-tag">The institutional layer — professional services inside</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">Booker T. Washington High School served Greenwood's children with a curriculum designed to produce educated, economically capable adults. Greenwood's hospital meant Black residents did not have to seek care from institutions that refused to treat them or treated them as inferior. Law firms meant legal representation from professionals who understood what the community faced. Banks meant access to credit without the racism of white financial institutions. The presence of these institutions meant Greenwood could operate almost entirely independently of the surrounding white economy — which was precisely why it threatened the surrounding white economy.</div>
+            <div class="expand-cite">Research: 1921 Tulsa Race Massacre Commission Report (available free via Oklahoma Commission archives)</div>
+          </div>
+        </div>
       </div>
+
       <div class="card">
         <div class="card-label">The economic model</div>
-        <div class="li">Dollar circulated 19–36 times before leaving — multiplied internal wealth</div>
-        <div class="li">Community deliberately chose to spend with each other first</div>
-        <div class="li">Credit and banking within — no reliance on external financial institutions</div>
-        <div class="li">Professional class resident — doctors, lawyers, teachers all inside</div>
-        <div class="li">Churches as community anchors — spiritual and social centre</div>
+        <div style="font-size:12px; color:var(--blush); opacity:0.7; margin-bottom:8px; line-height:1.5;">Tap each to expand</div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">💰</div>
+              <div>
+                <div class="expand-title">The circulating dollar — how it worked</div>
+                <div class="expand-tag">19–36 times before leaving · how to recreate this</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">When a dollar enters a community and is spent at a local business, the business owner then spends it at another local supplier, who pays a local employee, who buys groceries at a local shop — and so on. Each time the dollar moves within the community before leaving, it generates economic activity, tax revenue, employment, and wealth for community members. In Greenwood, this happened 19–36 times. In mainstream Black communities today, the dollar leaves after approximately 6 hours — spent once at a non-Black business and gone. The difference is not income. It is intention and infrastructure.</div>
+            <div style="font-size:12px; font-weight:500; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin:10px 0 6px;">How to recreate this today</div>
+            <div class="expand-body-list">
+              <div class="li">Directory first — every community member lists their skills and business. Before spending externally, check the directory. Kin-nect is this directory.</div>
+              <div class="li">Conscious pledge — commit publicly to spending inside the community first. The Tulsa community did this through social pressure and cultural expectation, not rules.</div>
+              <div class="li">Community currency or time-banking — an internal currency that can only be spent within the network accelerates circulation and makes it measurable</div>
+              <div class="li">Track it — measure the internal circulation rate. Set community targets. Celebrate improvements. Make it visible.</div>
+              <div class="li">Build missing services — every time money leaves for a service the community doesn't have, that's the next business to start inside it</div>
+            </div>
+            <div class="expand-cite">Research: The Economics of Black Wall Street — Darity & Frank, Du Bois Review · Watch: Black Wall Street (2019 documentary)</div>
+          </div>
+        </div>
+
+        <div class="expand-card" onclick="this.classList.toggle('open')">
+          <div class="expand-trigger">
+            <div class="expand-trigger-left">
+              <div class="expand-icon-wrap">🏦</div>
+              <div>
+                <div class="expand-title">Credit & banking within — no external dependency</div>
+                <div class="expand-tag">How Greenwood financed itself · how to do it now</div>
+              </div>
+            </div>
+            <span class="expand-arrow">▼</span>
+          </div>
+          <div class="expand-body">
+            <div class="expand-body-text">Greenwood's banks extended credit to Black business owners who were denied loans by white institutions. They accepted deposits from the community and reinvested them as loans back into the community. This closed loop meant that community savings became community investment — wealth generated inside stayed inside. Interest paid on loans stayed inside the community rather than flowing to external shareholders.</div>
+            <div style="font-size:12px; font-weight:500; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin:10px 0 6px;">How to build this now — UK context</div>
+            <div class="expand-body-list">
+              <div class="li">Credit union — the most direct equivalent. Members pool savings; the pool lends to members at low interest. Credit unions are legally recognised in the UK, regulated by the PRA and FCA, and protected by FSCS up to £85,000. The Caribbean community specifically had strong credit union traditions (known as "pardner" or "sou-sou" savings pools).</div>
+              <div class="li">Community Development Finance Institution (CDFI) — lends to businesses and individuals excluded from mainstream banking. Several Black-led CDFIs exist in the UK, including Transmit Startups and others. Look up CDFA (Community Development Finance Association).</div>
+              <div class="li">Pardner / sou-sou — the traditional Caribbean rotating savings circle. 10 people each contribute £100/month. Each month one person receives the full £1,000. Zero interest. Zero bank. Completely internal. Still operating in UK Caribbean communities today.</div>
+              <div class="li">Community bond issuance — communities can legally issue bonds to their own members to raise capital for land, buildings, or businesses. Used by community land trusts across the UK.</div>
+            </div>
+            <div class="expand-cite">UK resources: Credit Union Development Association (cuda.co.uk) · Community Development Finance Association (cdfa.org.uk) · Financial Conduct Authority credit union register</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1382,6 +1642,548 @@
 <!-- end history section -->
 
 
+<!-- ======== QUEENS & VISIONARIES ======== -->
+<div id="queens" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Queens & visionaries</div>
+    <h2 class="sec-title">The ones who led, built, and refused</h2>
+    <p class="sec-body">This is not a separate category. It is the centre. The New Earth has always been held by women — by queens, healers, mothers, warriors, philosophers, and builders. These are some of them. Tap any card to go deeper.</p>
+  </div>
+
+  <div class="sub-nav">
+    <button class="sub-btn on" onclick="showQueens('queens-ancient')">Ancient queens</button>
+    <button class="sub-btn" onclick="showQueens('queens-resistance')">Resistance & freedom</button>
+    <button class="sub-btn" onclick="showQueens('queens-thinkers')">Thinkers & builders</button>
+    <button class="sub-btn" onclick="showQueens('queens-greats')">Malcolm · Martin · Mandela</button>
+  </div>
+
+  <div id="queens-ancient" class="sub-section on">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The ancient world was governed, healed, and built by African women. These are not myths.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.2700 BCE · Kemet</div>
+        <div class="figure-name">Merit-Ptah</div>
+        <div class="figure-role">Chief Physician · First named woman in the history of science</div>
+        <div class="figure-detail">Chief physician to the Pharaoh around 2700 BCE. The first woman in recorded history known by name to have practised medicine. Her image was placed in her son's tomb with the inscription "chief physician." She predates Hippocrates by over 2,000 years. Her existence proves something essential about Kemet: a society governed by Ma'at does not waste the gifts of half its people. Competence was the qualification — not gender.</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1350 BCE · Kemet</div>
+        <div class="figure-name">Nefertiti</div>
+        <div class="figure-role">Queen · Co-ruler · Political architect of the Amarna period</div>
+        <div class="figure-detail">Wife of Pharaoh Akhenaten and likely the most powerful woman in ancient Egypt. Evidence suggests she may have ruled as Pharaoh herself after her husband's death under the name Neferneferuaten. She co-designed the Amarna revolution — a radical shift to monotheism under Aten. Her famous bust, discovered in 1912, is one of the most recognisable faces in human history. Her name means "the beautiful one has come." Research: Nefertiti: Egypt's Sun Queen — Joyce Tyldesley</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1550 BCE · Kemet</div>
+        <div class="figure-name">Ahmose-Nefertari</div>
+        <div class="figure-role">Queen · Founder of a religious order · Patron of artisans · Deified</div>
+        <div class="figure-detail">One of the most venerated women in Egyptian history — deified after her death and worshipped for over 500 years, longer than most pharaohs. She founded and led a religious order, negotiated rights for the priesthood directly with the pharaoh, and was patron of the craftsmen who built the royal tombs. Depicted with black skin — in Egyptian art, the colour of divinity, fertility, and the Nile's rich silt. Research: The Oxford History of Ancient Egypt — Ian Shaw (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.51 BCE · Kemet</div>
+        <div class="figure-name">Cleopatra VII</div>
+        <div class="figure-role">Pharaoh · Linguist (9 languages) · The last active ruler of independent Egypt</div>
+        <div class="figure-detail">Not a passive figure. Not a seductress. A trained mathematician, philosopher, and political strategist who spoke nine languages — the only Ptolemaic ruler to learn Egyptian. She used Caesar and Antony as political tools to maintain Egyptian independence as long as possible against an encroaching Rome. When she finally failed, she chose death over a Roman triumph. She was 39. Research: Cleopatra: A Life — Stacy Schiff</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1000 BCE · Nubia (Kush)</div>
+        <div class="figure-name">Amanirenas — the Kandake</div>
+        <div class="figure-role">Queen of Kush · Defeated the Roman Empire · Negotiated as an equal</div>
+        <div class="figure-detail">Queen of the Kushite Empire, she led her armies personally against Roman forces in Egypt after Rome attempted to impose taxes. She won three significant battles and raided as far as Aswan — capturing a bronze head of Emperor Augustus which was buried under the threshold of a temple so her people could walk over it forever. She negotiated a peace treaty with Rome as an equal — one of the few rulers ever to do so. She had lost one eye in battle. Rome called her "a masculine sort of woman." Research: Kandake Amanirenas — Pamela Ayo Yetunde</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.575–525 BCE · Kemet</div>
+        <div class="figure-name">Hatshepsut</div>
+        <div class="figure-role">Pharaoh · Greatest female ruler in Egyptian history · Builder</div>
+        <div class="figure-detail">One of Egypt's most successful pharaohs — male or female. She ruled for over 20 years, expanded trade routes to Punt, built the mortuary temple at Deir el-Bahari (still standing), erected the tallest obelisks in Egypt, and oversaw a period of unprecedented prosperity. After her death, her successor had her image chiselled from monuments and her name removed from official records — one of the earliest documented attempts to erase a Black woman from history. Archaeologists restored her record in the 20th century. Research: The Woman Who Would Be King — Kara Cooney</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="queens-resistance" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The women who fought, fled, led, and refused — building freedom with whatever they had.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">c.1686–1733 · Jamaica</div>
+        <div class="figure-name">Queen Nanny of the Maroons</div>
+        <div class="figure-role">Military commander · Spiritual leader · National Hero of Jamaica</div>
+        <div class="figure-detail">Leader of the Windward Maroons. Escaped slavery and built a free community in the Blue Mountains. Led guerrilla warfare so effectively that the British signed the Treaty of Cudjoe in 1739, legally recognising Maroon sovereignty. She was an Obeah woman — her spiritual authority and military authority were inseparable. She is one of only seven Jamaican National Heroes and the only woman. Her face is on the Jamaican $500 note. Research: Queen of the Mountain — Werner Zips · The Maroons of Jamaica — Barbara Kopytoff</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1820–1913 · Maryland, USA</div>
+        <div class="figure-name">Harriet Tubman</div>
+        <div class="figure-role">Freedom fighter · Union spy · "Moses" of the Underground Railroad</div>
+        <div class="figure-detail">Escaped slavery and returned South thirteen times, leading approximately 70 people to freedom. Never lost a passenger. Then served as a spy and scout for the Union Army during the Civil War, leading the Combahee River Raid that freed over 700 enslaved people — the first military operation in US history planned and led by a woman. She said: "I never ran my train off the track and I never lost a passenger." She also suffered traumatic brain injury as a child and experienced visions she followed her entire life. Research: Bound for the Promised Land — Kate Clifford Larson</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1867–1919 · Richmond, USA</div>
+        <div class="figure-name">Maggie Lena Walker</div>
+        <div class="figure-role">First Black woman to charter and lead a US bank · Community economist</div>
+        <div class="figure-detail">"Let us put our money together; let us use our money; let us put our money out at usury among ourselves." Founded the St Luke Penny Savings Bank in 1903. Built it from $31,500 in deposits to over $645,000 in assets. Also founded a department store, a newspaper, and an insurance company — all community-owned. The bank she founded eventually became Consolidated Bank and Trust, still operating today. She is the founding principle of the New Earth's banking system. Research: Maggie Lena Walker — Gertrude Marlowe</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1918–1963 · Trinidad & UK</div>
+        <div class="figure-name">Claudia Jones</div>
+        <div class="figure-role">Political philosopher · Founded the Notting Hill Carnival · First Black British newspaper</div>
+        <div class="figure-detail">Deported from the US for her communist and Black liberation activism, she came to Britain where she founded the West Indian Gazette — the UK's first major Black newspaper — and created the Notting Hill Carnival in 1959 in direct response to the Notting Hill race riots. The carnival was an act of political and cultural resistance: we will not be terrorised into silence, we will celebrate. She theorised the "triple oppression" of Black women — by race, class, and sex — decades before "intersectionality" was named. Research: Claudia Jones: Beyond Containment — Carole Boyce Davies</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1944 · Alabama, USA</div>
+        <div class="figure-name">Claudette Colvin</div>
+        <div class="figure-role">Refused to give up her seat 9 months before Rosa Parks · Forgotten pioneer</div>
+        <div class="figure-detail">On March 2, 1955 — nine months before Rosa Parks — 15-year-old Claudette Colvin refused to give up her seat on a Montgomery bus and was forcibly removed and arrested. The NAACP chose not to make her the face of the movement because she was a teenager who was pregnant. Rosa Parks — a trained activist — was chosen instead as the more "respectable" figure. Colvin later became one of the plaintiffs in the Supreme Court case that declared bus segregation unconstitutional. She is still alive. Research: Twice Toward Justice — Phillip Hoose</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1944–present · USA</div>
+        <div class="figure-name">Angela Davis</div>
+        <div class="figure-role">Philosopher · Activist · Prison abolitionist · Author</div>
+        <div class="figure-detail">Communist, feminist, and philosopher who was placed on the FBI's Most Wanted list in 1970, acquitted of all charges in 1972, and continued teaching, writing, and organising for the next fifty years. Her work on prison abolition — the argument that prisons are not a solution to crime but a continuation of slavery by other means — is the most important political philosophy of the last thirty years. Her 1983 book Women, Race and Class remains essential. Research: Women, Race and Class — Angela Davis · Are Prisons Obsolete? — Angela Davis</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="queens-thinkers" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The women whose ideas, words, and creations shaped how Black people understand themselves and their place in the world.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1928–2014 · USA</div>
+        <div class="figure-name">Maya Angelou</div>
+        <div class="figure-role">Poet · Author · The first non-fiction bestseller by a Black woman in America</div>
+        <div class="figure-detail">I Know Why the Caged Bird Sings (1969) was the first non-fiction bestseller by a Black American woman. She worked with Malcolm X in Ghana and Martin Luther King in the US. She wrote the inauguration poem for Bill Clinton. She said: "You may not control all the events that happen to you, but you can decide not to be reduced by them." She also said: "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel." Research: All seven autobiographies, beginning with I Know Why the Caged Bird Sings</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1931–2019 · USA</div>
+        <div class="figure-name">Toni Morrison</div>
+        <div class="figure-role">Nobel Prize in Literature 1993 · Author · Editor who published Angela Davis</div>
+        <div class="figure-detail">Nobel Prize in Literature 1993. Beloved is one of the greatest novels written in any language. As a senior editor at Random House for nearly 20 years, she published Angela Davis, Muhammad Ali, Toni Cade Bambara, and others — using her position to amplify Black voices. She said: "If you have some power, then your job is to empower somebody else." She also said: "If you can only be tall because someone is on their knees, then you have a serious problem." Research: Beloved · Song of Solomon · The Bluest Eye · Nobel Lecture 1993 (available free online)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1952–2021 · USA</div>
+        <div class="figure-name">bell hooks</div>
+        <div class="figure-role">Cultural critic · Feminist · "All About Love" · 40 books</div>
+        <div class="figure-detail">The most important cultural critic of the twentieth century for linking race, gender, class, and love into a unified understanding of how oppression works — and how to dismantle it. All About Love is the most practical philosophical text on what it means to love as a political act. She wrote for everyone — no academic gatekeeping. She chose to spell her name in lowercase to direct attention to her ideas rather than her identity. She said: "The moment we choose to love we begin to move towards freedom." Research: All About Love · Ain't I a Woman · Teaching to Transgress · The Will to Change</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1889–1960 · Jamaica & USA</div>
+        <div class="figure-name">Zora Neale Hurston</div>
+        <div class="figure-role">Anthropologist · Folklorist · Author · Harlem Renaissance · Died in poverty</div>
+        <div class="figure-detail">Trained anthropologist who documented African American and Caribbean folklore, music, and cultural traditions as legitimate intellectual heritage — at a time when they were dismissed as primitive. Their Eyes Were Watching God was largely ignored in her lifetime. She died in poverty in 1960 and was buried in an unmarked grave. Alice Walker found her grave in 1973, placed a headstone, and spent the next decade restoring her reputation. She is now recognised as one of the most important American writers of the twentieth century. Research: Their Eyes Were Watching God · Mules and Men · Tell My Horse</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1935–present · USA</div>
+        <div class="figure-name">Sonia Sanchez</div>
+        <div class="figure-role">Poet · Black Arts Movement · Educator · "the mother of us all"</div>
+        <div class="figure-detail">One of the foundational voices of the Black Arts Movement, she fused jazz rhythms, African oral traditions, and political militancy into poetry that demanded to be heard as well as read. She was the first to include Black Studies in a university curriculum (at San Francisco State, 1968). She mentored generations of Black writers. Still writing and performing in her 90s. Research: Collected Poems — Sonia Sanchez · Blues Book for Blue Black Magical Women</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1958–present · UK</div>
+        <div class="figure-name">Baroness Doreen Lawrence</div>
+        <div class="figure-role">Campaigner · Forced a public inquiry · Changed British law</div>
+        <div class="figure-detail">After the murder of her son Stephen Lawrence in 1993 — a racially motivated attack — and the Metropolitan Police's catastrophic failure to investigate it properly, Doreen Lawrence spent years campaigning for justice. The Macpherson Report (1999), which resulted from her campaign, introduced the concept of "institutional racism" into British law and led to sweeping changes in police accountability. She was awarded a life peerage in 2013. She changed British law through persistence, grief, and absolute refusal to accept the unacceptable. Research: And Still I Rise — Doreen Lawrence</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="queens-greats" class="sub-section">
+    <p class="sec-body" style="margin-bottom:1.5rem;">The figures whose names are known everywhere but whose full complexity deserves to be understood — not reduced to a quote on a poster.</p>
+    <div class="figure-grid">
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1925–1965 · USA</div>
+        <div class="figure-name">Malcolm X — El-Hajj Malik El-Shabazz</div>
+        <div class="figure-role">Minister · Human rights advocate · "By any means necessary"</div>
+        <div class="figure-detail">Malcolm X was not simply the angry counterpoint to Martin Luther King. He was a rigorous political philosopher who evolved continuously throughout his life. He went from street hustler to Nation of Islam minister to international human rights advocate who had moved far beyond Black nationalism by the time he was assassinated. His autobiography — written with Alex Haley — is one of the most important books of the twentieth century. He said: "Education is the passport to the future, for tomorrow belongs to those who prepare for it today." And: "The most disrespected woman in America is the Black woman. The most unprotected person in America is the Black woman. The most neglected person in America is the Black woman." He was assassinated on February 21, 1965. He was 39. Research: The Autobiography of Malcolm X — with Alex Haley · Malcolm X Speaks — George Breitman (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1929–1968 · Georgia, USA</div>
+        <div class="figure-name">Dr Martin Luther King Jr</div>
+        <div class="figure-role">Minister · Orator · Nobel Peace Prize 1964 · Assassinated</div>
+        <div class="figure-detail">The most famous figure of the American civil rights movement is also the most misunderstood. The sanitised version — "I have a dream," peaceful, acceptable, safe — erases what he was actually saying by 1967–68. By the end of his life he was explicitly anti-war, anti-capitalism, and calling for radical economic redistribution. He was assassinated on April 4, 1968 in Memphis, where he had gone to support striking sanitation workers. The FBI had been running a surveillance operation against him for years and sent him a letter urging him to kill himself. He was 39. Research: Where Do We Go From Here: Chaos or Community? — Martin Luther King Jr · The Radical King — Cornel West (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1918–2013 · South Africa</div>
+        <div class="figure-name">Nelson Mandela — Madiba</div>
+        <div class="figure-role">Lawyer · Revolutionary · President · 27 years imprisoned</div>
+        <div class="figure-detail">Nelson Mandela was a lawyer, a revolutionary, and a member of the South African Communist Party before he became the global symbol of reconciliation. He co-founded Umkhonto we Sizwe — the ANC's armed wing — because he believed, with Malcolm X, that non-violence was not always the answer against state violence. He spent 27 years in prison on Robben Island. When he emerged, he chose reconciliation not because he had forgotten but because he understood that a different South Africa required it. His presidency was complex and his post-prison politics are debated. He was more than a symbol. Research: Long Walk to Freedom — Nelson Mandela · Mandela: The Authorised Biography — Anthony Sampson</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1887–1940 · Jamaica & USA</div>
+        <div class="figure-name">Marcus Mosiah Garvey</div>
+        <div class="figure-role">Pan-Africanist · UNIA · Black Star Line · "Africa for Africans"</div>
+        <div class="figure-detail">Founded the Universal Negro Improvement Association — the largest Black mass movement in history with over 6 million members at its peak. Founded the Black Star Line shipping company — a Black-owned transatlantic fleet. His philosophy: Africa for Africans, economic self-determination, racial pride as a prerequisite for political freedom. He said: "A people without the knowledge of their past history, origin and culture is like a tree without roots." He was prosecuted by the US government (J. Edgar Hoover personally led the investigation), imprisoned, deported, and died in relative poverty in London in 1940. His influence on Malcolm X, Martin Luther King, the Rastafari movement, and Nelson Mandela is direct and documented. Research: The Philosophy and Opinions of Marcus Garvey — Amy Jacques Garvey (ed.)</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1946–present · Jamaica</div>
+        <div class="figure-name">Bob Marley</div>
+        <div class="figure-role">Musician · Prophet · Cultural ambassador · Survived assassination</div>
+        <div class="figure-detail">Reggae as a form carried the philosophy of Rastafari — a Black liberation theology rooted in Marcus Garvey's Pan-Africanism, Kemetic spirituality, and resistance to Babylon (the oppressive system). Marley's music reached Africa, the Caribbean, Europe, and Asia simultaneously. He survived an assassination attempt in 1976 and performed two nights later. He died of cancer in 1981 at 36 — refusing to amputate his toe, which had melanoma, because his Rastafari beliefs held that the body must remain whole. He said: "The people who are trying to make this world worse aren't taking a day off. How can I?" Research: Catch a Fire: The Life of Bob Marley — Timothy White · Bob Marley: The Untold Story — Chris Salewicz</div>
+      </div>
+      <div class="figure-card" onclick="toggleFigure(this)">
+        <div class="figure-era">1944–1977 · South Africa</div>
+        <div class="figure-name">Steve Biko</div>
+        <div class="figure-role">Black Consciousness Movement · "The most powerful weapon..." · Murdered in custody</div>
+        <div class="figure-detail">"The most powerful weapon in the hands of the oppressor is the mind of the oppressed." Steve Biko founded the Black Consciousness Movement in South Africa — the philosophical counterpart to the ANC's political programme. He argued that liberation began with the reclamation of Black psychological identity, dignity, and self-worth — that the internal colonisation of the mind had to be addressed before external political freedom had meaning. He was arrested by the South African security police on August 18, 1977, tortured, and beaten so severely he suffered fatal brain damage. He was transported 1,200 kilometres while unconscious and died on September 12, 1977. He was 30. Research: I Write What I Like — Steve Biko · Steve Biko — Donald Woods</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end queens section -->
+
+<!-- ======== REPARATIONS ======== -->
+<div id="reparations" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Reparations</div>
+    <h2 class="sec-title">What we are owed — and how we take it back</h2>
+    <p class="sec-body">Everyone but us was given reparations. The question is not whether we are owed. We are. The question is: what do we do while we wait — and what do we build so we no longer have to?</p>
+  </div>
+
+  <div class="sub-nav">
+    <button class="sub-btn on" onclick="showRep('rep-history')">What happened</button>
+    <button class="sub-btn" onclick="showRep('rep-others')">What others received</button>
+    <button class="sub-btn" onclick="showRep('rep-uk')">UK specifically</button>
+    <button class="sub-btn" onclick="showRep('rep-internal')">Internal reparations</button>
+    <button class="sub-btn" onclick="showRep('rep-jewish')">Community resilience lessons</button>
+  </div>
+
+  <div id="rep-history" class="sub-section on">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,30px); margin-bottom:10px;">The case — what was taken</h3>
+    <p class="sec-body" style="margin-bottom:1.5rem;">Reparations is not a radical idea. It is a legal and moral principle applied to every other major historical injustice except one.</p>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:1.5rem;">
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">⛓️</div>
+            <div>
+              <div class="expand-title">The transatlantic slave trade — what was actually extracted</div>
+              <div class="expand-tag">1619–1865 · estimated 12.5 million people · $14 trillion in unpaid labour</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The transatlantic slave trade forced approximately 12.5 million Africans into the Americas and Caribbean between 1619 and 1865. An estimated 1.8 million died in transit. Those who survived were worked without pay, without rights, without freedom, for generations. Economists Thomas Craemer (University of Connecticut) and William Darity (Duke University) have calculated the value of unpaid enslaved labour in the US alone at approximately $14 trillion in today's terms. This does not include the psychological damage, the cultural destruction, the land theft, or the century of legal discrimination that followed emancipation.</div>
+          <div class="expand-cite">Research: A Formal Approach to Reparations — Thomas Craemer, Political Science & Politics · From Here to Equality — William Darity Jr & A. Kirsten Mullen</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">📋</div>
+            <div>
+              <div class="expand-title">After emancipation — 100 years of legal theft</div>
+              <div class="expand-tag">Reconstruction · Jim Crow · redlining · urban renewal · mass incarceration</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The promise of Reconstruction (1865–1877) — 40 acres and a mule, land redistribution, political representation — was reversed within 12 years. What followed was 100 years of: Black Codes and convict leasing (slavery by another name), Jim Crow segregation enforced by law and violence, the destruction of thriving Black communities (Black Wall Street, Rosewood, Seneca Village), redlining (the deliberate exclusion of Black people from the government-backed mortgage system that built white middle-class wealth from the 1930s–1960s), urban renewal that destroyed Black neighbourhoods for highways, and mass incarceration that disproportionately imprisons Black Americans at rates 5x the white population. Each of these represents a distinct and calculable economic harm, layered on top of the original injustice of slavery.</div>
+          <div class="expand-cite">Research: The Color of Law — Richard Rothstein · From Here to Equality — William Darity Jr & A. Kirsten Mullen · The New Jim Crow — Michelle Alexander</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">📊</div>
+            <div>
+              <div class="expand-title">The wealth gap — where it stands today</div>
+              <div class="expand-tag">The median Black family has 1/8 the wealth of the median white family</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The median white family in the US holds approximately $188,000 in wealth. The median Black family holds approximately $24,000. This is not a gap caused by individual choices. It is the accumulated, compounded result of 400 years of extraction, prevention, and destruction of Black wealth. Every decade of the racial wealth gap is traceable to a specific government policy, legal structure, or act of violence that prevented Black wealth accumulation. In the UK, the picture is similar: Black British households have significantly lower wealth, homeownership rates, and pension savings than white households — despite Black Caribbean communities having been in the UK for over 70 years. The gap is not closing. Without intervention, it will take over 200 years to close at the current rate of change.</div>
+          <div class="expand-cite">Research: UK: Race Disparity Audit — Cabinet Office · The Colour of Money — Runnymede Trust · US: Survey of Consumer Finances — Federal Reserve</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rep-others" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,30px); margin-bottom:10px;">What others received</h3>
+    <p class="sec-body" style="margin-bottom:1.5rem;">Reparations have been paid before. Multiple times. To multiple groups. The precedent exists. What is missing is the political will — and the reason for its absence is instructive.</p>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:1.5rem;">
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">✡️</div>
+            <div>
+              <div class="expand-title">Germany to Israel and Jewish survivors — 1952</div>
+              <div class="expand-tag">$845 million at the time · equivalent to billions today · shaped modern Israel</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">In 1952, West Germany signed the Luxembourg Agreement, paying reparations of 3 billion deutschmarks (approximately $845 million at the time) to the State of Israel and 450 million deutschmarks to the World Jewish Congress for the benefit of Jewish survivors outside Israel. Subsequent agreements extended payments to individual survivors. These payments are widely credited as a significant contributor to Israel's early economic development. Germany has paid over $70 billion in total Holocaust reparations — and continues to pay to living survivors. The principle: the perpetrator state acknowledges the harm, quantifies it, and transfers wealth.</div>
+          <div class="expand-cite">Research: Holocaust Reparations — Ronald Zweig · German Reparations — Nicholas Balabkins</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🇺🇸</div>
+            <div>
+              <div class="expand-title">Japanese Americans — internment reparations, 1988</div>
+              <div class="expand-tag">$20,000 per survivor · official apology · Civil Liberties Act</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The Civil Liberties Act of 1988, signed by President Reagan, provided $20,000 in reparations to each surviving Japanese American who had been interned during World War II — approximately 82,000 people. It also included an official government apology acknowledging that the internment was "a grave injustice." Total payments: approximately $1.6 billion. The campaign for this took 40 years of sustained political organising by Japanese American communities and their allies. The lesson: reparations require political organising sustained across generations, not just moral argument.</div>
+          <div class="expand-cite">Research: Achieving the Impossible Dream: How Japanese Americans Obtained Redress — Mitchell Maki · Civil Liberties Act 1988 — Congressional Record</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🏛️</div>
+            <div>
+              <div class="expand-title">The Marshall Plan — Europe rebuilt after World War II</div>
+              <div class="expand-tag">$13 billion (1948) · $150 billion today · rebuilt European economies</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The European Recovery Program (Marshall Plan) provided $13.3 billion between 1948 and 1952 to rebuild Western European economies devastated by World War II. Adjusted for inflation, this is approximately $150 billion today. This investment in infrastructure, industry, and economic stability is widely credited as the foundation of post-war European prosperity. The same United States that invested in European reconstruction simultaneously maintained legal racial segregation at home and denied Black veterans the benefits of the GI Bill that were building white middle-class wealth. The contrast is not incidental. It is the policy.</div>
+          <div class="expand-cite">Research: The Marshall Plan — Michael Hogan · The GI Bill and Black Veterans — Ira Katznelson, When Affirmative Action Was White</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🌍</div>
+            <div>
+              <div class="expand-title">Florida's Rosewood reparations — 1994</div>
+              <div class="expand-tag">First reparations for racial violence in American history</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">In 1994, the Florida Legislature passed the Rosewood Claims Bill — the first legislation in American history to pay reparations for a racial massacre. It provided $150,000 to each of nine documented survivors and $500,000 to be shared among documented descendants of residents who had lost property. A further $1.5 million was provided for Black student scholarships. Total: approximately $2.1 million — a fraction of what was destroyed. But it established the principle. It happened because Arnett Doctor, a descendant of a Rosewood survivor, spent years organising, documenting, and forcing the story back into public memory. Moral argument alone did not do it. Organisation and persistence did.</div>
+          <div class="expand-cite">Research: Like Judgment Day — Michael D'Orso · Florida Rosewood Claims Act 1994 — Florida Legislature archives</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rep-uk" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,30px); margin-bottom:10px;">The UK specifically</h3>
+    <p class="sec-body" style="margin-bottom:1.5rem;">Britain profited from slavery more than almost any other nation. The facts of what happened — and what was paid and to whom — are more extraordinary than most British people have been taught.</p>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:1.5rem;">
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">💷</div>
+            <div>
+              <div class="expand-title">Abolition 1833 — who received compensation</div>
+              <div class="expand-tag">£20 million to slaveholders · nothing to enslaved people · paid off in 2015</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">When Britain abolished slavery in 1833, Parliament paid £20 million in compensation — not to enslaved people, but to slaveholders, to compensate them for the "loss of their property." This was 40% of the entire government budget at the time. The debt was so large it was structured as a government loan. That loan was not fully repaid until February 2015. Until 2015, British taxpayers — including Black British taxpayers — were paying off the compensation awarded to the people who had enslaved their ancestors. This was revealed publicly by the UK government's own @HMTreasury Twitter account in a tweet that was deleted within hours after public outcry. It was not a secret. It was simply never taught.</div>
+          <div class="expand-cite">Research: Britain's Slave Trade — S.I. Martin · Legacies of British Slave-ownership database — University College London (ucl.ac.uk/lbs) — searchable database of every slaveholder who received compensation</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🏛️</div>
+            <div>
+              <div class="expand-title">Wealth built on slavery — in buildings you walk past today</div>
+              <div class="expand-tag">UCL database · country houses · banks · insurance companies · universities</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The Legacies of British Slave-ownership database at University College London (ucl.ac.uk/lbs) documents every slaveholder who received compensation in 1833 and traces where that wealth went. The findings: Barclays Bank was founded in part by Quaker slave traders. Lloyd's of London insured slave ships. Many of Britain's most prestigious country houses were built on slavery profits. Numerous Oxbridge colleges received endowments from slaveholders. The Codrington Library at All Souls, Oxford was funded by Christopher Codrington's Barbadian sugar plantations. This wealth built the institutions and infrastructure of modern Britain — while the descendants of the enslaved received nothing.</div>
+          <div class="expand-cite">Research: Legacies of British Slave-ownership — UCL (ucl.ac.uk/lbs) — free to search · Brit(ish) — Afua Hirsch</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">📊</div>
+            <div>
+              <div class="expand-title">The UK racial wealth and opportunity gap today</div>
+              <div class="expand-tag">Income · homeownership · wealth · stop and search · criminal justice</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">In the UK today: Black British households earn on average 20% less than white British households. Black people are 40x more likely to be stopped and searched than white people. Black Caribbean children are three times more likely to be permanently excluded from school. Black women in the UK are four times more likely to die in childbirth than white women. Black people make up 3% of the population but 12% of the prison population. These are not individual failures. They are the statistical fingerprint of structural inequality — the downstream effect of a history that has never been addressed. Research: Race Disparity Audit 2017 (Cabinet Office) · The Colour of Money — Runnymede Trust · Racial Disparities in the Criminal Justice System — Ministry of Justice</div>
+          <div class="expand-cite">What you can do: Search the UCL LBS database for your area to find local slaveholders. Contact your MP citing specific statistics. Support Black-led CDFIs, credit unions, and community land trusts. Build the internal economy. The New Earth is the answer the state will not give.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rep-internal" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,30px); margin-bottom:10px;">Internal reparations — what we build ourselves</h3>
+    <p class="sec-body" style="margin-bottom:1.5rem;">External reparations may never come. Or they may come too late. The New Earth does not wait. This is what internal reparations looks like — the reclamation of land, wealth, knowledge, identity, and sovereignty from the inside.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">Economic reparations — from within</div>
+        <div class="li">The circulating dollar — conscious economic loyalty is internal wealth transfer</div>
+        <div class="li">Community land trust — acquiring land collectively that cannot be taken from individuals</div>
+        <div class="li">Pardner / sou-sou — the traditional savings circle that bypasses extractive banks</div>
+        <div class="li">Black-led credit union — community savings become community investment</div>
+        <div class="li">Cooperative business ownership — profits stay in community, not extracted by shareholders</div>
+        <div class="li">Inheritance planning — the first generation to systematically pass wealth to children</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Knowledge reparations</div>
+        <div class="li">This blueprint — knowing what was built, what was taken, and why</div>
+        <div class="li">Educating children with their full history — not the colonial curriculum</div>
+        <div class="li">The Kin-nect library — ancestral knowledge made accessible and searchable</div>
+        <div class="li">Oral history projects — recording elders before the knowledge dies with them</div>
+        <div class="li">The Timbuktu manuscripts — 700,000 documents that have not yet been read</div>
+        <div class="li">Dr Sebi, Dr Flame — reclaiming health sovereignty from pharmaceutical dependency</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Psychological reparations</div>
+        <div class="li">Ancestral healing — consciously completing what previous generations could not</div>
+        <div class="li">Identity rooted in greatness — Kemet, Timbuktu, not just slavery</div>
+        <div class="li">Therapy and somatic practice — addressing intergenerational trauma directly</div>
+        <div class="li">Community and belonging — the antidote to the isolation colonialism imposed</div>
+        <div class="li">Spiritual practice — reclaiming African spiritual traditions suppressed by colonialism</div>
+        <div class="li">Steve Biko's core insight: freedom begins in the mind. Reclaim it there first.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Political reparations — what external reparations would require</div>
+        <div class="li">Acknowledgement — formal recognition of the specific harms done</div>
+        <div class="li">Documentation — quantification of the specific wealth transferred and destroyed</div>
+        <div class="li">Sustained political organising — 40 years for Japanese Americans; expect a long game</div>
+        <div class="li">Coalition building — reparations arguments succeed when they are broad</div>
+        <div class="li">Legal strategy — cases in the International Court of Justice and Caribbean courts</div>
+        <div class="li">CARICOM Reparations Commission — the Caribbean's formal reparations claim against European governments, ongoing</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="info-box-label">The honest truth about reparations</div>
+      <div class="info-box-text">The political will for external reparations does not currently exist in Britain or the United States. It may one day. The CARICOM nations are pursuing legal claims. Municipalities like Evanston, Illinois have begun local reparations programmes. The movement is building. But the New Earth cannot be built on what might eventually come from governments that benefited from what was taken. The internal reparations model — land, economic sovereignty, knowledge, identity, community — is what Black Wall Street was. It is what the Freedom Colonies were. It is what the Maroons built in the mountains. We do not wait for permission to be free. We build freedom. That is what this blueprint is.</div>
+    </div>
+  </div>
+
+  <div id="rep-jewish" class="sub-section">
+    <h3 class="sec-title" style="font-size:clamp(20px,3vw,30px); margin-bottom:10px;">Community resilience — lessons from Jewish community structure</h3>
+    <p class="sec-body" style="margin-bottom:1.5rem;">This section is not about comparison or competition. It is about studying what works. Orthodox Jewish communities — particularly in the UK — operate with a degree of internal economic loyalty, educational sovereignty, and community self-sufficiency that is the closest modern parallel to what Black Wall Street achieved. Understanding how they do it is useful for the New Earth.</p>
+
+    <div class="warn-box">
+      <div class="warn-box-label">Important context</div>
+      <div class="warn-box-text">Jewish communities in the UK have legal recognition, centuries of established infrastructure, and state protection that Black communities do not. The comparison is not "why don't you do what they do" — that ignores the structural differences entirely. The question is: what are the organising principles that create community resilience, and can those principles be applied with the resources and structures available to us? The answer is yes. Selectively, intelligently, and on our own terms.</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:1.5rem;">
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🏫</div>
+            <div>
+              <div class="expand-title">Educational sovereignty — Jewish schools and yeshiva</div>
+              <div class="expand-tag">Identity-rooted education · children educated in community values from birth</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">Orthodox Jewish children attend schools where Jewish history, Hebrew language, Torah study, and community values are integrated into the curriculum from the beginning. The yeshiva (religious academy) continues this education through adulthood. The result: a community where every member shares a common historical narrative, a common language of values, and a deep sense of collective identity. This does not require a separate school system in the New Earth model — it requires a community education programme running alongside mainstream education, teaching children who they are, where they come from, and what they are part of.</div>
+          <div class="expand-cite">New Earth application: The weekly study circle for adults. The elder-led history and values education for children. The Kin-nect library as a shared knowledge commons. These are the equivalent — integrated into daily life, not reserved for Sundays.</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">💰</div>
+            <div>
+              <div class="expand-title">Tzedakah — obligatory mutual aid</div>
+              <div class="expand-tag">Not charity · a legal obligation · 10% of income redistributed within community</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">Tzedakah (literally "justice" or "righteousness") is not optional charity in Jewish tradition — it is a legal and moral obligation. The principle: 10% of income is to be given to support those in need within the community. This creates a systematic internal transfer of wealth that means no community member is left without support. Coupled with the principle that this giving should be done anonymously (Maimonides' highest form of tzedakah), it removes the shame and hierarchy from receiving. The community holds each other without fanfare. The Ubuntu equivalent: "When one is in crisis, the community responds — not charities, not services."</div>
+          <div class="expand-cite">New Earth application: Community fund with regular contribution from all members. Sliding scale for services — those who have more pay more, those who have less pay less. The gift economy for basics within the network.</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🛒</div>
+            <div>
+              <div class="expand-title">The kosher economy — internal economic loyalty</div>
+              <div class="expand-tag">Community members buy from community-certified businesses · the circulating dollar</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The kosher food system — whatever one thinks of its religious basis — has the economic effect of creating a captive internal market. Observant Jewish households can only buy from kosher-certified suppliers, which are overwhelmingly Jewish-owned. This creates an internal economic circulation that keeps money within the community. The principle is the same as Black Wall Street's conscious economic loyalty — but it is structured into daily practice rather than depending on individual willpower. The New Earth equivalent: a community directory, a "buy Black first" pledge, and the social expectation that community members check the network before spending externally.</div>
+          <div class="expand-cite">New Earth application: Kin-nect marketplace and practitioner directory. Community pledge to check the directory first. Social recognition for community economic loyalty — not guilt, but celebration.</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">⚖️</div>
+            <div>
+              <div class="expand-title">Beth Din — internal dispute resolution</div>
+              <div class="expand-tag">Community court · disputes resolved internally · no external legal system needed</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">The Beth Din (literally "house of judgement") is a rabbinical court that resolves disputes within the Jewish community — commercial, civil, and personal — using Jewish law and community-appointed judges. It has legal standing in the UK under the Arbitration Act 1996, meaning its decisions are legally binding and enforceable. This means the community can resolve disputes without subjecting its members to a legal system that was not designed for them and does not always serve them. The principle: a community with its own dispute resolution system is more sovereign than one that must always turn outward for justice.</div>
+          <div class="expand-cite">New Earth application: The community charter must include a clear conflict resolution process. The restorative justice circle as the internal dispute resolution model. For significant commercial disputes, explore arbitration agreements between community businesses.</div>
+        </div>
+      </div>
+
+      <div class="expand-card" onclick="this.classList.toggle('open')">
+        <div class="expand-trigger">
+          <div class="expand-trigger-left">
+            <div class="expand-icon-wrap">🕍</div>
+            <div>
+              <div class="expand-title">The synagogue as community hub — not just worship</div>
+              <div class="expand-tag">Social services · food distribution · education · community events · belonging</div>
+            </div>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="expand-body">
+          <div class="expand-body-text">In orthodox Jewish communities, the synagogue is not a once-a-week worship space. It is the community's living room — hosting daily prayer, weekly Shabbat, lifecycle events, education for children and adults, social services, food distribution (food banks, Passover food packages), community announcements, matchmaking, employment networks, and mutual aid. The building is occupied and active every day. This is exactly the model Kemet's temples used — a single building as the hub of all community functions. The New Earth community centre is this: a space for healing, education, food, celebration, governance, and belonging — all in one place.</div>
+          <div class="expand-cite">New Earth application: The community gathering space as the first physical structure to build. Not the most impressive — the most functional. A place where the community comes together every day, not just for ceremony.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end reparations section -->
+
 <!-- ======== OUR HISTORY TIMELINE ======== -->
 <div id="timeline" class="section">
 <!-- ANCIENT AFRICA -->
@@ -1658,12 +2460,41 @@
 <!-- MODERN ERA -->
 <div id="modern" class="era-section">
   <div class="era-header">
-    <div class="era-label">1900 CE – 2000 CE</div>
+    <div class="era-label">1870 CE – 2000 CE</div>
     <h2 class="era-title">The modern era</h2>
-    <p class="era-desc">The twentieth century: economic sovereignty built and destroyed, independence won across the continent, the Harlem Renaissance, the civil rights era, Caribbean independence, and the global spread of Black cultural and intellectual power.</p>
+    <p class="era-desc">Economic sovereignty built and destroyed. Communities burned, bulldozed, and erased by law. Independence won across the continent. The pattern repeats — and the lesson deepens: build wider, build legally protected, build networked.</p>
   </div>
 
   <div class="timeline">
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1871 CE onwards</div>
+        <div class="t-event">Jackson Ward — the first Black Wall Street, Richmond Virginia</div>
+        <div class="t-place">Richmond, Virginia, USA</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">35 years before Greenwood, Jackson Ward in Richmond was already being called "the Harlem of the South" and "the Black Wall Street." It was home to the first Black-owned life insurance company in America, and to Maggie Lena Walker — the first Black woman to charter and serve as president of a US bank. Walker said explicitly: "Let us put our money together; let us use our money; let us put our money out at usury among ourselves." Jackson Ward did not burn. It was slowly strangled — by redlining, economic isolation, and then literally cut in half by the construction of Interstate 95 in the 1950s. The highway was not routed through Jackson Ward by accident.</div>
+        <div class="t-why">Why it matters: The weapon changed from mobs to planning departments. Highways replaced fire. The destruction of thriving Black communities through "urban renewal" killed more communities than racial violence. The New Earth must be legally protected against both.</div>
+        <div class="t-research">Research: Maggie Lena Walker — Gertrude Marlowe · National Park Service, Maggie L. Walker National Historic Site · Race and the Making of American Cities — Richard Rothstein</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">1880s–1960s CE</div>
+        <div class="t-event">Hayti District, Durham — home of the largest Black-owned business on Earth</div>
+        <div class="t-place">Durham, North Carolina, USA</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">Named deliberately after Haiti — the first Black republic — the Hayti District of Durham was anchored by Parrish Street, which became known as "Black Wall Street of the South." North Carolina Mutual Life Insurance, founded here, became the largest Black-owned business in the world at its peak. Durham's first Black physician established practice here in 1888. The Biltmore Hotel, the Regal Theater, hundreds of Black-owned businesses. The community was not destroyed by fire or mob — it was bulldozed for the construction of NC Highway 147. A thriving economic district turned into a road. The people were simply moved. Their wealth was not.</div>
+        <div class="t-why">Why it matters: Hayti chose its name carefully. Haiti meant: we are free, we are sovereign, we build for ourselves. The highway meant: the state can always take what you build if it is not legally protected. Community Land Trusts exist precisely because of what happened to Hayti.</div>
+        <div class="t-research">Research: Black Wall Street of the South — Valeria Sinclair-Chapman · North Carolina Mutual Life Insurance Company archives, Durham County Library</div>
+      </div>
+    </div>
+
     <div class="t-entry" onclick="this.classList.toggle('open')">
       <div class="t-head">
         <div class="t-date">1906–1921 CE</div>
@@ -1672,9 +2503,23 @@
         <span class="t-arrow">▼</span>
       </div>
       <div class="t-body">
-        <div class="t-body-text">O.W. Gurley bought 40 acres and sold only to Black people. Within 15 years: 300+ businesses, 2 schools, 2 newspapers, banks, hospitals, law firms, hotels, cinemas. The dollar circulated 19–36 times before leaving the community. Every professional service a community needs — inside the community. Destroyed June 1, 1921 by a white mob aided by the Oklahoma National Guard. 300+ killed. 10,000 homeless. $150 million in today's money destroyed. Zoning laws changed to prevent rebuilding. Never taught in schools until the late 1990s.</div>
-        <div class="t-why">Why it matters: The circulating dollar. Every service inside. Conscious economic loyalty. This is the economic model of the New Earth — proven to work, proven to be targeted.</div>
-        <div class="t-research">Research: The Burning — Tim Madigan · Death in a Promised Land — Scott Ellsworth · 1921 Tulsa Race Massacre Commission Report</div>
+        <div class="t-body-text">O.W. Gurley bought 40 acres and committed to selling only to Black people. His founding principle: intentional economic sovereignty from the first purchase. Within 15 years: 300+ businesses, 2 schools, 2 newspapers, banks, hospitals, law firms, hotels, cinemas. The dollar circulated 19–36 times before leaving the community. Every professional service a community needs — inside the community. Destroyed June 1, 1921 by a white mob aided by the Oklahoma National Guard and private aircraft. 300+ killed. 10,000 homeless. $150 million in today's money destroyed overnight. Zoning laws were then changed to prevent rebuilding. Suppressed from history for over 70 years.</div>
+        <div class="t-why">Why it matters: The circulating dollar. Every service inside. Conscious economic loyalty. This is the economic model of the New Earth — proven to work, proven to be targeted the moment it succeeds. You do not destroy what does not threaten you.</div>
+        <div class="t-research">Research: The Burning — Tim Madigan · Death in a Promised Land — Scott Ellsworth · 1921 Tulsa Race Massacre Commission Report (available free online)</div>
+      </div>
+    </div>
+
+    <div class="t-entry" onclick="this.classList.toggle('open')">
+      <div class="t-head">
+        <div class="t-date">January 1923 CE</div>
+        <div class="t-event">Rosewood — a self-sufficient Black town burned to the ground in seven days</div>
+        <div class="t-place">Levy County, Florida, USA</div>
+        <span class="t-arrow">▼</span>
+      </div>
+      <div class="t-body">
+        <div class="t-body-text">On January 1, 1923, Rosewood was a quiet, self-sufficient Black community — painted houses, rose gardens, family farms, three churches, a school, a Masonic lodge, citrus orchards and turpentine stills. Families owned their land. Seven days later it was ash and silence. A white mob of several hundred, triggered by a false accusation, descended over multiple days. Residents fled into swamps and hid for days. Every building was burned. At least six Black people were killed — likely many more. No one was ever charged. The state of Florida did not investigate. The story was then suppressed for nearly sixty years — until a descendant named Arnett Doctor spent his life forcing it back into public memory. Florida eventually passed a reparations bill in 1994 — the first of its kind in American history.</div>
+        <div class="t-why">Why it matters: Even small communities — 300 people, nine miles from the nearest town — were targeted the moment they became visibly self-sufficient. Ownership plus prosperity plus Black equalled threat. The pattern is not accidental. It is consistent.</div>
+        <div class="t-research">Research: Like Judgment Day: The Ruin and Redemption of a Town Called Rosewood — Michael D'Orso · Rosewood Massacre: A Reporter's Long Road to a Bittersweet Victory — Gary Moore</div>
       </div>
     </div>
 
@@ -1823,6 +2668,20 @@
   function showHist(id) {
     document.querySelectorAll('#history .sub-section').forEach(s => s.classList.remove('on'));
     document.querySelectorAll('#history .sub-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  function showQueens(id) {
+    document.querySelectorAll('#queens .sub-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#queens .sub-btn').forEach(b => b.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    event.target.classList.add('on');
+  }
+
+  function showRep(id) {
+    document.querySelectorAll('#reparations .sub-section').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('#reparations .sub-btn').forEach(b => b.classList.remove('on'));
     document.getElementById(id).classList.add('on');
     event.target.classList.add('on');
   }

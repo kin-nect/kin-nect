@@ -247,7 +247,7 @@ const panels = {
     <div class="stat"><div class="sn">4</div><div class="sl">Founding Partners</div></div>
     <div class="stat"><div class="sn">12</div><div class="sl">Saved Items</div></div>
     <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
-    <div class="stat"><div class="sn">5</div><div class="sl">Backend Pages</div></div>
+    <div class="stat"><div class="sn">8</div><div class="sl">Backend Pages</div></div>
   </div>
   <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('f-saved')">See all →</div></div>
     <div class="g3">
@@ -256,10 +256,11 @@ const panels = {
       <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
     </div>
   </div>
-  <div class="sec"><div class="sh"><div class="st">Backend pages</div><div class="sl2" onclick="gotoPanel('f-backend')">See all →</div></div>
+  <div class="sec"><div class="sh"><div class="st">Backend pages</div><div class="sl2" onclick="gotoPanel('f-backend');setActiveNav('f-backend')">See all →</div></div>
     <div class="g2">
-      <a class="be-card" href="vision.html" target="_blank"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept. Built for pitch decks and grants.</div><span class="be-badge">Not live · Preview only</span></a>
-      <a class="be-card" href="marketplace.html" target="_blank"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm. Commission model mockup.</div><span class="be-badge">Not live · Mockup</span></a>
+      <div class="be-card" onclick="openPreview('vision')" style="cursor:pointer"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept. Built for pitch decks and grants.</div><span class="be-badge">Click to open →</span></div>
+      <div class="be-card" onclick="openPreview('marketplace')" style="cursor:pointer"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm. Commission model mockup.</div><span class="be-badge">Click to open →</span></div>
+      <div class="be-card" onclick="openTeaCupboard()" style="cursor:pointer;border-color:rgba(45,90,39,0.4)"><span class="be-icon">🍵</span><div class="be-tag" style="color:#5a9a4a">Ital Apothecary · New</div><div class="be-name">The Tea Cupboard</div><div class="be-desc">14 Ital herbs with full profiles, Ital wisdom and kidney cleanse trio.</div><span class="be-badge" style="color:#5a9a4a;border-color:rgba(45,90,39,0.3)">Click to open →</span></div>
     </div>
   </div>`,
 
@@ -282,7 +283,10 @@ const panels = {
 
 'f-apothecary': `
   <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</div>
-  <a href="apothacary.html" target="_blank" style="display:inline-block;margin-top:0.75rem;background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;text-decoration:none;font-weight:700;">Open The Apothecary ✦</a>
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;">
+    <a href="apothacary.html" target="_blank" style="display:inline-block;background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;text-decoration:none;font-weight:700;">Open The Apothecary ✦</a>
+    <button onclick="openTeaCupboard()" style="display:inline-block;background:transparent;color:#5a9a4a;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;border:1px solid rgba(45,90,39,0.5);cursor:pointer;font-weight:700;">🍵 Tea Cupboard ✦</button>
+  </div>
   </div>
   <div class="af-row" id="af-row"></div>
   <div class="hg" id="hg"></div>
@@ -320,15 +324,16 @@ const panels = {
   </div>`,
 
 'f-backend': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">In development</div><div class="pt">Vision & Previews</div><div class="ps">Backend pages, mockups and concepts. Not live on the main site — for grants, developers and your own reference.</div></div>
+  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">In development</div><div class="pt">Vision & Previews</div><div class="ps">Backend pages, mockups and concepts. Not live on the main site — for grants, developers and your own reference. Click any card to open.</div></div>
   <div class="g2">
-    <a class="be-card" href="vision.html" target="_blank"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept — directory, marketplace, events, community. Built for pitch decks and grant applications.</div><span class="be-badge">Not live · Preview only</span></a>
-    <a class="be-card" href="marketplace.html" target="_blank"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm, products. Commission model mockup for developer brief and grant pitch.</div><span class="be-badge">Not live · Mockup</span></a>
-    <a class="be-card" href="divine-play.html" target="_blank"><span class="be-icon">✨</span><div class="be-tag">18+ · Future Pillar</div><div class="be-name">Divine Play</div><div class="be-desc">Conscious sexuality, intimacy and education. A future KIN-NECT pillar behind an 18+ restriction.</div><span class="be-badge">Not live · Concept only</span></a>
-    <a class="be-card" href="eventsmockup.html" target="_blank"><span class="be-icon">🎟</span><div class="be-tag">Events Calendar</div><div class="be-name">Events + Ticketing</div><div class="be-desc">Calendar with integrated ticket purchasing. Full vision of the events pillar. Not yet live on site.</div><span class="be-badge">Not live · Mockup</span></a>
-    <a class="be-card" href="the-tribe.html" target="_blank"><span class="be-icon">👤</span><div class="be-tag">Personal Portal</div><div class="be-name">Member Portal — Clean Version</div><div class="be-desc">Alternative portal design in KIN-NECT light/dark style. For comparison and developer brief.</div><span class="be-badge">Not live · Mockup</span></a>
-    <a class="be-card" href="apothacary.html" target="_blank"><span class="be-icon">🌿</span><div class="be-tag">Personal · Reference</div><div class="be-name">The Apothecary</div><div class="be-desc">Herbalism, aromatherapy, plant medicine and food as medicine. Your personal healing reference — four boards, fully private.</div><span class="be-badge">Personal · Private</span></a>
-    <a class="be-card" href="new-earth.html" target="_blank"><span class="be-icon">🌍</span><div class="be-tag">Living Document</div><div class="be-name">New Earth Blueprint</div><div class="be-desc">Ancient wisdom, sovereign community, holistic healing and technological harmony. The ancestral blueprint for what we are building.</div><span class="be-badge">Living document</span></a>
+    <div class="be-card" onclick="openPreview('vision')" style="cursor:pointer"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept — directory, marketplace, events, community. Built for pitch decks and grant applications.</div><span class="be-badge">Not live · Preview only</span></div>
+    <div class="be-card" onclick="openPreview('marketplace')" style="cursor:pointer"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm, products. Commission model mockup for developer brief and grant pitch.</div><span class="be-badge">Not live · Mockup</span></div>
+    <div class="be-card" onclick="openPreview('divine-play')" style="cursor:pointer"><span class="be-icon">✨</span><div class="be-tag">18+ · Future Pillar</div><div class="be-name">Divine Play</div><div class="be-desc">Conscious sexuality, intimacy and education. A future KIN-NECT pillar behind an 18+ restriction.</div><span class="be-badge">Not live · Concept only</span></div>
+    <div class="be-card" onclick="openPreview('eventsmockup')" style="cursor:pointer"><span class="be-icon">🎟</span><div class="be-tag">Events Calendar</div><div class="be-name">Events + Ticketing</div><div class="be-desc">Calendar with integrated ticket purchasing. Full vision of the events pillar.</div><span class="be-badge">Not live · Mockup</span></div>
+    <div class="be-card" onclick="openPreview('the-tribe')" style="cursor:pointer"><span class="be-icon">👤</span><div class="be-tag">Personal Portal</div><div class="be-name">Member Portal — Clean Version</div><div class="be-desc">Alternative portal design in KIN-NECT light/dark style. For comparison and developer brief.</div><span class="be-badge">Not live · Mockup</span></div>
+    <div class="be-card" onclick="openPreview('apothacary')" style="cursor:pointer"><span class="be-icon">🌿</span><div class="be-tag">Personal · Reference</div><div class="be-name">The Apothecary</div><div class="be-desc">Herbalism, aromatherapy, plant medicine and food as medicine. Your personal healing reference — four boards, fully private.</div><span class="be-badge">Personal · Private</span></div>
+    <div class="be-card" onclick="gotoPanel('f-newearth');setActiveNav('f-newearth')" style="cursor:pointer"><span class="be-icon">🌍</span><div class="be-tag">Living Document</div><div class="be-name">New Earth Blueprint</div><div class="be-desc">Ancient wisdom, sovereign community, holistic healing and technological harmony. The ancestral blueprint for what we are building.</div><span class="be-badge">Open in portal →</span></div>
+    <div class="be-card" onclick="openTeaCupboard()" style="cursor:pointer;border-color:rgba(45,90,39,0.4)"><span class="be-icon">🍵</span><div class="be-tag" style="color:#5a9a4a">Ital Apothecary</div><div class="be-name">The Tea Cupboard</div><div class="be-desc">14 Ital herbs — soursop, hibiscus, mullein, damiana and your full kidney cleanse trio. Filterable by category with full profiles.</div><span class="be-badge" style="color:#5a9a4a;border-color:rgba(45,90,39,0.3)">Personal · Private ✦ New</span></div>
   </div>`,
 
 'f-newearth': `
@@ -543,9 +548,115 @@ function oH(h) {
   document.getElementById('hm').classList.add('open');
 }
 
+// ── PREVIEW LAUNCHER ──
+function openPreview(page) {
+  // Try to open the page file — works when files are in the same folder
+  window.open(page + '.html', '_blank');
+}
+
+// ── TEA CUPBOARD OVERLAY ──
+function openTeaCupboard() {
+  document.getElementById('tc-overlay').classList.add('open');
+}
+function closeTeaCupboard() {
+  document.getElementById('tc-overlay').classList.remove('open');
+}
+
+const teaCupboardTeas = [
+  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal properties","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+  {name:"Thai Tea",emoji:"🍵",cat:"energy",color:"#c17f3a",tagline:"The Golden Energiser",benefits:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise and tamarind seed — aids digestion","Anti-inflammatory properties","Supports immune health"],usage:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",ital:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",caution:"Contains caffeine — avoid late in the evening."},
+  {name:"Elderflower",emoji:"🌸",cat:"healing",color:"#b8a96a",tagline:"The Immune Blossom",benefits:["Powerful immune booster — especially for colds and flu","Natural antihistamine — relieves hay fever and allergies","Anti-inflammatory, supports sinus health","Rich in Vitamin C and flavonoids","Promotes healthy skin from within"],usage:"Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season.",ital:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",caution:"Use flowers only — elderberries and raw bark can be toxic in large amounts."},
+  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Antispasmodic — relieves menstrual cramps","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
+  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Balances hormones naturally","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy."},
+  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C — boosts immunity","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],usage:"Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red. Drink hot or cold. Pairs well with ginger.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep, restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines","Balances the nervous system"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion. Inhale steam for sinus relief.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
+  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family."},
+  {name:"Roasted Green Tea",emoji:"🍵",cat:"energy",color:"#6b7c3a",tagline:"The Grounding Brew",benefits:["Lower caffeine than regular green tea — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Earthy, nutty flavour from the roasting process"],usage:"Steep at 80°C for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",ital:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",caution:"Contains caffeine — avoid in the evening. Not for those with iron deficiency (drink between meals)."},
+  {name:"Neem Leaf",emoji:"🌿",cat:"kidney",color:"#3d6b2a",tagline:"The Blood Purifier",benefits:["Powerful blood purifier — removes toxins","Supports kidney function through detoxification","Antimicrobial, antifungal and antibacterial","Anti-inflammatory for urinary tract health","Traditionally used against parasites"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink 1 cup daily, morning on an empty stomach.",ital:"Called the 'Village Pharmacy' across Africa and India — neem is the great cleanser Jah provided.",caution:"Very potent — do not use for extended periods. Avoid in pregnancy. May interact with diabetes medication."},
+  {name:"Alfalfa",emoji:"🌱",cat:"kidney",color:"#4a8c3a",tagline:"The Mineral Builder",benefits:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Supports bone density with high calcium and magnesium","Detoxifies and rebuilds the blood"],usage:"Steep 1–2 tsp for 5–7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",ital:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",caution:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
+  {name:"Dandelion",emoji:"🌼",cat:"kidney",color:"#c4a000",tagline:"The Kidney Tonic",benefits:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Prebiotic — feeds beneficial gut bacteria"],usage:"Steep 1–2 tsp for 10 minutes. Roasted root makes a rich coffee-like brew. Drink 2–3 cups daily.",ital:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",caution:"May increase urination frequency. Avoid if allergic to ragweed family."}
+];
+
+const tcCats = {all:"All",healing:"Deep Healing",calm:"Calm & Sleep",energy:"Energy",digestive:"Digestive",heart:"Heart & Blood",respiratory:"Respiratory",woman:"Womb Wisdom",spirit:"Spirit",kidney:"Kidney Cleanse"};
+let tcFilter = 'all';
+
+function renderTcCards() {
+  const list = tcFilter === 'all' ? teaCupboardTeas : teaCupboardTeas.filter(t => t.cat === tcFilter);
+  document.getElementById('tc-grid').innerHTML = list.map(t => `
+    <div onclick='openTcDetail(${JSON.stringify(t).replace(/'/g,"&#39;")})' style="background:rgba(255,255,255,0.03);border:1px solid ${t.color}25;border-radius:4px;padding:1.25rem;cursor:pointer;position:relative;transition:all 0.2s;" onmouseenter="this.style.background='${t.color}15';this.style.borderColor='${t.color}55';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='${t.color}25';this.style.transform='none'">
+      <div style="position:absolute;top:10px;right:10px;width:7px;height:7px;border-radius:50%;background:${t.color};opacity:0.7"></div>
+      <div style="font-size:1.8rem;margin-bottom:8px">${t.emoji}</div>
+      <div style="font-size:0.95rem;color:#e8dcc8;margin:0 0 3px">${t.name}</div>
+      <div style="font-size:0.73rem;font-style:italic;color:${t.color};margin:0 0 10px">${t.tagline}</div>
+      <ul style="list-style:none;padding:0;margin:0 0 8px">${t.benefits.slice(0,2).map(b=>`<li style="font-size:0.72rem;color:#8a7a5a;padding:2px 0 2px 10px;position:relative"><span style="position:absolute;left:0;color:${t.color}">·</span>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <div style="font-family:'Space Mono',monospace;font-size:0.37rem;color:#5a4a3a;letter-spacing:0.1em">TAP TO OPEN →</div>
+    </div>
+  `).join('');
+}
+
+function renderTcFilters() {
+  document.getElementById('tc-filters').innerHTML = Object.entries(tcCats).map(([k,v]) => `
+    <button onclick="tcFilter='${k}';renderTcFilters();renderTcCards()" style="padding:4px 12px;border:1px solid ${k===tcFilter?'rgba(232,220,200,0.35)':'rgba(232,220,200,0.1)'};border-radius:2rem;background:${k===tcFilter?'rgba(232,220,200,0.06)':'transparent'};color:${k===tcFilter?'#e8dcc8':'#8a7a5a'};font-size:0.72rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s">${v}</button>
+  `).join('');
+}
+
+function openTcDetail(t) {
+  const d = document.getElementById('tc-detail');
+  d.innerHTML = `
+    <div style="position:relative;background:#131008;border:1px solid ${t.color}40;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto">
+      <button onclick="document.getElementById('tc-detail').innerHTML=''" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#5a4a3a;font-size:1.4rem;cursor:pointer;line-height:1">×</button>
+      <div style="font-size:2.5rem;margin-bottom:10px">${t.emoji}</div>
+      <h3 style="font-size:1.6rem;font-weight:normal;color:#e8dcc8;margin:0 0 3px">${t.name}</h3>
+      <p style="color:${t.color};font-style:italic;font-size:0.85rem;margin:0 0 1.25rem">${t.tagline}</p>
+      <div style="background:${t.color}12;border-left:3px solid ${t.color};padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem">
+        <p style="margin:0;font-size:0.83rem;font-style:italic;color:#c8b890;line-height:1.6">${t.ital}</p>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">BENEFITS</p>
+      <ul style="list-style:none;padding:0;margin:0 0 1.25rem">${t.benefits.map(b=>`<li style="font-size:0.83rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:${t.color}">✦</span>${b}</li>`).join('')}</ul>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">HOW TO USE</p>
+      <p style="font-size:0.83rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem">${t.usage}</p>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:#a06050;margin:0 0 8px">CAUTION</p>
+      <div style="background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px">
+        <p style="margin:0;font-size:0.78rem;color:#a06050;line-height:1.5"><strong style="color:#c07060">NOTE: </strong>${t.caution}</p>
+      </div>
+    </div>`;
+  d.style.display = 'flex';
+}
+
 // ── INIT ──
 renderNav(founderNav);
 loadPanel('f-overview');
+</script>
+
+<!-- TEA CUPBOARD OVERLAY -->
+<div id="tc-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:10000;backdrop-filter:blur(4px);overflow-y:auto" onclick="if(event.target===this)closeTeaCupboard()">
+  <div style="max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;font-family:Georgia,serif;color:#e8dcc8">
+    <!-- Header -->
+    <div style="text-align:center;padding-bottom:2rem;border-bottom:1px solid rgba(232,220,200,0.1);margin-bottom:2rem;position:relative">
+      <button onclick="closeTeaCupboard()" style="position:absolute;top:0;right:0;background:none;border:none;color:#5a4a3a;font-size:1.6rem;cursor:pointer;line-height:1">×</button>
+      <p style="font-family:'Space Mono',monospace;letter-spacing:0.4em;font-size:0.55rem;color:#8a7a5a;text-transform:uppercase;margin-bottom:0.75rem">Ital Apothecary</p>
+      <h1 style="font-size:clamp(1.8rem,5vw,3rem);font-weight:normal;letter-spacing:0.05em;color:#e8dcc8;margin:0 0 0.4rem">The Tea Cupboard</h1>
+      <p style="color:#8a7a5a;font-style:italic">"Herbs are the healing of a nation" — Rastafari</p>
+      <!-- Filters -->
+      <div id="tc-filters" style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1.5rem"></div>
+    </div>
+    <!-- Grid -->
+    <div id="tc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem"></div>
+    <!-- Detail modal inside overlay -->
+    <div id="tc-detail" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:10001;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px)" onclick="if(event.target===this){this.innerHTML='';this.style.display='none'}"></div>
+  </div>
+</div>
+
+<script>
+// Init tea cupboard when overlay opens (we override openTeaCupboard to also render)
+const _origOpenTc = openTeaCupboard;
+window.openTeaCupboard = function() {
+  document.getElementById('tc-overlay').style.display = 'block';
+  renderTcFilters();
+  renderTcCards();
+};
 </script>
 </body>
 </html>

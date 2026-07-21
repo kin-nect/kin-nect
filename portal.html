@@ -187,6 +187,7 @@
     <span class="me" id="hm-e"></span>
     <h3 class="mn" id="hm-n"></h3>
     <p class="msl" id="hm-t"></p>
+    <div id="hm-badges" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem"></div>
     <div class="ib" id="hm-ib"><p id="hm-i"></p></div>
     <p class="msec" id="hm-bl">Benefits</p>
     <ul class="mlist" id="hm-b"></ul>
@@ -209,10 +210,19 @@ const herbs=[
   {name:"Neem",emoji:"🌿",cat:"digestive",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's main waste exit","Toxins pushed to the liver and kidneys are escorted out","Powerful antimicrobial — kills harmful bacteria and parasites","Antifungal — addresses candida and gut overgrowth","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach in the morning.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — use 1x per week only as per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy.",drfire:{role:"The Colon (The Toilet)",protocol:"DR.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins pressed from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.",freq:"1x per week only"}},
   {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido","Antidepressant and mood-elevating","Reduces anxiety and emotional exhaustion","Historically used for spiritual practices"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon.",ital:"Used by the Maya — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects."},
   {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health","Soothes bronchitis and asthma","Supports recovery from smoking damage","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein keeps that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family.",drfire:{role:"Liver · Eyes · Legs",protocol:"Use alongside dandelion and neem as part of the DR.Fire cleanse cycle. Clears the liver, supports eye health and circulation in the legs.",freq:"As needed during cleanse cycles"}},
-  {name:"Milk Thistle",emoji:"🌸",cat:"kidney",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Supports kidney health alongside dandelion","Powerful antioxidant — neutralises free radicals in liver tissue","Anti-inflammatory for the digestive tract","Helps the body process and eliminate toxins","Supports healthy cholesterol levels"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Can also take as a tincture. Drink 1–2 cups daily.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",drfire:{role:"Kidney & Liver",protocol:"Paired with dandelion as Dr. Fire's kidney cleanse duo. Together they pull waste from the kidney and shield the liver as toxins pass through.",freq:"Daily during cleanse · dandelion + milk thistle together"}}
+  {name:"Milk Thistle",emoji:"🌸",cat:"liver",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Reduces liver inflammation and scarring","Powerful antioxidant — neutralises free radicals in liver tissue","Helps the body process and eliminate toxins","Supports healthy cholesterol levels","Indirectly eases kidney load by keeping the liver clean"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. During DR.Fire cleanse: shields the liver as toxins pass through.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",drfire:{role:"The Liver",protocol:"Shields and regenerates the liver as toxins are pushed through during the DR.Fire cleanse. Works with mullein to keep the liver processing cleanly.",freq:"Daily during cleanse cycles"}},
+
+  /* ── DR. SEBI APPROVED HERBS ── */
+  {name:"Burdock Root",emoji:"🌱",cat:"drsebi",color:"#8B4513",tagline:"The #1 Blood Cleanser",drsebi:true,benefits:["Dr. Sebi's #1 blood cleanser — removes heavy metals and toxins","Powerful diuretic — flushes kidneys and lymphatic system","Rich in organic iron — rebuilds and strengthens the blood","Anti-inflammatory — reduces joint and tissue inflammation","Prebiotic — feeds beneficial gut bacteria","Supports healthy, clear skin from within"],usage:"Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a cleanse duo.",ital:"The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",caution:"Avoid in pregnancy. May interact with blood thinners or diabetes medication. Allergy possible if sensitive to ragweed family."},
+  {name:"Sarsaparilla",emoji:"🌿",cat:"drsebi",color:"#6B4226",tagline:"The Endotoxin Binder",drsebi:true,benefits:["Binds to endotoxins in the gut — removes them before blood absorption","Powerful blood purifier — used for skin disease and systemic toxicity","Anti-inflammatory — used for arthritis and joint pain","Contains organic iron and zinc","Supports testosterone and reproductive hormones naturally","Diuretic — flushes the kidneys"],usage:"Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",ital:"Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",caution:"Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart."},
+  {name:"Blue Vervain",emoji:"💙",cat:"drsebi",color:"#4169a0",tagline:"The Nervous System Healer",drsebi:true,benefits:["Dr. Sebi's primary herb for the nervous system","Relieves tension, anxiety and emotional stress held in the body","Antispasmodic — relieves muscle tension and cramps","Supports liver and lymphatic drainage","Helps with insomnia rooted in mental overactivity","Mild expectorant — clears mucus from respiratory tract"],usage:"Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",ital:"The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",caution:"Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance."},
+  {name:"Sea Moss",emoji:"🌊",cat:"drsebi",color:"#2E8B57",tagline:"The 92-Mineral Foundation",drsebi:true,benefits:["Contains 92 of the 102 minerals the human body is made of","Dr. Sebi's foundational supplement — taken daily","Supports thyroid function — rich in natural iodine","Strengthens gut lining and acts as a powerful prebiotic","Boosts immunity, energy and skin health","Anti-inflammatory — supports joints and respiratory health"],usage:"Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Not typically steeped as a tea alone.",ital:"The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",caution:"High in iodine — avoid if you have hyperthyroidism. Source wildcrafted sea moss only. Avoid pool-grown or bleached varieties."},
+  {name:"Bladderwrack",emoji:"🌿",cat:"drsebi",color:"#3d7a5a",tagline:"The Thyroid Herb",drsebi:true,benefits:["Pairs with sea moss as Dr. Sebi's ocean mineral duo","Rich in natural iodine — supports thyroid health directly","Anti-inflammatory — reduces joint swelling","Supports healthy metabolism and weight regulation","Antioxidant — protects cells from oxidative stress","Traditionally used for goitre and thyroid imbalance"],usage:"Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",ital:"From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",caution:"High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance. Source from clean, non-contaminated waters."},
+  {name:"Tila (Linden Flower)",emoji:"🌼",cat:"drsebi",color:"#b5a030",tagline:"The Mucus Membrane Soother",drsebi:true,benefits:["Dr. Sebi's herb for calming and mucus membrane healing","Antispasmodic — relieves nervous tension and anxiety","Clears mucus from the respiratory tract gently","Anti-inflammatory for the digestive tract","Promotes restful sleep without heavy sedation","Supports healthy blood pressure"],usage:"Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour. One of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",ital:"Gentle enough for children, powerful enough for deep healing — tila is a reminder that medicine does not always need to be bitter to work.",caution:"Generally very safe. Avoid excessive daily use over very long periods without breaks."},
+  {name:"Nopal Cactus",emoji:"🌵",cat:"drsebi",color:"#5a8c3a",tagline:"The Blood Sugar Balancer",drsebi:true,benefits:["Dr. Sebi's approved herb for blood sugar and diabetes","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the Bio-Mineral Balance"],usage:"Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",ital:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",caution:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort."}
 ];
 
-const herbCats={all:"All",drfire:"🔥 DR.Fire",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory",kidney:"Kidney"};
+const herbCats={all:"All",drfire:"🔥 DR.Fire",drsebi:"🌿 Dr. Sebi",liver:"Liver",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory",kidney:"Kidney"};
 let herbFilter="all";
 
 // ── NAV CONFIGS ──
@@ -356,7 +366,50 @@ const panels = {
       </div>
     </div>
 
-    <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;color:var(--dim);margin-bottom:0.5rem">DR.FIRE NOTES</p>
+    <!-- DR. SEBI SECTION -->
+  <div class="sec" style="margin-top:2rem">
+    <div class="sh">
+      <div class="st" style="display:flex;align-items:center;gap:0.5rem">
+        <span style="font-size:1.1rem">🌿</span>
+        <span>Dr. Sebi — African Bio-Mineral Balance</span>
+      </div>
+      <div class="sl2" onclick="setHerbFilter('drsebi');renderHerbFilters();renderHerbs()">View herbs →</div>
+    </div>
+    <div style="background:rgba(46,139,87,0.06);border:1px solid rgba(46,139,87,0.2);border-radius:6px;padding:1.5rem;margin-bottom:1.25rem">
+      <p style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;color:#5aaa7a;text-transform:uppercase;margin-bottom:0.75rem">The Foundation</p>
+      <p style="font-size:0.85rem;color:#c8b090;line-height:1.7;margin-bottom:1.25rem">Dr. Sebi taught that all disease comes from one cause — <strong style="color:#e8dcc8">mucus and acidity</strong> in the body. The cure is returning the body to its natural alkaline state using only natural, non-hybrid plants that contain the minerals the African body evolved with.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem;margin-bottom:1.25rem">
+        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
+          <div style="font-size:1.3rem;margin-bottom:6px">🩸</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">BLOOD</div>
+          <div style="font-size:0.75rem;color:#8a7a5a">Burdock · Sarsaparilla</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
+          <div style="font-size:1.3rem;margin-bottom:6px">🧠</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">NERVOUS SYSTEM</div>
+          <div style="font-size:0.75rem;color:#8a7a5a">Blue Vervain · Tila</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
+          <div style="font-size:1.3rem;margin-bottom:6px">🌊</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">MINERALS</div>
+          <div style="font-size:0.75rem;color:#8a7a5a">Sea Moss · Bladderwrack</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
+          <div style="font-size:1.3rem;margin-bottom:6px">🌵</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">BLOOD SUGAR</div>
+          <div style="font-size:0.75rem;color:#8a7a5a">Nopal Cactus</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.75rem 1rem">
+        <p style="font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;color:#5aaa7a;margin-bottom:0.4rem">THE RULE</p>
+        <p style="font-size:0.8rem;color:#8a7a5a;line-height:1.6;margin:0">Only <strong style="color:#c8b090">natural, alkaline, non-hybrid plants</strong>. No crossbred produce. No inorganic supplements. The body knows how to heal — give it what nature, not industry, made. Herbs you already have that Dr. Sebi approved: Soursop, Elderflower, Chamomile, Raspberry Leaf, Damiana, Mullein, Dandelion.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;color:var(--dim);margin-bottom:0.5rem">DR.FIRE NOTES</p>
     <div class="sform" style="max-width:100%">
       <div class="fg"><label class="fl">Notes from DR.Fire</label><textarea class="fi fta" style="min-height:90px">The blood needs cleaning. Sorrel — don't boil, put it in the water. Cleans the bloodstream 3x a week. Colon is the toilet — neem clears it 1x a week. Toxins get pushed to the liver and kidney. Dandelion + milk thistle clean the kidney. Mullein clears the liver, eyes, legs.</textarea></div>
       <button class="sbtn">Save notes ✦</button>
@@ -593,11 +646,28 @@ function gotoPanel(id) {
 function renderHerbs() {
   const f = herbFilter === 'drfire'
     ? herbs.filter(h => h.drfire)
+    : herbFilter === 'drsebi'
+    ? herbs.filter(h => h.drsebi || h.cat === 'drsebi')
     : herbFilter === 'all' ? herbs : herbs.filter(h => h.cat === herbFilter);
   const hg = document.getElementById('hg');
   if (!hg) return;
-  hg.innerHTML = f.map(h => `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20${h.drfire?';box-shadow:0 0 0 1px rgba(200,80,30,0.15)':''}" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'"><div class="hc-dot" style="background:${h.color}"></div>${h.drfire?`<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.32rem;letter-spacing:0.08em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 6px;border-radius:2px;border:1px solid rgba(200,80,30,0.25)">🔥 DR.FIRE</div>`:''}
-<span class="hc-emoji" style="${h.drfire?'margin-top:16px;display:block':''}">${h.emoji}</span><p class="hc-name">${h.name}</p><p class="hc-tag" style="color:${h.color}">${h.drfire?h.drfire.role:h.tagline}</p><ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul><p class="hc-tap">TAP TO OPEN →</p></div>`).join('');
+  hg.innerHTML = f.map(h => {
+    const hasTag = h.drfire || h.drsebi;
+    const tagHtml = h.drfire
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.3rem;letter-spacing:0.08em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 5px;border-radius:2px;border:1px solid rgba(200,80,30,0.25)">🔥 DR.FIRE</div>`
+      : h.drsebi
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.3rem;letter-spacing:0.08em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 5px;border-radius:2px;border:1px solid rgba(46,139,87,0.25)">🌿 DR.SEBI</div>`
+      : '';
+    return `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'">
+      <div class="hc-dot" style="background:${h.color}"></div>
+      ${tagHtml}
+      <span class="hc-emoji" style="${hasTag?'margin-top:14px;display:block':''}">${h.emoji}</span>
+      <p class="hc-name">${h.name}</p>
+      <p class="hc-tag" style="color:${h.color}">${h.drfire?h.drfire.role:h.tagline}</p>
+      <ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <p class="hc-tap">TAP TO OPEN →</p>
+    </div>`;
+  }).join('');
 }
 
 function renderHerbFilters() {
@@ -613,6 +683,12 @@ function oH(h) {
   document.getElementById('hm-n').textContent = h.name;
   document.getElementById('hm-t').textContent = h.tagline;
   document.getElementById('hm-t').style.color = h.color;
+  // Lineage badges
+  const badgeEl = document.getElementById('hm-badges');
+  badgeEl.innerHTML = [
+    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;background:rgba(200,80,30,0.12);color:#d4733a;padding:3px 8px;border-radius:2px;border:1px solid rgba(200,80,30,0.25)">🔥 DR.FIRE PROTOCOL</span>` : '',
+    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:3px 8px;border-radius:2px;border:1px solid rgba(46,139,87,0.25)">🌿 DR.SEBI APPROVED</span>` : ''
+  ].filter(Boolean).join(' ');
   document.getElementById('hm-i').textContent = h.ital;
   document.getElementById('hm-ib').style.borderLeftColor = h.color;
   document.getElementById('hm-ib').style.background = h.color + '12';

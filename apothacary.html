@@ -106,18 +106,19 @@
         caution: "Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy.",
       },
       {
-        name: "Hibiscus", emoji: "🌺", category: "heart", color: "#b5294e",
-        tagline: "The Heart Flower",
+        name: "Hibiscus (Sorrel)", emoji: "🌺", category: "heart", color: "#b5294e",
+        tagline: "The Blood Cleanser",
+        drfire: { role: "The Blood", protocol: "DR.Fire's blood cleaner. Do NOT boil — cold or warm water infusion only. Heat destroys the active compounds needed to cleanse the bloodstream.", freq: "3× per week" },
         benefits: [
+          "Cleans the bloodstream — DR.Fire's primary blood herb",
           "Significantly lowers high blood pressure (hypertension)",
           "Lowers LDL (bad) cholesterol",
           "Extremely high in Vitamin C — boosts immunity",
           "Powerful antioxidant — anti-ageing",
-          "Supports liver health",
           "Natural diuretic — reduces water retention",
         ],
-        usage: "Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red colour. Drink hot or cold. Pairs well with ginger.",
-        ital: "Sorrel — as it's known in the Caribbean — is deeply rooted in African and Ital tradition. Red like life itself.",
+        usage: "DR.Fire method: do NOT boil. Place dried petals in cold or warm (not hot) water and allow to infuse for several hours or overnight. Drink 3× a week. General use: steep 1–2 tsp in warm water for 5–10 minutes.",
+        ital: "Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",
         caution: "May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",
       },
       {
@@ -168,6 +169,7 @@
       {
         name: "Mullein", emoji: "🌿", category: "respiratory", color: "#5a7a3a",
         tagline: "The Lung Cleanser",
+        drfire: { role: "Liver · Eyes · Legs", protocol: "DR.Fire uses mullein to clear the liver, support eye health and improve circulation in the legs — alongside its lung-clearing work.", freq: "2–3× daily during cleanse cycles" },
         benefits: [
           "Premier herb for lung health — expectorant clears mucus",
           "Soothes bronchitis, asthma and chest tightness",
@@ -196,19 +198,20 @@
         caution: "Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals).",
       },
       {
-        name: "Neem Leaf", emoji: "🌿", category: "kidney", color: "#3d6b2a",
-        tagline: "The Blood Purifier",
+        name: "Neem Leaf", emoji: "🌿", category: "digestive", color: "#3d6b2a",
+        tagline: "The Colon Cleanser",
+        drfire: { role: "The Colon (The Toilet)", protocol: "DR.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins mobilised from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.", freq: "1× per week only" },
         benefits: [
-          "Powerful blood purifier — removes toxins from the bloodstream",
-          "Supports kidney function through detoxification",
-          "Antimicrobial, antifungal and antibacterial",
-          "Anti-inflammatory for urinary tract health",
-          "Traditionally used against parasites",
-          "Supports liver and lymphatic health",
+          "Clears the colon — the body's primary waste exit",
+          "Toxins pushed to the liver and kidney are escorted out",
+          "Powerful antimicrobial — kills harmful bacteria and parasites",
+          "Antifungal — addresses candida and gut overgrowth",
+          "Supports the lymphatic system",
+          "Purifies the blood as it passes through",
         ],
-        usage: "Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink 1 cup daily, preferably in the morning on an empty stomach.",
-        ital: "Called the 'Village Pharmacy' across Africa and India — neem is the great cleanser Jah provided for deep systemic healing.",
-        caution: "Very potent — do not use for extended periods without breaks. Avoid in pregnancy. May interact with diabetes medication.",
+        usage: "Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink on an empty stomach in the morning. DR.Fire protocol: 1× per week only.",
+        ital: "Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",
+        caution: "Very potent — 1× per week only per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy. May interact with diabetes medication.",
       },
       {
         name: "Alfalfa", emoji: "🌱", category: "kidney", color: "#4a8c3a",
@@ -228,6 +231,7 @@
       {
         name: "Dandelion", emoji: "🌼", category: "kidney", color: "#c4a000",
         tagline: "The Kidney Tonic",
+        drfire: { role: "The Kidney", protocol: "Pairs with Milk Thistle as the kidney cleanse duo in the DR.Fire protocol. Together they pull waste from the kidney as toxins pass through from the blood and colon cleanse.", freq: "Daily · pair with Milk Thistle" },
         benefits: [
           "Premier kidney tonic and diuretic herb",
           "Supports liver detoxification",
@@ -317,14 +321,150 @@
       },
     ];
 
+      {
+        name: "Milk Thistle", emoji: "🌸", category: "liver", color: "#9b59b6",
+        tagline: "The Liver Shield",
+        benefits: [
+          "Protects and regenerates liver cells — active compound silymarin is one of the most liver-specific medicines in the plant world",
+          "Reduces liver inflammation and scarring — used for cirrhosis, hepatitis and fatty liver",
+          "Powerful antioxidant — neutralises free radicals specifically in liver tissue",
+          "Helps the body process and eliminate toxins more efficiently",
+          "Supports healthy cholesterol levels",
+          "Indirectly eases kidney load by keeping the liver clean and processing well",
+        ],
+        usage: "Steep 1 tsp crushed seeds or dried herb in boiling water for 10–15 minutes. Drink 1–2 cups daily. During a cleanse: use daily to shield the liver as toxins are mobilised and pass through.",
+        ital: "The liver is the alchemist of the body — it transforms everything that enters. Milk thistle protects that sacred work, keeping the inner fire clean.",
+        caution: "Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",
+        drfire: { role: "The Liver", protocol: "Shields and regenerates the liver as toxins are pushed through during the DR.Fire cleanse. Works with mullein to keep the liver processing cleanly.", freq: "Daily during cleanse cycles" },
+      },
+
+      // ── DR. SEBI APPROVED HERBS ──
+      {
+        name: "Burdock Root", emoji: "🌱", category: "drsebi", color: "#8B4513",
+        tagline: "The #1 Blood Cleanser",
+        drsebi: true,
+        benefits: [
+          "Dr. Sebi's #1 blood cleanser — removes heavy metals and deep systemic toxins",
+          "Powerful diuretic — flushes kidneys and lymphatic system",
+          "Rich in organic iron — rebuilds and strengthens the blood",
+          "Anti-inflammatory — reduces joint and tissue inflammation",
+          "Prebiotic — feeds beneficial gut bacteria",
+          "Supports healthy, clear skin from within",
+        ],
+        usage: "Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a dual cleanse tea.",
+        ital: "The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",
+        caution: "Avoid in pregnancy. May interact with blood thinners or diabetes medication. Allergy possible if sensitive to ragweed family.",
+      },
+      {
+        name: "Sarsaparilla", emoji: "🌿", category: "drsebi", color: "#6B4226",
+        tagline: "The Endotoxin Binder",
+        drsebi: true,
+        benefits: [
+          "Binds to endotoxins in the gut — removes them before they enter the bloodstream",
+          "Powerful blood purifier — used historically for skin disease and systemic toxicity",
+          "Anti-inflammatory — used for arthritis and deep joint pain",
+          "Contains organic iron and zinc in plant-available form",
+          "Supports testosterone and reproductive hormones naturally",
+          "Diuretic — flushes the kidneys",
+        ],
+        usage: "Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",
+        ital: "Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",
+        caution: "Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart.",
+      },
+      {
+        name: "Blue Vervain", emoji: "💙", category: "drsebi", color: "#4169a0",
+        tagline: "The Nervous System Healer",
+        drsebi: true,
+        benefits: [
+          "Dr. Sebi's primary herb for the nervous system",
+          "Relieves tension, anxiety and emotional stress held in the body",
+          "Antispasmodic — relieves muscle tension and cramps",
+          "Supports liver and lymphatic drainage",
+          "Helps with insomnia rooted in mental overactivity",
+          "Mild expectorant — clears mucus from the respiratory tract",
+        ],
+        usage: "Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",
+        ital: "The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",
+        caution: "Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance.",
+      },
+      {
+        name: "Sea Moss", emoji: "🌊", category: "drsebi", color: "#2E8B57",
+        tagline: "The 92-Mineral Foundation",
+        drsebi: true,
+        benefits: [
+          "Contains 92 of the 102 minerals the human body is made of",
+          "Dr. Sebi's foundational supplement — taken daily as the mineral base",
+          "Supports thyroid function — rich in natural iodine",
+          "Strengthens gut lining and acts as a powerful prebiotic",
+          "Boosts immunity, energy and skin health",
+          "Anti-inflammatory — supports joints and respiratory health",
+        ],
+        usage: "Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Source wildcrafted sea moss only — not pool-grown.",
+        ital: "The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",
+        caution: "High in iodine — avoid if you have hyperthyroidism. Source wildcrafted from clean waters. Avoid bleached or pool-grown varieties.",
+      },
+      {
+        name: "Bladderwrack", emoji: "🌿", category: "drsebi", color: "#3d7a5a",
+        tagline: "The Thyroid Herb",
+        drsebi: true,
+        benefits: [
+          "Pairs with sea moss as Dr. Sebi's ocean mineral duo",
+          "Rich in natural iodine — supports thyroid health directly",
+          "Anti-inflammatory — reduces joint swelling",
+          "Supports healthy metabolism and weight regulation",
+          "Antioxidant — protects cells from oxidative stress",
+          "Traditionally used for goitre and thyroid imbalance",
+        ],
+        usage: "Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",
+        ital: "From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",
+        caution: "High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance. Source from clean, non-contaminated waters.",
+      },
+      {
+        name: "Tila (Linden Flower)", emoji: "🌼", category: "drsebi", color: "#b5a030",
+        tagline: "The Mucus Membrane Soother",
+        drsebi: true,
+        benefits: [
+          "Dr. Sebi's herb for calming and mucus membrane healing",
+          "Antispasmodic — relieves nervous tension and anxiety",
+          "Clears mucus from the respiratory tract gently",
+          "Anti-inflammatory for the digestive tract",
+          "Promotes restful sleep without heavy sedation",
+          "Supports healthy blood pressure",
+        ],
+        usage: "Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour — one of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",
+        ital: "Gentle enough for children, powerful enough for deep healing — tila is a reminder that medicine does not always need to be bitter to work.",
+        caution: "Generally very safe. Avoid excessive daily use over very long periods without breaks.",
+      },
+      {
+        name: "Nopal Cactus", emoji: "🌵", category: "drsebi", color: "#5a8c3a",
+        tagline: "The Blood Sugar Balancer",
+        drsebi: true,
+        benefits: [
+          "Dr. Sebi's approved herb for blood sugar regulation and diabetes",
+          "Regulates blood sugar — reduces glucose absorption in the gut",
+          "Anti-inflammatory — reduces systemic inflammation",
+          "Rich in organic iron, calcium and antioxidants",
+          "Reduces LDL cholesterol naturally",
+          "Alkaline-forming in the body — aligns with the African Bio-Mineral Balance",
+        ],
+        usage: "Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",
+        ital: "The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",
+        caution: "May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort.",
+      },
+    ];
+
     const herbCategories = {
       all:         { label: "All",              color: "#8a7a5a" },
+      drfire:      { label: "🔥 DR.Fire",       color: "#c8632a" },
+      drsebi:      { label: "🌿 Dr. Sebi",      color: "#2E8B57" },
       cancer:      { label: "Cancer Fighting",  color: "#7a3a2a" },
       healing:     { label: "Deep Healing",     color: "#2d5a27" },
       calm:        { label: "Calm & Sleep",     color: "#7b5ea7" },
+      liver:       { label: "Liver",            color: "#9b59b6" },
       woman:       { label: "Womb Health",      color: "#8b3a52" },
       heart:       { label: "Heart & Blood",    color: "#b5294e" },
       digestive:   { label: "Digestive",        color: "#1a7a4a" },
+      kidney:      { label: "Kidney",           color: "#4a8c3a" },
       spirit:      { label: "Spirit",           color: "#8b6914" },
       respiratory: { label: "Respiratory",      color: "#5a7a3a" },
     };
@@ -625,7 +765,7 @@
     };
 
     // ── SHARED CARD COMPONENT ──
-    function ItemCard({ item, onClick, colorKey }) {
+    function ItemCard({ item, onClick }) {
       const [hovered, setHovered] = React.useState(false);
       return (
         <div
@@ -644,10 +784,16 @@
           }}
         >
           <div style={{ position:'absolute', top:12, right:12, width:8, height:8, borderRadius:'50%', background:item.color, opacity:0.7 }}></div>
+          {(item.drfire || item.drsebi) && (
+            <div style={{ display:'flex', gap:4, flexWrap:'wrap', marginBottom:8 }}>
+              {item.drfire && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.06em', background:'rgba(200,80,30,0.15)', color:'#d4733a', padding:'2px 6px', borderRadius:2, border:'1px solid rgba(200,80,30,0.3)' }}>🔥 DR.FIRE</span>}
+              {item.drsebi && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.06em', background:'rgba(46,139,87,0.15)', color:'#5aaa7a', padding:'2px 6px', borderRadius:2, border:'1px solid rgba(46,139,87,0.3)' }}>🌿 DR.SEBI</span>}
+            </div>
+          )}
           <span style={{ fontSize:'1.8rem', display:'block', marginBottom:8 }}>{item.emoji}</span>
           <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'0.95rem', color:'#e8dcc8', marginBottom:3 }}>{item.name}</p>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.8rem', fontStyle:'italic', color:item.color, marginBottom:8 }}>{item.tagline}</p>
-          <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.38rem', letterSpacing:'0.1em', color:'#5a4a3a' }}>TAP TO OPEN →</p>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.8rem', fontStyle:'italic', color:item.color, marginBottom:8 }}>{item.drfire ? item.drfire.role : item.tagline}</p>
+          <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.6rem', letterSpacing:'0.1em', color:'#6a5a4a' }}>TAP TO OPEN →</p>
         </div>
       );
     }
@@ -664,7 +810,24 @@
             <button onClick={onClose} style={{ position:'absolute', top:12, right:16, background:'none', border:'none', color:'#5a4a3a', fontSize:'1.5rem', cursor:'pointer', lineHeight:1 }}>×</button>
             <span style={{ fontSize:'2.5rem', display:'block', marginBottom:10 }}>{item.emoji}</span>
             <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:'1.7rem', color:'#e8dcc8', fontWeight:'normal', margin:'0 0 3px' }}>{item.name}</h3>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:'italic', fontSize:'0.9rem', color:item.color, margin:'0 0 1.25rem' }}>{item.tagline}</p>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:'italic', fontSize:'0.9rem', color:item.color, margin:'0 0 0.75rem' }}>{item.tagline}</p>
+
+            {/* Lineage badges */}
+            {(item.drfire || item.drsebi) && (
+              <div style={{ display:'flex', gap:6, flexWrap:'wrap', marginBottom:'1rem' }}>
+                {item.drfire && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.08em', background:'rgba(200,80,30,0.12)', color:'#d4733a', padding:'4px 10px', borderRadius:3, border:'1px solid rgba(200,80,30,0.3)' }}>🔥 DR.FIRE PROTOCOL</span>}
+                {item.drsebi && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.08em', background:'rgba(46,139,87,0.12)', color:'#5aaa7a', padding:'4px 10px', borderRadius:3, border:'1px solid rgba(46,139,87,0.3)' }}>🌿 DR.SEBI APPROVED</span>}
+              </div>
+            )}
+
+            {/* DR.Fire protocol box */}
+            {item.drfire && (
+              <div style={{ background:'rgba(200,80,30,0.08)', border:'1px solid rgba(200,80,30,0.25)', borderRadius:4, padding:'12px 14px', marginBottom:'1.25rem' }}>
+                <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.48rem', letterSpacing:'0.15em', color:'#d4733a', textTransform:'uppercase', margin:'0 0 6px' }}>🔥 DR.Fire · {item.drfire.role}</p>
+                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.9rem', color:'#d4b090', lineHeight:1.6, margin:'0 0 6px' }}>{item.drfire.protocol}</p>
+                <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.44rem', letterSpacing:'0.1em', color:'#a06040', margin:0 }}>FREQUENCY: {item.drfire.freq}</p>
+              </div>
+            )}
             
             {item.tradition && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.tradition}</p>}
             {item.method && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.method.join(' · ')}</p>}
@@ -719,7 +882,12 @@
         { id:'pantry',  label:'🍽 The Pantry',      desc:'Food as medicine. Sea moss, medicinal mushrooms, healing fruits. The kitchen as apothecary.' },
       ];
 
-      const filtered = (items, cat) => cat === 'all' ? items : items.filter(i => i.category === cat);
+      const filtered = (items, cat) => {
+        if (cat === 'all') return items;
+        if (cat === 'drfire') return items.filter(i => i.drfire);
+        if (cat === 'drsebi') return items.filter(i => i.drsebi || i.category === 'drsebi');
+        return items.filter(i => i.category === cat);
+      };
 
       const currentItems = board === 'herbs' ? filtered(teas, herbCat)
         : board === 'oils' ? filtered(oils, oilCat)
@@ -748,9 +916,9 @@
           
           {/* Header */}
           <div style={{ maxWidth:1200, margin:'0 auto 2rem' }}>
-            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:'#c8732a', opacity:0.7, marginBottom:'0.4rem' }}>✦ Personal Reference</p>
-            <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'2rem', fontWeight:'normal', color:'#e8dcc8', marginBottom:'0.3rem' }}>The <em style={{color:'#c8732a', fontStyle:'italic'}}>Apothecary</em></h1>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1rem', color:'#8a7a5a', fontStyle:'italic' }}>Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
+            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.65rem', letterSpacing:'0.25em', textTransform:'uppercase', color:'#c8732a', opacity:0.9, marginBottom:'0.5rem' }}>✦ Personal Reference</p>
+            <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'2.6rem', fontWeight:'normal', color:'#e8dcc8', marginBottom:'0.5rem' }}>The <em style={{color:'#c8732a', fontStyle:'italic'}}>Apothecary</em></h1>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1.25rem', color:'#c8b890', fontStyle:'italic', letterSpacing:'0.03em' }}>Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
           </div>
 
           {/* Board tabs */}
@@ -760,14 +928,14 @@
                 key={b.id}
                 onClick={() => setBoard(b.id)}
                 style={{
-                  padding:'0.75rem 0.5rem',
-                  background: board === b.id ? 'rgba(200,115,42,0.12)' : 'transparent',
-                  border: board === b.id ? '1px solid rgba(200,115,42,0.4)' : '1px solid rgba(232,184,75,0.08)',
+                  padding:'0.85rem 0.75rem',
+                  background: board === b.id ? 'rgba(200,115,42,0.12)' : 'rgba(255,255,255,0.02)',
+                  border: board === b.id ? '1px solid rgba(200,115,42,0.5)' : '1px solid rgba(232,220,200,0.1)',
                   borderRadius:6,
-                  color: board === b.id ? '#c8732a' : '#5a4a3a',
-                  fontFamily:"'Space Mono',monospace",
-                  fontSize:'0.42rem',
-                  letterSpacing:'0.06em',
+                  color: board === b.id ? '#c8732a' : '#a09080',
+                  fontFamily:"Georgia, serif",
+                  fontSize:'0.95rem',
+                  letterSpacing:'0.02em',
                   cursor:'pointer',
                   textAlign:'center',
                   transition:'all 0.15s',
@@ -778,7 +946,7 @@
 
           {/* Board description */}
           <div style={{ maxWidth:1200, margin:'0 auto 1.5rem', padding:'0.75rem 1rem', background:'rgba(200,115,42,0.04)', border:'1px solid rgba(200,115,42,0.08)', borderRadius:6 }}>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.9rem', color:'#8a7a5a', fontStyle:'italic', margin:0 }}>{currentBoard.desc}</p>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1.05rem', color:'#a09070', fontStyle:'italic', margin:0, lineHeight:1.6 }}>{currentBoard.desc}</p>
           </div>
 
           {/* Category filters */}
@@ -794,7 +962,7 @@
                   background: currentCat === key ? val.color + '20' : 'transparent',
                   color: currentCat === key ? '#e8dcc8' : '#5a4a3a',
                   fontFamily:'Georgia,serif',
-                  fontSize:'0.75rem',
+                  fontSize:'0.9rem',
                   cursor:'pointer',
                   transition:'all 0.15s',
                 }}

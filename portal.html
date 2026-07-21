@@ -654,9 +654,9 @@ function renderHerbs() {
   hg.innerHTML = f.map(h => {
     const hasTag = h.drfire || h.drsebi;
     const tagHtml = h.drfire
-      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.3rem;letter-spacing:0.08em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 5px;border-radius:2px;border:1px solid rgba(200,80,30,0.25)">🔥 DR.FIRE</div>`
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 6px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE</div>`
       : h.drsebi
-      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.3rem;letter-spacing:0.08em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 5px;border-radius:2px;border:1px solid rgba(46,139,87,0.25)">🌿 DR.SEBI</div>`
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 6px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI</div>`
       : '';
     return `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'">
       <div class="hc-dot" style="background:${h.color}"></div>
@@ -686,8 +686,8 @@ function oH(h) {
   // Lineage badges
   const badgeEl = document.getElementById('hm-badges');
   badgeEl.innerHTML = [
-    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;background:rgba(200,80,30,0.12);color:#d4733a;padding:3px 8px;border-radius:2px;border:1px solid rgba(200,80,30,0.25)">🔥 DR.FIRE PROTOCOL</span>` : '',
-    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:3px 8px;border-radius:2px;border:1px solid rgba(46,139,87,0.25)">🌿 DR.SEBI APPROVED</span>` : ''
+    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(200,80,30,0.12);color:#d4733a;padding:4px 10px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE PROTOCOL</span>` : '',
+    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:4px 10px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI APPROVED</span>` : ''
   ].filter(Boolean).join(' ');
   document.getElementById('hm-i').textContent = h.ital;
   document.getElementById('hm-ib').style.borderLeftColor = h.color;
@@ -703,9 +703,9 @@ function oH(h) {
     dfEl.style.display = 'block';
     dfEl.innerHTML = `
       <div style="background:rgba(200,80,30,0.08);border:1px solid rgba(200,80,30,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1rem">
-        <div style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;color:#d4733a;margin-bottom:6px">🔥 DR.FIRE PROTOCOL · ${h.drfire.role.toUpperCase()}</div>
-        <p style="font-size:0.82rem;color:#d4b090;line-height:1.6;margin:0 0 6px">${h.drfire.protocol}</p>
-        <div style="font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;color:#a06040">FREQUENCY: ${h.drfire.freq}</div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:#d4733a;margin-bottom:6px">🔥 DR.FIRE PROTOCOL · ${h.drfire.role.toUpperCase()}</div>
+        <p style="font-size:0.88rem;color:#d4b090;line-height:1.6;margin:0 0 6px">${h.drfire.protocol}</p>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;color:#a06040">FREQUENCY: ${h.drfire.freq}</div>
       </div>`;
   } else {
     dfEl.style.display = 'none';

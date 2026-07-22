@@ -121,7 +121,56 @@ const teas = [
   {name:"Nopal Cactus",emoji:"🌵",category:"drsebi",color:"#5a8c3a",tagline:"The Blood Sugar Balancer",drsebi:true,benefits:["Dr. Sebi's approved herb for blood sugar regulation and diabetes","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the African Bio-Mineral Balance"],usage:"Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",ital:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",caution:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort."}
 ];
 
-const herbCats = {
+const oils = [
+  {name:"Lavender Oil",emoji:"💜",category:"calm",color:"#7b5ea7",tagline:"The Universal Healer",method:["Diffuse","Topical","Bath"],benefits:["Reduces anxiety and stress — one of the most studied essential oils for calming the nervous system","Promotes deep, restorative sleep","Antiseptic and anti-inflammatory — speeds healing of burns, cuts and insect bites","Relieves headaches and migraines when applied to temples","Antidepressant — lifts mood naturally","Safe for children when diluted"],usage:"Diffuse 4–6 drops in an oil diffuser. Apply 2–3 drops diluted in a carrier oil (coconut, jojoba) to pulse points, temples or feet. Add 5–10 drops to a warm bath.",note:"One of the few essential oils generally safe to apply neat (undiluted) in small amounts to skin. Always dilute for children.",caution:"Avoid during first trimester of pregnancy. Can cause drowsiness — avoid before driving if sensitive."},
+  {name:"Tea Tree Oil",emoji:"🌿",category:"healing",color:"#2d5a4a",tagline:"Nature's Antiseptic",method:["Topical","Diffuse","Cleaning"],benefits:["Powerful antibacterial — effective against many strains including MRSA","Antifungal — treats nail fungus, athlete's foot and thrush","Antiviral properties — supports immunity","Treats acne — reduces bacteria and inflammation on skin","Soothes scalp conditions — dandruff, dry scalp, seborrheic dermatitis","Natural household disinfectant"],usage:"Skin: dilute 1–2 drops in a carrier oil or unscented cream. Scalp: add 5 drops to shampoo. Diffuse for air purification. Add to water for natural surface cleaner.",note:"One of the most versatile oils in any apothecary. A true staple.",caution:"NEVER ingest — toxic when swallowed. Always dilute before applying to skin. Keep away from pets, especially cats."},
+  {name:"Frankincense Oil",emoji:"🫚",category:"spirit",color:"#c8a040",tagline:"The Sacred Oil",method:["Diffuse","Topical","Meditation"],benefits:["Deepens meditation and spiritual practice — activates ion channels in the brain associated with calm","Anti-tumour properties — researched for brain and breast cancer","Reduces anxiety and depression","Anti-inflammatory — supports joints and arthritis","Skin rejuvenating — reduces scars, stretch marks and signs of ageing","Grounding and centering — anchors scattered energy"],usage:"Diffuse during meditation or before sleep. Dilute 2–3 drops in jojoba or rosehip oil and apply to skin or behind ears. Inhale directly from bottle for instant grounding.",note:"If one oil belongs in every sacred space it is this one. Burned in temples for thousands of years across Africa, the Middle East and India.",caution:"Avoid during pregnancy. May interact with blood thinners. Do not ingest the essential oil — use Boswellia supplements for internal benefit."},
+  {name:"Peppermint Oil",emoji:"🌱",category:"digestive",color:"#1a7a4a",tagline:"The Cool Healer",method:["Diffuse","Topical","Inhale"],benefits:["Relieves headaches and migraines when applied to temples","Energising and focus-enhancing — natural alternative to caffeine","Soothes digestive discomfort, nausea and IBS","Clears sinuses and respiratory congestion","Cooling pain relief for muscles and joints","Natural insect repellent"],usage:"Headaches: dilute and apply to temples and back of neck. Diffuse for energy and focus. Add 1 drop to water or peppermint tea (food-grade only). Inhale directly for nausea.",note:"Keep a bottle in your bag. One of the most immediately useful oils day to day.",caution:"Do not apply undiluted near eyes or on children's faces. Avoid if you have acid reflux. Use food-grade oil only if ingesting."},
+  {name:"Eucalyptus Oil",emoji:"🌿",category:"respiratory",color:"#5a7a3a",tagline:"The Lung Opener",method:["Diffuse","Steam","Topical"],benefits:["Opens airways and clears respiratory congestion — colds, flu, bronchitis","Antibacterial and antiviral — purifies air when diffused","Relieves muscle pain and tension","Stimulates immune function","Cooling and refreshing — reduces fever","Improves focus and mental clarity"],usage:"Add 3–5 drops to a bowl of hot water, cover head with towel and inhale (steam inhalation). Diffuse during illness. Dilute and apply to chest. Add to shower floor for steam.",note:"The classic sick-day oil. Your grandmother's medicine cabinet probably had something like this.",caution:"Never ingest. Keep away from children under 2. Avoid near face of young children — can cause breathing difficulties."},
+  {name:"Rose Oil",emoji:"🌹",category:"woman",color:"#8b3a52",tagline:"The Heart Opener",method:["Diffuse","Topical","Bath"],benefits:["Deeply supportive for grief, heartbreak and emotional pain","Balances hormones — supports menstrual regulation","One of the highest vibrational essential oils","Aphrodisiac — supports libido and intimacy","Anti-inflammatory and antibacterial for skin","Reduces anxiety and lifts depression"],usage:"Diffuse for emotional healing. Dilute in rosehip oil and apply to heart centre. Add 3–4 drops to bath with Epsom salts. Wear as natural perfume diluted in jojoba.",note:"It takes approximately 60 roses to make one drop of pure rose essential oil. Buy from a trusted source.",caution:"Avoid during pregnancy. Ensure you buy genuine rose otto — many products are adulterated with synthetic fragrance."}
+];
+
+const oilCats = {
+  all:{label:"All",color:"#8a7a5a"},
+  calm:{label:"Calm & Sleep",color:"#7b5ea7"},
+  healing:{label:"Healing",color:"#2d5a4a"},
+  spirit:{label:"Spirit",color:"#c8a040"},
+  digestive:{label:"Digestive",color:"#1a7a4a"},
+  respiratory:{label:"Respiratory",color:"#5a7a3a"},
+  woman:{label:"Womb & Heart",color:"#8b3a52"}
+};
+
+const plants = [
+  {name:"Ganja (Cannabis)",emoji:"🌿",category:"sacred",color:"#2d5a27",tagline:"The Sacrament",tradition:"Rastafarian · Vedic · Indigenous",benefits:["Sacred sacrament in Rastafari — used for meditation, prayer and reasoning","Referenced in the Vedas as one of five sacred plants","Pain relief and anti-inflammatory — medical cannabis well established","Reduces anxiety, PTSD and depression","Supports sleep and nervous system regulation","Anti-nausea — used during chemotherapy","Cannabinoids shown to have anti-tumour properties in research"],usage:"Ceremonial: smoked with intention, in community or in meditation. Medicinal: CBD oil, tinctures, edibles — start low and slow. Understand your lineage with this plant before using.",note:"This plant has been criminalised to oppress the communities that hold it sacred. Know the history. Use with respect.",caution:"Legal status varies by country — know your jurisdiction. Not recommended for those with personal or family history of psychosis. Avoid during pregnancy."},
+  {name:"Ceremonial Cacao",emoji:"🍫",category:"heart",color:"#5a2d1a",tagline:"The Heart Opener",tradition:"Mayan · Aztec · Central American",benefits:["Opens the heart centre — used ceremonially for emotional healing and connection","Contains theobromine — a gentle, sustained energy lift without the anxiety of caffeine","MAO inhibitor — enhances mood and sense of wellbeing","Rich in magnesium, iron and antioxidants","Facilitates emotional release and deep inner work","Enhances creativity, presence and empathy"],usage:"Ceremonial dose: 40–42g cacao block melted in hot water with chilli, cinnamon and a little sweetener. Set an intention. Sit with it. Can be used with meditation, journaling or movement.",note:"Not the same as chocolate. Ceremonial cacao is minimally processed, full-fat and used with intention. Source ethically — look for Guatemalan or Peruvian origin.",caution:"Avoid if on antidepressants (MAOIs) without guidance. High doses can cause nausea or racing heart in sensitive people. Not recommended during pregnancy in high doses."},
+  {name:"Psilocybin Mushrooms",emoji:"🍄",category:"vision",color:"#6a4a8a",tagline:"The Great Teacher",tradition:"Mazatec · Mesoamerican · Global Indigenous",benefits:["Clinically proven to reduce treatment-resistant depression — Johns Hopkins and Imperial College research","Dissolves ego defensiveness — allows deep trauma processing","Reduces end-of-life anxiety in terminal patients — trials show lasting relief after one session","Creates lasting personality changes toward openness and empathy","Shown to reduce addiction — smoking, alcohol, opioids","Mystical experiences reported by most participants — long-term positive impact on wellbeing"],usage:"Set and setting are everything. Micro-dosing: 0.1–0.3g for subtle cognitive and mood benefits. Ceremonial dose: 2–3.5g in a safe, intentional space. Never alone for high doses. Integration after the experience is as important as the journey itself.",note:"This medicine is having a clinical renaissance. What indigenous communities have known for millennia, science is now confirming.",caution:"Illegal in most countries — know your jurisdiction. Not suitable for those with personal or family history of psychosis or schizophrenia. Avoid mixing with lithium or SSRIs without guidance."}
+];
+
+const plantCats = {
+  all:{label:"All",color:"#8a7a5a"},
+  sacred:{label:"Sacred",color:"#2d5a27"},
+  heart:{label:"Heart",color:"#5a2d1a"},
+  vision:{label:"Vision",color:"#6a4a8a"}
+};
+
+const pantry = [
+  {name:"Sea Moss",emoji:"🌊",category:"mineral",color:"#2d5a7a",tagline:"The Ocean Mineral",form:["Gel","Capsule","Raw"],benefits:["Contains 92 of the 102 minerals the human body needs","Thyroid support — rich in iodine and selenium","Gut health — acts as a prebiotic, feeds beneficial bacteria","Immune boosting — antiviral and antimicrobial properties","Skin, hair and nail strength — collagen support","Energy and libido — historically used as an aphrodisiac in Caribbean tradition"],usage:"Gel: blend soaked raw sea moss with water until smooth. Take 1–2 tablespoons daily in smoothies, teas or on its own. Capsule: 1000mg daily. Raw: rinse, soak overnight, add to food.",note:"A staple of Caribbean and Ital culture long before the wellness industry discovered it. Source ethically — wild-crafted from clean waters, not pool-grown.",caution:"Excess iodine can disrupt thyroid function — do not take in extremely high doses if you have a thyroid condition. Source matters enormously — poor quality sea moss may contain heavy metals."},
+  {name:"Soursop (Fresh)",emoji:"🍈",category:"cancer",color:"#2d5a27",tagline:"The Healing Fruit",form:["Juice","Fruit","Leaf Tea"],benefits:["Fresh juice is the most bioavailable form of soursop medicine","Acetogenins — compounds unique to soursop shown to selectively kill cancer cells","Powerful immune system support","Antioxidant-rich — reduces oxidative stress","Anti-inflammatory and antimicrobial","Supports healthy blood pressure and blood sugar levels"],usage:"Fresh juice: blend pulp with cold water, strain and drink immediately — do not heat. Eat the fruit fresh when in season. Leaf tea for more concentrated medicinal benefit.",note:"The whole plant is medicine. The fruit feeds you. The leaves treat you. The juice bridges both.",caution:"Avoid in large quantities during pregnancy. Very high doses of soursop leaf have been linked to atypical Parkinsonism in some studies — use leaf tea in moderation."},
+  {name:"Turkey Tail Mushroom",emoji:"🍄",category:"cancer",color:"#8a6a3a",tagline:"The Immune Architect",form:["Tea","Capsule","Powder"],benefits:["PSK (Krestin) — approved cancer treatment drug in Japan, derived from Turkey Tail","Clinically proven to improve survival rates in breast, colon and gastric cancers","Enhances the effectiveness of chemotherapy and radiation","Powerful prebiotic — restores gut microbiome after antibiotic use","Antiviral — shown to be active against HPV","Reduces inflammation throughout the body"],usage:"Tea: simmer dried mushroom for 20–30 minutes. Strain and drink. Powder: add 1–2 tsp to smoothies, soups or coffee. Capsule: 500–1000mg daily.",note:"The most clinically researched medicinal mushroom in the world. Used in Japanese hospitals. The West is late.",caution:"Generally very safe. May cause mild digestive upset initially. Consult your oncologist if using alongside cancer treatment."},
+  {name:"Lion's Mane",emoji:"🍄",category:"mind",color:"#c8a040",tagline:"The Brain Mushroom",form:["Capsule","Powder","Tea"],benefits:["Stimulates Nerve Growth Factor (NGF) — promotes brain cell regeneration","Shown to reduce symptoms of anxiety and depression","Improves memory, focus and cognitive function","Neuroprotective — researched for Alzheimer's and Parkinson's prevention","Supports nervous system repair after injury","Anti-inflammatory throughout the body"],usage:"Powder: 1–2 tsp in morning coffee, smoothie or hot water. Capsule: 500–1000mg daily. Effects build over weeks — consistency matters more than dose.",note:"If you could only add one mushroom to your daily ritual for long-term brain health, this is it.",caution:"Avoid if you have mushroom allergies. May enhance effects of diabetes and blood-thinning medications. Pregnant women should consult a practitioner."},
+  {name:"Reishi",emoji:"🍄",category:"spirit",color:"#8a3a2a",tagline:"The Mushroom of Immortality",form:["Tea","Capsule","Tincture"],benefits:["Adaptogen — helps the body manage stress at a cellular level","Immune modulator — balances overactive or underactive immune response","Inhibits breast cancer cell proliferation — oestrogen receptor research","Supports deep, restorative sleep","Liver protection and detoxification support","Calms the nervous system — used in TCM for spirit (Shen) cultivation"],usage:"Tea: simmer dried slices for 30–60 minutes — bitter, add honey or blend with cacao. Capsule: 500–1000mg extract daily. Dual-extract tincture for maximum potency.",note:"In Chinese medicine, Reishi has been used for over 2,000 years. It was reserved for emperors. Now it belongs to everyone.",caution:"May thin the blood — stop 2 weeks before surgery. Avoid if on immunosuppressants without guidance. Can cause dry mouth or digestive upset initially."},
+  {name:"Chaga",emoji:"🍄",category:"cancer",color:"#3a2a1a",tagline:"The King of Mushrooms",form:["Tea","Tincture","Powder"],benefits:["Highest antioxidant content of any natural food — ORAC score off the charts","Anti-tumour — betulinic acid shown to induce apoptosis in cancer cells","Powerful immune system activation","Reduces inflammation — cytokine regulation","Balances blood sugar and supports metabolic health","Antimicrobial and antiviral — supports immunity during illness"],usage:"Tea: simmer chunks or powder in water for 20–30 minutes — the taste is pleasant, slightly vanilla-like. Add to coffee as a caffeine alternative.",note:"Grows on birch trees in cold climates. Used by Siberian and Northern European indigenous communities for centuries. Rare, slow-growing and powerful — source responsibly.",caution:"High in oxalates — those with kidney stones should use cautiously. May interact with blood thinners and diabetes medication. Avoid during pregnancy."},
+  {name:"Shiitake",emoji:"🍄",category:"immune",color:"#5a3a1a",tagline:"The Everyday Healer",form:["Food","Capsule","Tea"],benefits:["Lentinan — a beta-glucan compound approved as a cancer treatment in Japan","Significantly lowers LDL cholesterol","Antiviral — active against influenza, HIV and hepatitis viruses in research","Rich in B vitamins, zinc and selenium","Supports immune function and reduces inflammation","The most accessible medicinal mushroom — eat it as food"],usage:"Eat fresh or dried in cooking — saute in coconut oil with garlic. The most delicious medicine. Dried mushroom tea: simmer for 15–20 minutes. Capsule for concentrated extract.",note:"The bridge between the kitchen and the apothecary. You can eat your medicine without anyone knowing that's what you're doing.",caution:"Raw shiitake can cause a skin rash in sensitive people. Always cook thoroughly. Very rare allergic reactions possible."}
+];
+
+const pantryCats = {
+  all:{label:"All",color:"#8a7a5a"},
+  cancer:{label:"Cancer Fighting",color:"#7a3a2a"},
+  mineral:{label:"Minerals",color:"#2d5a7a"},
+  mind:{label:"Mind",color:"#c8a040"},
+  spirit:{label:"Spirit",color:"#8a3a2a"},
+  immune:{label:"Immunity",color:"#5a3a1a"}
+};
   all:{label:"All",color:"#8a7a5a"},
   drfire:{label:"🔥 Dr.Fire",color:"#c8632a"},
   drsebi:{label:"🌿 Dr. Sebi",color:"#2E8B57"},
@@ -148,9 +197,15 @@ const boards = [
 let currentBoard = 'herbs';
 let currentCat = 'all';
 
-// ── RENDER ──
+function getBoardData() {
+  if (currentBoard === 'herbs')  return { items: teas,   cats: herbCats };
+  if (currentBoard === 'oils')   return { items: oils,   cats: oilCats };
+  if (currentBoard === 'plants') return { items: plants, cats: plantCats };
+  return { items: pantry, cats: pantryCats };
+}
+
 function getItems() {
-  let items = teas; // only herbs board for now — extend later
+  const { items } = getBoardData();
   if (currentCat === 'all') return items;
   if (currentCat === 'drfire') return items.filter(i => i.drfire);
   if (currentCat === 'drsebi') return items.filter(i => i.drsebi || i.category === 'drsebi');
@@ -159,6 +214,7 @@ function getItems() {
 
 function render() {
   const board = boards.find(b => b.id === currentBoard);
+  const { cats } = getBoardData();
   const items = getItems();
 
   document.getElementById('root').innerHTML = `
@@ -176,7 +232,7 @@ function render() {
       <div class="board-desc">${board.desc}</div>
 
       <div class="filters">
-        ${Object.entries(herbCats).map(([k,v]) => `
+        ${Object.entries(cats).map(([k,v]) => `
           <button class="filter-btn${k===currentCat?' active':''}"
             style="${k===currentCat?`border-color:${v.color};background:${v.color}20;color:#e8dcc8`:`border-color:rgba(232,184,75,0.1)`}"
             onclick="setCat('${k}')">${v.label}</button>
@@ -194,6 +250,9 @@ function render() {
             <span class="card-emoji">${item.emoji}</span>
             <p class="card-name">${item.name}</p>
             <p class="card-tag" style="color:${item.color}">${item.drfire?item.drfire.role:item.tagline}</p>
+            ${item.method?`<p style="font-family:'Space Mono',monospace;font-size:0.48rem;color:#5a4a3a;letter-spacing:0.08em;margin-bottom:4px">${item.method.join(' · ')}</p>`:''}
+            ${item.form?`<p style="font-family:'Space Mono',monospace;font-size:0.48rem;color:#5a4a3a;letter-spacing:0.08em;margin-bottom:4px">${item.form.join(' · ')}</p>`:''}
+            ${item.tradition?`<p style="font-family:'Space Mono',monospace;font-size:0.45rem;color:#5a4a3a;letter-spacing:0.06em;margin-bottom:4px">${item.tradition}</p>`:''}
             <p class="card-tap">TAP TO OPEN →</p>
           </div>
         `).join('')}
@@ -201,33 +260,12 @@ function render() {
     </div>
   `;
 
-  // store filtered items for modal lookup
   window._items = items;
 }
 
 function setBoard(id) {
   currentBoard = id;
   currentCat = 'all';
-  if (id !== 'herbs') {
-    // Show placeholder for other boards
-    const board = boards.find(b => b.id === id);
-    document.getElementById('root').innerHTML = `
-      <div class="wrap">
-        <div style="margin-bottom:2rem">
-          <p class="hdr-label">✦ Personal Reference</p>
-          <h1 class="hdr-title">The <em>Apothecary</em></h1>
-          <p class="hdr-sub">Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
-        </div>
-        <div class="boards">
-          ${boards.map(b => `<button class="board-btn${b.id===id?' active':''}" onclick="setBoard('${b.id}')">${b.label}</button>`).join('')}
-        </div>
-        <div class="board-desc">${board.desc}</div>
-        <div style="padding:3rem;text-align:center;color:#5a4a3a;font-style:italic;font-size:1.1rem;border:1px solid rgba(232,220,200,0.05);border-radius:6px;margin-top:1rem">
-          ${board.label} — coming soon ✦
-        </div>
-      </div>`;
-    return;
-  }
   render();
 }
 
@@ -263,16 +301,23 @@ function openModal(idx) {
     firebox.style.display = 'none';
   }
 
-  // Ital box
+  // Ital / note box
   const italbox = document.getElementById('m-italbox');
-  if (item.ital) {
+  const noteText = item.ital || item.note || null;
+  if (noteText) {
     italbox.style.display = 'block';
     italbox.style.borderLeftColor = item.color;
     italbox.style.background = item.color + '12';
-    document.getElementById('m-ital').textContent = item.ital;
+    document.getElementById('m-ital').textContent = noteText;
   } else {
     italbox.style.display = 'none';
   }
+
+  // Tradition / method / form
+  const tradEl = document.getElementById('m-tradition');
+  const meta = [item.tradition, item.method?.join(' · '), item.form?.join(' · ')].filter(Boolean).join('   ·   ');
+  if (meta) { tradEl.style.display = 'block'; tradEl.textContent = meta; }
+  else tradEl.style.display = 'none';
 
   // Benefits
   document.getElementById('m-bsec').style.color = item.color;

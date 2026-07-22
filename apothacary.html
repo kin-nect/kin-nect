@@ -1,985 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ital Apothecary — Tea Cupboard</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Apothecary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body { background: #0d0b08; color: #e8dcc8; font-family: Georgia, 'Times New Roman', serif; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0d0b08; }
-    ::-webkit-scrollbar-thumb { background: #3a3020; border-radius: 3px; }
-    .card { transition: background 0.25s, border-color 0.25s, transform 0.25s; }
-    .card:hover { transform: translateY(-2px); }
-    .filter-btn { transition: all 0.2s; font-family: Georgia, serif; }
-    .modal-scroll::-webkit-scrollbar { width: 4px; }
-    .modal-scroll::-webkit-scrollbar-thumb { background: #3a3020; border-radius: 2px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%;background:#0d0a06;color:#e8dcc8;font-family:'Cormorant Garamond',Georgia,serif}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0d0a06}::-webkit-scrollbar-thumb{background:#3a3020;border-radius:3px}
+    button{cursor:pointer;font-family:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+    /* Header */
+    .hdr-label{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#c8732a;margin-bottom:0.5rem}
+    .hdr-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:400;color:#e8dcc8;margin-bottom:0.5rem}
+    .hdr-title em{color:#c8732a;font-style:italic}
+    .hdr-sub{font-size:1.2rem;color:#c8b890;font-style:italic;letter-spacing:0.03em;margin-bottom:2rem}
+    /* Board tabs */
+    .boards{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:0.75rem}
+    .board-btn{padding:0.85rem 0.75rem;background:rgba(255,255,255,0.02);border:1px solid rgba(232,220,200,0.1);border-radius:6px;color:#a09080;font-family:'Playfair Display',serif;font-size:1rem;text-align:center;transition:all 0.15s}
+    .board-btn.active{background:rgba(200,115,42,0.12);border-color:rgba(200,115,42,0.5);color:#c8732a}
+    /* Board desc */
+    .board-desc{padding:0.75rem 1rem;background:rgba(200,115,42,0.04);border:1px solid rgba(200,115,42,0.08);border-radius:6px;margin-bottom:1.5rem;font-style:italic;font-size:1.05rem;color:#a09070;line-height:1.6}
+    /* Filters */
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+    .filter-btn{padding:5px 14px;border:1px solid rgba(232,184,75,0.1);border-radius:2rem;background:transparent;color:#5a4a3a;font-family:'Cormorant Garamond',serif;font-size:0.95rem;transition:all 0.15s}
+    .filter-btn.active{color:#e8dcc8}
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem}
+    /* Card */
+    .card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative}
+    .card:hover{transform:translateY(-2px)}
+    .card-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7}
+    .card-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+    .badge{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.05em;padding:2px 6px;border-radius:2px}
+    .badge-fire{background:rgba(200,80,30,0.15);color:#d4733a;border:1px solid rgba(200,80,30,0.3)}
+    .badge-sebi{background:rgba(46,139,87,0.15);color:#5aaa7a;border:1px solid rgba(46,139,87,0.3)}
+    .card-emoji{font-size:1.8rem;display:block;margin-bottom:8px}
+    .card-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:#e8dcc8;margin-bottom:3px}
+    .card-tag{font-size:0.8rem;font-style:italic;margin-bottom:8px}
+    .card-tap{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:#6a5a4a;margin-top:6px}
+    /* Modal overlay */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px)}
+    .modal-overlay.open{display:flex}
+    .modal-box{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:82vh;overflow-y:auto;position:relative}
+    .modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#5a4a3a;font-size:1.5rem;line-height:1}
+    .modal-emoji{font-size:2.5rem;display:block;margin-bottom:10px}
+    .modal-name{font-family:'Playfair Display',serif;font-size:1.7rem;color:#e8dcc8;font-weight:400;margin:0 0 3px}
+    .modal-tagline{font-style:italic;font-size:0.9rem;margin:0 0 0.75rem}
+    .modal-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+    .modal-badge{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.08em;padding:4px 10px;border-radius:3px}
+    .fire-box{background:rgba(200,80,30,0.08);border:1px solid rgba(200,80,30,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1.25rem}
+    .fire-box-title{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;color:#d4733a;text-transform:uppercase;margin-bottom:6px}
+    .fire-box-text{font-size:0.9rem;color:#d4b090;line-height:1.6;margin-bottom:6px}
+    .fire-box-freq{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.1em;color:#a06040}
+    .ital-box{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem}
+    .ital-text{font-style:italic;font-size:0.85rem;color:#c8b890;line-height:1.6}
+    .modal-sec{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.25em;text-transform:uppercase;margin:0 0 8px}
+    .modal-list{list-style:none;padding:0;margin:0 0 1.25rem}
+    .modal-list li{font-size:0.85rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5}
+    .modal-list li::before{content:'✦';position:absolute;left:0;font-size:9px;top:7px}
+    .modal-usage{font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem}
+    .caution-box{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px}
+    .caution-text{font-size:0.78rem;color:#a06050;line-height:1.5}
+    .caution-text strong{color:#c07060;letter-spacing:0.08em}
+    @media(max-width:600px){.boards{grid-template-columns:repeat(2,1fr)}.hdr-title{font-size:2rem}}
   </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="text/babel">
-    const { useState } = React;
+<div id="root"></div>
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <span class="modal-emoji" id="m-emoji"></span>
+    <h3 class="modal-name" id="m-name"></h3>
+    <p class="modal-tagline" id="m-tagline"></p>
+    <div class="modal-badges" id="m-badges"></div>
+    <div class="fire-box" id="m-firebox" style="display:none">
+      <div class="fire-box-title" id="m-firetitle"></div>
+      <div class="fire-box-text" id="m-firetext"></div>
+      <div class="fire-box-freq" id="m-firefreq"></div>
+    </div>
+    <div class="ital-box" id="m-italbox" style="display:none">
+      <p class="ital-text" id="m-ital"></p>
+    </div>
+    <div id="m-tradition" style="display:none;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;color:#8a7a5a;margin-bottom:1rem;text-transform:uppercase"></div>
+    <p class="modal-sec" id="m-bsec" style="color:#c8732a">Benefits</p>
+    <ul class="modal-list" id="m-benefits"></ul>
+    <p class="modal-sec" style="color:#c8732a">How to use</p>
+    <p class="modal-usage" id="m-usage"></p>
+    <div class="caution-box"><p class="caution-text"><strong>NOTE: </strong><span id="m-caution"></span></p></div>
+  </div>
+</div>
 
-    // ── BOARD 1: HERBALISM ──
-    const teas = [
-      {
-        name: "Soursop Leaf", emoji: "🌿", category: "cancer", color: "#2d5a27",
-        tagline: "The Cancer Fighter",
-        benefits: [
-          "Potent anti-cancer properties — leaves contain acetogenins which inhibit abnormal cell growth",
-          "Antioxidant-rich, combating oxidative stress and inflammation",
-          "Supports immune system strength",
-          "Calms the nervous system — aids sleep and anxiety",
-          "Antimicrobial and antifungal properties",
-          "Supports healthy blood pressure",
-        ],
-        usage: "Fresh soursop juice: blend the fruit pulp with water, strain and drink immediately — the most potent form. Soursop leaf tea: bring water to a full boil, then remove from heat. Add 3–5 dried leaves to the resting water and steep covered for 10–15 minutes — do not boil the leaves directly, as heat destroys the medicinal compounds. Drink 1–2 cups daily. Best in the evening.",
-        ital: "Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",
-        caution: "Avoid in pregnancy. Do not combine with blood pressure medication without guidance.",
-      },
-      {
-        name: "Thai Tea", emoji: "🍵", category: "energy", color: "#c17f3a",
-        tagline: "The Golden Energiser",
-        benefits: [
-          "Rich in antioxidants — fights free radicals",
-          "Natural energy boost from black tea base",
-          "Contains spices like star anise and tamarind seed — aids digestion",
-          "Anti-inflammatory properties",
-          "Supports immune health",
-        ],
-        usage: "Brew strong with boiling water for 5 minutes. Traditionally served with condensed milk, but for Ital use: oat milk or coconut milk. Best in the morning.",
-        ital: "The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",
-        caution: "Contains caffeine — avoid late in the evening.",
-      },
-      {
-        name: "Elderflower", emoji: "🌸", category: "healing", color: "#b8a96a",
-        tagline: "The Immune Blossom",
-        benefits: [
-          "Powerful immune booster — especially for colds and flu",
-          "Natural antihistamine — relieves hay fever and allergies",
-          "Anti-inflammatory, supports sinus health",
-          "Gentle detoxifying and diuretic properties",
-          "Rich in Vitamin C and flavonoids",
-          "Promotes healthy skin from within",
-        ],
-        usage: "Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season or daily as a tonic.",
-        ital: "The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",
-        caution: "Use flowers only — elderberries and raw bark can be toxic in large amounts.",
-      },
-      {
-        name: "Chamomile", emoji: "🌼", category: "calm", color: "#d4a853",
-        tagline: "The Gentle Healer",
-        benefits: [
-          "Powerful sleep aid — reduces insomnia and restlessness",
-          "Reduces anxiety and stress naturally",
-          "Anti-inflammatory — soothes gut and IBS symptoms",
-          "Antispasmodic — relieves menstrual cramps",
-          "Supports skin health internally",
-          "Gentle enough for children",
-        ],
-        usage: "Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink 1 cup before bed or when anxious. Can add raw honey and lemon.",
-        ital: "One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",
-        caution: "Allergy possible if sensitive to ragweed family.",
-      },
-      {
-        name: "Raspberry Leaf", emoji: "🍃", category: "woman", color: "#8b3a52",
-        tagline: "The Womb Tonic",
-        benefits: [
-          "Tones and strengthens uterine muscles",
-          "Eases painful menstruation (dysmenorrhea)",
-          "Rich in iron, calcium, magnesium and B vitamins",
-          "Traditionally used in late pregnancy to prepare the womb",
-          "Balances hormones naturally",
-          "Supports milk production when breastfeeding",
-        ],
-        usage: "Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",
-        ital: "A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",
-        caution: "Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy.",
-      },
-      {
-        name: "Hibiscus (Sorrel)", emoji: "🌺", category: "heart", color: "#b5294e",
-        tagline: "The Blood Cleanser",
-        drfire: { role: "The Blood", protocol: "Dr.Fire's blood cleaner. Do NOT boil — cold or warm water infusion only. Heat destroys the active compounds needed to cleanse the bloodstream.", freq: "3× per week" },
-        benefits: [
-          "Cleans the bloodstream — Dr.Fire's primary blood herb",
-          "Significantly lowers high blood pressure (hypertension)",
-          "Lowers LDL (bad) cholesterol",
-          "Extremely high in Vitamin C — boosts immunity",
-          "Powerful antioxidant — anti-ageing",
-          "Natural diuretic — reduces water retention",
-        ],
-        usage: "Dr.Fire method: do NOT boil. Place dried petals in cold or warm (not hot) water and allow to infuse for several hours or overnight. Drink 3× a week. General use: steep 1–2 tsp in warm water for 5–10 minutes.",
-        ital: "Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",
-        caution: "May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",
-      },
-      {
-        name: "Lavender", emoji: "💜", category: "calm", color: "#7b5ea7",
-        tagline: "The Peace Herb",
-        benefits: [
-          "Powerful anxiety and stress reducer",
-          "Promotes deep, restorative sleep",
-          "Antidepressant properties — lifts mood naturally",
-          "Relieves headaches and migraines",
-          "Anti-inflammatory and antimicrobial",
-          "Balances the nervous system",
-        ],
-        usage: "Use sparingly — 1 tsp of flowers per cup, steep 5 minutes. Too strong can be bitter. Blend with chamomile for a potent sleep tea.",
-        ital: "Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",
-        caution: "Excessive use may cause drowsiness. Avoid if pregnant without guidance.",
-      },
-      {
-        name: "Peppermint", emoji: "🌱", category: "digestive", color: "#1a7a4a",
-        tagline: "The Digestive Warrior",
-        benefits: [
-          "Powerful relief for IBS, bloating and gas",
-          "Antispasmodic — relaxes intestinal muscles",
-          "Clears sinuses and respiratory congestion",
-          "Natural pain relief for tension headaches",
-          "Antimicrobial properties",
-          "Refreshes and energises without caffeine",
-        ],
-        usage: "Steep 1–2 tsp fresh or dried leaves for 5–7 minutes. Drink after meals for digestion. Can also inhale the steam for sinus relief.",
-        ital: "Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",
-        caution: "Avoid in acid reflux — can relax the oesophageal sphincter. Not recommended for infants.",
-      },
-      {
-        name: "Damiana", emoji: "🌾", category: "spirit", color: "#8b6914",
-        tagline: "The Spirit Lifter",
-        benefits: [
-          "Traditional aphrodisiac — supports libido naturally",
-          "Antidepressant and mood-elevating properties",
-          "Reduces anxiety and emotional exhaustion",
-          "Supports the adrenal and reproductive systems",
-          "Historically used for spiritual and visionary practices",
-          "Hormonal balancing — beneficial for both men and women",
-        ],
-        usage: "Steep 1 tsp in boiling water for 10 minutes. Drink 1–2 cups. Can blend with rose petals and cinnamon for a warming tonic.",
-        ital: "Used by the Maya and carried forward in Ital practice — a herb that reconnects you to your vital life force.",
-        caution: "Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention.",
-      },
-      {
-        name: "Mullein", emoji: "🌿", category: "respiratory", color: "#5a7a3a",
-        tagline: "The Lung Cleanser",
-        drfire: { role: "Liver · Eyes · Legs", protocol: "Dr.Fire uses mullein to clear the liver, support eye health and improve circulation in the legs — alongside its lung-clearing work.", freq: "2–3× daily during cleanse cycles" },
-        benefits: [
-          "Premier herb for lung health — expectorant clears mucus",
-          "Soothes bronchitis, asthma and chest tightness",
-          "Anti-inflammatory for the respiratory tract",
-          "Supports recovery from smoking damage",
-          "Antimicrobial — fights respiratory infections",
-          "Soothes sore throats",
-        ],
-        usage: "Steep 1–2 tsp dried leaf in boiling water for 10–15 minutes. Strain well (fine hairs can irritate throat). Drink 2–3 cups daily for respiratory support.",
-        ital: "Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",
-        caution: "Strain thoroughly. Avoid if allergic to the Scrophulariaceae plant family.",
-      },
-      {
-        name: "Roasted Green Tea", emoji: "🍵", category: "energy", color: "#6b7c3a",
-        tagline: "The Grounding Brew",
-        benefits: [
-          "Lower caffeine than regular green tea — gentle sustained energy",
-          "Rich in antioxidants (catechins)",
-          "Supports metabolism and healthy weight",
-          "Calming L-theanine reduces stress while maintaining focus",
-          "Supports heart and liver health",
-          "Earthy, nutty flavour from the roasting process",
-        ],
-        usage: "Steep at 80°C (not boiling) for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",
-        ital: "The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",
-        caution: "Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals).",
-      },
-      {
-        name: "Neem Leaf", emoji: "🌿", category: "digestive", color: "#3d6b2a",
-        tagline: "The Colon Cleanser",
-        drfire: { role: "The Colon (The Toilet)", protocol: "Dr.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins mobilised from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.", freq: "1× per week only" },
-        benefits: [
-          "Clears the colon — the body's primary waste exit",
-          "Toxins pushed to the liver and kidney are escorted out",
-          "Powerful antimicrobial — kills harmful bacteria and parasites",
-          "Antifungal — addresses candida and gut overgrowth",
-          "Supports the lymphatic system",
-          "Purifies the blood as it passes through",
-        ],
-        usage: "Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink on an empty stomach in the morning. Dr.Fire protocol: 1× per week only.",
-        ital: "Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",
-        caution: "Very potent — 1× per week only per Dr.Fire protocol. Do not use for extended periods. Avoid in pregnancy. May interact with diabetes medication.",
-      },
-      {
-        name: "Alfalfa", emoji: "🌱", category: "kidney", color: "#4a8c3a",
-        tagline: "The Mineral Builder",
-        benefits: [
-          "Exceptional diuretic — flushes kidneys naturally",
-          "Rich in chlorophyll, minerals and vitamins K, C, B",
-          "Alkalises the body — supports kidney stone prevention",
-          "Anti-inflammatory for urinary tract",
-          "Supports bone density with high calcium and magnesium",
-          "Detoxifies and rebuilds the blood",
-        ],
-        usage: "Steep 1–2 tsp in boiling water for 5–7 minutes. Can blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",
-        ital: "Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",
-        caution: "Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners.",
-      },
-      {
-        name: "Dandelion", emoji: "🌼", category: "kidney", color: "#c4a000",
-        tagline: "The Kidney Tonic",
-        drfire: { role: "The Kidney", protocol: "Pairs with Milk Thistle as the kidney cleanse duo in the Dr.Fire protocol. Together they pull waste from the kidney as toxins pass through from the blood and colon cleanse.", freq: "Daily · pair with Milk Thistle" },
-        benefits: [
-          "Premier kidney tonic and diuretic herb",
-          "Supports liver detoxification",
-          "Rich in potassium — replenishes what diuretics remove",
-          "Anti-inflammatory for urinary tract",
-          "Supports healthy blood pressure",
-          "Prebiotic — feeds beneficial gut bacteria",
-        ],
-        usage: "Steep 1–2 tsp dried root or leaf in boiling water for 10 minutes. Roasted dandelion root makes a rich, coffee-like brew. Drink 2–3 cups daily.",
-        ital: "The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",
-        caution: "May increase frequency of urination. Avoid if allergic to ragweed family.",
-      },
-      {
-        name: "Eyebright", emoji: "👁️", category: "healing", color: "#4a7a9b",
-        tagline: "The Eye Healer",
-        benefits: [
-          "Soothes tired, irritated and inflamed eyes — traditional remedy for conjunctivitis and styes",
-          "Anti-inflammatory — tannins and flavonoids reduce inflammation in mucous membranes",
-          "Powerful support for hay fever, sinusitis and seasonal allergies",
-          "Helps dry up excess mucus and catarrh",
-          "Mild antibacterial properties — supports eye infection recovery",
-          "Liver and digestive support in some herbal traditions",
-        ],
-        usage: "Steep 1–2 tsp dried herb in boiling water for 10 minutes. Drink as tea for respiratory and allergy relief. For eyewash — preparation must be fully sterile. Available as tincture or capsule.",
-        ital: "Named for what it does. Eyebright has been used for centuries across European herbal traditions — a plant that sees clearly where the body struggles.",
-        caution: "Any eyewash preparation must be sterile — consult a herbalist before applying to eyes directly. Avoid during pregnancy. Not a substitute for medical eye care.",
-      },
-      {
-        name: "Cat's Claw", emoji: "🌿", category: "cancer", color: "#7a3a2a",
-        tagline: "The Rainforest Healer",
-        benefits: [
-          "Anti-tumour properties — alkaloids shown to inhibit cancer cell growth and promote apoptosis",
-          "Powerful anti-inflammatory — comparable to pharmaceutical anti-inflammatories in studies",
-          "Strengthens and modulates the immune system",
-          "Antioxidant-rich — protects cells from oxidative damage",
-          "Supports gut health and reduces intestinal inflammation",
-          "DNA repair support — shown to help repair DNA damage in cells",
-        ],
-        usage: "Steep 1 tsp bark or root in boiling water for 10–15 minutes. Drink 1–2 cups daily. Available as tincture, capsule or dried bark.",
-        ital: "From the Amazon rainforest. Indigenous communities of Peru have used cat's claw for centuries to treat inflammation, infections and cancer. The forest holds the medicine.",
-        caution: "Avoid during pregnancy or if taking blood thinners, immunosuppressants or blood pressure medication. Consult a practitioner if undergoing cancer treatment.",
-      },
-      {
-        name: "Turkey Tail Mushroom", emoji: "🍄", category: "cancer", color: "#8a6a3a",
-        tagline: "The Immune Architect",
-        benefits: [
-          "Contains PSK and PSP — polysaccharides shown in clinical trials to improve cancer survival rates",
-          "Enhances NK cell and T-cell activity — directly strengthens cancer-fighting immune response",
-          "Used alongside conventional cancer treatment in Japan and China since the 1970s",
-          "Powerful prebiotic — feeds beneficial gut bacteria",
-          "Antioxidant-rich and anti-inflammatory",
-          "Supports recovery during chemotherapy and radiation",
-        ],
-        usage: "Brew dried mushroom in hot water for 20–30 minutes. Drink as tea or take as capsule/tincture. Best used consistently over time.",
-        ital: "One of the most researched medicinal mushrooms in the world. The forest floor holds what the lab is only beginning to understand.",
-        caution: "Generally well tolerated. May cause digestive upset in some. Consult your oncologist if using alongside cancer treatment.",
-      },
-      {
-        name: "Frankincense (Boswellia)", emoji: "🫚", category: "cancer", color: "#c8a040",
-        tagline: "The Sacred Resin",
-        benefits: [
-          "AKBA compound shown to target cancer cells without harming healthy cells — brain, breast, colon and prostate cancer studied",
-          "Potent anti-inflammatory — inhibits the same inflammatory pathways as NSAIDs",
-          "Supports brain health and has been researched for brain tumour treatment",
-          "Reduces anxiety and depression — frankincense activates ion channels in the brain",
-          "Supports joint health and reduces arthritis pain",
-          "Used in Ayurveda and African healing traditions for millennia",
-        ],
-        usage: "Take as Boswellia extract capsule (400–500mg, 3x daily). Frankincense essential oil can be diffused or applied topically diluted in a carrier oil. Do not ingest the essential oil.",
-        ital: "Ancient medicine — burned in temples, used by healers across Africa, the Middle East and India. Sacred for a reason.",
-        caution: "Avoid during pregnancy. May interact with blood thinners. Use food-grade supplements — not essential oil — for internal use.",
-      },
-      {
-        name: "Turmeric (Curcumin)", emoji: "🌿", category: "cancer", color: "#d4a020",
-        tagline: "The Golden Healer",
-        benefits: [
-          "Curcumin shown to inhibit cancer cell proliferation across multiple cancer types",
-          "Induces apoptosis — programmes cancer cells to self-destruct",
-          "Blocks angiogenesis — starves tumours of blood supply",
-          "Among the most powerful anti-inflammatory compounds known",
-          "Protects the liver and supports detoxification",
-          "Crosses the blood-brain barrier — supports neurological health",
-        ],
-        usage: "Take with black pepper (piperine increases absorption by 2000%). Add to food, golden milk or tea. As supplement: 500–1000mg curcumin extract daily with fat and black pepper.",
-        ital: "Used for 4,000 years in Ayurvedic and traditional Chinese medicine. The science is finally catching up to what our ancestors already knew.",
-        caution: "High doses may interact with blood thinners and diabetes medication. Avoid therapeutic doses during pregnancy. Always take with black pepper for absorption.",
-      },
+<script>
+// ── DATA ──
+const teas = [
+  {name:"Soursop Leaf",emoji:"🌿",category:"cancer",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — leaves contain acetogenins which inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Supports immune system strength","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal properties","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance.",drsebi:true},
+  {name:"Elderflower",emoji:"🌸",category:"healing",color:"#b8a96a",tagline:"The Immune Blossom",benefits:["Powerful immune booster — especially for colds and flu","Natural antihistamine — relieves hay fever and allergies","Anti-inflammatory, supports sinus health","Gentle detoxifying and diuretic properties","Rich in Vitamin C and flavonoids","Promotes healthy skin from within"],usage:"Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season or daily as a tonic.",ital:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",caution:"Use flowers only — elderberries and raw bark can be toxic in large amounts.",drsebi:true},
+  {name:"Chamomile",emoji:"🌼",category:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Antispasmodic — relieves menstrual cramps","Supports skin health internally","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink 1 cup before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family.",drsebi:true},
+  {name:"Raspberry Leaf",emoji:"🍃",category:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Traditionally used in late pregnancy to prepare the womb","Balances hormones naturally","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy.",drsebi:true},
+  {name:"Hibiscus (Sorrel)",emoji:"🌺",category:"heart",color:"#b5294e",tagline:"The Blood Cleanser",drfire:{role:"The Blood",protocol:"Dr.Fire's blood cleaner. Do NOT boil — cold or warm water infusion only. Heat destroys the active compounds needed to cleanse the bloodstream.",freq:"3x per week"},benefits:["Cleans the bloodstream — Dr.Fire's primary blood herb","Significantly lowers high blood pressure (hypertension)","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C — boosts immunity","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],usage:"Dr.Fire method: do NOT boil. Place dried petals in cold or warm (not hot) water and allow to infuse for several hours or overnight. Drink 3x a week. General use: steep 1–2 tsp in warm water for 5–10 minutes.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+  {name:"Lavender",emoji:"💜",category:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep, restorative sleep","Antidepressant properties — lifts mood naturally","Relieves headaches and migraines","Anti-inflammatory and antimicrobial","Balances the nervous system"],usage:"Use sparingly — 1 tsp of flowers per cup, steep 5 minutes. Too strong can be bitter. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",category:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Antimicrobial properties","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp fresh or dried leaves for 5–7 minutes. Drink after meals for digestion. Can also inhale the steam for sinus relief.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Damiana",emoji:"🌾",category:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Supports the adrenal and reproductive systems","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],usage:"Steep 1 tsp in boiling water for 10 minutes. Drink 1–2 cups. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — a herb that reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention.",drsebi:true},
+  {name:"Mullein",emoji:"🌿",category:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",drfire:{role:"Liver · Eyes · Legs",protocol:"Dr.Fire uses mullein to clear the liver, support eye health and improve circulation in the legs — alongside its lung-clearing work.",freq:"2–3x daily during cleanse cycles"},benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Anti-inflammatory for the respiratory tract","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf in boiling water for 10–15 minutes. Strain well (fine hairs can irritate throat). Drink 2–3 cups daily for respiratory support.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to the Scrophulariaceae plant family.",drsebi:true},
+  {name:"Roasted Green Tea",emoji:"🍵",category:"healing",color:"#6b7c3a",tagline:"The Grounding Brew",benefits:["Lower caffeine than regular green tea — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Supports heart and liver health","Earthy, nutty flavour from the roasting process"],usage:"Steep at 80°C (not boiling) for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",ital:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",caution:"Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals)."},
+  {name:"Thai Tea",emoji:"🍵",category:"healing",color:"#c17f3a",tagline:"The Golden Energiser",benefits:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise — aids digestion","Anti-inflammatory properties","Supports immune health"],usage:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",ital:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",caution:"Contains caffeine — avoid late in the evening."},
+  {name:"Neem Leaf",emoji:"🌿",category:"digestive",color:"#3d6b2a",tagline:"The Colon Cleanser",drfire:{role:"The Colon (The Toilet)",protocol:"Dr.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins mobilised from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.",freq:"1x per week only"},benefits:["Clears the colon — the body's primary waste exit","Toxins pushed to liver and kidney are escorted out","Powerful antimicrobial — kills harmful bacteria and parasites","Antifungal — addresses candida and gut overgrowth","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves in boiling water for 10 minutes. Very bitter — start with a small cup. Drink on an empty stomach in the morning. Dr.Fire protocol: 1x per week only.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — 1x per week only per Dr.Fire protocol. Do not use for extended periods. Avoid in pregnancy."},
+  {name:"Alfalfa",emoji:"🌱",category:"kidney",color:"#4a8c3a",tagline:"The Mineral Builder",benefits:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Anti-inflammatory for urinary tract","Supports bone density with high calcium and magnesium","Detoxifies and rebuilds the blood"],usage:"Steep 1–2 tsp in boiling water for 5–7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",ital:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",caution:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
+  {name:"Dandelion",emoji:"🌼",category:"kidney",color:"#c4a000",tagline:"The Kidney Tonic",drfire:{role:"The Kidney",protocol:"Pairs with Milk Thistle as the kidney cleanse duo in the Dr.Fire protocol. Together they pull waste from the kidney as toxins pass through from the blood and colon cleanse.",freq:"Daily — pair with Milk Thistle"},benefits:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Supports healthy blood pressure","Prebiotic — feeds beneficial gut bacteria"],usage:"Steep 1–2 tsp dried root or leaf in boiling water for 10 minutes. Roasted dandelion root makes a rich, coffee-like brew. Drink 2–3 cups daily.",ital:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",caution:"May increase frequency of urination. Avoid if allergic to ragweed family.",drsebi:true},
+  {name:"Milk Thistle",emoji:"🌸",category:"liver",color:"#9b59b6",tagline:"The Liver Shield",drfire:{role:"The Liver",protocol:"Shields and regenerates the liver as toxins are pushed through during the Dr.Fire cleanse. Works with mullein to keep the liver processing cleanly.",freq:"Daily during cleanse cycles"},benefits:["Protects and regenerates liver cells — active compound silymarin is one of the most liver-specific medicines in the plant world","Reduces liver inflammation and scarring — used for cirrhosis, hepatitis and fatty liver","Powerful antioxidant — neutralises free radicals in liver tissue","Helps the body process and eliminate toxins efficiently","Supports healthy cholesterol levels","Indirectly eases kidney load by keeping the liver clean"],usage:"Steep 1 tsp crushed seeds or dried herb in boiling water for 10–15 minutes. Drink 1–2 cups daily. During a cleanse: use daily to shield the liver as toxins pass through.",ital:"The liver is the alchemist of the body — it transforms everything that enters. Milk thistle protects that sacred work.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic."},
+  // Dr. Sebi herbs
+  {name:"Burdock Root",emoji:"🌱",category:"drsebi",color:"#8B4513",tagline:"The #1 Blood Cleanser",drsebi:true,benefits:["Dr. Sebi's #1 blood cleanser — removes heavy metals and deep systemic toxins","Powerful diuretic — flushes kidneys and lymphatic system","Rich in organic iron — rebuilds and strengthens the blood","Anti-inflammatory — reduces joint and tissue inflammation","Prebiotic — feeds beneficial gut bacteria","Supports healthy, clear skin from within"],usage:"Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a dual cleanse tea.",ital:"The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",caution:"Avoid in pregnancy. May interact with blood thinners or diabetes medication."},
+  {name:"Sarsaparilla",emoji:"🌿",category:"drsebi",color:"#6B4226",tagline:"The Endotoxin Binder",drsebi:true,benefits:["Binds to endotoxins in the gut — removes them before blood absorption","Powerful blood purifier used for skin disease and systemic toxicity","Anti-inflammatory — used for arthritis and deep joint pain","Contains organic iron and zinc in plant-available form","Supports testosterone and reproductive hormones naturally","Diuretic — flushes the kidneys"],usage:"Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",ital:"Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",caution:"Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart."},
+  {name:"Blue Vervain",emoji:"💙",category:"drsebi",color:"#4169a0",tagline:"The Nervous System Healer",drsebi:true,benefits:["Dr. Sebi's primary herb for the nervous system","Relieves tension, anxiety and emotional stress held in the body","Antispasmodic — relieves muscle tension and cramps","Supports liver and lymphatic drainage","Helps with insomnia rooted in mental overactivity","Mild expectorant — clears mucus from the respiratory tract"],usage:"Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",ital:"The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",caution:"Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance."},
+  {name:"Sea Moss",emoji:"🌊",category:"drsebi",color:"#2E8B57",tagline:"The 92-Mineral Foundation",drsebi:true,benefits:["Contains 92 of the 102 minerals the human body is made of","Dr. Sebi's foundational supplement — taken daily as the mineral base","Supports thyroid function — rich in natural iodine","Strengthens gut lining and acts as a powerful prebiotic","Boosts immunity, energy and skin health","Anti-inflammatory — supports joints and respiratory health"],usage:"Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Source wildcrafted sea moss only.",ital:"The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",caution:"High in iodine — avoid if you have hyperthyroidism. Source wildcrafted from clean waters only."},
+  {name:"Bladderwrack",emoji:"🌿",category:"drsebi",color:"#3d7a5a",tagline:"The Thyroid Herb",drsebi:true,benefits:["Pairs with sea moss as Dr. Sebi's ocean mineral duo","Rich in natural iodine — supports thyroid health directly","Anti-inflammatory — reduces joint swelling","Supports healthy metabolism and weight regulation","Antioxidant — protects cells from oxidative stress","Traditionally used for goitre and thyroid imbalance"],usage:"Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",ital:"From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",caution:"High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance."},
+  {name:"Tila (Linden Flower)",emoji:"🌼",category:"drsebi",color:"#b5a030",tagline:"The Mucus Membrane Soother",drsebi:true,benefits:["Dr. Sebi's herb for calming and mucus membrane healing","Antispasmodic — relieves nervous tension and anxiety","Clears mucus from the respiratory tract gently","Anti-inflammatory for the digestive tract","Promotes restful sleep without heavy sedation","Supports healthy blood pressure"],usage:"Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour — one of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",ital:"Gentle enough for children, powerful enough for deep healing — tila reminds us medicine does not always need to be bitter to work.",caution:"Generally very safe. Avoid excessive daily use over very long periods without breaks."},
+  {name:"Nopal Cactus",emoji:"🌵",category:"drsebi",color:"#5a8c3a",tagline:"The Blood Sugar Balancer",drsebi:true,benefits:["Dr. Sebi's approved herb for blood sugar regulation and diabetes","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the African Bio-Mineral Balance"],usage:"Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",ital:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",caution:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort."}
+];
 
-      {
-        name: "Milk Thistle", emoji: "🌸", category: "liver", color: "#9b59b6",
-        tagline: "The Liver Shield",
-        benefits: [
-          "Protects and regenerates liver cells — active compound silymarin is one of the most liver-specific medicines in the plant world",
-          "Reduces liver inflammation and scarring — used for cirrhosis, hepatitis and fatty liver",
-          "Powerful antioxidant — neutralises free radicals specifically in liver tissue",
-          "Helps the body process and eliminate toxins more efficiently",
-          "Supports healthy cholesterol levels",
-          "Indirectly eases kidney load by keeping the liver clean and processing well",
-        ],
-        usage: "Steep 1 tsp crushed seeds or dried herb in boiling water for 10–15 minutes. Drink 1–2 cups daily. During a cleanse: use daily to shield the liver as toxins are mobilised and pass through.",
-        ital: "The liver is the alchemist of the body — it transforms everything that enters. Milk thistle protects that sacred work, keeping the inner fire clean.",
-        caution: "Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",
-        drfire: { role: "The Liver", protocol: "Shields and regenerates the liver as toxins are pushed through during the Dr.Fire cleanse. Works with mullein to keep the liver processing cleanly.", freq: "Daily during cleanse cycles" },
-      },
+const herbCats = {
+  all:{label:"All",color:"#8a7a5a"},
+  drfire:{label:"🔥 Dr.Fire",color:"#c8632a"},
+  drsebi:{label:"🌿 Dr. Sebi",color:"#2E8B57"},
+  cancer:{label:"Cancer Fighting",color:"#7a3a2a"},
+  healing:{label:"Deep Healing",color:"#2d5a27"},
+  calm:{label:"Calm & Sleep",color:"#7b5ea7"},
+  liver:{label:"Liver",color:"#9b59b6"},
+  woman:{label:"Womb Health",color:"#8b3a52"},
+  heart:{label:"Heart & Blood",color:"#b5294e"},
+  digestive:{label:"Digestive",color:"#1a7a4a"},
+  kidney:{label:"Kidney",color:"#4a8c3a"},
+  spirit:{label:"Spirit",color:"#8b6914"},
+  respiratory:{label:"Respiratory",color:"#5a7a3a"}
+};
 
-      // ── DR. SEBI APPROVED HERBS ──
-      {
-        name: "Burdock Root", emoji: "🌱", category: "drsebi", color: "#8B4513",
-        tagline: "The #1 Blood Cleanser",
-        drsebi: true,
-        benefits: [
-          "Dr. Sebi's #1 blood cleanser — removes heavy metals and deep systemic toxins",
-          "Powerful diuretic — flushes kidneys and lymphatic system",
-          "Rich in organic iron — rebuilds and strengthens the blood",
-          "Anti-inflammatory — reduces joint and tissue inflammation",
-          "Prebiotic — feeds beneficial gut bacteria",
-          "Supports healthy, clear skin from within",
-        ],
-        usage: "Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a dual cleanse tea.",
-        ital: "The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",
-        caution: "Avoid in pregnancy. May interact with blood thinners or diabetes medication. Allergy possible if sensitive to ragweed family.",
-      },
-      {
-        name: "Sarsaparilla", emoji: "🌿", category: "drsebi", color: "#6B4226",
-        tagline: "The Endotoxin Binder",
-        drsebi: true,
-        benefits: [
-          "Binds to endotoxins in the gut — removes them before they enter the bloodstream",
-          "Powerful blood purifier — used historically for skin disease and systemic toxicity",
-          "Anti-inflammatory — used for arthritis and deep joint pain",
-          "Contains organic iron and zinc in plant-available form",
-          "Supports testosterone and reproductive hormones naturally",
-          "Diuretic — flushes the kidneys",
-        ],
-        usage: "Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",
-        ital: "Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",
-        caution: "Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart.",
-      },
-      {
-        name: "Blue Vervain", emoji: "💙", category: "drsebi", color: "#4169a0",
-        tagline: "The Nervous System Healer",
-        drsebi: true,
-        benefits: [
-          "Dr. Sebi's primary herb for the nervous system",
-          "Relieves tension, anxiety and emotional stress held in the body",
-          "Antispasmodic — relieves muscle tension and cramps",
-          "Supports liver and lymphatic drainage",
-          "Helps with insomnia rooted in mental overactivity",
-          "Mild expectorant — clears mucus from the respiratory tract",
-        ],
-        usage: "Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",
-        ital: "The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",
-        caution: "Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance.",
-      },
-      {
-        name: "Sea Moss", emoji: "🌊", category: "drsebi", color: "#2E8B57",
-        tagline: "The 92-Mineral Foundation",
-        drsebi: true,
-        benefits: [
-          "Contains 92 of the 102 minerals the human body is made of",
-          "Dr. Sebi's foundational supplement — taken daily as the mineral base",
-          "Supports thyroid function — rich in natural iodine",
-          "Strengthens gut lining and acts as a powerful prebiotic",
-          "Boosts immunity, energy and skin health",
-          "Anti-inflammatory — supports joints and respiratory health",
-        ],
-        usage: "Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Source wildcrafted sea moss only — not pool-grown.",
-        ital: "The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",
-        caution: "High in iodine — avoid if you have hyperthyroidism. Source wildcrafted from clean waters. Avoid bleached or pool-grown varieties.",
-      },
-      {
-        name: "Bladderwrack", emoji: "🌿", category: "drsebi", color: "#3d7a5a",
-        tagline: "The Thyroid Herb",
-        drsebi: true,
-        benefits: [
-          "Pairs with sea moss as Dr. Sebi's ocean mineral duo",
-          "Rich in natural iodine — supports thyroid health directly",
-          "Anti-inflammatory — reduces joint swelling",
-          "Supports healthy metabolism and weight regulation",
-          "Antioxidant — protects cells from oxidative stress",
-          "Traditionally used for goitre and thyroid imbalance",
-        ],
-        usage: "Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",
-        ital: "From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",
-        caution: "High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance. Source from clean, non-contaminated waters.",
-      },
-      {
-        name: "Tila (Linden Flower)", emoji: "🌼", category: "drsebi", color: "#b5a030",
-        tagline: "The Mucus Membrane Soother",
-        drsebi: true,
-        benefits: [
-          "Dr. Sebi's herb for calming and mucus membrane healing",
-          "Antispasmodic — relieves nervous tension and anxiety",
-          "Clears mucus from the respiratory tract gently",
-          "Anti-inflammatory for the digestive tract",
-          "Promotes restful sleep without heavy sedation",
-          "Supports healthy blood pressure",
-        ],
-        usage: "Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour — one of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",
-        ital: "Gentle enough for children, powerful enough for deep healing — tila is a reminder that medicine does not always need to be bitter to work.",
-        caution: "Generally very safe. Avoid excessive daily use over very long periods without breaks.",
-      },
-      {
-        name: "Nopal Cactus", emoji: "🌵", category: "drsebi", color: "#5a8c3a",
-        tagline: "The Blood Sugar Balancer",
-        drsebi: true,
-        benefits: [
-          "Dr. Sebi's approved herb for blood sugar regulation and diabetes",
-          "Regulates blood sugar — reduces glucose absorption in the gut",
-          "Anti-inflammatory — reduces systemic inflammation",
-          "Rich in organic iron, calcium and antioxidants",
-          "Reduces LDL cholesterol naturally",
-          "Alkaline-forming in the body — aligns with the African Bio-Mineral Balance",
-        ],
-        usage: "Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",
-        ital: "The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",
-        caution: "May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort.",
-      },
-    ];
+const boards = [
+  {id:'herbs', label:'🌿 Herbalism', desc:'Teas, leaves, roots and bark. Everyday plant healing — what your grandmother knew.'},
+  {id:'oils',  label:'🫧 Aromatherapy', desc:'Essential oils for healing, mood, space and ritual. The olfactory path to the nervous system.'},
+  {id:'plants',label:'🌀 Plant Medicine', desc:'Sacred plants that work on consciousness. Used ceremonially, with intention and respect.'},
+  {id:'pantry',label:'🍽 The Pantry', desc:'Food as medicine. Sea moss, medicinal mushrooms, healing fruits. The kitchen as apothecary.'}
+];
 
-    const herbCategories = {
-      all:         { label: "All",              color: "#8a7a5a" },
-      drfire:      { label: "🔥 Dr.Fire",       color: "#c8632a" },
-      drsebi:      { label: "🌿 Dr. Sebi",      color: "#2E8B57" },
-      cancer:      { label: "Cancer Fighting",  color: "#7a3a2a" },
-      healing:     { label: "Deep Healing",     color: "#2d5a27" },
-      calm:        { label: "Calm & Sleep",     color: "#7b5ea7" },
-      liver:       { label: "Liver",            color: "#9b59b6" },
-      woman:       { label: "Womb Health",      color: "#8b3a52" },
-      heart:       { label: "Heart & Blood",    color: "#b5294e" },
-      digestive:   { label: "Digestive",        color: "#1a7a4a" },
-      kidney:      { label: "Kidney",           color: "#4a8c3a" },
-      spirit:      { label: "Spirit",           color: "#8b6914" },
-      respiratory: { label: "Respiratory",      color: "#5a7a3a" },
-    };
+// ── STATE ──
+let currentBoard = 'herbs';
+let currentCat = 'all';
 
-    // ── BOARD 2: AROMATHERAPY ──
-    const oils = [
-      {
-        name: "Lavender Oil", emoji: "💜", category: "calm", color: "#7b5ea7",
-        tagline: "The Universal Healer",
-        method: ["Diffuse", "Topical", "Bath"],
-        benefits: [
-          "Reduces anxiety and stress — one of the most studied essential oils for calming the nervous system",
-          "Promotes deep, restorative sleep",
-          "Antiseptic and anti-inflammatory — speeds healing of burns, cuts and insect bites",
-          "Relieves headaches and migraines when applied to temples",
-          "Antidepressant — lifts mood naturally",
-          "Safe for children when diluted",
-        ],
-        usage: "Diffuse 4–6 drops in an oil diffuser. Apply 2–3 drops diluted in a carrier oil (coconut, jojoba) to pulse points, temples or feet. Add 5–10 drops to a warm bath.",
-        note: "One of the few essential oils generally safe to apply neat (undiluted) in small amounts to skin. Always dilute for children.",
-        caution: "Avoid during first trimester of pregnancy. Can cause drowsiness — avoid before driving if sensitive.",
-      },
-      {
-        name: "Tea Tree Oil", emoji: "🌿", category: "healing", color: "#2d5a4a",
-        tagline: "Nature's Antiseptic",
-        method: ["Topical", "Diffuse", "Cleaning"],
-        benefits: [
-          "Powerful antibacterial — effective against many strains including MRSA",
-          "Antifungal — treats nail fungus, athlete's foot and thrush",
-          "Antiviral properties — supports immunity",
-          "Treats acne — reduces bacteria and inflammation on skin",
-          "Soothes scalp conditions — dandruff, dry scalp, seborrheic dermatitis",
-          "Natural household disinfectant",
-        ],
-        usage: "Skin: dilute 1–2 drops in a carrier oil or unscented cream. Scalp: add 5 drops to shampoo. Diffuse for air purification. Add to water for natural surface cleaner.",
-        note: "One of the most versatile oils in any apothecary. A true staple.",
-        caution: "NEVER ingest — toxic when swallowed. Always dilute before applying to skin. Keep away from pets, especially cats.",
-      },
-      {
-        name: "Frankincense Oil", emoji: "🫚", category: "spirit", color: "#c8a040",
-        tagline: "The Sacred Oil",
-        method: ["Diffuse", "Topical", "Meditation"],
-        benefits: [
-          "Deepens meditation and spiritual practice — activates ion channels in the brain associated with calm",
-          "Anti-tumour properties — researched for brain and breast cancer",
-          "Reduces anxiety and depression",
-          "Anti-inflammatory — supports joints and arthritis",
-          "Skin rejuvenating — reduces scars, stretch marks and signs of ageing",
-          "Grounding and centering — anchors scattered energy",
-        ],
-        usage: "Diffuse during meditation or before sleep. Dilute 2–3 drops in jojoba or rosehip oil and apply to skin or behind ears. Inhale directly from bottle for instant grounding.",
-        note: "If one oil belongs in every sacred space, it's this one. Burned in temples for thousands of years across Africa, the Middle East and India.",
-        caution: "Avoid during pregnancy. May interact with blood thinners. Do not ingest the essential oil — use Boswellia supplements for internal benefit.",
-      },
-      {
-        name: "Peppermint Oil", emoji: "🌱", category: "digestive", color: "#1a7a4a",
-        tagline: "The Cool Healer",
-        method: ["Diffuse", "Topical", "Inhale"],
-        benefits: [
-          "Relieves headaches and migraines when applied to temples",
-          "Energising and focus-enhancing — natural alternative to caffeine",
-          "Soothes digestive discomfort, nausea and IBS",
-          "Clears sinuses and respiratory congestion",
-          "Cooling pain relief for muscles and joints",
-          "Natural insect repellent",
-        ],
-        usage: "Headaches: dilute and apply to temples and back of neck. Diffuse for energy and focus. Add 1 drop to water or peppermint tea (food-grade only). Inhale directly for nausea.",
-        note: "Keep a bottle in your bag. One of the most immediately useful oils day to day.",
-        caution: "Do not apply undiluted near eyes or on children's faces. Avoid if you have acid reflux. Use food-grade oil only if ingesting.",
-      },
-      {
-        name: "Eucalyptus Oil", emoji: "🌿", category: "respiratory", color: "#5a7a3a",
-        tagline: "The Lung Opener",
-        method: ["Diffuse", "Steam", "Topical"],
-        benefits: [
-          "Opens airways and clears respiratory congestion — colds, flu, bronchitis",
-          "Antibacterial and antiviral — purifies air when diffused",
-          "Relieves muscle pain and tension",
-          "Stimulates immune function",
-          "Cooling and refreshing — reduces fever",
-          "Improves focus and mental clarity",
-        ],
-        usage: "Add 3–5 drops to a bowl of hot water, cover head with towel and inhale (steam inhalation). Diffuse during illness. Dilute and apply to chest. Add to shower floor for steam.",
-        note: "The classic sick-day oil. Your grandmother's medicine cabinet probably had something like this.",
-        caution: "Never ingest. Keep away from children under 2. Avoid near face of young children — can cause breathing difficulties.",
-      },
-      {
-        name: "Rose Oil", emoji: "🌹", category: "woman", color: "#8b3a52",
-        tagline: "The Heart Opener",
-        method: ["Diffuse", "Topical", "Bath"],
-        benefits: [
-          "Deeply supportive for grief, heartbreak and emotional pain",
-          "Balances hormones — supports menstrual regulation",
-          "One of the highest vibrational essential oils",
-          "Aphrodisiac — supports libido and intimacy",
-          "Anti-inflammatory and antibacterial for skin",
-          "Reduces anxiety and lifts depression",
-        ],
-        usage: "Diffuse for emotional healing. Dilute in rosehip oil and apply to heart centre. Add 3–4 drops to bath with Epsom salts. Wear as natural perfume diluted in jojoba.",
-        note: "It takes approximately 60 roses to make one drop of pure rose essential oil. It's expensive for a reason. Buy from a trusted source.",
-        caution: "Avoid during pregnancy. Ensure you buy genuine rose otto — many products are adulterated with synthetic fragrance.",
-      },
-    ];
+// ── RENDER ──
+function getItems() {
+  let items = teas; // only herbs board for now — extend later
+  if (currentCat === 'all') return items;
+  if (currentCat === 'drfire') return items.filter(i => i.drfire);
+  if (currentCat === 'drsebi') return items.filter(i => i.drsebi || i.category === 'drsebi');
+  return items.filter(i => i.category === currentCat);
+}
 
-    const oilCategories = {
-      all:         { label: "All",          color: "#8a7a5a" },
-      calm:        { label: "Calm & Sleep", color: "#7b5ea7" },
-      healing:     { label: "Healing",      color: "#2d5a4a" },
-      spirit:      { label: "Spirit",       color: "#c8a040" },
-      digestive:   { label: "Digestive",    color: "#1a7a4a" },
-      respiratory: { label: "Respiratory",  color: "#5a7a3a" },
-      woman:       { label: "Womb & Heart", color: "#8b3a52" },
-    };
+function render() {
+  const board = boards.find(b => b.id === currentBoard);
+  const items = getItems();
 
-    // ── BOARD 3: PLANT MEDICINE ──
-    const plants = [
-      {
-        name: "Ganja (Cannabis)", emoji: "🌿", category: "sacred", color: "#2d5a27",
-        tagline: "The Sacrament",
-        tradition: "Rastafarian · Vedic · Indigenous",
-        benefits: [
-          "Sacred sacrament in Rastafari — used for meditation, prayer and reasoning",
-          "Referenced in the Vedas as one of five sacred plants",
-          "Pain relief and anti-inflammatory — medical cannabis well established",
-          "Reduces anxiety, PTSD and depression",
-          "Supports sleep and nervous system regulation",
-          "Anti-nausea — used during chemotherapy",
-          "Cannabinoids shown to have anti-tumour properties in research",
-        ],
-        usage: "Ceremonial: smoked with intention, in community or in meditation. Medicinal: CBD oil, tinctures, edibles — start low and slow. Understand your lineage with this plant before using.",
-        note: "This plant has been criminalised to oppress the communities that hold it sacred. Know the history. Use with respect.",
-        caution: "Legal status varies by country — know your jurisdiction. Not recommended for those with personal or family history of psychosis. Avoid during pregnancy.",
-      },
-      {
-        name: "Ceremonial Cacao", emoji: "🍫", category: "heart", color: "#5a2d1a",
-        tagline: "The Heart Opener",
-        tradition: "Mayan · Aztec · Central American",
-        benefits: [
-          "Opens the heart centre — used ceremonially for emotional healing and connection",
-          "Contains theobromine — a gentle, sustained energy lift without the anxiety of caffeine",
-          "MAO inhibitor — enhances mood and sense of wellbeing",
-          "Rich in magnesium, iron and antioxidants",
-          "Facilitates emotional release and deep inner work",
-          "Enhances creativity, presence and empathy",
-        ],
-        usage: "Ceremonial dose: 40–42g cacao block melted in hot water with chilli, cinnamon and a little sweetener. Set an intention. Sit with it. Can be used with meditation, journaling or movement.",
-        note: "Not the same as chocolate. Ceremonial cacao is minimally processed, full-fat and used with intention. Source ethically — look for Guatemalan or Peruvian origin.",
-        caution: "Avoid if on antidepressants (MAOIs) without guidance. High doses can cause nausea, headache or racing heart in sensitive people. Not recommended during pregnancy in high doses.",
-      },
-      {
-        name: "Psilocybin Mushrooms", emoji: "🍄", category: "vision", color: "#6a4a8a",
-        tagline: "The Great Teacher",
-        tradition: "Mazatec · Mesoamerican · Global Indigenous",
-        benefits: [
-          "Clinically proven to reduce treatment-resistant depression — Johns Hopkins and Imperial College research",
-          "Dissolves ego defensiveness — allows deep trauma processing",
-          "Reduces end-of-life anxiety in terminal patients — trials show lasting relief after one session",
-          "Creates lasting personality changes toward openness and empathy",
-          "Shown to reduce addiction — smoking, alcohol, opioids",
-          "Mystical experiences reported by most participants — long-term positive impact on wellbeing",
-        ],
-        usage: "Set and setting are everything. Micro-dosing: 0.1–0.3g for subtle cognitive and mood benefits. Ceremonial/therapeutic dose: 2–3.5g in a safe, intentional space. Never alone for high doses. Integration after the experience is as important as the journey itself.",
-        note: "This medicine is having a clinical renaissance. What indigenous communities have known for millennia, science is now confirming.",
-        caution: "Illegal in most countries — know your jurisdiction. Not suitable for those with personal or family history of psychosis or schizophrenia. Avoid mixing with lithium or SSRIs without guidance. Never use recreationally without respect for the medicine.",
-      },
-    ];
+  document.getElementById('root').innerHTML = `
+    <div class="wrap">
+      <div style="margin-bottom:2rem">
+        <p class="hdr-label">✦ Personal Reference</p>
+        <h1 class="hdr-title">The <em>Apothecary</em></h1>
+        <p class="hdr-sub">Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
+      </div>
 
-    const plantCategories = {
-      all:    { label: "All",         color: "#8a7a5a" },
-      sacred: { label: "Sacred",      color: "#2d5a27" },
-      heart:  { label: "Heart",       color: "#5a2d1a" },
-      vision: { label: "Vision",      color: "#6a4a8a" },
-    };
+      <div class="boards">
+        ${boards.map(b => `<button class="board-btn${b.id===currentBoard?' active':''}" onclick="setBoard('${b.id}')">${b.label}</button>`).join('')}
+      </div>
 
-    // ── BOARD 4: THE PANTRY ──
-    const pantry = [
-      {
-        name: "Sea Moss", emoji: "🌊", category: "mineral", color: "#2d5a7a",
-        tagline: "The Ocean Mineral",
-        form: ["Gel", "Capsule", "Raw"],
-        benefits: [
-          "Contains 92 of the 102 minerals the human body needs",
-          "Thyroid support — rich in iodine and selenium",
-          "Gut health — acts as a prebiotic, feeds beneficial bacteria",
-          "Immune boosting — antiviral and antimicrobial properties",
-          "Skin, hair and nail strength — collagen support",
-          "Energy and libido — historically used as an aphrodisiac in Caribbean tradition",
-        ],
-        usage: "Gel: blend soaked raw sea moss with water until smooth. Take 1–2 tablespoons daily in smoothies, teas or on its own. Capsule: 1000mg daily. Raw: rinse, soak overnight, add to food.",
-        note: "A staple of Caribbean and Ital culture long before the wellness industry discovered it. Source ethically — wild-crafted from clean waters, not pool-grown.",
-        caution: "Excess iodine can disrupt thyroid function — do not take in extremely high doses if you have a thyroid condition. Source matters enormously — poor quality sea moss may contain heavy metals.",
-      },
-      {
-        name: "Soursop (Fresh)", emoji: "🍈", category: "cancer", color: "#2d5a27",
-        tagline: "The Healing Fruit",
-        form: ["Juice", "Fruit", "Leaf Tea"],
-        benefits: [
-          "Fresh juice is the most bioavailable form of soursop medicine",
-          "Acetogenins — compounds unique to soursop shown to selectively kill cancer cells",
-          "Powerful immune system support",
-          "Antioxidant-rich — reduces oxidative stress",
-          "Anti-inflammatory and antimicrobial",
-          "Supports healthy blood pressure and blood sugar levels",
-        ],
-        usage: "Fresh juice: blend pulp with cold water, strain and drink immediately — do not heat. Eat the fruit fresh when in season. Leaf tea for more concentrated medicinal benefit.",
-        note: "The whole plant is medicine. The fruit feeds you. The leaves treat you. The juice bridges both.",
-        caution: "Avoid in large quantities during pregnancy. Very high doses of soursop leaf (not fruit) have been linked to atypical Parkinsonism in some studies — use leaf tea in moderation.",
-      },
-      {
-        name: "Turkey Tail Mushroom", emoji: "🍄", category: "cancer", color: "#8a6a3a",
-        tagline: "The Immune Architect",
-        form: ["Tea", "Capsule", "Powder"],
-        benefits: [
-          "PSK (Krestin) — approved cancer treatment drug in Japan, derived from Turkey Tail",
-          "Clinically proven to improve survival rates in breast, colon and gastric cancers",
-          "Enhances the effectiveness of chemotherapy and radiation",
-          "Powerful prebiotic — restores gut microbiome after antibiotic use",
-          "Antiviral — shown to be active against HPV",
-          "Reduces inflammation throughout the body",
-        ],
-        usage: "Tea: simmer dried mushroom for 20–30 minutes. Strain and drink. Powder: add 1–2 tsp to smoothies, soups or coffee. Capsule: 500–1000mg daily.",
-        note: "The most clinically researched medicinal mushroom in the world. Used in Japanese hospitals. The West is late.",
-        caution: "Generally very safe. May cause mild digestive upset initially. Consult your oncologist if using alongside cancer treatment — it enhances, not conflicts, but they should know.",
-      },
-      {
-        name: "Lion's Mane", emoji: "🍄", category: "mind", color: "#c8a040",
-        tagline: "The Brain Mushroom",
-        form: ["Capsule", "Powder", "Tea"],
-        benefits: [
-          "Stimulates Nerve Growth Factor (NGF) — promotes brain cell regeneration",
-          "Shown to reduce symptoms of anxiety and depression",
-          "Improves memory, focus and cognitive function",
-          "Neuroprotective — researched for Alzheimer's and Parkinson's prevention",
-          "Supports nervous system repair after injury",
-          "Anti-inflammatory throughout the body",
-        ],
-        usage: "Powder: 1–2 tsp in morning coffee, smoothie or hot water. Capsule: 500–1000mg daily. Effects build over weeks — consistency matters more than dose.",
-        note: "If you could only add one mushroom to your daily ritual for long-term brain health, this is it.",
-        caution: "Avoid if you have mushroom allergies. May enhance effects of diabetes and blood-thinning medications. Pregnant women should consult a practitioner.",
-      },
-      {
-        name: "Reishi", emoji: "🍄", category: "spirit", color: "#8a3a2a",
-        tagline: "The Mushroom of Immortality",
-        form: ["Tea", "Capsule", "Tincture"],
-        benefits: [
-          "Adaptogen — helps the body manage stress at a cellular level",
-          "Immune modulator — balances overactive or underactive immune response",
-          "Inhibits breast cancer cell proliferation — oestrogen receptor research",
-          "Supports deep, restorative sleep",
-          "Liver protection and detoxification support",
-          "Calms the nervous system — used in TCM for spirit (Shen) cultivation",
-        ],
-        usage: "Tea: simmer dried slices for 30–60 minutes — it's bitter, add honey or blend with cacao. Capsule: 500–1000mg extract daily. Dual-extract tincture for maximum potency.",
-        note: "In Chinese medicine, Reishi has been used for over 2,000 years. It was reserved for emperors. Now it belongs to everyone.",
-        caution: "May thin the blood — stop 2 weeks before surgery. Avoid if on immunosuppressants without guidance. Can cause dry mouth or digestive upset initially.",
-      },
-      {
-        name: "Chaga", emoji: "🍄", category: "cancer", color: "#3a2a1a",
-        tagline: "The King of Mushrooms",
-        form: ["Tea", "Tincture", "Powder"],
-        benefits: [
-          "Highest antioxidant content of any natural food — ORAC score off the charts",
-          "Anti-tumour — betulinic acid shown to induce apoptosis in cancer cells",
-          "Powerful immune system activation",
-          "Reduces inflammation — cytokine regulation",
-          "Balances blood sugar and supports metabolic health",
-          "Antimicrobial and antiviral — supports immunity during illness",
-        ],
-        usage: "Tea: simmer chunks or powder in water for 20–30 minutes — unlike other mushrooms, the taste is actually pleasant, slightly vanilla-like. Add to coffee as a caffeine alternative.",
-        note: "Grows on birch trees in cold climates. Used by Siberian and Northern European indigenous communities for centuries. Rare, slow-growing and powerful — source responsibly.",
-        caution: "High in oxalates — those with kidney stones should use cautiously. May interact with blood thinners and diabetes medication. Avoid during pregnancy.",
-      },
-      {
-        name: "Shiitake", emoji: "🍄", category: "immune", color: "#5a3a1a",
-        tagline: "The Everyday Healer",
-        form: ["Food", "Capsule", "Tea"],
-        benefits: [
-          "Lentinan — a beta-glucan compound approved as a cancer treatment in Japan",
-          "Significantly lowers LDL cholesterol",
-          "Antiviral — active against influenza, HIV and hepatitis viruses in research",
-          "Rich in B vitamins, zinc and selenium",
-          "Supports immune function and reduces inflammation",
-          "The most accessible medicinal mushroom — eat it as food",
-        ],
-        usage: "Eat fresh or dried in cooking — sauté in coconut oil with garlic. The most delicious medicine. Dried mushroom tea: simmer for 15–20 minutes. Capsule for concentrated extract.",
-        note: "The bridge between the kitchen and the apothecary. You can eat your medicine without anyone knowing that's what you're doing.",
-        caution: "Raw shiitake can cause 'shiitake dermatitis' — a skin rash — in sensitive people. Always cook thoroughly. Very rare allergic reactions possible.",
-      },
-    ];
+      <div class="board-desc">${board.desc}</div>
 
-    const pantryCategories = {
-      all:     { label: "All",           color: "#8a7a5a" },
-      cancer:  { label: "Cancer Fighting",color: "#7a3a2a" },
-      mineral: { label: "Minerals",      color: "#2d5a7a" },
-      mind:    { label: "Mind",          color: "#c8a040" },
-      spirit:  { label: "Spirit",        color: "#8a3a2a" },
-      immune:  { label: "Immunity",      color: "#5a3a1a" },
-    };
+      <div class="filters">
+        ${Object.entries(herbCats).map(([k,v]) => `
+          <button class="filter-btn${k===currentCat?' active':''}"
+            style="${k===currentCat?`border-color:${v.color};background:${v.color}20;color:#e8dcc8`:`border-color:rgba(232,184,75,0.1)`}"
+            onclick="setCat('${k}')">${v.label}</button>
+        `).join('')}
+      </div>
 
-    // ── SHARED CARD COMPONENT ──
-    function ItemCard({ item, onClick }) {
-      const [hovered, setHovered] = React.useState(false);
-      return (
-        <div
-          onClick={() => onClick(item)}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          style={{
-            background: hovered ? item.color + '18' : 'rgba(255,255,255,0.02)',
-            border: `1px solid ${hovered ? item.color + '60' : item.color + '20'}`,
-            borderRadius: '8px',
-            padding: '1.25rem',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            transform: hovered ? 'translateY(-2px)' : 'none',
-            position: 'relative',
-          }}
-        >
-          <div style={{ position:'absolute', top:12, right:12, width:8, height:8, borderRadius:'50%', background:item.color, opacity:0.7 }}></div>
-          {(item.drfire || item.drsebi) && (
-            <div style={{ display:'flex', gap:4, flexWrap:'wrap', marginBottom:8 }}>
-              {item.drfire && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.06em', background:'rgba(200,80,30,0.15)', color:'#d4733a', padding:'2px 6px', borderRadius:2, border:'1px solid rgba(200,80,30,0.3)' }}>🔥 Dr.Fire</span>}
-              {item.drsebi && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.06em', background:'rgba(46,139,87,0.15)', color:'#5aaa7a', padding:'2px 6px', borderRadius:2, border:'1px solid rgba(46,139,87,0.3)' }}>🌿 DR.SEBI</span>}
-            </div>
-          )}
-          <span style={{ fontSize:'1.8rem', display:'block', marginBottom:8 }}>{item.emoji}</span>
-          <p style={{ fontFamily:"'Playfair Display',serif", fontSize:'0.95rem', color:'#e8dcc8', marginBottom:3 }}>{item.name}</p>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.8rem', fontStyle:'italic', color:item.color, marginBottom:8 }}>{item.drfire ? item.drfire.role : item.tagline}</p>
-          <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.6rem', letterSpacing:'0.1em', color:'#6a5a4a' }}>TAP TO OPEN →</p>
+      <div class="grid">
+        ${items.map((item,i) => `
+          <div class="card" onclick="openModal(${i})"
+            style="border-color:${item.color}20"
+            onmouseenter="this.style.background='${item.color}18';this.style.borderColor='${item.color}60';this.style.transform='translateY(-2px)'"
+            onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${item.color}20';this.style.transform='none'">
+            <div class="card-dot" style="background:${item.color}"></div>
+            ${(item.drfire||item.drsebi)?`<div class="card-badges">${item.drfire?'<span class="badge badge-fire">🔥 Dr.Fire</span>':''}${item.drsebi?'<span class="badge badge-sebi">🌿 Dr.Sebi</span>':''}</div>`:''}
+            <span class="card-emoji">${item.emoji}</span>
+            <p class="card-name">${item.name}</p>
+            <p class="card-tag" style="color:${item.color}">${item.drfire?item.drfire.role:item.tagline}</p>
+            <p class="card-tap">TAP TO OPEN →</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // store filtered items for modal lookup
+  window._items = items;
+}
+
+function setBoard(id) {
+  currentBoard = id;
+  currentCat = 'all';
+  if (id !== 'herbs') {
+    // Show placeholder for other boards
+    const board = boards.find(b => b.id === id);
+    document.getElementById('root').innerHTML = `
+      <div class="wrap">
+        <div style="margin-bottom:2rem">
+          <p class="hdr-label">✦ Personal Reference</p>
+          <h1 class="hdr-title">The <em>Apothecary</em></h1>
+          <p class="hdr-sub">Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
         </div>
-      );
-    }
-
-    // ── MODAL COMPONENT ──
-    function Modal({ item, onClose, type }) {
-      if (!item) return null;
-      return (
-        <div
-          onClick={(e) => e.target === e.currentTarget && onClose()}
-          style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.88)', display:'flex', alignItems:'center', justifyContent:'center', padding:'1rem', zIndex:9999, backdropFilter:'blur(3px)' }}
-        >
-          <div style={{ background:'#131008', borderRadius:6, padding:'2rem', maxWidth:540, width:'100%', maxHeight:'80vh', overflowY:'auto', position:'relative', border:`1px solid ${item.color}40` }}>
-            <button onClick={onClose} style={{ position:'absolute', top:12, right:16, background:'none', border:'none', color:'#5a4a3a', fontSize:'1.5rem', cursor:'pointer', lineHeight:1 }}>×</button>
-            <span style={{ fontSize:'2.5rem', display:'block', marginBottom:10 }}>{item.emoji}</span>
-            <h3 style={{ fontFamily:"'Playfair Display',serif", fontSize:'1.7rem', color:'#e8dcc8', fontWeight:'normal', margin:'0 0 3px' }}>{item.name}</h3>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:'italic', fontSize:'0.9rem', color:item.color, margin:'0 0 0.75rem' }}>{item.tagline}</p>
-
-            {/* Lineage badges */}
-            {(item.drfire || item.drsebi) && (
-              <div style={{ display:'flex', gap:6, flexWrap:'wrap', marginBottom:'1rem' }}>
-                {item.drfire && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.08em', background:'rgba(200,80,30,0.12)', color:'#d4733a', padding:'4px 10px', borderRadius:3, border:'1px solid rgba(200,80,30,0.3)' }}>🔥 Dr.Fire PROTOCOL</span>}
-                {item.drsebi && <span style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.52rem', letterSpacing:'0.08em', background:'rgba(46,139,87,0.12)', color:'#5aaa7a', padding:'4px 10px', borderRadius:3, border:'1px solid rgba(46,139,87,0.3)' }}>🌿 DR.SEBI APPROVED</span>}
-              </div>
-            )}
-
-            {/* Dr.Fire protocol box */}
-            {item.drfire && (
-              <div style={{ background:'rgba(200,80,30,0.08)', border:'1px solid rgba(200,80,30,0.25)', borderRadius:4, padding:'12px 14px', marginBottom:'1.25rem' }}>
-                <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.48rem', letterSpacing:'0.15em', color:'#d4733a', textTransform:'uppercase', margin:'0 0 6px' }}>🔥 Dr.Fire · {item.drfire.role}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.9rem', color:'#d4b090', lineHeight:1.6, margin:'0 0 6px' }}>{item.drfire.protocol}</p>
-                <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.44rem', letterSpacing:'0.1em', color:'#a06040', margin:0 }}>FREQUENCY: {item.drfire.freq}</p>
-              </div>
-            )}
-            
-            {item.tradition && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.tradition}</p>}
-            {item.method && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.method.join(' · ')}</p>}
-            {item.form && <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.15em', color:'#8a7a5a', marginBottom:'1rem', textTransform:'uppercase' }}>{item.form.join(' · ')}</p>}
-
-            {item.ital && (
-              <div style={{ borderLeft:`3px solid ${item.color}`, padding:'10px 14px', borderRadius:'0 4px 4px 0', marginBottom:'1.25rem', background:item.color+'12' }}>
-                <p style={{ margin:0, fontSize:'0.85rem', fontStyle:'italic', color:'#c8b890', lineHeight:1.6, fontFamily:"'Cormorant Garamond',serif" }}>{item.ital}</p>
-              </div>
-            )}
-            {item.note && (
-              <div style={{ borderLeft:`3px solid ${item.color}`, padding:'10px 14px', borderRadius:'0 4px 4px 0', marginBottom:'1.25rem', background:item.color+'12' }}>
-                <p style={{ margin:0, fontSize:'0.85rem', fontStyle:'italic', color:'#c8b890', lineHeight:1.6, fontFamily:"'Cormorant Garamond',serif" }}>{item.note}</p>
-              </div>
-            )}
-
-            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:item.color, margin:'0 0 8px' }}>Benefits</p>
-            <ul style={{ listStyle:'none', padding:0, margin:'0 0 1.25rem' }}>
-              {item.benefits.map((b,i) => (
-                <li key={i} style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.85rem', color:'#c8b890', padding:'3px 0 3px 16px', position:'relative', lineHeight:1.5 }}>
-                  <span style={{ position:'absolute', left:0, fontSize:'9px', top:7 }}>✦</span>{b}
-                </li>
-              ))}
-            </ul>
-
-            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.42rem', letterSpacing:'0.25em', textTransform:'uppercase', color:item.color, margin:'0 0 8px' }}>How to use</p>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'0.85rem', color:'#c8b890', lineHeight:1.7, margin:'0 0 1.25rem' }}>{item.usage}</p>
-
-            <div style={{ background:'rgba(180,50,30,0.08)', border:'1px solid rgba(180,50,30,0.2)', borderRadius:4, padding:'10px 12px' }}>
-              <p style={{ margin:0, fontSize:'0.78rem', color:'#a06050', lineHeight:1.5, fontFamily:"'Cormorant Garamond',serif" }}>
-                <strong style={{ color:'#c07060', letterSpacing:'0.08em' }}>NOTE: </strong>{item.caution}
-              </p>
-            </div>
-          </div>
+        <div class="boards">
+          ${boards.map(b => `<button class="board-btn${b.id===id?' active':''}" onclick="setBoard('${b.id}')">${b.label}</button>`).join('')}
         </div>
-      );
-    }
-
-    // ── MAIN APP ──
-    function App() {
-      const [board, setBoard] = React.useState('herbs');
-      const [herbCat, setHerbCat] = React.useState('all');
-      const [oilCat, setOilCat] = React.useState('all');
-      const [plantCat, setPlantCat] = React.useState('all');
-      const [pantryCat, setPantryCat] = React.useState('all');
-      const [modal, setModal] = React.useState(null);
-
-      const boards = [
-        { id:'herbs',   label:'🌿 Herbalism',      desc:'Teas, leaves, roots and bark. Everyday plant healing — what your grandmother knew.' },
-        { id:'oils',    label:'🫧 Aromatherapy',    desc:'Essential oils for healing, mood, space and ritual. The olfactory path to the nervous system.' },
-        { id:'plants',  label:'🌀 Plant Medicine',  desc:'Sacred plants that work on consciousness. Used ceremonially, with intention and respect.' },
-        { id:'pantry',  label:'🍽 The Pantry',      desc:'Food as medicine. Sea moss, medicinal mushrooms, healing fruits. The kitchen as apothecary.' },
-      ];
-
-      const filtered = (items, cat) => {
-        if (cat === 'all') return items;
-        if (cat === 'drfire') return items.filter(i => i.drfire);
-        if (cat === 'drsebi') return items.filter(i => i.drsebi || i.category === 'drsebi');
-        return items.filter(i => i.category === cat);
-      };
-
-      const currentItems = board === 'herbs' ? filtered(teas, herbCat)
-        : board === 'oils' ? filtered(oils, oilCat)
-        : board === 'plants' ? filtered(plants, plantCat)
-        : filtered(pantry, pantryCat);
-
-      const currentCats = board === 'herbs' ? herbCategories
-        : board === 'oils' ? oilCategories
-        : board === 'plants' ? plantCategories
-        : pantryCategories;
-
-      const currentCat = board === 'herbs' ? herbCat
-        : board === 'oils' ? oilCat
-        : board === 'plants' ? plantCat
-        : pantryCat;
-
-      const setCurrentCat = board === 'herbs' ? setHerbCat
-        : board === 'oils' ? setOilCat
-        : board === 'plants' ? setPlantCat
-        : setPantryCat;
-
-      const currentBoard = boards.find(b => b.id === board);
-
-      return (
-        <div style={{ minHeight:'100vh', background:'#0d0a06', color:'#e8dcc8', fontFamily:'Georgia,serif', padding:'2rem' }}>
-          
-          {/* Header */}
-          <div style={{ maxWidth:1200, margin:'0 auto 2rem' }}>
-            <p style={{ fontFamily:"'Space Mono',monospace", fontSize:'0.65rem', letterSpacing:'0.25em', textTransform:'uppercase', color:'#c8732a', opacity:0.9, marginBottom:'0.5rem' }}>✦ Personal Reference</p>
-            <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:'2.6rem', fontWeight:'normal', color:'#e8dcc8', marginBottom:'0.5rem' }}>The <em style={{color:'#c8732a', fontStyle:'italic'}}>Apothecary</em></h1>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1.25rem', color:'#c8b890', fontStyle:'italic', letterSpacing:'0.03em' }}>Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</p>
-          </div>
-
-          {/* Board tabs */}
-          <div style={{ maxWidth:1200, margin:'0 auto 0.75rem', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'0.5rem' }}>
-            {boards.map(b => (
-              <button
-                key={b.id}
-                onClick={() => setBoard(b.id)}
-                style={{
-                  padding:'0.85rem 0.75rem',
-                  background: board === b.id ? 'rgba(200,115,42,0.12)' : 'rgba(255,255,255,0.02)',
-                  border: board === b.id ? '1px solid rgba(200,115,42,0.5)' : '1px solid rgba(232,220,200,0.1)',
-                  borderRadius:6,
-                  color: board === b.id ? '#c8732a' : '#a09080',
-                  fontFamily:"Georgia, serif",
-                  fontSize:'0.95rem',
-                  letterSpacing:'0.02em',
-                  cursor:'pointer',
-                  textAlign:'center',
-                  transition:'all 0.15s',
-                }}
-              >{b.label}</button>
-            ))}
-          </div>
-
-          {/* Board description */}
-          <div style={{ maxWidth:1200, margin:'0 auto 1.5rem', padding:'0.75rem 1rem', background:'rgba(200,115,42,0.04)', border:'1px solid rgba(200,115,42,0.08)', borderRadius:6 }}>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:'1.05rem', color:'#a09070', fontStyle:'italic', margin:0, lineHeight:1.6 }}>{currentBoard.desc}</p>
-          </div>
-
-          {/* Category filters */}
-          <div style={{ maxWidth:1200, margin:'0 auto 1.5rem', display:'flex', gap:8, flexWrap:'wrap' }}>
-            {Object.entries(currentCats).map(([key, val]) => (
-              <button
-                key={key}
-                onClick={() => setCurrentCat(key)}
-                style={{
-                  padding:'4px 12px',
-                  border: currentCat === key ? `1px solid ${val.color}` : '1px solid rgba(232,184,75,0.1)',
-                  borderRadius:'2rem',
-                  background: currentCat === key ? val.color + '20' : 'transparent',
-                  color: currentCat === key ? '#e8dcc8' : '#5a4a3a',
-                  fontFamily:'Georgia,serif',
-                  fontSize:'0.9rem',
-                  cursor:'pointer',
-                  transition:'all 0.15s',
-                }}
-              >{val.label}</button>
-            ))}
-          </div>
-
-          {/* Grid */}
-          <div style={{ maxWidth:1200, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(175px,1fr))', gap:'1rem' }}>
-            {currentItems.map((item, i) => (
-              <ItemCard key={i} item={item} onClick={setModal} />
-            ))}
-          </div>
-
-          {/* Modal */}
-          {modal && <Modal item={modal} onClose={() => setModal(null)} />}
+        <div class="board-desc">${board.desc}</div>
+        <div style="padding:3rem;text-align:center;color:#5a4a3a;font-style:italic;font-size:1.1rem;border:1px solid rgba(232,220,200,0.05);border-radius:6px;margin-top:1rem">
+          ${board.label} — coming soon ✦
         </div>
-      );
-    }
+      </div>`;
+    return;
+  }
+  render();
+}
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-  </script>
+function setCat(cat) {
+  currentCat = cat;
+  render();
+}
+
+function openModal(idx) {
+  const item = window._items[idx];
+  if (!item) return;
+
+  document.getElementById('m-emoji').textContent = item.emoji;
+  document.getElementById('m-name').textContent = item.name;
+  document.getElementById('m-tagline').textContent = item.tagline;
+  document.getElementById('m-tagline').style.color = item.color;
+
+  // Badges
+  const badgesEl = document.getElementById('m-badges');
+  badgesEl.innerHTML = [
+    item.drfire ? `<span class="modal-badge badge-fire">🔥 Dr.Fire Protocol</span>` : '',
+    item.drsebi ? `<span class="modal-badge badge-sebi">🌿 Dr.Sebi Approved</span>` : ''
+  ].join('');
+
+  // Dr.Fire box
+  const firebox = document.getElementById('m-firebox');
+  if (item.drfire) {
+    firebox.style.display = 'block';
+    document.getElementById('m-firetitle').textContent = '🔥 Dr.Fire · ' + item.drfire.role;
+    document.getElementById('m-firetext').textContent = item.drfire.protocol;
+    document.getElementById('m-firefreq').textContent = 'FREQUENCY: ' + item.drfire.freq;
+  } else {
+    firebox.style.display = 'none';
+  }
+
+  // Ital box
+  const italbox = document.getElementById('m-italbox');
+  if (item.ital) {
+    italbox.style.display = 'block';
+    italbox.style.borderLeftColor = item.color;
+    italbox.style.background = item.color + '12';
+    document.getElementById('m-ital').textContent = item.ital;
+  } else {
+    italbox.style.display = 'none';
+  }
+
+  // Benefits
+  document.getElementById('m-bsec').style.color = item.color;
+  document.getElementById('m-benefits').innerHTML = item.benefits.map(b => `<li>${b}</li>`).join('');
+
+  document.getElementById('m-usage').textContent = item.usage;
+  document.getElementById('m-caution').textContent = item.caution;
+  document.getElementById('modal-box').style.borderColor = item.color + '40';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+// ── INIT ──
+render();
+</script>
 </body>
 </html>

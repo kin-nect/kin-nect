@@ -1,829 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portal — KIN-NECT</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Apothecary</title>
 <style>
-  :root{--bg:#0d0a06;--card:#131008;--card2:#1a1208;--ochre:#c8732a;--cream:#e8dcc8;--muted:#8a7a5a;--dim:#5a4a3a;--border:rgba(232,220,200,0.08);--border2:rgba(232,220,200,0.15);}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;min-height:100vh;}
-  .wrap{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
-
-  /* SIDEBAR */
-  .sidebar{background:rgba(10,7,3,0.98);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
-  .sb-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);}
-  .sb-logo{font-size:1.1rem;color:var(--ochre);letter-spacing:0.12em;}
-  .sb-sub{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
-
-  /* VIEW TOGGLE */
-  .view-toggle{padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
-  .vt-label{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;}
-  .vt-btns{display:flex;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;}
-  .vt-btn{flex:1;padding:0.5rem 0;font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all 0.15s;text-align:center;}
-  .vt-btn.active{background:var(--ochre);color:#0d0a06;font-weight:700;}
-
-  .profile{padding:1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;}
-  .av{width:36px;height:36px;border-radius:50%;border:1px solid var(--ochre);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--ochre);flex-shrink:0;}
-  .pn{font-size:0.9rem;color:var(--cream);}
-  .pb{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;color:var(--ochre);opacity:0.7;margin-top:0.2rem;}
-
-  nav{padding:0.75rem 0;flex:1;}
-  .nsec{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);padding:0.75rem 1.25rem 0.3rem;}
-  .ni{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.25rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;}
-  .ni:hover{color:var(--cream);background:rgba(200,115,42,0.05);}
-  .ni.active{color:var(--ochre);border-left-color:var(--ochre);background:rgba(200,115,42,0.06);}
-  .nb{margin-left:auto;background:var(--ochre);color:#0d0a06;font-size:0.38rem;padding:0.1rem 0.35rem;border-radius:8px;font-weight:700;}
-  .founder-only{} /* shown/hidden via JS */
-  .community-only{}
-
-  .sb-back{padding:1rem 1.25rem;border-top:1px solid var(--border);}
-  .sb-back a{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;}
-  .sb-back a:hover{color:var(--muted);}
-
-  main{padding:2rem 2.5rem;overflow-y:auto;}
-  .panel{display:none;} .panel.active{display:block;}
-  .ph{margin-bottom:1.75rem;}
-  .pe{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.4rem;}
-  .pt{font-size:1.8rem;font-weight:normal;color:var(--cream);letter-spacing:0.04em;}
-  .ps{font-size:0.9rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
-
-  /* VIEW BANNER */
-  .view-banner{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1rem;border-radius:3px;margin-bottom:1.5rem;display:inline-block;}
-  .view-banner.founder{background:rgba(200,115,42,0.12);color:var(--ochre);border:1px solid rgba(200,115,42,0.2);}
-  .view-banner.community{background:rgba(107,124,94,0.12);color:#8FAE7A;border:1px solid rgba(107,124,94,0.2);}
-
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
-  .stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
-  .sn{font-size:1.7rem;color:var(--ochre);}
-  .sl{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
-
-  .sec{margin-bottom:2rem;}
-  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
-  .st{font-size:1rem;color:var(--cream);font-weight:normal;letter-spacing:0.04em;}
-  .sl2{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);cursor:pointer;opacity:0.6;}
-  .sl2:hover{opacity:1;}
-
-  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-  .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;position:relative;transition:border-color 0.2s;}
-  .card:hover{border-color:var(--border2);}
-  .ct{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.5rem;}
-  .cn{font-size:0.95rem;color:var(--cream);margin-bottom:0.3rem;}
-  .cd{font-size:0.82rem;color:var(--muted);line-height:1.5;}
-  .ca{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ochre);text-decoration:none;display:block;margin-top:0.75rem;opacity:0.6;}
-  .ca:hover{opacity:1;}
-  .rb{position:absolute;top:0.75rem;right:0.75rem;font-size:0.6rem;color:var(--dim);cursor:pointer;background:none;border:none;}
-  .hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
-
-  /* BACKEND CARDS */
-  .be-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;text-decoration:none;display:block;transition:border-color 0.2s;}
-  .be-card:hover{border-color:rgba(200,115,42,0.4);}
-  .be-icon{font-size:1.6rem;margin-bottom:0.75rem;display:block;}
-  .be-tag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.5;margin-bottom:0.35rem;}
-  .be-name{font-size:1rem;color:var(--cream);margin-bottom:0.25rem;font-weight:normal;}
-  .be-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;}
-  .be-badge{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:2px;margin-top:0.75rem;display:inline-block;}
-
-  /* APOTHECARY */
-  .af-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
-  .af-btn{padding:4px 12px;border:1px solid var(--border);border-radius:2rem;background:transparent;color:var(--muted);font-size:0.75rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s;}
-  .af-btn.active{border-color:var(--border2);color:var(--cream);}
-  .hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;}
-  .hc{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative;}
-  .hc-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7;}
-  .hc-emoji{font-size:1.8rem;margin-bottom:8px;display:block;}
-  .hc-name{font-size:0.95rem;color:var(--cream);margin:0 0 3px;}
-  .hc-tag{font-size:0.75rem;font-style:italic;margin:0 0 10px;}
-  .hc-list{list-style:none;padding:0;margin:0 0 10px;}
-  .hc-list li{font-size:0.73rem;color:var(--muted);padding:2px 0 2px 10px;position:relative;line-height:1.4;}
-  .hc-list li::before{content:'·';position:absolute;left:0;}
-  .hc-tap{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);}
-
-  /* EVENTS */
-  .elist{display:flex;flex-direction:column;gap:0.75rem;}
-  .ei{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;}
-  .edb{text-align:center;min-width:36px;}
-  .ed{font-size:1.3rem;color:var(--ochre);line-height:1;}
-  .em2{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);}
-  .einfo{flex:1;}
-  .ename{font-size:0.9rem;color:var(--cream);}
-  .ewhere{font-family:'Space Mono',monospace;font-size:0.42rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;}
-  .etag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.08);color:var(--ochre);}
-
-  /* SETTINGS */
-  .sform{display:flex;flex-direction:column;gap:1.25rem;max-width:460px;}
-  .fg{display:flex;flex-direction:column;gap:0.4rem;}
-  .fl{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;}
-  .fi{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:0.7rem 1rem;color:var(--cream);font-family:Georgia,serif;font-size:0.95rem;outline:none;}
-  .fi:focus{border-color:var(--border2);}
-  .fta{resize:vertical;min-height:72px;}
-  .sbtn{background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:2rem;cursor:pointer;font-weight:700;align-self:flex-start;}
-
-  /* HERB MODAL */
-  .moverlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:9999;backdrop-filter:blur(3px);}
-  .moverlay.open{display:flex;}
-  .mbox{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
-  .mc{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--dim);font-size:1.5rem;cursor:pointer;line-height:1;}
-  .me{font-size:2.5rem;display:block;margin-bottom:10px;}
-  .mn{font-size:1.7rem;color:var(--cream);font-weight:normal;margin:0 0 3px;}
-  .msl{font-style:italic;font-size:0.85rem;margin:0 0 1.25rem;}
-  .ib{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem;}
-  .ib p{margin:0;font-size:0.85rem;font-style:italic;color:#c8b890;line-height:1.6;}
-  .msec{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.25em;text-transform:uppercase;margin:0 0 8px;}
-  .mlist{list-style:none;padding:0;margin:0 0 1.25rem;}
-  .mlist li{font-size:0.85rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5;}
-  .mlist li::before{content:'✦';position:absolute;left:0;font-size:9px;top:7px;}
-  .musage{font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem;}
-  .mcaut{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px;}
-  .mcaut p{margin:0;font-size:0.78rem;color:#a06050;line-height:1.5;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:#0d0a06;color:#e8dcc8;font-family:Georgia,serif}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0d0a06}::-webkit-scrollbar-thumb{background:#3a3020;border-radius:3px}
+button{cursor:pointer;font-family:inherit}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+.hdr-label{font-family:monospace;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:#c8732a;margin-bottom:0.5rem}
+.hdr-title{font-size:2.6rem;font-weight:400;color:#e8dcc8;margin-bottom:0.5rem}
+.hdr-title em{color:#c8732a;font-style:italic}
+.hdr-sub{font-size:1.1rem;color:#c8b890;font-style:italic;letter-spacing:0.03em;margin-bottom:0.75rem}
+.hdr-links{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem}
+.hdr-link{font-family:monospace;font-size:0.6rem;letter-spacing:0.12em;color:#5a4a3a;text-decoration:none;border:1px solid rgba(232,220,200,0.08);padding:4px 10px;border-radius:3px}
+.hdr-link:hover{color:#c8732a;border-color:rgba(200,115,42,0.3)}
+.boards{display:grid;grid-template-columns:repeat(6,1fr);gap:0.4rem;margin-bottom:0.75rem}
+.board-btn{padding:0.7rem 0.4rem;background:rgba(255,255,255,0.02);border:1px solid rgba(232,220,200,0.1);border-radius:6px;color:#a09080;font-size:0.85rem;text-align:center;transition:all 0.15s}
+.board-btn.active{background:rgba(200,115,42,0.12);border-color:rgba(200,115,42,0.5);color:#c8732a}
+.board-desc{padding:0.75rem 1rem;background:rgba(200,115,42,0.04);border:1px solid rgba(200,115,42,0.08);border-radius:6px;margin-bottom:1.5rem;font-style:italic;font-size:1rem;color:#a09070;line-height:1.6}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+.filter-btn{padding:5px 14px;border:1px solid rgba(232,184,75,0.1);border-radius:2rem;background:transparent;color:#5a4a3a;font-size:0.88rem;transition:all 0.15s}
+.filter-btn.active{color:#e8dcc8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem}
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative}
+.card:hover{transform:translateY(-2px)}
+.card-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7}
+.card-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+.badge{font-family:monospace;font-size:0.58rem;letter-spacing:0.04em;padding:2px 5px;border-radius:2px}
+.badge-fire{background:rgba(46,139,87,0.15);color:#5aaa7a;border:1px solid rgba(46,139,87,0.3)}
+.badge-sebi{background:rgba(46,139,87,0.15);color:#5aaa7a;border:1px solid rgba(46,139,87,0.3)}
+.badge-ital{background:rgba(58,180,90,0.12);color:#7ada9a;border:1px solid rgba(58,180,90,0.3)}
+.card-emoji{font-size:1.8rem;display:block;margin-bottom:8px}
+.card-name{font-size:0.95rem;color:#e8dcc8;margin-bottom:3px}
+.card-tag{font-size:0.82rem;font-style:italic;margin-bottom:8px}
+.card-tap{font-family:monospace;font-size:0.58rem;letter-spacing:0.08em;color:#6a5a4a;margin-top:6px}
+.meta-tag{font-family:monospace;font-size:0.56rem;color:#5a4a3a;letter-spacing:0.05em;margin-bottom:4px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:82vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#5a4a3a;font-size:1.5rem;line-height:1}
+.modal-emoji{font-size:2.5rem;display:block;margin-bottom:10px}
+.modal-name{font-size:1.7rem;color:#e8dcc8;font-weight:400;margin:0 0 3px}
+.modal-tagline{font-style:italic;font-size:0.9rem;margin:0 0 0.75rem}
+.modal-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.modal-badge{font-family:monospace;font-size:0.58rem;letter-spacing:0.06em;padding:3px 8px;border-radius:3px}
+.fire-box{background:rgba(46,139,87,0.06);border:1px solid rgba(46,139,87,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1.25rem}
+.fire-box-title{font-family:monospace;font-size:0.58rem;letter-spacing:0.12em;color:#5aaa7a;text-transform:uppercase;margin-bottom:6px}
+.fire-box-text{font-size:0.9rem;color:#a0d4b0;line-height:1.6;margin-bottom:6px}
+.fire-box-freq{font-family:monospace;font-size:0.58rem;letter-spacing:0.08em;color:#5a8a6a}
+.ital-box{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem}
+.ital-text{font-style:italic;font-size:0.88rem;color:#c8b890;line-height:1.6}
+.modal-sec{font-family:monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;margin:0 0 8px}
+.modal-list{list-style:none;padding:0;margin:0 0 1.25rem}
+.modal-list li{font-size:0.88rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5}
+.modal-list li::before{content:"*";position:absolute;left:0;color:#c8732a}
+.modal-usage{font-size:0.88rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem}
+.caution-box{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px}
+.caution-text{font-size:0.82rem;color:#a06050;line-height:1.5}
+.w-section{margin-bottom:2.5rem}
+.w-title{font-family:monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;border-bottom-width:1px;border-bottom-style:solid;padding-bottom:0.5rem}
+.w-body{font-size:0.9rem;color:#c8b890;line-height:1.85}
+.w-bullet{padding:4px 0 4px 18px;position:relative}
+.w-bullet::before{content:"✦";position:absolute;left:0}
+.comp-box{border-radius:6px;padding:1rem}
+.comp-title{font-family:monospace;font-size:0.6rem;letter-spacing:0.15em;margin-bottom:0.75rem}
+.comp-item{font-size:0.82rem;color:#a09070;padding:3px 0 3px 14px;position:relative}
+.comp-item::before{content:"·";position:absolute;left:0}
+@media(max-width:700px){.boards{grid-template-columns:repeat(3,1fr)}.hdr-title{font-size:2rem}}
+@media(max-width:400px){.boards{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sb-top">
-      <div class="sb-logo">KIN-NECT</div>
-      <div class="sb-sub">My Portal ✦</div>
-    </div>
-
-    <!-- VIEW TOGGLE -->
-    <div class="view-toggle">
-      <div class="vt-label">View as</div>
-      <div class="vt-btns">
-        <button class="vt-btn active" onclick="setView('founder',this)">Founder</button>
-        <button class="vt-btn" onclick="setView('community',this)">Community</button>
-      </div>
-    </div>
-
-    <div class="profile">
-      <div class="av">J</div>
-      <div>
-        <div class="pn" id="sb-name">Jayde</div>
-        <div class="pb" id="sb-role">✦ Founder & Director</div>
-      </div>
-    </div>
-
-    <nav id="sidebar-nav">
-      <!-- Populated by JS -->
-    </nav>
-
-    <div class="sb-back"><a href="index.html">← Back to KIN-NECT</a></div>
-  </aside>
-
-  <!-- MAIN -->
-  <main id="main-content">
-    <!-- Populated by JS -->
-  </main>
-</div>
-
-<!-- HERB MODAL -->
-<div class="moverlay" id="hm" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="mbox" id="hm-box">
-    <button class="mc" onclick="document.getElementById('hm').classList.remove('open')">×</button>
-    <span class="me" id="hm-e"></span>
-    <h3 class="mn" id="hm-n"></h3>
-    <p class="msl" id="hm-t"></p>
-    <div id="hm-badges" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem"></div>
-    <div class="ib" id="hm-ib"><p id="hm-i"></p></div>
-    <p class="msec" id="hm-bl">Benefits</p>
-    <ul class="mlist" id="hm-b"></ul>
-    <div id="hm-drfire" style="display:none"></div>
-    <p class="msec" style="color:var(--ochre)">How to use</p>
-    <p class="musage" id="hm-u"></p>
-    <p class="msec" style="color:#a06050">Caution</p>
-    <div class="mcaut"><p><strong style="color:#c07060;letter-spacing:0.08em">NOTE: </strong><span id="hm-c"></span></p></div>
+<div id="root"></div>
+<div class="modal-overlay" id="modal">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" id="modal-close">x</button>
+    <span class="modal-emoji" id="m-emoji"></span>
+    <h3 class="modal-name" id="m-name"></h3>
+    <p class="modal-tagline" id="m-tagline"></p>
+    <div class="modal-badges" id="m-badges"></div>
+    <div class="fire-box" id="m-firebox"><div class="fire-box-title" id="m-firetitle"></div><div class="fire-box-text" id="m-firetext"></div><div class="fire-box-freq" id="m-firefreq"></div></div>
+    <div class="ital-box" id="m-italbox"><p class="ital-text" id="m-ital"></p></div>
+    <div id="m-tradition" class="meta-tag"></div>
+    <p class="modal-sec" id="m-bsec">Benefits</p>
+    <ul class="modal-list" id="m-benefits"></ul>
+    <p class="modal-sec">How to use</p>
+    <p class="modal-usage" id="m-usage"></p>
+    <div class="caution-box"><p class="caution-text"><strong style="color:#c07060;letter-spacing:0.08em">NOTE: </strong><span id="m-caution"></span></p></div>
   </div>
 </div>
-
 <script>
-const herbs=[
-  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress","Calms the nervous system — aids sleep and anxiety","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
-  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
-  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation","Rich in iron, calcium and magnesium","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily.",ital:"A gift specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy. Consult a midwife before use in late pregnancy."},
-  {name:"Hibiscus (Sorrel)",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Blood Cleanser",benefits:["Significantly lowers high blood pressure","Cleans the bloodstream — removes impurities","Extremely high in Vitamin C","Powerful antioxidant — anti-ageing"],usage:"Do NOT boil. Place dried petals in cold or warm water and allow to infuse. Drink 3x a week as part of the DR.Fire blood cleanse protocol.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",drfire:{role:"The Blood",protocol:"DR.Fire's blood cleaner. Do not boil — cold or warm water infusion only. The heat destroys the active compounds needed to cleanse the bloodstream.",freq:"3x per week"}},
-  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
-  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Clears sinuses and respiratory congestion","Natural pain relief for headaches","Refreshes without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates.",caution:"Avoid in acid reflux. Not recommended for infants."},
-  {name:"Neem",emoji:"🌿",cat:"digestive",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's main waste exit","Toxins pushed to the liver and kidneys are escorted out","Powerful antimicrobial — kills harmful bacteria and parasites","Antifungal — addresses candida and gut overgrowth","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach in the morning.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — use 1x per week only as per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy.",drfire:{role:"The Colon (The Toilet)",protocol:"DR.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins pressed from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.",freq:"1x per week only"}},
-  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido","Antidepressant and mood-elevating","Reduces anxiety and emotional exhaustion","Historically used for spiritual practices"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon.",ital:"Used by the Maya — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects."},
-  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health","Soothes bronchitis and asthma","Supports recovery from smoking damage","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein keeps that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family.",drfire:{role:"Liver · Eyes · Legs",protocol:"Use alongside dandelion and neem as part of the DR.Fire cleanse cycle. Clears the liver, supports eye health and circulation in the legs.",freq:"As needed during cleanse cycles"}},
-  {name:"Milk Thistle",emoji:"🌸",cat:"liver",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Reduces liver inflammation and scarring","Powerful antioxidant — neutralises free radicals in liver tissue","Helps the body process and eliminate toxins","Supports healthy cholesterol levels","Indirectly eases kidney load by keeping the liver clean"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. During DR.Fire cleanse: shields the liver as toxins pass through.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",drfire:{role:"The Liver",protocol:"Shields and regenerates the liver as toxins are pushed through during the DR.Fire cleanse. Works with mullein to keep the liver processing cleanly.",freq:"Daily during cleanse cycles"}},
-
-  /* ── DR. SEBI APPROVED HERBS ── */
-  {name:"Burdock Root",emoji:"🌱",cat:"drsebi",color:"#8B4513",tagline:"The #1 Blood Cleanser",drsebi:true,benefits:["Dr. Sebi's #1 blood cleanser — removes heavy metals and toxins","Powerful diuretic — flushes kidneys and lymphatic system","Rich in organic iron — rebuilds and strengthens the blood","Anti-inflammatory — reduces joint and tissue inflammation","Prebiotic — feeds beneficial gut bacteria","Supports healthy, clear skin from within"],usage:"Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a cleanse duo.",ital:"The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",caution:"Avoid in pregnancy. May interact with blood thinners or diabetes medication. Allergy possible if sensitive to ragweed family."},
-  {name:"Sarsaparilla",emoji:"🌿",cat:"drsebi",color:"#6B4226",tagline:"The Endotoxin Binder",drsebi:true,benefits:["Binds to endotoxins in the gut — removes them before blood absorption","Powerful blood purifier — used for skin disease and systemic toxicity","Anti-inflammatory — used for arthritis and joint pain","Contains organic iron and zinc","Supports testosterone and reproductive hormones naturally","Diuretic — flushes the kidneys"],usage:"Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",ital:"Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",caution:"Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart."},
-  {name:"Blue Vervain",emoji:"💙",cat:"drsebi",color:"#4169a0",tagline:"The Nervous System Healer",drsebi:true,benefits:["Dr. Sebi's primary herb for the nervous system","Relieves tension, anxiety and emotional stress held in the body","Antispasmodic — relieves muscle tension and cramps","Supports liver and lymphatic drainage","Helps with insomnia rooted in mental overactivity","Mild expectorant — clears mucus from respiratory tract"],usage:"Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",ital:"The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",caution:"Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance."},
-  {name:"Sea Moss",emoji:"🌊",cat:"drsebi",color:"#2E8B57",tagline:"The 92-Mineral Foundation",drsebi:true,benefits:["Contains 92 of the 102 minerals the human body is made of","Dr. Sebi's foundational supplement — taken daily","Supports thyroid function — rich in natural iodine","Strengthens gut lining and acts as a powerful prebiotic","Boosts immunity, energy and skin health","Anti-inflammatory — supports joints and respiratory health"],usage:"Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Not typically steeped as a tea alone.",ital:"The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",caution:"High in iodine — avoid if you have hyperthyroidism. Source wildcrafted sea moss only. Avoid pool-grown or bleached varieties."},
-  {name:"Bladderwrack",emoji:"🌿",cat:"drsebi",color:"#3d7a5a",tagline:"The Thyroid Herb",drsebi:true,benefits:["Pairs with sea moss as Dr. Sebi's ocean mineral duo","Rich in natural iodine — supports thyroid health directly","Anti-inflammatory — reduces joint swelling","Supports healthy metabolism and weight regulation","Antioxidant — protects cells from oxidative stress","Traditionally used for goitre and thyroid imbalance"],usage:"Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",ital:"From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",caution:"High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance. Source from clean, non-contaminated waters."},
-  {name:"Tila (Linden Flower)",emoji:"🌼",cat:"drsebi",color:"#b5a030",tagline:"The Mucus Membrane Soother",drsebi:true,benefits:["Dr. Sebi's herb for calming and mucus membrane healing","Antispasmodic — relieves nervous tension and anxiety","Clears mucus from the respiratory tract gently","Anti-inflammatory for the digestive tract","Promotes restful sleep without heavy sedation","Supports healthy blood pressure"],usage:"Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour. One of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",ital:"Gentle enough for children, powerful enough for deep healing — tila is a reminder that medicine does not always need to be bitter to work.",caution:"Generally very safe. Avoid excessive daily use over very long periods without breaks."},
-  {name:"Nopal Cactus",emoji:"🌵",cat:"drsebi",color:"#5a8c3a",tagline:"The Blood Sugar Balancer",drsebi:true,benefits:["Dr. Sebi's approved herb for blood sugar and diabetes","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the Bio-Mineral Balance"],usage:"Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",ital:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",caution:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort."}
+var herbs=[
+{n:"Soursop Leaf",e:"",c:"cancer",col:"#2d5a27",t:"The Cancer Fighter",sebi:true,b:["Potent anti-cancer — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress","Supports immune system strength","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal","Supports healthy blood pressure"],u:"Steep 3-5 dried leaves in boiling water for 10-15 minutes. Drink 1-2 cups daily. Best in the evening.",i:"Sacred in Ital healing — one of the most powerful leaves the Most High placed on Earth for bodily restoration.",ca:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+{n:"Elderflower",e:"",c:"healing",col:"#b8a96a",t:"The Immune Blossom",sebi:true,b:["Powerful immune booster — colds and flu","Natural antihistamine — relieves hay fever","Anti-inflammatory, supports sinus health","Rich in Vitamin C and flavonoids","Gentle detoxifying and diuretic","Promotes healthy skin from within"],u:"Steep 1-2 tsp dried flowers in hot (not boiling) water for 5-7 minutes. Drink 2-3 cups during cold season.",i:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",ca:"Use flowers only — elderberries and raw bark can be toxic."},
+{n:"Chamomile",e:"",c:"calm",col:"#d4a853",t:"The Gentle Healer",sebi:true,b:["Powerful sleep aid — reduces insomnia","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS","Antispasmodic — relieves menstrual cramps","Supports skin health internally","Gentle enough for children"],u:"Steep 1 heaped tsp in boiling water for 5-10 minutes. Drink before bed or when anxious. Add raw honey and lemon.",i:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",ca:"Allergy possible if sensitive to ragweed family."},
+{n:"Raspberry Leaf",e:"",c:"woman",col:"#8b3a52",t:"The Womb Tonic",sebi:true,b:["Tones and strengthens uterine muscles","Eases painful menstruation","Rich in iron, calcium, magnesium and B vitamins","Traditionally used in late pregnancy to prepare the womb","Balances hormones naturally","Supports milk production when breastfeeding"],u:"Steep 1-2 tsp in boiling water for 10 minutes. Drink 1-3 cups daily. Especially powerful in the week before menstruation.",i:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",ca:"Avoid in early pregnancy. Consult a midwife before use in late pregnancy."},
+{n:"Hibiscus (Sorrel)",e:"",c:"heart",col:"#b5294e",t:"The Blood Cleanser",fire:{role:"The Blood",p:"Dr.Fire's blood cleaner. Do NOT boil — cold or warm water infusion only. Heat destroys the active compounds needed to cleanse the bloodstream.",f:"3x per week"},b:["Cleans the bloodstream — Dr.Fire's primary blood herb","Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],u:"Dr.Fire method: do NOT boil. Place dried petals in cold or warm water and allow to infuse for several hours or overnight. Drink 3x a week.",i:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",ca:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+{n:"Lavender",e:"",c:"calm",col:"#7b5ea7",t:"The Peace Herb",b:["Powerful anxiety and stress reducer","Promotes deep restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines","Anti-inflammatory and antimicrobial","Balances the nervous system"],u:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",i:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",ca:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+{n:"Peppermint",e:"",c:"digestive",col:"#1a7a4a",t:"The Digestive Warrior",b:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Antimicrobial properties","Refreshes and energises without caffeine"],u:"Steep 1-2 tsp fresh or dried leaves for 5-7 minutes. Drink after meals for digestion. Inhale steam for sinus relief.",i:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",ca:"Avoid in acid reflux. Not recommended for infants."},
+{n:"Damiana",e:"",c:"spirit",col:"#8b6914",t:"The Spirit Lifter",sebi:true,b:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating","Reduces anxiety and emotional exhaustion","Supports the adrenal and reproductive systems","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],u:"Steep 1 tsp in boiling water for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",i:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",ca:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
+{n:"Mullein",e:"",c:"respiratory",col:"#5a7a3a",t:"The Lung Cleanser",sebi:true,fire:{role:"Liver - Eyes - Legs",p:"Dr.Fire uses mullein to clear the liver, support eye health and improve circulation in the legs alongside its lung-clearing work.",f:"2-3x daily during cleanse cycles"},b:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],u:"Steep 1-2 tsp dried leaf for 10-15 minutes. Strain well. Drink 2-3 cups daily.",i:"Jah breathed life into man — mullein keeps that breath clean, clear and free.",ca:"Strain thoroughly to remove fine hairs. Avoid if allergic to Scrophulariaceae plant family."},
+{n:"Roasted Green Tea",e:"",c:"healing",col:"#6b7c3a",t:"The Grounding Brew",b:["Lower caffeine — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Supports heart and liver health","Earthy, nutty flavour from the roasting process"],u:"Steep at 80C (not boiling) for 1-2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",i:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",ca:"Contains caffeine — avoid in the evening. Not recommended for those with iron deficiency (drink between meals)."},
+{n:"Thai Tea",e:"",c:"healing",col:"#c17f3a",t:"The Golden Energiser",b:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise — aids digestion","Anti-inflammatory properties","Supports immune health"],u:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",i:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",ca:"Contains caffeine — avoid late in the evening."},
+{n:"Neem Leaf",e:"",c:"digestive",col:"#3d6b2a",t:"The Colon Cleanser",fire:{role:"The Colon (The Toilet)",p:"Dr.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins mobilised from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out.",f:"1x per week only"},b:["Clears the colon — the body's primary waste exit","Toxins pushed to liver and kidney are escorted out","Powerful antimicrobial — kills harmful bacteria and parasites","Antifungal — addresses candida and gut overgrowth","Supports the lymphatic system"],u:"Steep 5-7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach. Dr.Fire: 1x per week only.",i:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",ca:"Very potent — 1x per week only per Dr.Fire protocol. Do not use for extended periods. Avoid in pregnancy."},
+{n:"Alfalfa",e:"",c:"kidney",col:"#4a8c3a",t:"The Mineral Builder",b:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Anti-inflammatory for urinary tract","Supports bone density","Detoxifies and rebuilds the blood"],u:"Steep 1-2 tsp in boiling water for 5-7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",i:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",ca:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
+{n:"Dandelion",e:"",c:"kidney",col:"#c4a000",t:"The Kidney Tonic",sebi:true,fire:{role:"The Kidney",p:"Pairs with Milk Thistle as the kidney cleanse duo in the Dr.Fire protocol. Together they pull waste from the kidney as toxins pass through from the blood and colon cleanse.",f:"Daily — pair with Milk Thistle"},b:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Supports healthy blood pressure","Prebiotic — feeds beneficial gut bacteria"],u:"Steep 1-2 tsp dried root or leaf in boiling water for 10 minutes. Roasted dandelion root makes a rich coffee-like brew. Drink 2-3 cups daily.",i:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",ca:"May increase frequency of urination. Avoid if allergic to ragweed family."},
+{n:"Milk Thistle",e:"",c:"liver",col:"#9b59b6",t:"The Liver Shield",fire:{role:"The Liver",p:"Shields and regenerates the liver as toxins are pushed through during the Dr.Fire cleanse. Works with mullein to keep the liver processing cleanly.",f:"Daily during cleanse cycles"},b:["Protects and regenerates liver cells — silymarin is liver-specific medicine","Reduces liver inflammation and scarring","Powerful antioxidant in liver tissue","Helps the body process and eliminate toxins efficiently","Supports healthy cholesterol levels","Indirectly eases kidney load by keeping the liver clean"],u:"Steep 1 tsp crushed seeds or dried herb for 10-15 minutes. Drink 1-2 cups daily. During a cleanse: use daily to shield the liver as toxins pass through.",i:"The liver is the alchemist of the body — it transforms everything that enters. Milk thistle protects that sacred work.",ca:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic."},
+{n:"Burdock Root",e:"",c:"drsebi",col:"#8B4513",t:"The #1 Blood Cleanser",sebi:true,b:["Dr. Sebi's #1 blood cleanser — removes heavy metals and deep systemic toxins","Powerful diuretic — flushes kidneys and lymphatic system","Rich in organic iron — rebuilds and strengthens the blood","Anti-inflammatory — reduces joint and tissue inflammation","Prebiotic — feeds beneficial gut bacteria","Supports healthy clear skin from within"],u:"Steep 1 tsp dried root in boiling water for 15 minutes. Strong earthy flavour. Drink 1-2 cups daily. Pairs well with dandelion root.",i:"The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",ca:"Avoid in pregnancy. May interact with blood thinners or diabetes medication."},
+{n:"Sarsaparilla",e:"",c:"drsebi",col:"#6B4226",t:"The Endotoxin Binder",sebi:true,b:["Binds to endotoxins in the gut — removes them before blood absorption","Powerful blood purifier used for skin disease and systemic toxicity","Anti-inflammatory — used for arthritis and deep joint pain","Contains organic iron and zinc in plant-available form","Supports testosterone and reproductive hormones naturally","Diuretic — flushes the kidneys"],u:"Steep 1 tsp dried root for 10-15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",i:"Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",ca:"Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart."},
+{n:"Blue Vervain",e:"",c:"drsebi",col:"#4169a0",t:"The Nervous System Healer",sebi:true,b:["Dr. Sebi's primary herb for the nervous system","Relieves tension, anxiety and emotional stress held in the body","Antispasmodic — relieves muscle tension and cramps","Supports liver and lymphatic drainage","Helps with insomnia rooted in mental overactivity","Mild expectorant — clears mucus from the respiratory tract"],u:"Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",i:"The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",ca:"Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance."},
+{n:"Sea Moss (Herb Board)",e:"",c:"drsebi",col:"#2E8B57",t:"The 92-Mineral Foundation",sebi:true,b:["Contains 92 of the 102 minerals the human body is made of","Dr. Sebi's foundational supplement — taken daily","Supports thyroid function — rich in natural iodine","Strengthens gut lining — powerful prebiotic","Boosts immunity, energy and skin health","Anti-inflammatory — supports joints and respiratory health"],u:"Soak dried sea moss 12-24 hours, blend with spring water to make a gel. Take 1-2 tbsp daily in smoothies or teas. Source wildcrafted sea moss only.",i:"The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",ca:"High in iodine — avoid if you have hyperthyroidism. Source wildcrafted from clean waters only."},
+{n:"Bladderwrack",e:"",c:"drsebi",col:"#3d7a5a",t:"The Thyroid Herb",sebi:true,b:["Pairs with sea moss as Dr. Sebi's ocean mineral duo","Rich in natural iodine — supports thyroid health directly","Anti-inflammatory — reduces joint swelling","Supports healthy metabolism and weight regulation","Antioxidant — protects cells from oxidative stress","Traditionally used for goitre and thyroid imbalance"],u:"Steep 1 tsp dried flakes for 10 minutes. Salty oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",i:"From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",ca:"High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance."},
+{n:"Tila (Linden Flower)",e:"",c:"drsebi",col:"#b5a030",t:"The Mucus Membrane Soother",sebi:true,b:["Dr. Sebi's herb for calming and mucus membrane healing","Antispasmodic — relieves nervous tension and anxiety","Clears mucus from the respiratory tract gently","Anti-inflammatory for the digestive tract","Promotes restful sleep without heavy sedation","Supports healthy blood pressure"],u:"Steep 1-2 tsp dried flowers for 10 minutes. Light sweet honey-like flavour. Drink 1-2 cups daily.",i:"Gentle enough for children, powerful enough for deep healing — tila reminds us medicine does not always need to be bitter to work.",ca:"Generally very safe. Avoid excessive daily use over very long periods without breaks."},
+{n:"Nopal Cactus",e:"",c:"drsebi",col:"#5a8c3a",t:"The Blood Sugar Balancer",sebi:true,b:["Dr. Sebi's approved herb for blood sugar regulation","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the African Bio-Mineral Balance"],u:"Juice or blend fresh nopal pads. As dried powder steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals.",i:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",ca:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually."}
 ];
+var herbCats={all:{l:"All",col:"#8a7a5a"},drfire:{l:"Dr.Fire",col:"#2E8B57"},drsebi:{l:"Dr. Sebi",col:"#2E8B57"},cancer:{l:"Cancer Fighting",col:"#7a3a2a"},healing:{l:"Deep Healing",col:"#2d5a27"},calm:{l:"Calm & Sleep",col:"#7b5ea7"},liver:{l:"Liver",col:"#9b59b6"},woman:{l:"Womb Health",col:"#8b3a52"},heart:{l:"Heart & Blood",col:"#b5294e"},digestive:{l:"Digestive",col:"#1a7a4a"},kidney:{l:"Kidney",col:"#4a8c3a"},spirit:{l:"Spirit",col:"#8b6914"},respiratory:{l:"Respiratory",col:"#5a7a3a"}};
 
-const herbCats={all:"All",drfire:"🔥 DR.Fire",drsebi:"🌿 Dr. Sebi",liver:"Liver",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory",kidney:"Kidney"};
-let herbFilter="all";
-
-// ── NAV CONFIGS ──
-const founderNav = [
-  {sec:"My Space"},
-  {id:"f-overview",icon:"✦",label:"Overview"},
-  {id:"f-saved",icon:"🔖",label:"Saved",badge:"12"},
-  {id:"f-apothecary",icon:"🌿",label:"Apothecary"},
-  {id:"f-events",icon:"🌙",label:"Events",badge:"3"},
-  {id:"f-submissions",icon:"📬",label:"Submissions"},
-  {sec:"In Development"},
-  {id:"f-backend",icon:"⚙",label:"Vision & Previews"},
-  {id:"f-newearth",icon:"🌍",label:"New Earth Blueprint"},
-  {sec:"Account"},
-  {id:"f-settings",icon:"⚙",label:"Settings"},
+var oils=[
+{n:"Lavender Oil",e:"",c:"calm",col:"#7b5ea7",t:"The Universal Healer",method:"Diffuse - Topical - Bath",b:["Reduces anxiety and stress — most studied oil for calming the nervous system","Promotes deep restorative sleep","Antiseptic and anti-inflammatory — speeds healing of burns, cuts and bites","Relieves headaches and migraines when applied to temples","Antidepressant — lifts mood naturally","Safe for children when diluted"],u:"Diffuse 4-6 drops. Apply 2-3 drops diluted in coconut or jojoba oil to pulse points. Add 5-10 drops to a warm bath.",i:"One of the few essential oils generally safe to apply neat in small amounts. Always dilute for children.",ca:"Avoid during first trimester of pregnancy."},
+{n:"Tea Tree Oil",e:"",c:"healing",col:"#2d5a4a",t:"Nature's Antiseptic",method:"Topical - Diffuse - Cleaning",b:["Powerful antibacterial — effective against many strains including MRSA","Antifungal — treats nail fungus, athlete's foot and thrush","Antiviral properties — supports immunity","Treats acne — reduces bacteria and inflammation","Soothes scalp conditions — dandruff, dry scalp","Natural household disinfectant"],u:"Skin: dilute 1-2 drops in a carrier oil. Scalp: add 5 drops to shampoo. Diffuse for air purification.",i:"One of the most versatile oils in any apothecary. A true staple.",ca:"NEVER ingest — toxic when swallowed. Always dilute. Keep away from pets especially cats."},
+{n:"Frankincense Oil",e:"",c:"spirit",col:"#c8a040",t:"The Sacred Oil",method:"Diffuse - Topical - Meditation",b:["Deepens meditation — activates ion channels in the brain associated with calm","Anti-tumour properties — researched for brain and breast cancer","Reduces anxiety and depression","Anti-inflammatory — supports joints and arthritis","Skin rejuvenating — reduces scars and signs of ageing","Grounding and centering — anchors scattered energy"],u:"Diffuse during meditation or before sleep. Dilute 2-3 drops in jojoba or rosehip oil and apply to skin or behind ears.",i:"Burned in temples for thousands of years across Africa, the Middle East and India. If one oil belongs in every sacred space it is this one.",ca:"Avoid during pregnancy. May interact with blood thinners. Do not ingest the essential oil."},
+{n:"Peppermint Oil",e:"",c:"digestive",col:"#1a7a4a",t:"The Cool Healer",method:"Diffuse - Topical - Inhale",b:["Relieves headaches and migraines when applied to temples","Energising and focus-enhancing — natural alternative to caffeine","Soothes digestive discomfort, nausea and IBS","Clears sinuses and respiratory congestion","Cooling pain relief for muscles and joints","Natural insect repellent"],u:"Headaches: dilute and apply to temples and back of neck. Diffuse for energy and focus. Inhale directly for nausea.",i:"Keep a bottle in your bag. One of the most immediately useful oils day to day.",ca:"Do not apply undiluted near eyes or children's faces. Avoid if you have acid reflux."},
+{n:"Eucalyptus Oil",e:"",c:"respiratory",col:"#5a7a3a",t:"The Lung Opener",method:"Diffuse - Steam - Topical",b:["Opens airways and clears respiratory congestion — colds, flu, bronchitis","Antibacterial and antiviral — purifies air when diffused","Relieves muscle pain and tension","Stimulates immune function","Cooling and refreshing — reduces fever","Improves focus and mental clarity"],u:"Add 3-5 drops to a bowl of hot water, cover head with towel and inhale. Diffuse during illness. Dilute and apply to chest.",i:"The classic sick-day oil.",ca:"Never ingest. Keep away from children under 2."},
+{n:"Rose Oil",e:"",c:"woman",col:"#8b3a52",t:"The Heart Opener",method:"Diffuse - Topical - Bath",b:["Deeply supportive for grief, heartbreak and emotional pain","Balances hormones — supports menstrual regulation","One of the highest vibrational essential oils","Aphrodisiac — supports libido and intimacy","Anti-inflammatory and antibacterial for skin","Reduces anxiety and lifts depression"],u:"Diffuse for emotional healing. Dilute in rosehip oil and apply to heart centre. Add 3-4 drops to bath with Epsom salts.",i:"It takes approximately 60 roses to make one drop of pure rose essential oil. Buy from a trusted source.",ca:"Avoid during pregnancy. Ensure you buy genuine rose otto — many products are adulterated with synthetic fragrance."},
+{n:"Coconut Oil",e:"",c:"healing",col:"#c8b060",t:"The All-Purpose Fat",ital:true,sebi:true,method:"Cooking - Topical - Oil Pulling",b:["Lauric acid — antimicrobial, antifungal and antiviral at a cellular level","MCT (medium chain triglycerides) — immediate energy without digestion","The Ital replacement for butter and all dairy fats","Stable at high heat — one of the safest cooking fats","Deeply moisturising for skin and hair","Supports gut health — antimicrobial against harmful bacteria"],u:"Cooking: use for medium-to-high heat. Skin: apply directly as moisturiser or hair mask. Oil pulling: 1 tbsp swished for 15-20 minutes. Always buy raw, cold-pressed, virgin coconut oil.",i:"In Ital living, coconut replaces all animal fats. The milk of the earth, not the animal.",ca:"High in saturated fat — use in moderation if managing cardiovascular disease. Buy raw cold-pressed virgin only."}
 ];
+var oilCats={all:{l:"All",col:"#8a7a5a"},calm:{l:"Calm & Sleep",col:"#7b5ea7"},healing:{l:"Healing",col:"#2d5a4a"},spirit:{l:"Spirit",col:"#c8a040"},digestive:{l:"Digestive",col:"#1a7a4a"},respiratory:{l:"Respiratory",col:"#5a7a3a"},woman:{l:"Womb & Heart",col:"#8b3a52"}};
 
-const communityNav = [
-  {sec:"My Space"},
-  {id:"c-overview",icon:"✦",label:"Overview"},
-  {id:"c-saved",icon:"🔖",label:"Saved",badge:"12"},
-  {id:"c-apothecary",icon:"🌿",label:"Apothecary"},
-  {id:"c-events",icon:"🌙",label:"Events",badge:"3"},
-  {id:"c-submissions",icon:"📬",label:"Submissions"},
-  {sec:"Account"},
-  {id:"c-settings",icon:"⚙",label:"Settings"},
+var plants=[
+{n:"Ganja (Cannabis)",e:"",c:"sacred",col:"#2d5a27",t:"The Sacrament",trad:"Rastafarian - Vedic - Indigenous",b:["Sacred sacrament in Rastafari — used for meditation, prayer and reasoning","Referenced in the Vedas as one of five sacred plants","Pain relief and anti-inflammatory — medical cannabis well established","Reduces anxiety, PTSD and depression","Supports sleep and nervous system regulation","Anti-nausea — used during chemotherapy"],u:"Ceremonial: smoked with intention, in community or in meditation. Medicinal: CBD oil, tinctures, edibles — start low and slow.",i:"This plant has been criminalised to oppress the communities that hold it sacred. Know the history. Use with respect.",ca:"Legal status varies by country. Not recommended for those with personal or family history of psychosis. Avoid during pregnancy."},
+{n:"Ceremonial Cacao",e:"",c:"heart",col:"#5a2d1a",t:"The Heart Opener",trad:"Mayan - Aztec - Central American",b:["Opens the heart centre — used ceremonially for emotional healing and connection","Contains theobromine — a gentle sustained energy lift without the anxiety of caffeine","MAO inhibitor — enhances mood and sense of wellbeing","Rich in magnesium, iron and antioxidants","Facilitates emotional release and deep inner work","Enhances creativity, presence and empathy"],u:"Ceremonial dose: 40-42g cacao block melted in hot water with chilli, cinnamon and a little sweetener. Set an intention. Sit with it.",i:"Not the same as chocolate. Ceremonial cacao is minimally processed, full-fat and used with intention. Source ethically — Guatemalan or Peruvian origin.",ca:"Avoid if on antidepressants (MAOIs) without guidance. High doses can cause nausea or racing heart in sensitive people."},
+{n:"Psilocybin Mushrooms",e:"",c:"vision",col:"#6a4a8a",t:"The Great Teacher",trad:"Mazatec - Mesoamerican - Global Indigenous",b:["Clinically proven to reduce treatment-resistant depression — Johns Hopkins and Imperial College research","Dissolves ego defensiveness — allows deep trauma processing","Reduces end-of-life anxiety in terminal patients","Creates lasting personality changes toward openness and empathy","Shown to reduce addiction — smoking, alcohol, opioids","Mystical experiences with long-term positive wellbeing impact"],u:"Set and setting are everything. Micro-dosing: 0.1-0.3g for subtle cognitive and mood benefits. Ceremonial dose: 2-3.5g in a safe intentional space. Never alone for high doses. Integration after is as important as the journey.",i:"This medicine is having a clinical renaissance. What indigenous communities have known for millennia, science is now confirming.",ca:"Illegal in most countries — know your jurisdiction. Not suitable for those with personal or family history of psychosis or schizophrenia. Avoid mixing with lithium or SSRIs without guidance."},
+{n:"Kambo",e:"",c:"vision",col:"#5a7a2a",t:"The Jungle Vaccine",trad:"Amazonian Indigenous - Matses - Kaxinawa",b:["Secretion from the giant monkey frog — used by Amazonian tribes for centuries","Powerful purgative — deeply cleanses the body and lymphatic system","Anti-inflammatory peptides — some of the most potent in nature","Reported to reduce depression and trauma when used ceremonially","Antimicrobial properties — used traditionally before hunting for endurance","Peptides cross the blood-brain barrier — affecting mood, energy and clarity"],u:"Applied by burning small points on the skin and placing the secretion on the burns. MUST be done by a trained practitioner — never attempt alone. Fast beforehand. Set clear intention.",i:"The Matses people call it hunting medicine. It does not ease you in — it purges what is held and leaves you clear. A medicine of the deep jungle and of deep courage.",ca:"Serious risk of death if used improperly — must only be used with a certified practitioner. Contraindicated with heart conditions, mental health medication, pregnancy, low blood pressure. Research your practitioner thoroughly."},
+{n:"Rapeh (Hapeh)",e:"",c:"sacred",col:"#7a5a3a",t:"The Sacred Snuff",trad:"Amazonian Indigenous - Yawanapi - Huni Kuin",b:["Sacred tobacco snuff used by many Amazonian tribes — not recreational","Ground from mapacho (wild tobacco) and sacred plant ash","Grounds and centres the mind — clears mental fog and anxiety rapidly","Used before ceremony to set intention and clear the energy field","Antimicrobial — the ash alkalises and cleanses the nasal passages","Connects to the ancestral plant medicine lineage of the Amazon"],u:"Self-administering is possible with a kuripe pipe (V-shaped pipe from mouth to own nostril). Requires strong intention and a quiet setting. Start with a very small amount. Sit with it — do not resist what arises.",i:"This is not tobacco as Babylon uses it. Rapeh is a sacred tool, held in ceremony and given as medicine. The tradition asks that you approach it with the reverence it deserves.",ca:"Contains nicotine — avoid if you have heart conditions or blood pressure issues. Not suitable during pregnancy. Do not use for recreation — it is a ceremonial medicine. Source from ethical indigenous suppliers only."},
+{n:"Sananga Eye Drops",e:"",c:"vision",col:"#3a6a8a",t:"The Vision Cleanser",trad:"Amazonian Indigenous - Matses - Yawanapi",b:["Made from the root bark of Tabernaemontana undulata — an Amazonian shrub","Used by hunters to sharpen physical and spiritual vision","Reported to clear energetic blockages and emotional debris","Anti-inflammatory for the eyes — used traditionally to treat eye conditions","Used to prepare the mind and energy field before ayahuasca or other ceremonies","Reported to enhance colour perception and visual clarity after use"],u:"Applied directly to the eyes — 1 drop per eye. Burns intensely for 5-10 minutes. Lie down, breathe through it, do not rub the eyes. The burning is the medicine doing its work.",i:"The Matsés say it clears what the eye cannot see — meaning what the spirit carries. The burning is the release. What comes after is clarity.",ca:"Buy only pharmaceutical-grade sananga from ethical sources. The burn is intense but temporary — it is not damaging if properly prepared. Avoid if you have active eye infections or recent eye surgery."}
 ];
-
-// ── PANEL HTML ──
-const panels = {
-
-'f-overview': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Welcome back, Founder</div><div class="pt">Your portal.</div><div class="ps">Everything KIN-NECT — live, saved and in development.</div></div>
-  <div class="stats">
-    <div class="stat"><div class="sn">4</div><div class="sl">Founding Partners</div></div>
-    <div class="stat"><div class="sn">12</div><div class="sl">Saved Items</div></div>
-    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
-    <div class="stat"><div class="sn">8</div><div class="sl">Backend Pages</div></div>
-  </div>
-  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('f-saved')">See all →</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-    </div>
-  </div>
-  <div class="sec"><div class="sh"><div class="st">Backend pages</div><div class="sl2" onclick="gotoPanel('f-backend');setActiveNav('f-backend')">See all →</div></div>
-    <div class="g2">
-      <div class="be-card" onclick="openPreview('vision')" style="cursor:pointer"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept. Built for pitch decks and grants.</div><span class="be-badge">Click to open →</span></div>
-      <div class="be-card" onclick="openPreview('marketplace')" style="cursor:pointer"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm. Commission model mockup.</div><span class="be-badge">Click to open →</span></div>
-      <div class="be-card" onclick="openTeaCupboard()" style="cursor:pointer;border-color:rgba(45,90,39,0.4)"><span class="be-icon">🍵</span><div class="be-tag" style="color:#5a9a4a">Ital Apothecary · New</div><div class="be-name">The Tea Cupboard</div><div class="be-desc">14 Ital herbs with full profiles, Ital wisdom and kidney cleanse trio.</div><span class="be-badge" style="color:#5a9a4a;border-color:rgba(45,90,39,0.3)">Click to open →</span></div>
-    </div>
-  </div>`,
-
-'f-saved': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Listings, editorial and library items you've bookmarked.</div></div>
-  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening. Mood, focus, calm and reflection through journaling.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
-    </div>
-  </div>
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Library</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-    </div>
-  </div>`,
-
-'f-apothecary': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Herbalism · Aromatherapy · Plant Medicine · Food as Medicine</div>
-  <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.75rem;">
-    <a href="apothacary.html" target="_blank" style="display:inline-block;background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;text-decoration:none;font-weight:700;">Open The Apothecary ✦</a>
-    <button onclick="openTeaCupboard()" style="display:inline-block;background:transparent;color:#5a9a4a;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;border:1px solid rgba(45,90,39,0.5);cursor:pointer;font-weight:700;">🍵 Tea Cupboard ✦</button>
-  </div>
-  </div>
-  <div class="af-row" id="af-row"></div>
-  <div class="hg" id="hg"></div>
-  <hr class="hr">
-
-  <!-- DR.FIRE SECTION -->
-  <div class="sec" id="drfire-section">
-    <div class="sh">
-      <div class="st" style="display:flex;align-items:center;gap:0.5rem">
-        <span style="font-size:1.1rem">🔥</span>
-        <span>DR.Fire Protocol</span>
-      </div>
-    </div>
-    <div style="background:rgba(200,80,30,0.06);border:1px solid rgba(200,80,30,0.2);border-radius:6px;padding:1.5rem;margin-bottom:1.25rem">
-      <p style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;color:#d4733a;text-transform:uppercase;margin-bottom:0.75rem">The Body's Cleanse System</p>
-      <p style="font-size:0.85rem;color:#c8b090;line-height:1.7;margin-bottom:1.25rem">A structured herbal cleanse protocol. Each herb targets a specific part of the body's waste and toxin removal system — working together in sequence, not in isolation.</p>
-
-      <!-- Flow diagram -->
-      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:0.5rem;margin-bottom:1.25rem">
-
-        <!-- Blood -->
-        <div style="background:rgba(181,41,78,0.12);border:1px solid rgba(181,41,78,0.3);border-radius:4px;padding:0.9rem;text-align:center;cursor:pointer" onclick="setHerbFilter('drfire')" title="Filter to DR.Fire herbs">
-          <div style="font-size:1.4rem;margin-bottom:4px">🌺</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.36rem;letter-spacing:0.12em;color:#b5294e;margin-bottom:4px">THE BLOOD</div>
-          <div style="font-size:0.78rem;color:#c8b090">Sorrel (Hibiscus)</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.33rem;color:#8a7a5a;margin-top:4px">3× a week · no boil</div>
-        </div>
-
-        <div style="color:#5a4a3a;font-size:0.9rem;text-align:center">→</div>
-
-        <!-- Colon -->
-        <div style="background:rgba(61,107,42,0.12);border:1px solid rgba(61,107,42,0.3);border-radius:4px;padding:0.9rem;text-align:center;cursor:pointer" onclick="setHerbFilter('drfire')">
-          <div style="font-size:1.4rem;margin-bottom:4px">🌿</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.36rem;letter-spacing:0.12em;color:#5a9a4a;margin-bottom:4px">THE COLON</div>
-          <div style="font-size:0.78rem;color:#c8b090">Neem</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.33rem;color:#8a7a5a;margin-top:4px">1× a week only</div>
-        </div>
-
-        <div style="color:#5a4a3a;font-size:0.9rem;text-align:center">→</div>
-
-        <!-- Kidney -->
-        <div style="background:rgba(155,89,182,0.1);border:1px solid rgba(155,89,182,0.3);border-radius:4px;padding:0.9rem;text-align:center;cursor:pointer" onclick="setHerbFilter('drfire')">
-          <div style="font-size:1.4rem;margin-bottom:4px">🌼🌸</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.36rem;letter-spacing:0.12em;color:#9b59b6;margin-bottom:4px">THE KIDNEY</div>
-          <div style="font-size:0.78rem;color:#c8b090">Dandelion + Milk Thistle</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.33rem;color:#8a7a5a;margin-top:4px">Daily · together</div>
-        </div>
-
-        <div style="color:#5a4a3a;font-size:0.9rem;text-align:center">→</div>
-
-        <!-- Liver / Eyes / Legs -->
-        <div style="background:rgba(90,122,58,0.12);border:1px solid rgba(90,122,58,0.3);border-radius:4px;padding:0.9rem;text-align:center;cursor:pointer" onclick="setHerbFilter('drfire')">
-          <div style="font-size:1.4rem;margin-bottom:4px">🌿</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.36rem;letter-spacing:0.12em;color:#7aaa5a;margin-bottom:4px">LIVER · EYES · LEGS</div>
-          <div style="font-size:0.78rem;color:#c8b090">Mullein</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.33rem;color:#8a7a5a;margin-top:4px">2–3× daily during cleanse</div>
-        </div>
-
-      </div>
-
-      <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.75rem 1rem">
-        <p style="font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;color:#d4733a;margin-bottom:0.4rem">HOW IT WORKS</p>
-        <p style="font-size:0.8rem;color:#8a7a5a;line-height:1.6;margin:0">Sorrel cleans the blood 3× a week. Those toxins get pushed to the liver and kidney. Neem (1× a week) clears them through the colon. Dandelion and Milk Thistle clean the kidney. Mullein clears the liver, supports the eyes and legs. Each herb has a job. They work as a system.</p>
-      </div>
-    </div>
-
-    <!-- DR. SEBI SECTION -->
-  <div class="sec" style="margin-top:2rem">
-    <div class="sh">
-      <div class="st" style="display:flex;align-items:center;gap:0.5rem">
-        <span style="font-size:1.1rem">🌿</span>
-        <span>Dr. Sebi — African Bio-Mineral Balance</span>
-      </div>
-      <div class="sl2" onclick="setHerbFilter('drsebi');renderHerbFilters();renderHerbs()">View herbs →</div>
-    </div>
-    <div style="background:rgba(46,139,87,0.06);border:1px solid rgba(46,139,87,0.2);border-radius:6px;padding:1.5rem;margin-bottom:1.25rem">
-      <p style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;color:#5aaa7a;text-transform:uppercase;margin-bottom:0.75rem">The Foundation</p>
-      <p style="font-size:0.85rem;color:#c8b090;line-height:1.7;margin-bottom:1.25rem">Dr. Sebi taught that all disease comes from one cause — <strong style="color:#e8dcc8">mucus and acidity</strong> in the body. The cure is returning the body to its natural alkaline state using only natural, non-hybrid plants that contain the minerals the African body evolved with.</p>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem;margin-bottom:1.25rem">
-        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
-          <div style="font-size:1.3rem;margin-bottom:6px">🩸</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">BLOOD</div>
-          <div style="font-size:0.75rem;color:#8a7a5a">Burdock · Sarsaparilla</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
-          <div style="font-size:1.3rem;margin-bottom:6px">🧠</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">NERVOUS SYSTEM</div>
-          <div style="font-size:0.75rem;color:#8a7a5a">Blue Vervain · Tila</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
-          <div style="font-size:1.3rem;margin-bottom:6px">🌊</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">MINERALS</div>
-          <div style="font-size:0.75rem;color:#8a7a5a">Sea Moss · Bladderwrack</div>
-        </div>
-        <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.85rem;text-align:center">
-          <div style="font-size:1.3rem;margin-bottom:6px">🌵</div>
-          <div style="font-family:'Space Mono',monospace;font-size:0.35rem;letter-spacing:0.1em;color:#5aaa7a;margin-bottom:4px">BLOOD SUGAR</div>
-          <div style="font-size:0.75rem;color:#8a7a5a">Nopal Cactus</div>
-        </div>
-      </div>
-
-      <div style="background:rgba(0,0,0,0.2);border-radius:4px;padding:0.75rem 1rem">
-        <p style="font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.12em;color:#5aaa7a;margin-bottom:0.4rem">THE RULE</p>
-        <p style="font-size:0.8rem;color:#8a7a5a;line-height:1.6;margin:0">Only <strong style="color:#c8b090">natural, alkaline, non-hybrid plants</strong>. No crossbred produce. No inorganic supplements. The body knows how to heal — give it what nature, not industry, made. Herbs you already have that Dr. Sebi approved: Soursop, Elderflower, Chamomile, Raspberry Leaf, Damiana, Mullein, Dandelion.</p>
-      </div>
-    </div>
-  </div>
-
-  <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;color:var(--dim);margin-bottom:0.5rem">DR.FIRE NOTES</p>
-    <div class="sform" style="max-width:100%">
-      <div class="fg"><label class="fl">Notes from DR.Fire</label><textarea class="fi fta" style="min-height:90px">The blood needs cleaning. Sorrel — don't boil, put it in the water. Cleans the bloodstream 3x a week. Colon is the toilet — neem clears it 1x a week. Toxins get pushed to the liver and kidney. Dandelion + milk thistle clean the kidney. Mullein clears the liver, eyes, legs.</textarea></div>
-      <button class="sbtn">Save notes ✦</button>
-    </div>
-  </div>
-
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Ritual notes</div></div>
-    <div class="sform">
-      <div class="fg"><label class="fl">Morning ritual</label><textarea class="fi fta">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga. Intention setting before screens.</textarea></div>
-      <div class="fg"><label class="fl">Evening ritual</label><textarea class="fi fta">The Grounding Blend tea. Journaling. No screens after 9pm.</textarea></div>
-      <div class="fg"><label class="fl">Currently working with</label><input class="fi" value="Ashwagandha, sea moss, lion's mane, magnesium glycinate"/></div>
-      <button class="sbtn">Save ritual notes ✦</button>
-    </div>
-  </div>`,
-
-'f-events': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
-  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
-    <div class="elist">
-      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
-      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
-    </div>
-  </div>
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
-    <div class="elist">
-      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
-      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
-    </div>
-  </div>`,
-
-'f-submissions': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div></div>
-  <div style="display:flex;flex-direction:column;gap:0.75rem;">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
-  </div>`,
-
-'f-backend': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">In development</div><div class="pt">Vision & Previews</div><div class="ps">Backend pages, mockups and concepts. Not live on the main site — for grants, developers and your own reference. Click any card to open.</div></div>
-  <div class="g2">
-    <div class="be-card" onclick="openPreview('vision')" style="cursor:pointer"><span class="be-icon">🔮</span><div class="be-tag">Vision Preview</div><div class="be-name">Full Vision Page</div><div class="be-desc">The complete KIN-NECT concept — directory, marketplace, events, community. Built for pitch decks and grant applications.</div><span class="be-badge">Not live · Preview only</span></div>
-    <div class="be-card" onclick="openPreview('marketplace')" style="cursor:pointer"><span class="be-icon">🛒</span><div class="be-tag">Marketplace</div><div class="be-name">The Marketplace</div><div class="be-desc">Vendor listings, the Realm, products. Commission model mockup for developer brief and grant pitch.</div><span class="be-badge">Not live · Mockup</span></div>
-    <div class="be-card" onclick="openPreview('divine-play')" style="cursor:pointer"><span class="be-icon">✨</span><div class="be-tag">18+ · Future Pillar</div><div class="be-name">Divine Play</div><div class="be-desc">Conscious sexuality, intimacy and education. A future KIN-NECT pillar behind an 18+ restriction.</div><span class="be-badge">Not live · Concept only</span></div>
-    <div class="be-card" onclick="openPreview('eventsmockup')" style="cursor:pointer"><span class="be-icon">🎟</span><div class="be-tag">Events Calendar</div><div class="be-name">Events + Ticketing</div><div class="be-desc">Calendar with integrated ticket purchasing. Full vision of the events pillar.</div><span class="be-badge">Not live · Mockup</span></div>
-    <div class="be-card" onclick="openPreview('the-tribe')" style="cursor:pointer"><span class="be-icon">👤</span><div class="be-tag">Personal Portal</div><div class="be-name">Member Portal — Clean Version</div><div class="be-desc">Alternative portal design in KIN-NECT light/dark style. For comparison and developer brief.</div><span class="be-badge">Not live · Mockup</span></div>
-    <div class="be-card" onclick="openPreview('apothacary')" style="cursor:pointer"><span class="be-icon">🌿</span><div class="be-tag">Personal · Reference</div><div class="be-name">The Apothecary</div><div class="be-desc">Herbalism, aromatherapy, plant medicine and food as medicine. Your personal healing reference — four boards, fully private.</div><span class="be-badge">Personal · Private</span></div>
-    <div class="be-card" onclick="gotoPanel('f-newearth');setActiveNav('f-newearth')" style="cursor:pointer"><span class="be-icon">🌍</span><div class="be-tag">Living Document</div><div class="be-name">New Earth Blueprint</div><div class="be-desc">Ancient wisdom, sovereign community, holistic healing and technological harmony. The ancestral blueprint for what we are building.</div><span class="be-badge">Open in portal →</span></div>
-    <div class="be-card" onclick="openTeaCupboard()" style="cursor:pointer;border-color:rgba(45,90,39,0.4)"><span class="be-icon">🍵</span><div class="be-tag" style="color:#5a9a4a">Ital Apothecary</div><div class="be-name">The Tea Cupboard</div><div class="be-desc">14 Ital herbs — soursop, hibiscus, mullein, damiana and your full kidney cleanse trio. Filterable by category with full profiles.</div><span class="be-badge" style="color:#5a9a4a;border-color:rgba(45,90,39,0.3)">Personal · Private ✦ New</span></div>
-  </div>`,
-
-'f-newearth': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Living document</div><div class="pt">New Earth Blueprint</div><div class="ps">Ancient wisdom · Sovereign community · Holistic healing · Technological harmony. The ancestral blueprint for what KIN-NECT is building toward.</div></div>
-  <div class="g2" style="margin-bottom:2rem;">
-    <div class="card"><div class="ct">🏛 Part One</div><div class="cn">What Was Built Before Us</div><div class="cd">Kemet, Mali, Black Wall Street, Seneca Village, the Maroons — the civilisations that are our blueprints.</div><a class="ca" href="new-earth.html" target="_blank">Read →</a></div>
-    <div class="card"><div class="ct">🌀 Part Two</div><div class="cn">Spiritual & Inner Foundation</div><div class="cd">Ma'at, Ubuntu, inner work, collective practice and the daily rhythm that holds a community together.</div><a class="ca" href="new-earth.html" target="_blank">Read →</a></div>
-  </div>
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;margin-bottom:1.5rem;">
-    <div class="ct" style="margin-bottom:0.75rem;">✦ The DNA — What Every Civilisation Had</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.75rem;">
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🌊 Water sovereignty</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🌾 Food production</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🏛 Knowledge centre</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🏥 Healing system</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🏠 Natural shelter</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🙏 Spiritual foundation</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">💰 Internal economy</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">⚖️ Governance system</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">📚 Children education</div>
-      <div style="background:rgba(200,115,42,0.05);border:1px solid rgba(200,115,42,0.1);border-radius:4px;padding:0.6rem;font-family:'Space Mono',monospace;font-size:0.38rem;color:var(--ochre);opacity:0.8;">🛡 Legal protection</div>
-    </div>
-  </div>
-  <a href="new-earth.html" target="_blank" style="display:inline-block;background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.25rem;border-radius:2rem;text-decoration:none;font-weight:700;">Open Full Blueprint ✦</a>`,
-
-'f-settings': `
-  <div class="ph"><span class="view-banner founder">✦ Founder View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
-  <div class="sform">
-    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Jayde"/></div>
-    <div class="fg"><label class="fl">Role</label><input class="fi" value="Founder & Director, KIN-NECT"/></div>
-    <div class="fg"><label class="fl">Email</label><input class="fi" value="hello@kin-nect.co.uk"/></div>
-    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Integrative mental health therapist, community builder and founder of KIN-NECT. Building the digital village.</textarea></div>
-    <button class="sbtn">Save changes ✦</button>
-  </div>`,
-
-// ── COMMUNITY PANELS ──
-
-'c-overview': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Welcome back</div><div class="pt">Your portal.</div><div class="ps">Everything you've saved, attended and contributed — all in one place.</div></div>
-  <div class="stats">
-    <div class="stat"><div class="sn">12</div><div class="sl">Saved</div></div>
-    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
-    <div class="stat"><div class="sn">5</div><div class="sl">Apothecary</div></div>
-    <div class="stat"><div class="sn">2</div><div class="sl">Submissions</div></div>
-  </div>
-  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('c-saved')">See all →</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-    </div>
-  </div>
-  <div class="sec"><div class="sh"><div class="st">Upcoming events</div><div class="sl2" onclick="gotoPanel('c-events')">See all →</div></div>
-    <div class="elist">
-      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
-    </div>
-  </div>`,
-
-'c-saved': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Everything you've bookmarked — find it all here.</div></div>
-  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community. London.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening — mood, focus, calm and reflection.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
-    </div>
-  </div>
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Library</div></div>
-    <div class="g3">
-      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
-    </div>
-  </div>`,
-
-'c-apothecary': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Your herbal reference and ritual toolkit. Tap any herb to open.</div></div>
-  <div class="af-row" id="af-row"></div>
-  <div class="hg" id="hg"></div>
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Ritual notes</div></div>
-    <div class="sform">
-      <div class="fg"><label class="fl">Morning ritual</label><textarea class="fi fta">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga.</textarea></div>
-      <div class="fg"><label class="fl">Evening ritual</label><textarea class="fi fta">Chamomile tea. Journaling. No screens after 9pm.</textarea></div>
-      <div class="fg"><label class="fl">Currently working with</label><input class="fi" value="Sea moss, chamomile, peppermint"/></div>
-      <button class="sbtn">Save ritual notes ✦</button>
-    </div>
-  </div>`,
-
-'c-events': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
-  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
-    <div class="elist">
-      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
-      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
-    </div>
-  </div>
-  <hr class="hr">
-  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
-    <div class="elist">
-      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
-      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
-    </div>
-  </div>`,
-
-'c-submissions': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div><div class="ps">Things you've submitted to KIN-NECT. We review everything.</div></div>
-  <div style="display:flex;flex-direction:column;gap:0.75rem;">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
-  </div>`,
-
-'c-settings': `
-  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
-  <div class="sform">
-    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Muna"/></div>
-    <div class="fg"><label class="fl">Handle</label><input class="fi" value="@muna.kin"/></div>
-    <div class="fg"><label class="fl">Email</label><input class="fi" value="muna@example.com"/></div>
-    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Yoga teacher. Holistic practitioner. Community seeker. London.</textarea></div>
-    <button class="sbtn">Save changes ✦</button>
-  </div>`
-};
-
-// ── STATE ──
-let currentView = 'founder';
-let currentPanel = 'f-overview';
-
-function setView(view, btn) {
-  currentView = view;
-  document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  // Update profile
-  if (view === 'founder') {
-    document.getElementById('sb-name').textContent = 'Jayde';
-    document.getElementById('sb-role').textContent = '✦ Founder & Director';
-    document.getElementById('sb-role').style.color = 'var(--ochre)';
-    renderNav(founderNav);
-    loadPanel('f-overview');
-  } else {
-    document.getElementById('sb-name').textContent = 'Muna';
-    document.getElementById('sb-role').textContent = '🌿 Community Member';
-    document.getElementById('sb-role').style.color = '#8FAE7A';
-    renderNav(communityNav);
-    loadPanel('c-overview');
-  }
-}
-
-function renderNav(navConfig) {
-  const nav = document.getElementById('sidebar-nav');
-  nav.innerHTML = navConfig.map(item => {
-    if (item.sec) return `<div class="nsec">${item.sec}</div>`;
-    return `<div class="ni" id="nav-${item.id}" onclick="loadPanel('${item.id}');setActiveNav('${item.id}')">${item.icon} ${item.label}${item.badge ? `<span class="nb">${item.badge}</span>` : ''}</div>`;
-  }).join('');
-  // Set first item active
-  const firstItem = navConfig.find(i => i.id);
-  if (firstItem) setActiveNav(firstItem.id);
-}
-
-function setActiveNav(id) {
-  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
-  const el = document.getElementById('nav-' + id);
-  if (el) el.classList.add('active');
-}
-
-function loadPanel(id) {
-  currentPanel = id;
-  const main = document.getElementById('main-content');
-  main.innerHTML = `<div id="panel-${id}" class="panel active">${panels[id] || '<p style="color:var(--muted)">Coming soon.</p>'}</div>`;
-  // Init herbs if needed
-  if (id === 'f-apothecary' || id === 'c-apothecary') {
-    herbFilter = 'all';
-    renderHerbFilters();
-    renderHerbs();
-  }
-}
-
-function gotoPanel(id) {
-  loadPanel(id);
-  setActiveNav(id);
-}
-
-// ── HERBS ──
-function renderHerbs() {
-  const f = herbFilter === 'drfire'
-    ? herbs.filter(h => h.drfire)
-    : herbFilter === 'drsebi'
-    ? herbs.filter(h => h.drsebi || h.cat === 'drsebi')
-    : herbFilter === 'all' ? herbs : herbs.filter(h => h.cat === herbFilter);
-  const hg = document.getElementById('hg');
-  if (!hg) return;
-  hg.innerHTML = f.map(h => {
-    const hasTag = h.drfire || h.drsebi;
-    const tagHtml = h.drfire
-      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 6px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE</div>`
-      : h.drsebi
-      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 6px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI</div>`
-      : '';
-    return `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'">
-      <div class="hc-dot" style="background:${h.color}"></div>
-      ${tagHtml}
-      <span class="hc-emoji" style="${hasTag?'margin-top:14px;display:block':''}">${h.emoji}</span>
-      <p class="hc-name">${h.name}</p>
-      <p class="hc-tag" style="color:${h.color}">${h.drfire?h.drfire.role:h.tagline}</p>
-      <ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul>
-      <p class="hc-tap">TAP TO OPEN →</p>
-    </div>`;
-  }).join('');
-}
-
-function renderHerbFilters() {
-  const row = document.getElementById('af-row');
-  if (!row) return;
-  row.innerHTML = Object.entries(herbCats).map(([k,v]) => `<button class="af-btn ${k===herbFilter?'active':''}" onclick="setHerbFilter('${k}')">${v}</button>`).join('');
-}
-
-function setHerbFilter(c) { herbFilter = c; renderHerbFilters(); renderHerbs(); }
-
-function oH(h) {
-  document.getElementById('hm-e').textContent = h.emoji;
-  document.getElementById('hm-n').textContent = h.name;
-  document.getElementById('hm-t').textContent = h.tagline;
-  document.getElementById('hm-t').style.color = h.color;
-  // Lineage badges
-  const badgeEl = document.getElementById('hm-badges');
-  badgeEl.innerHTML = [
-    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(200,80,30,0.12);color:#d4733a;padding:4px 10px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE PROTOCOL</span>` : '',
-    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:4px 10px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI APPROVED</span>` : ''
-  ].filter(Boolean).join(' ');
-  document.getElementById('hm-i').textContent = h.ital;
-  document.getElementById('hm-ib').style.borderLeftColor = h.color;
-  document.getElementById('hm-ib').style.background = h.color + '12';
-  document.getElementById('hm-bl').style.color = h.color;
-  document.getElementById('hm-b').innerHTML = h.benefits.map(b => `<li>${b}</li>`).join('');
-  document.getElementById('hm-u').textContent = h.usage;
-  document.getElementById('hm-c').textContent = h.caution;
-  document.getElementById('hm-box').style.borderColor = h.color + '40';
-  // DR.Fire block
-  const dfEl = document.getElementById('hm-drfire');
-  if (h.drfire) {
-    dfEl.style.display = 'block';
-    dfEl.innerHTML = `
-      <div style="background:rgba(200,80,30,0.08);border:1px solid rgba(200,80,30,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1rem">
-        <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:#d4733a;margin-bottom:6px">🔥 DR.FIRE PROTOCOL · ${h.drfire.role.toUpperCase()}</div>
-        <p style="font-size:0.88rem;color:#d4b090;line-height:1.6;margin:0 0 6px">${h.drfire.protocol}</p>
-        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;color:#a06040">FREQUENCY: ${h.drfire.freq}</div>
-      </div>`;
-  } else {
-    dfEl.style.display = 'none';
-    dfEl.innerHTML = '';
-  }
-  document.getElementById('hm').classList.add('open');
-}
-
-// ── PREVIEW LAUNCHER ──
-function openPreview(page) {
-  // Try to open the page file — works when files are in the same folder
-  window.open(page + '.html', '_blank');
-}
-
-// ── TEA CUPBOARD OVERLAY ──
-function openTeaCupboard() {
-  document.getElementById('tc-overlay').classList.add('open');
-}
-function closeTeaCupboard() {
-  document.getElementById('tc-overlay').classList.remove('open');
-}
-
-const teaCupboardTeas = [
-  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal properties","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
-  {name:"Thai Tea",emoji:"🍵",cat:"energy",color:"#c17f3a",tagline:"The Golden Energiser",benefits:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise and tamarind seed — aids digestion","Anti-inflammatory properties","Supports immune health"],usage:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",ital:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",caution:"Contains caffeine — avoid late in the evening."},
-  {name:"Elderflower",emoji:"🌸",cat:"healing",color:"#b8a96a",tagline:"The Immune Blossom",benefits:["Powerful immune booster — especially for colds and flu","Natural antihistamine — relieves hay fever and allergies","Anti-inflammatory, supports sinus health","Rich in Vitamin C and flavonoids","Promotes healthy skin from within"],usage:"Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season.",ital:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",caution:"Use flowers only — elderberries and raw bark can be toxic in large amounts."},
-  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Antispasmodic — relieves menstrual cramps","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
-  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Balances hormones naturally","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy."},
-  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C — boosts immunity","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],usage:"Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red. Drink hot or cold. Pairs well with ginger.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
-  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep, restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines","Balances the nervous system"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
-  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion. Inhale steam for sinus relief.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
-  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
-  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family."},
-  {name:"Roasted Green Tea",emoji:"🍵",cat:"energy",color:"#6b7c3a",tagline:"The Grounding Brew",benefits:["Lower caffeine than regular green tea — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Earthy, nutty flavour from the roasting process"],usage:"Steep at 80°C for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",ital:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",caution:"Contains caffeine — avoid in the evening. Not for those with iron deficiency (drink between meals)."},
-  {name:"Neem Leaf",emoji:"🌿",cat:"kidney",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's waste exit","Toxins pushed to liver/kidney are escorted out","Powerful antimicrobial and antifungal","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach. DR.Fire protocol: 1x per week only.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — 1x per week only per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy."},
-  {name:"Milk Thistle",emoji:"🌸",cat:"kidney",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Supports kidney health alongside dandelion","Powerful antioxidant — neutralises free radicals in liver tissue","Anti-inflammatory for the digestive tract","Helps the body process and eliminate toxins","Supports healthy cholesterol levels"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. DR.Fire: pair with dandelion as the kidney cleanse duo.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic."},
-  {name:"Alfalfa",emoji:"🌱",cat:"kidney",color:"#4a8c3a",tagline:"The Mineral Builder",benefits:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Supports bone density with high calcium and magnesium","Detoxifies and rebuilds the blood"],usage:"Steep 1–2 tsp for 5–7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",ital:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",caution:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
-  {name:"Dandelion",emoji:"🌼",cat:"kidney",color:"#c4a000",tagline:"The Kidney Tonic",benefits:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Prebiotic — feeds beneficial gut bacteria"],usage:"Steep 1–2 tsp for 10 minutes. Roasted root makes a rich coffee-like brew. Drink 2–3 cups daily.",ital:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",caution:"May increase urination frequency. Avoid if allergic to ragweed family."}
+var plantCats={all:{l:"All",col:"#8a7a5a"},sacred:{l:"Sacred",col:"#2d5a27"},heart:{l:"Heart",col:"#5a2d1a"},vision:{l:"Vision",col:"#6a4a8a"}};
+var kitchen=[
+// ITAL STAPLES
+{n:"Ackee",e:"",c:"ital",col:"#e8c030",t:"The National Fruit",ital:true,form:"Cooked only — never raw",b:["National fruit of Jamaica — central to Ital cooking","Buttery egg-like texture — the plant-based protein of the Ital breakfast","Rich in fatty acids, zinc and vitamin C","High in potassium and B vitamins","Complete morning meal with callaloo — protein, fat and iron in one pan","Arrived in Jamaica from West Africa — now the soul of the island's food"],u:"MUST be fully ripe and cooked — unripe ackee is toxic. Tinned ackee in brine is safe. Saute gently with onion, scotch bonnet, thyme and spring onion. Fold in carefully — it breaks easily.",i:"Ackee came to Jamaica on a slave ship from West Africa and became the soul of the island's food. It is Ital history on a plate.",ca:"NEVER eat unripe ackee — contains hypoglycin A, which causes Jamaican Vomiting Sickness. Tinned versions are safe."},
+{n:"Callaloo",e:"",c:"ital",col:"#2a6a2a",t:"The Iron Leaf",ital:true,form:"Cooked - Soup - Side",b:["Staple green of Caribbean Ital cooking — more mineral-rich than spinach","Very high in iron — essential for those not eating meat","Rich in calcium, potassium, vitamins A, C and K","Anti-inflammatory and antioxidant","Supports bone health and immune function","Deeply alkaline — one of the most nutrient-dense greens available"],u:"Saute with garlic, onion, thyme, scotch bonnet and coconut oil. Cook down like spinach. Use in callaloo and ackee, callaloo soup, or as a side with rice and peas.",i:"Every Ital kitchen begins with callaloo. It is the first green, the foundation leaf, the iron in the blood of the cooking.",ca:"Callaloo is amaranth leaf in the Caribbean — ensure you buy the correct plant. Those on blood thinners should be mindful of the high Vitamin K content."},
+{n:"Plantain",e:"",c:"ital",col:"#c8a020",t:"The Starchy Staple",ital:true,form:"Boiled - Fried - Baked - Porridge",b:["Staple carbohydrate of Ital and Caribbean cooking","Rich in complex carbohydrates — sustained energy without blood sugar spikes","High in potassium, vitamin C, vitamin B6 and magnesium","Resistant starch when green — feeds beneficial gut bacteria","Anti-inflammatory — reduces gut inflammation","Both sweet (ripe) and savoury (green) applications"],u:"Green: boil, bake or fry in coconut oil for a savoury starchy side. Ripe (yellow-black): fry in coconut oil for sweet plantain, or bake. Fully ripe: blend into smoothies.",i:"Plantain is not banana. It is the carbohydrate that fed African and Caribbean people through generations. Versatile, filling and faithful.",ca:"Baking or boiling is the Ital way. Buy ripe for sweetness, green for savoury use."},
+{n:"Rice and Peas",e:"",c:"ital",col:"#7a8a5a",t:"The Ital Sunday Dish",ital:true,form:"Rice dish - Sunday meal",b:["Foundation dish of Jamaican Ital cooking — not a side, a meal","Kidney beans or gungo peas provide complete protein when combined with rice","Coconut milk makes it dairy-free and deeply rich","Thyme, scotch bonnet and spring onion are the holy trinity of Ital flavour","High in fibre, iron, plant protein and complex carbohydrates","Built to sustain hard work all day"],u:"Soak kidney beans or gungo peas overnight. Cook in coconut milk with thyme, whole scotch bonnet, spring onion, garlic. Add washed rice and cook until absorbed.",i:"Rice and peas is not just food. It is Sunday. It is community. It is the table that everyone gathers around. In Ital living, food is always also communion.",ca:"Ensure beans are fully cooked — undercooked kidney beans cause food poisoning. Soak overnight and boil vigorously for the first 10 minutes."},
+{n:"Scotch Bonnet",e:"",c:"ital",col:"#e84020",t:"The Sacred Heat",ital:true,form:"Fresh - Dried - Sauce",b:["The defining flavour of Caribbean Ital cooking — irreplaceable","High in capsaicin — powerful anti-inflammatory and circulatory herb","One of the highest vitamin C contents of any food","Antimicrobial — kills harmful bacteria in food and the gut","Boosts metabolism and supports weight management","Anti-cancer — capsaicin shown to trigger apoptosis in cancer cells"],u:"Use whole in cooking for flavour without heat (remove before eating) or chopped for full fire. Never touch your eyes after handling. Add to rice and peas, soups, stews and callaloo.",i:"The scotch bonnet does not compromise. It is the full expression of heat — unapologetic, clarifying and alive. Ital cooking is not bland. It is vibrant.",ca:"Extremely hot — handle with care, wash hands thoroughly after. Those with stomach ulcers or IBS should use with caution."},
+{n:"Breadfruit",e:"",c:"ital",col:"#8a9a4a",t:"The Ital Bread",ital:true,form:"Roasted - Boiled - Fried - Chips",b:["One of the most abundant and sustainable starchy foods on Earth","Starchy carbohydrate and plant protein in one fruit","Rich in potassium, magnesium, calcium and B vitamins","Fibre-rich — supports gut health and sustained energy","Lower glycaemic index than bread or white rice","Versatile — can replace bread, potato and pasta"],u:"Roast whole over an open flame or in the oven until skin blackens and flesh is tender — the best method. Boil and mash like potato. Fry into breadfruit chips.",i:"Captain Bligh brought breadfruit to the Caribbean to feed the enslaved. They transformed it into one of the most beloved Ital foods. Resistance through nourishment.",ca:"Must be cooked — raw breadfruit is indigestible. Buy from Caribbean, African or Asian grocers."},
+// GRAINS
+{n:"Amaranth",e:"",c:"grain",col:"#c8732a",t:"The Ancient Grain",sebi:true,ital:true,form:"Grain - Flour - Porridge",b:["Dr. Sebi approved — one of the oldest cultivated foods on Earth","Complete protein — contains all essential amino acids, rare for a grain","Rich in iron, calcium, magnesium and phosphorus","Gluten-free — easy on the digestive system","High in lysine — an amino acid most grains lack","Anti-inflammatory — reduces systemic inflammation"],u:"Cook like rice: 1 cup to 2 cups water, simmer 20 minutes. Use as porridge with agave and berries. Ground into flour for flatbreads. Puff by heating dry in a pan.",i:"Used by the Aztecs as a sacred food — Cortez banned it to break their power. You are reclaiming it every time you eat it.",ca:"Buy whole grain or flour only — avoid amaranth products with additives or hybrid crossings."},
+{n:"Quinoa (Red or Black)",e:"",c:"grain",col:"#b8a040",t:"The Complete Protein Seed",sebi:true,ital:true,form:"Red or Black — not white",b:["Dr. Sebi approved — one of his few grain endorsements","Complete protein with all 9 essential amino acids","Rich in magnesium, iron, zinc, potassium and B vitamins","Gluten-free and alkaline-forming","Red and black quinoa retain the outer seed coat — this bran layer provides the roughage, fibre and nutrients that white quinoa loses","The outer coating is the nutritional armour — buy red or black for maximum benefit"],u:"Buy RED or BLACK quinoa — not white. The outer seed coat (bran layer) on red and black provides the roughage and fibre your gut needs. This is what you were told about — the coating that white quinoa strips away. Rinse thoroughly first. Cook 1 cup to 2 cups water for 15 minutes.",i:"Sacred to the Incas — called the mother of all grains. It is not a grain at all. It is a seed. That is why Dr. Sebi approved it.",ca:"Rinse well before cooking — unrinsed quinoa can taste bitter. Buy RED or BLACK specifically — not white."},
+{n:"Spelt",e:"",c:"grain",col:"#c8a060",t:"The Ancient Wheat",sebi:true,form:"Flour - Bread - Pasta",b:["Dr. Sebi approved alternative to hybrid modern wheat","Ancient grain — not crossbred like modern wheat varieties","Contains gluten but in a more digestible form than modern wheat","Rich in B vitamins, magnesium and zinc","Higher protein content than regular wheat","More alkaline-forming than modern wheat products"],u:"Use spelt flour for baking — bread, flatbreads, pancakes. Spelt pasta is widely available. Whole spelt berries can be cooked like rice.",i:"Before wheat was hybridised into the hard-to-digest thing it is today, spelt was the bread. Going back to spelt is going back to what the body recognises.",ca:"Still contains gluten — not suitable for coeliac disease. Those sensitive to modern wheat may tolerate spelt but test carefully."},
+{n:"Teff",e:"",c:"grain",col:"#8a6a30",t:"The Ethiopian Staple",sebi:true,ital:true,form:"Flour - Porridge - Injera",b:["Dr. Sebi approved grain — native to Ethiopia and Eritrea","Tiny grain, massive nutrition — calcium, iron, protein and fibre","Gluten-free and alkaline-forming","Rich in resistant starch — feeds good gut bacteria and regulates blood sugar","High in iron — essential for those not eating meat","Contains all 8 essential amino acids"],u:"As porridge: simmer 1 cup teff in 3 cups water for 15-20 minutes, add date sugar and fresh fruit. As injera: ferment teff flour with water for 2-3 days to make the spongy Ethiopian flatbread.",i:"The grain that sustained some of the longest-living hardest-working people on Earth. Ethiopian distance runners eat teff. That tells you everything.",ca:"Ensure you source pure teff — some commercial products mix with other flours."},
+{n:"Wild Rice",e:"",c:"grain",col:"#3a4a2a",t:"The Water Grass",sebi:true,ital:true,form:"Grain - Salad - Soup",b:["Dr. Sebi approved — technically a grass seed, not a true rice","More protein than any true rice variety","Rich in antioxidants — darker colour signals higher polyphenol content","Gluten-free and high in B vitamins","Lower glycaemic index than white or brown rice","Anti-inflammatory and supports heart health"],u:"Cook 1 cup wild rice in 3 cups water for 45-50 minutes until grains split open. Use in soups, salads, stuffed vegetables or alongside stews.",i:"Harvested from the lakes of North America by indigenous peoples for thousands of years. It grows wild in water. That is why it carries the energy of living water.",ca:"Takes longer to cook than regular rice — do not undercook as it will be tough."},
+// FRUIT
+{n:"Avocado",e:"",c:"fruit",col:"#3a6a2a",t:"The Healing Fat",sebi:true,ital:true,form:"Raw - Smoothie - Sauce",b:["Dr. Sebi approved — one of his highest recommended foods","Rich in oleic acid (the same fat as olive oil) — anti-inflammatory and heart-protective","Contains more potassium than a banana","Loaded with fibre, folate, vitamins K, C, B5 and B6","Monounsaturated fats help absorb fat-soluble nutrients from other vegetables","Alkaline-forming — raises the body's pH"],u:"Eat raw in salads, on spelt bread, as guacamole or blended into smoothies. Dress with lime juice and sea salt.",i:"Green, creamy, rich — the avocado is Jah's butter. It gives you the fat you need without what you do not.",ca:"Ripe only — unripe avocado can cause digestive discomfort. Latex allergy sufferers may react to avocado."},
+{n:"Coconut (Young)",e:"",c:"fruit",col:"#c8b060",t:"The Whole Food",sebi:true,ital:true,form:"Water - Flesh - Oil - Milk",b:["Every part of the coconut is medicine or food — nothing is wasted","Coconut water is a natural electrolyte drink — hydrates at a cellular level","Coconut flesh is rich in MCT fats — immediate energy that bypasses digestion","Coconut oil is antimicrobial — lauric acid kills viruses, bacteria and fungi","Coconut milk is the Ital replacement for all dairy","Alkaline-forming and deeply nourishing"],u:"Drink fresh coconut water straight from the coconut. Use coconut oil for cooking at high heat (stable fat). Use coconut milk in stews, curries and porridge. Grate fresh flesh into dishes.",i:"In Ital living, coconut replaces dairy completely. The milk of the earth, not the animal. Every part given freely by the tree.",ca:"Coconut oil is high in saturated fat — use in moderation if you have heart disease. Buy raw, cold-pressed virgin coconut oil only."},
+{n:"Mango",e:"",c:"fruit",col:"#f0a020",t:"The King of Fruit",sebi:true,ital:true,form:"Raw - Juice - Smoothie",b:["Dr. Sebi approved — one of the highest vibrational fruits","Rich in vitamins A, C, B6, folate and potassium","Digestive enzymes (amylases) that help break down other foods","Anti-inflammatory — quercetin and mangiferin fight chronic inflammation","Supports eye health — lutein and zeaxanthin protect the retina","Boosts immunity and alkalises the body"],u:"Eat fresh and ripe — never unripe. Blend into smoothies or juices. Dice into salads or salsas.",i:"Sweet, golden and abundant — the mango is the sun in fruit form. In Ital living, sweetness from Jah's trees is the only sweetness you need.",ca:"Very high in natural sugar — eat in moderation if diabetic or managing blood sugar."},
+{n:"Figs",e:"",c:"fruit",col:"#8a3a6a",t:"The Sacred Fruit",sebi:true,ital:true,form:"Fresh - Dried - Tea",b:["Mentioned in the Quran, the Bible and the Vedas — one of the most sacred fruits on Earth","Dr. Sebi approved — deeply alkaline and mineral-rich","High in calcium — the best plant-based calcium source after sesame","Rich in iron, potassium and magnesium","Natural laxative — relieves constipation gently","High in antioxidants — protect against cancer and heart disease"],u:"Eat fresh when in season — the best way. Dried figs are available year-round. Soak dried figs overnight for smoother digestion.",i:"Jah Himself swore by the fig in scripture. This fruit carries millennia of sacred energy.",ca:"Dried figs are very high in sugar — eat in moderation. Ensure they are unsulphured (no sulphur dioxide preservative)."},
+// NUTS AND SEEDS
+{n:"Hemp Seeds",e:"",c:"nuts",col:"#7a8a3a",t:"The Complete Protein",sebi:true,ital:true,form:"Raw - Oil - Milk - Powder",b:["Dr. Sebi approved — one of the most complete foods on Earth","Complete protein — all 10 essential amino acids in ideal ratios","Perfect omega-3 to omega-6 ratio — 3:1, the ratio the human body needs","Rich in gamma-linolenic acid (GLA) — anti-inflammatory and hormone-balancing","High in magnesium, zinc, iron and B vitamins","Easy to digest — no antinutrients like lectins or phytates"],u:"Sprinkle raw hemp seeds on everything — salads, porridge, soups, smoothies. Blend into a hemp milk (4 tbsp seeds to 500ml water, blend and strain). Use hemp seed oil raw as a dressing — never heat it.",i:"The seed of the sacred plant, stripped of its medicine but full of nutrition. Hemp feeds every system of the body.",ca:"Hemp seed oil goes rancid quickly — refrigerate and use within 6 weeks of opening. Do not heat hemp oil — destroys the omega-3 fatty acids."},
+{n:"Sesame Seeds (Tahini)",e:"",c:"nuts",col:"#c8a860",t:"The Calcium King",sebi:true,ital:true,form:"Seeds - Tahini - Oil",b:["Highest plant-based calcium content of any food — higher than dairy by weight","Dr. Sebi approved protein and fat source","Rich in iron, zinc, magnesium, phosphorus and B vitamins","Sesamin and sesamolin — lignans with powerful anti-inflammatory effects","Supports healthy blood pressure","Tahini (ground sesame) is a complete protein source"],u:"Use tahini as a base for dressings, dips and sauces. Sprinkle sesame seeds on grains and salads. Black sesame seeds have even higher antioxidant content than white.",i:"Tiny seed, enormous nourishment. Open sesame — the ancient phrase came from the sesame pod bursting open when ripe.",ca:"Sesame allergy is one of the major food allergens — be aware. Buy raw, unhulled tahini for maximum mineral content."},
+{n:"Sunflower Seeds",e:"",c:"nuts",col:"#d4a020",t:"The Vitamin E Powerhouse",form:"Raw - Butter - Sprinkled",b:["Richest plant-based source of vitamin E — powerful antioxidant for skin and cell protection","High in magnesium — essential for muscle function, sleep and blood pressure","Rich in selenium — thyroid support and antioxidant defence","Healthy linoleic acid (omega-6) — balanced well with hemp and flax","Rich in B vitamins — especially B1 (thiamine) for energy metabolism","Good plant-based source of protein and fibre"],u:"Eat raw as a snack. Sprinkle on salads, porridge and grain bowls. Blend into sunflower seed butter as a nut-free alternative to peanut butter.",i:"Grown facing the sun — the sunflower seed carries the energy of what it follows. Rich, warm, nourishing.",ca:"Buy raw and unsalted — roasting oxidises the delicate oils. Store in a cool dark place or refrigerate once opened."},
+{n:"Pumpkin Seeds (Pepitas)",e:"",c:"nuts",col:"#4a7a3a",t:"The Mineral Bomb",form:"Raw - Roasted - Oil",b:["Highest plant-based source of zinc — critical for immunity, wound healing and hormone production","Rich in magnesium — one of the most magnesium-dense foods available","Tryptophan — converts to serotonin and melatonin, supporting mood and sleep","Good source of plant-based omega-3","Anti-inflammatory — reduces systemic inflammation","Traditionally used to support prostate health and expel parasites"],u:"Eat raw for maximum nutrition. Lightly toast in a dry pan for flavour. Sprinkle on soups, salads and grain bowls. Blend into pumpkin seed butter or add to smoothies.",i:"Small and green and quietly powerful. The seed inside the fruit that feeds the body what the body most needs — zinc, magnesium, rest.",ca:"Buy raw and unsalted. Those with nut allergies usually tolerate seeds — but always check first."},
+{n:"Flaxseeds (Linseed)",e:"",c:"nuts",col:"#8a6a2a",t:"The Omega-3 Seed",sebi:true,form:"Ground - Oil - Whole",b:["Richest plant-based source of ALA omega-3 fatty acids","High in lignans — plant oestrogens that support hormone balance and reduce cancer risk","Ground flaxseed is one of the best plant-based sources of fibre","Anti-inflammatory — supports heart and brain health","Reduces LDL cholesterol","Dr. Sebi approved — alkaline-forming and non-hybrid"],u:"Always use GROUND flaxseed — whole seeds pass through undigested. Add 1-2 tbsp ground flax to smoothies, porridge, or baked goods. Flaxseed oil can be used as a dressing but never heated.",i:"The seed that opens you — flaxseed loosens what is stuck, feeds the gut and provides the omega-3 that a meat-free body needs.",ca:"Do not heat flaxseed oil — destroys the omega-3 fatty acids. Grind fresh in small batches — pre-ground goes rancid quickly."},
+{n:"Cashew Nuts",e:"",c:"nuts",col:"#d4a060",t:"The Creamy Nut",ital:true,form:"Raw - Soaked - Butter - Milk",b:["Richest nut source of iron and zinc","High in magnesium — supports sleep, muscle function and nervous system","Healthy monounsaturated fats — heart-protective","Rich in copper — supports iron absorption and collagen production","Good plant-based source of protein","Cashew milk, butter and cream replace all dairy in Ital cooking"],u:"Soak overnight for easier digestion and better nutrient absorption. Blend soaked cashews with water for cashew milk. Use soaked cashews as a base for sauces, dressings and cheeses. Eat raw as a snack.",i:"Cashew cream, cashew milk, cashew butter — one nut replaces an entire dairy section. In Ital living, this is one of the most useful foods in the kitchen.",ca:"Not Dr. Sebi approved — he considered cashews hybrid. Use with awareness if strictly following Dr. Sebi protocol. Buy raw unsalted only."},
+{n:"Walnuts",e:"",c:"nuts",col:"#8a5a2a",t:"The Brain Nut",form:"Raw - Soaked - Oil",b:["Shaped like a brain — the richest nut source of omega-3 fatty acids","High in alpha-linolenic acid (ALA) — anti-inflammatory and neuroprotective","Rich in antioxidants — highest antioxidant activity of any common nut","Supports cognitive function and may reduce risk of dementia","Reduces LDL cholesterol and supports cardiovascular health","Good source of magnesium, B vitamins and plant-based protein"],u:"Eat raw or soak overnight to reduce tannins and improve digestibility. Add to porridge, salads and grain bowls. Walnut oil is excellent for dressings — do not heat it.",i:"The nut that looks like what it feeds. Nature signals its uses in its form — the walnut is for the mind.",ca:"Not Dr. Sebi approved. Buy raw and unsalted. Walnut allergy is common — be aware."},
+{n:"Brazil Nuts",e:"",c:"nuts",col:"#c8902a",t:"The Selenium King",form:"Raw - 2-3 daily only",b:["Richest food source of selenium on Earth — 2-3 Brazil nuts provide the full daily requirement","Selenium is essential for thyroid function, immune defence and antioxidant enzymes","Anti-cancer — selenium activates specific tumour-suppressing proteins","Supports testosterone production and reproductive health","Rich in magnesium, zinc and healthy fats","One of the only foods where the dose is literally 2-3 nuts — no more"],u:"Eat 2-3 Brazil nuts per day — no more. That is the optimal selenium dose. More is not better — selenium toxicity (selenosis) is possible with excess. Eat raw.",i:"Two nuts. The body only needs two. This is nature teaching restraint — that optimal health is not about quantity.",ca:"Do NOT eat large quantities — selenium toxicity causes hair loss, nail brittleness and neurological symptoms. 2-3 per day is the dose, not a handful."},
+// SWEETENERS
+{n:"Date Sugar",e:"",c:"sweetener",col:"#8a5020",t:"The Only Sweetener",sebi:true,ital:true,form:"Sugar - Syrup - Raw Dates",b:["Dr. Sebi's only approved sweetener alongside agave","Made from whole dried dates — retains fibre, minerals and nutrients","Lower glycaemic index than refined sugar — slower blood sugar rise","Rich in potassium, magnesium and B vitamins","Does not strip the body of minerals the way refined sugar does","Alkaline-forming — unlike all refined sugars which are acid-forming"],u:"Use 1:1 in place of sugar in any recipe. Works in porridge, smoothies, baked goods and drinks. Raw Medjool dates are even better — blend them into smoothies or eat as a sweetener in their whole form.",i:"Babylon's sugar destroys. Jah's sweetener nourishes. The date has been feeding civilisations for 8,000 years — there is wisdom in that longevity.",ca:"Still high in sugar — those managing blood sugar should use mindfully. Buy organic, unsulphured dates only."},
+{n:"Agave (Raw)",e:"",c:"sweetener",col:"#a0c060",t:"The Plant Nectar",sebi:true,form:"Nectar - Syrup",b:["Dr. Sebi's primary approved liquid sweetener","Lower glycaemic index than honey or refined sugar","Alkaline-forming — unlike most sweeteners","Contains inulin — a prebiotic that feeds beneficial gut bacteria","Neutral flavour — works in both sweet and savoury applications","Natural — extracted from the agave plant without chemical processing"],u:"Use in teas, smoothies and dressings. Use raw agave (not heated/processed) for maximum benefit. Use sparingly — sweeter than sugar so less is needed.",i:"The agave plant survives desert heat and produces nectar — sweetness born from strength and endurance.",ca:"Buy raw, unprocessed agave only — processed agave is high in fructose and can strain the liver. Use in moderation regardless."},
+{n:"Raw Honey",e:"",c:"sweetener",col:"#d4a020",t:"The Living Sweetener",ital:true,form:"Raw - Ceremonial - Medicinal",b:["Contains enzymes, antioxidants, vitamins and minerals — all destroyed in processed honey","Antimicrobial — manuka honey has clinical evidence for wound healing","Natural antibiotic — used across African, Ayurvedic and Caribbean traditions","Probiotic — raw honey contains beneficial bacteria","Anti-inflammatory and soothing for the throat and respiratory tract","Prebiotic — feeds beneficial gut bacteria"],u:"Never heat raw honey above 40C — destroys the enzymes that make it medicine. Add to warm (not boiling) teas. Use Manuka (UMF 10+) for medicinal use. Buy local, raw, unpasteurised honey.",i:"Not Dr. Sebi approved (he was strictly plant-based) but deeply Ital and African in tradition. The bee is the alchemist — it creates medicine from the flowers it visits.",ca:"Not vegan — those on a strict Dr. Sebi protocol avoid honey. Not for infants under 12 months (risk of botulism). Buy raw, local, unpasteurised only."},
+// SPICES AND SEASONINGS
+{n:"Ginger (Fresh)",e:"",c:"spice",col:"#c8a040",t:"The Warming Root",sebi:true,ital:true,form:"Tea - Food - Juice - Tonic",b:["Gingerol — one of the most powerful anti-inflammatory compounds in the plant world","Relieves nausea, morning sickness and motion sickness — clinically proven","Digestive fire — stimulates digestive enzymes and bile","Anti-cancer — shown to target cancer stem cells in research","Reduces blood sugar and improves insulin sensitivity","Immune boosting — antiviral and antibacterial"],u:"Morning tonic: slice fresh ginger into hot water with lemon and a pinch of cayenne. Grate into stir-fries, soups and curries. Cold-press for a ginger shot. Blend into smoothies.",i:"Ginger does not whisper. It arrives, warms you from the inside, and gets to work. It is one of the most honest medicines the earth makes.",ca:"High doses may thin the blood — use cautiously before surgery. Avoid therapeutic doses in pregnancy."},
+{n:"Turmeric (Raw)",e:"",c:"spice",col:"#e0a020",t:"The Golden Healer",ital:true,form:"Root - Powder - Tea - Milk",b:["Curcumin — one of the most studied anti-inflammatory compounds in nature","Matches or outperforms ibuprofen for arthritis pain in clinical trials","Anti-cancer — curcumin researched for over 12 cancer types","Supports liver detoxification and bile production","Neuroprotective — crosses the blood-brain barrier, linked to Alzheimer's prevention","Antidepressant — boosts serotonin and dopamine naturally"],u:"Golden milk: warm coconut milk with 1 tsp turmeric, black pepper, ginger and date sugar. Add to rice, stews and curries. ALWAYS combine with black pepper (piperine increases absorption by 2000%).",i:"The root that colours everything gold. In Ayurveda and Ital cooking, turmeric is not a spice — it is a daily medicine.",ca:"Not Dr. Sebi approved (he considered it hybrid). Always pair with black pepper for absorption."},
+{n:"Cayenne Pepper",e:"",c:"spice",col:"#c83020",t:"The Circulatory Herb",sebi:true,ital:true,form:"Powder - Tonic - Food",b:["Capsaicin — stimulates circulation and warms every system of the body","Clears mucus from the respiratory and digestive tracts","Anti-inflammatory and analgesic — reduces pain when taken internally","Supports weight management — increases metabolism temporarily","Cardiovascular tonic — shown to reduce heart attack risk","Natural preservative — antimicrobial"],u:"Add a pinch to warm water with lemon and ginger as a morning tonic. Add to cooking at the end (heat reduces capsaicin). Start small — build up tolerance.",i:"Cayenne goes where circulation is weak and warms it back to life. The herb of fire — Dr. Sebi and Ital healers both used it to move what is stuck.",ca:"Start with very small amounts — too much causes stomach irritation. Avoid if you have active ulcers."},
+{n:"Sea Salt (Natural)",e:"",c:"spice",col:"#d0d8e0",t:"The Mineral Seasoning",ital:true,form:"Seasoning - Rinse - Bath",b:["Natural sea salt contains 80+ trace minerals that table salt strips out during processing","Regulates fluid balance and blood pressure (unlike processed salt which raises it)","Essential electrolyte — sodium, potassium, magnesium and calcium together","Supports digestion — stimulates stomach acid production","Used in salt water rinses for oral health, wound healing and detox baths","Traditional Ital seasoning — unprocessed and mineral-rich"],u:"Use natural sea salt or Himalayan pink salt in cooking — not processed table salt. Use in warm water as a morning drink, mouthwash, or add to bath for a mineral soak.",i:"Not all salt is the same. Processed table salt is stripped to sodium chloride with chemicals added. Natural salt is the mineral-rich gift from the sea. The difference is everything.",ca:"Still sodium — those with high blood pressure should use mindfully even with natural salt. Use in moderation."},
+{n:"Thyme",e:"",c:"spice",col:"#6a8a3a",t:"The Ital Staple Herb",ital:true,form:"Fresh - Dried - Tea",b:["Essential flavour herb of all Caribbean and Ital cooking","Powerful antimicrobial — thymol kills bacteria and viruses on contact","Supports respiratory health — used for coughs, bronchitis and chest infections","Digestive herb — reduces bloating and gas","Rich in vitamins C and K","Natural preservative in food"],u:"Add sprigs to rice and peas, stews, soups and marinades. Steep dried thyme in hot water with honey for a cough tea. Use fresh in everything — it carries the flavour of Ital cooking.",i:"Every Ital pot has thyme. It is not just flavour — it is medicine that seasons while it heals.",ca:"Generally very safe. Thyme tea in large amounts may interact with thyroid medication. Not for therapeutic doses in pregnancy."},
+// OILS
+{n:"Olive Oil (Extra Virgin)",e:"",c:"oil",col:"#a0a040",t:"The Sacred Oil",sebi:true,ital:true,form:"Dressing - Cooking - Finishing",b:["Dr. Sebi approved cooking oil — his most recommended fat","Rich in oleic acid — the most anti-inflammatory fatty acid","Polyphenols protect the heart and reduce oxidative stress","Reduces LDL cholesterol and raises HDL (good) cholesterol","Anti-inflammatory — reduces systemic inflammation markers","Protects the brain — linked to reduced Alzheimer's risk"],u:"Use raw as a dressing and finishing oil — drizzle over salads, grains and cooked vegetables. Use for low-to-medium heat cooking only. Never deep fry with olive oil.",i:"Pressed from the fruit of a tree that can live for thousands of years. Olive oil carries the longevity of the tree that made it.",ca:"Buy cold-pressed extra virgin only — refined olive oil has no medicinal benefit. Avoid overheating — use coconut oil for high-heat cooking instead."},
+{n:"Coconut Oil",e:"",c:"oil",col:"#c8b870",t:"The All-Purpose Fat",sebi:true,ital:true,form:"Cooking - Topical - Oil Pulling",b:["Lauric acid — antimicrobial, antifungal and antiviral at a cellular level","MCT (medium chain triglycerides) — immediate energy without digestion","The Ital replacement for butter and all dairy fats","Stable at high heat — one of the safest cooking fats","Deeply moisturising for skin and hair","Supports gut health — antimicrobial against harmful bacteria"],u:"Cooking: use for medium-to-high heat. Skin: apply directly as moisturiser or hair mask. Oil pulling: 1 tbsp swished for 15-20 minutes. Always buy raw, cold-pressed, virgin coconut oil.",i:"In Ital living, coconut replaces all animal fats. The milk of the earth, not the animal.",ca:"High in saturated fat — use in moderation if managing cardiovascular disease. Buy raw cold-pressed virgin only."},
+{n:"Hemp Seed Oil",e:"",c:"oil",col:"#7a9a3a",t:"The Omega Balance Oil",sebi:true,form:"Dressing - Supplement — never cook",b:["Perfect 3:1 omega-6 to omega-3 ratio — the ideal balance the human body needs","Rich in GLA (gamma-linolenic acid) — anti-inflammatory and hormone-balancing","Neuroprotective — omega-3 DHA supports brain health","Deeply moisturising for skin from within and as a topical","Rich in vitamin E — antioxidant for skin and cell protection","Dr. Sebi approved — non-hybrid, alkaline-forming"],u:"NEVER heat hemp seed oil — it oxidises and becomes harmful. Use raw only as a dressing, drizzled on salads, porridge, grains or taken as a supplement (1-2 tbsp daily).",i:"The most balanced oil in nature. It does not need to be cooked to be useful — it works best raw, just as it comes from the seed.",ca:"Refrigerate always — goes rancid within 6 weeks of opening. Do not use for cooking under any circumstances."},
+// FUNCTIONAL MUSHROOMS
+{n:"Turkey Tail Mushroom",e:"",c:"mushroom",col:"#8a6a3a",t:"The Immune Architect",form:"Tea - Capsule - Powder",b:["PSK (Krestin) — approved cancer treatment drug in Japan, derived from Turkey Tail","Clinically proven to improve survival rates in breast, colon and gastric cancers","Enhances the effectiveness of chemotherapy and radiation","Powerful prebiotic — restores gut microbiome after antibiotic use","Antiviral — shown to be active against HPV","Reduces inflammation throughout the body"],u:"Tea: simmer dried mushroom for 20-30 minutes. Strain and drink. Powder: add 1-2 tsp to smoothies or coffee. Capsule: 500-1000mg daily.",i:"The most clinically researched medicinal mushroom in the world. Used in Japanese hospitals. The West is late.",ca:"Generally very safe. May cause mild digestive upset initially. Consult your oncologist if using alongside cancer treatment."},
+{n:"Lion's Mane",e:"",c:"mushroom",col:"#c8a040",t:"The Brain Mushroom",form:"Capsule - Powder - Tea",b:["Stimulates Nerve Growth Factor (NGF) — promotes brain cell regeneration","Shown to reduce symptoms of anxiety and depression","Improves memory, focus and cognitive function","Neuroprotective — researched for Alzheimer's and Parkinson's prevention","Supports nervous system repair after injury","Anti-inflammatory throughout the body"],u:"Powder: 1-2 tsp in morning coffee, smoothie or hot water. Capsule: 500-1000mg daily. Effects build over weeks — consistency matters more than dose.",i:"If you could only add one mushroom to your daily ritual for long-term brain health, this is it.",ca:"Avoid if you have mushroom allergies. May enhance effects of diabetes and blood-thinning medications."},
+{n:"Reishi",e:"",c:"mushroom",col:"#8a3a2a",t:"The Mushroom of Immortality",form:"Tea - Capsule - Tincture",b:["Adaptogen — helps the body manage stress at a cellular level","Immune modulator — balances overactive or underactive immune response","Inhibits breast cancer cell proliferation — oestrogen receptor research","Supports deep restorative sleep","Liver protection and detoxification support","Calms the nervous system — used in TCM for Shen (spirit) cultivation"],u:"Tea: simmer dried slices for 30-60 minutes — bitter, add honey or blend with cacao. Capsule: 500-1000mg extract daily. Dual-extract tincture for maximum potency.",i:"In Chinese medicine, Reishi has been used for over 2,000 years. It was reserved for emperors. Now it belongs to everyone.",ca:"May thin the blood — stop 2 weeks before surgery. Avoid if on immunosuppressants without guidance."},
+{n:"Chaga",e:"",c:"mushroom",col:"#3a2a1a",t:"The King of Mushrooms",form:"Tea - Tincture - Powder",b:["Highest antioxidant content of any natural food — ORAC score off the charts","Anti-tumour — betulinic acid shown to induce apoptosis in cancer cells","Powerful immune system activation","Reduces inflammation — cytokine regulation","Balances blood sugar and supports metabolic health","Antimicrobial and antiviral — supports immunity during illness"],u:"Tea: simmer chunks or powder in water for 20-30 minutes — taste is pleasant, slightly vanilla-like. Add to coffee as a caffeine alternative.",i:"Grows on birch trees in cold climates. Used by Siberian and Northern European indigenous communities for centuries. Rare, slow-growing and powerful — source responsibly.",ca:"High in oxalates — those with kidney stones should use cautiously. May interact with blood thinners and diabetes medication. Avoid during pregnancy."},
+{n:"Shiitake",e:"",c:"mushroom",col:"#5a3a1a",t:"The Everyday Healer",form:"Food - Capsule - Tea",b:["Lentinan — a beta-glucan compound approved as a cancer treatment in Japan","Significantly lowers LDL cholesterol","Antiviral — active against influenza, HIV and hepatitis viruses in research","Rich in B vitamins, zinc and selenium","Supports immune function and reduces inflammation","The most accessible medicinal mushroom — eat it as food"],u:"Eat fresh or dried in cooking — saute in coconut oil with garlic. The most delicious medicine. Dried mushroom tea: simmer for 15-20 minutes.",i:"The bridge between the kitchen and the apothecary. You can eat your medicine without anyone knowing.",ca:"Raw shiitake can cause a skin rash in sensitive people. Always cook thoroughly."},
+{n:"Cordyceps",e:"",c:"mushroom",col:"#c87a20",t:"The Energy Mushroom",form:"Capsule - Powder - Tea",b:["Increases ATP (cellular energy) production — the body's direct energy currency","Used by Chinese Olympic athletes to break world records in 1993","Supports lung capacity and oxygen uptake — endurance and performance","Adaptogen — reduces the impact of stress on the body","Supports kidney and adrenal function","Anti-inflammatory and immune-modulating"],u:"Powder: 1-2 tsp in morning coffee, smoothie or hot water. Capsule: 500-1000mg daily. Best taken in the morning — may be stimulating. Effects are cumulative — give it 2-3 weeks.",i:"The mushroom that made Chinese runners fly in 1993 — the world thought it was drugs. It was mushrooms.",ca:"May interact with blood sugar medication and immune-suppressing drugs. Avoid if pregnant. Buy Cordyceps militaris (lab-grown) for guaranteed potency."},
+// TONICS
+{n:"Sea Moss Gel",e:"",c:"tonic",col:"#2d5a7a",t:"The Daily Foundation",sebi:true,ital:true,form:"Gel - Drink - Smoothie additive",b:["Contains 92 of the 102 minerals the human body is made of","The single most important daily supplement in Ital and Dr. Sebi tradition","Prebiotic — coats and strengthens the gut lining","Thyroid support — rich in natural iodine","Skin, hair and joint health from within","Natural thickener — replaces eggs and gelatine in cooking"],u:"Soak raw dried sea moss for 12-24 hours, blend with spring water until smooth gel forms. Store in the fridge for up to 3 weeks. Take 1-2 tablespoons daily in smoothies, juices or teas.",i:"Every morning, before anything else. Sea moss gel is the foundation that everything else is built on in Ital living. Start here.",ca:"Source wildcrafted from clean waters — not pool-grown (pool-grown contains no minerals). Do not use if you have hyperthyroidism."},
+{n:"Soursop (Fresh Juice)",e:"",c:"tonic",col:"#2d5a27",t:"The Healing Fruit",ital:true,form:"Juice - Fruit - Leaf Tea",b:["Fresh juice is the most bioavailable form of soursop medicine","Acetogenins — compounds unique to soursop shown to selectively kill cancer cells","Powerful immune system support","Antioxidant-rich — reduces oxidative stress","Anti-inflammatory and antimicrobial","Supports healthy blood pressure and blood sugar levels"],u:"Fresh juice: blend pulp with cold water, strain and drink immediately — do not heat. Eat the fruit fresh when in season. Leaf tea for more concentrated medicinal benefit.",i:"The whole plant is medicine. The fruit feeds you. The leaves treat you. The juice bridges both.",ca:"Avoid in large quantities during pregnancy. Very high doses of soursop leaf have been linked to atypical Parkinsonism — use leaf tea in moderation."},
+// RECIPES
+{n:"Ital Stew",e:"",c:"recipe",col:"#c87030",t:"The Foundation Meal",ital:true,form:"Recipe - Serves 4",b:["Completely plant-based — no meat, no dairy, no processed salt","High in protein from kidney beans","Rich in iron, potassium and B vitamins","Warming and deeply nourishing — a complete meal in one pot","Scotch bonnet and thyme give authentic Caribbean depth of flavour","Adapts with whatever vegetables are in season"],u:"INGREDIENTS: 400g kidney beans (soaked overnight), 2 sweet potatoes diced, 2 carrots, 1 tin coconut milk, 1 scotch bonnet (whole), 4 sprigs thyme, 3 cloves garlic, 1 onion, spring onion. METHOD: Saute onion and garlic in coconut oil. Add all vegetables and beans. Pour in coconut milk and 500ml water. Add whole scotch bonnet and thyme. Simmer 45 minutes until thick and rich. Serve over wild rice or with boiled plantain.",i:"The Ital stew does not have a fixed recipe — it has principles. Whole food, plant-based, seasoned with herbs not chemicals, cooked with love.",ca:"Ensure beans are fully cooked — undercooked kidney beans cause food poisoning. Soak overnight and boil vigorously for the first 10 minutes."},
+{n:"Golden Sea Moss Tonic",e:"",c:"recipe",col:"#d4a030",t:"Dr. Sebi Morning Tonic",sebi:true,ital:true,form:"Recipe - 1 serving",b:["Dr. Sebi approved ingredients throughout","Sea moss provides the 92-mineral foundation","Turmeric and ginger are anti-inflammatory powerhouses","Alkalises the body before any food is introduced","Energising without caffeine — sustained gentle energy","Seamless delivery of nutrients first thing in the morning"],u:"INGREDIENTS: 2 tbsp sea moss gel, 1 tsp turmeric powder, 1 inch fresh ginger (grated), juice of 1 lime, 250ml coconut water, 1 tsp agave or date syrup, pinch of black pepper. METHOD: Blend all ingredients until smooth. Drink immediately on an empty stomach.",i:"Before the first bite of food, give your body minerals. This tonic is not breakfast — it is preparation.",ca:"The lime and ginger can be strong on an empty stomach — have a small amount of water first if you are sensitive."},
+{n:"Alkaline Smoothie",e:"",c:"recipe",col:"#3a8a4a",t:"The Dr. Sebi Green",sebi:true,form:"Recipe - 1-2 servings",b:["100% Dr. Sebi approved ingredients","Deeply alkaline — raises body pH immediately","Complete nutrition: protein (hemp), minerals (sea moss), healthy fat (avocado)","Natural energy without caffeine","Anti-inflammatory and immune-boosting","Tastes like a treat, works like medicine"],u:"INGREDIENTS: 1 cup spring water or coconut water, 2 tbsp sea moss gel, half an avocado, 1 cup mango (frozen or fresh), handful of dandelion greens or lettuce, 3 tbsp hemp seeds, 1 tsp agave. METHOD: Blend all until completely smooth. Drink immediately.",i:"Green is the colour of life. Every ingredient in this smoothie was alive, untouched by a factory. You can taste the difference.",ca:"Use spring water or coconut water — not tap water (chlorine disrupts gut bacteria). Drink within 20 minutes of blending."},
+{n:"Ital Breakfast Bowl",e:"",c:"recipe",col:"#c8a040",t:"Ital Morning Ritual",ital:true,form:"Recipe - 1 serving",b:["No eggs, no dairy, no processed foods","High in fibre, plant protein and complex carbohydrates","Tropical fruits provide vitamins and natural sugars for morning energy","Hemp seeds and sesame provide complete protein","Agave or date sugar for sustained energy — not a spike","Ready in 10 minutes"],u:"BASE: cook RED or BLACK quinoa or amaranth as porridge with coconut milk and a pinch of cinnamon. TOPPINGS: sliced mango and papaya, fresh berries, hemp seeds, sesame seeds, a drizzle of agave, a spoonful of sea moss gel. OPTIONAL: grated fresh ginger stirred through the porridge while cooking.",i:"Ital morning is slow, intentional and alive. No rush, no packet food, no compromise. What you eat first sets the tone for everything that follows.",ca:"Use frozen fruit in winter when fresh tropical fruit is unavailable."},
+{n:"Callaloo and Ackee",e:"",c:"recipe",col:"#7a9a3a",t:"The Ital Classic",ital:true,form:"Recipe - Serves 2",b:["Quintessential Jamaican Ital breakfast — completely plant-based","High in iron (callaloo), plant fat and protein (ackee)","Complete meal — protein, fat and greens in one pan","Scotch bonnet, thyme and spring onion — the flavour foundation of Ital cooking","Can be served with boiled plantain, breadfruit or spelt flatbread","Ready in 20 minutes"],u:"INGREDIENTS: 1 tin ackee (drained), 1 bunch callaloo (or substitute spinach), 1 onion, 3 spring onions, 2 cloves garlic, half scotch bonnet (seeded for less heat), 3 sprigs thyme, coconut oil, black pepper. METHOD: Saute onion, garlic and scotch bonnet in coconut oil. Add callaloo and wilt. Gently fold in ackee (it breaks easily). Season with thyme and black pepper. Serve immediately.",i:"This dish has fed Caribbean people for generations as a morning meal. Simple, quick, deeply nourishing and irreplaceable.",ca:"Ackee MUST be fully ripe and cooked — tinned is safe. Handle ackee gently — it falls apart easily."},
+{n:"Evening Herb Tea Blend",e:"",c:"recipe",col:"#6a8a4a",t:"The Evening Medicine",sebi:true,ital:true,form:"Recipe - 1 serving",b:["Combines Dr. Sebi approved herbs for a full-body evening tonic","Dandelion and burdock clean the blood and liver","Chamomile calms the nervous system for sleep","Ginger aids digestion of the day's food","Elderflower supports the immune system","Completely caffeine-free — safe to drink before sleep"],u:"BLEND: 1 tsp dried dandelion root, 1 tsp dried burdock root, 1 tsp chamomile flowers, half tsp dried ginger, 1 tsp elderflower. Steep in just-boiled water for 10-15 minutes. Strain well. Sweeten with agave or date syrup.",i:"In Ital living, the evening is for releasing what the day brought. This blend helps the body do its overnight work — cleansing, repairing, restoring. Do not rush it.",ca:"Do not boil the flowers — pour over just-boiled water and cover while steeping."}
 ];
+var kitchenCats={all:{l:"All",col:"#8a7a5a"},recipe:{l:"Recipes",col:"#c87030"},ital:{l:"Ital",col:"#3a8a4a"},grain:{l:"Grains",col:"#c8a040"},fruit:{l:"Fruit",col:"#e0a020"},nuts:{l:"Nuts & Seeds",col:"#8a6a3a"},spice:{l:"Spices & Seasonings",col:"#c8732a"},sweetener:{l:"Sweeteners",col:"#8a5020"},oil:{l:"Oils",col:"#a0a040"},mushroom:{l:"Functional Mushrooms",col:"#8a6a3a"},tonic:{l:"Tonics & Foundation",col:"#2d5a7a"}};
 
-const tcCats = {all:"All",healing:"Deep Healing",calm:"Calm & Sleep",energy:"Energy",digestive:"Digestive",heart:"Heart & Blood",respiratory:"Respiratory",woman:"Womb Wisdom",spirit:"Spirit",kidney:"Kidney Cleanse"};
-let tcFilter = 'all';
+var teeth=[
+{n:"Myrrh Gum",e:"",c:"drsebi",col:"#c8a040",t:"The Gum Healer",sebi:true,b:["Dr. Sebi's #1 oral herb — core ingredient in his official Tooth Powder","Powerful antiseptic — kills bacteria that cause decay and gum disease","Anti-inflammatory — reduces gum soreness, swelling and bleeding","Speeds repair of mouth ulcers, cuts and chapped lips","Eliminates bad breath with sweet-smelling antimicrobial compounds","Traditionally used across Africa and the Middle East for oral and spiritual ritual"],u:"As tooth powder: mix with Encino and Cuachalalate, apply to a wet toothbrush and brush gently. As a rinse: steep 1 tsp in boiling water for 10 minutes, cool and use as a mouthwash.",i:"Burned in temples and used in sacred rites for thousands of years — myrrh purifies not just the mouth but the space around you. Ancient Egyptian, Rastafarian and Islamic traditions all hold it sacred.",ca:"Do not ingest the essential oil form. Avoid high doses in pregnancy."},
+{n:"Encino (Oak Bark)",e:"",c:"drsebi",col:"#8B4513",t:"The Gum Tightener",sebi:true,b:["Dr. Sebi's tooth powder ingredient — his specific choice for gum strength","Rich in tannins — astringent compounds that tighten and tone gum tissue","Tightens tooth sockets — helps retain teeth into old age","Reduces gum inflammation and bleeding","Antibacterial against the bacteria responsible for plaque and decay","Promotes gum regeneration and tissue healing"],u:"As powder: combine with myrrh and cuachalalate for Dr. Sebi's tooth powder formula. As a rinse: steep 1 tsp dried bark in boiling water for 15 minutes, strain well, cool and rinse. Do not swallow.",i:"The oak has been medicine for millennia — its bark holds the same strength that lets the tree stand for hundreds of years.",ca:"Do not swallow in large amounts — high tannin content can irritate the stomach. External and rinse use only."},
+{n:"Cuachalalate",e:"",c:"drsebi",col:"#a05020",t:"The Cell Rejuvenator",sebi:true,b:["Third pillar of Dr. Sebi's tooth powder — the rejuvenation herb","Anti-inflammatory — reduces gum inflammation at a cellular level","Promotes regeneration of the cells lining the mouth","Strengthens gum tissue from within","Traditionally used in Mexican and Central American herbal medicine","Antimicrobial — reduces harmful bacteria in the mouth"],u:"As part of the tooth powder blend with myrrh and encino. As a rinse: steep bark in hot water for 15 minutes, cool and rinse. Widely available as a tea in Latin herbal stores.",i:"A traditional Mesoamerican healing bark — the same plant cultures that gave us ceremonial cacao also gave us cuachalalate.",ca:"Generally very safe for oral use. Avoid swallowing large amounts."},
+{n:"Cloves",e:"",c:"pain",col:"#6B3A2A",t:"The Tooth Pain Herb",b:["Eugenol — the compound in cloves is the basis of dental anaesthetic worldwide","Kills bacteria responsible for tooth decay and gum disease","Instant relief for toothache when applied directly to the affected area","Anti-inflammatory — reduces swelling in gums and jaw","Powerful antifungal — addresses oral candida","Fresh breath — natural antimicrobial that eliminates odour at the source"],u:"For tooth pain: press a whole clove against the aching tooth or gum. Or dilute 1-2 drops of clove oil in coconut oil and apply with a cotton ball. As mouthwash: steep 4-6 cloves in boiling water for 10 minutes, cool and rinse.",i:"Every dentist's surgery smells of eugenol — cloves. The plant world gave us anaesthesia long before the laboratory did.",ca:"Clove oil is very concentrated — never apply undiluted directly to gums as it can cause burns. Avoid large amounts in pregnancy."},
+{n:"Neem (Oral Use)",e:"",c:"antibacterial",col:"#3d6b2a",t:"The Original Toothbrush",b:["Used as a toothbrush (chew stick) across Africa, India and the Middle East for millennia","Powerful antibacterial — inhibits Streptococcus mutans responsible for cavities","Reduces plaque formation and gingivitis","Antifungal — eliminates oral candida overgrowth","Reduces gum inflammation and bleeding","Alkalises the mouth — changes pH to prevent bacterial growth"],u:"Chew stick method: use a fresh neem twig, chew one end until brush-like, then brush teeth and gums. As a rinse: steep 5-7 leaves in boiling water for 10 minutes, cool and rinse.",i:"Before the toothbrush existed, neem was it. Every civilisation that had access to this tree used it for oral care.",ca:"Bitter taste takes getting used to. Internal consumption of neem oil is toxic — oral rinse and chew stick use only."},
+{n:"Oil Pulling (Coconut Oil)",e:"",c:"cleanse",col:"#c8b870",t:"The Ancient Mouth Cleanse",b:["Ayurvedic practice — 3,000 years of oral health tradition","Pulls bacteria, toxins and debris from between teeth and gum pockets","Reduces Streptococcus mutans — the primary bacteria causing tooth decay","Reduces plaque and gingivitis — backed by multiple clinical studies","Whitens teeth naturally over time","Freshens breath by removing odour-causing bacteria at the root"],u:"Take 1 tablespoon of coconut oil. Swish and pull through teeth for 15-20 minutes first thing in the morning on an empty stomach. Do not swallow — spit into the bin. Rinse with warm salt water after.",i:"Every morning before you eat or drink — the oil becomes a white emulsion filled with what was living in your mouth overnight. It is humbling and purifying in equal measure.",ca:"Do not swallow the oil. Start with 5 minutes if 20 feels too long. Never replace brushing with oil pulling — it works alongside, not instead."},
+{n:"Activated Charcoal",e:"",c:"whitening",col:"#2a2a2a",t:"The Natural Whitener",b:["Highly porous surface binds to surface stains — coffee, tea, red wine, plaque","Natural teeth whitening without harsh chemical bleaching agents","Antibacterial — absorbs the bacteria and toxins that cause bad breath","Removes surface tartar build-up when used consistently","Detoxifying — draws impurities from gum tissue","No fluoride, no synthetic abrasives"],u:"Apply a small amount to a wet toothbrush. Brush very gently for 2 minutes. Rinse thoroughly. Use 2-3 times per week maximum — not as a daily toothpaste.",i:"Black as night, leaves teeth white — activated charcoal is one of those things that looks alarming and works quietly. Trust the process.",ca:"Use sparingly — too frequent use can wear enamel over time. Not suitable for those with crowns, veneers or caps."},
+{n:"Salt Water Rinse",e:"",c:"cleanse",col:"#a0c0d0",t:"The Oldest Rinse",b:["Alkalises the mouth — bacteria cannot survive in alkaline environments","Draws fluid from infected or swollen gum tissue — reduces swelling","Disrupts biofilm (plaque) without chemical intervention","Speeds healing after tooth extraction, ulcers or gum cuts","Antifungal — disrupts oral candida growth","Free, effective, zero side effects — used across every civilisation"],u:"Dissolve half a teaspoon of natural sea salt in a glass of warm water. Rinse for 30-60 seconds. Spit. Use 2-3 times daily when dealing with infection or after dental work.",i:"The simplest medicine is the sea. Salt water rinse is what healers recommended before there were healers. It still works better than most things in the dental aisle.",ca:"Use natural sea salt or Himalayan salt — not processed table salt. Do not swallow."},
+{n:"Oregano Oil",e:"",c:"antibacterial",col:"#5a7a2a",t:"The Oral Antibiotic",b:["Carvacrol — one of the most powerful natural antimicrobials known","Kills bacteria, viruses and fungi in the mouth simultaneously","Effective against drug-resistant bacteria including MRSA","Reduces gum infection and inflammation rapidly","Helps with dental abscesses when used as a targeted application","Anti-biofilm — disrupts the protective coating bacteria form on teeth"],u:"Dilute 1-2 drops in a tablespoon of coconut oil and swish for 5-10 minutes. Or dilute in water and use as a mouthwash. Never apply undiluted. Use for acute infections for 5-7 days.",i:"Carvacrol does not care whether bacteria have become antibiotic resistant — it uses a completely different mechanism. Nature does not create drug resistance.",ca:"Never use undiluted — causes burns to sensitive oral tissue. Avoid in pregnancy. Not for long-term daily use."}
+];
+var teethCats={all:{l:"All",col:"#8a7a5a"},drsebi:{l:"Dr.Sebi",col:"#2E8B57"},pain:{l:"Tooth Pain",col:"#6B3A2A"},antibacterial:{l:"Antibacterial",col:"#3d6b2a"},cleanse:{l:"Cleanse & Rinse",col:"#a0c0d0"},whitening:{l:"Whitening",col:"#c8b870"}};
+var boards=[
+{id:"herbs",   label:"Herbalism",      desc:"Teas, leaves, roots and bark. Everyday plant healing. Includes Dr.Fire protocol herbs and all Dr. Sebi approved herbs."},
+{id:"oils",    label:"Aromatherapy",   desc:"Essential oils for healing, mood, space and ritual. The olfactory path to the nervous system."},
+{id:"plants",  label:"Plant Medicine", desc:"Sacred plants used ceremonially, with intention and respect. Kambo, Rapeh, Sananga and more."},
+{id:"kitchen", label:"Living Kitchen", desc:"Dr.Sebi approved foods, Ital staples, grains, nuts, seeds, mushrooms, oils and recipes. The kitchen as apothecary."},
+{id:"teeth",   label:"Teeth & Oral",   desc:"Dr.Sebi tooth powder herbs — myrrh, encino, cuachalalate — and natural oral care practices."},
+{id:"wisdom",  label:"Wisdom",         desc:"The philosophy behind the practice. What is Ital? Who is Dr. Sebi? What is the difference? Why does any of this matter?"}
+];
+var currentBoard="herbs";var currentCat="all";
+function getData(){if(currentBoard==="herbs")return{items:herbs,cats:herbCats};if(currentBoard==="oils")return{items:oils,cats:oilCats};if(currentBoard==="plants")return{items:plants,cats:plantCats};if(currentBoard==="kitchen")return{items:kitchen,cats:kitchenCats};if(currentBoard==="teeth")return{items:teeth,cats:teethCats};return{items:[],cats:{}};}
+function getItems(){var d=getData();if(currentCat==="all")return d.items;if(currentCat==="drfire")return d.items.filter(function(x){return x.fire;});if(currentCat==="drsebi")return d.items.filter(function(x){return x.sebi||x.c==="drsebi";});if(currentCat==="ital")return d.items.filter(function(x){return x.ital||x.c==="ital";});return d.items.filter(function(x){return x.c===currentCat;});}
+function esc(s){if(!s)return"";return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function hdrHtml(){return'<div style="margin-bottom:2rem"><p class="hdr-label">Personal Reference</p><h1 class="hdr-title">The <em>Apothecary</em></h1><p class="hdr-sub">Herbalism — Aromatherapy — Plant Medicine — Living Kitchen — Oral Care — Wisdom</p><div class="hdr-links"><a class="hdr-link" href="citations.html">Sources & Citations</a><a class="hdr-link" href="knowledge.html">Knowledge Page</a></div></div>';}
+function boardBtnsHtml(){return'<div class="boards">'+boards.map(function(b){return'<button class="board-btn'+(b.id===currentBoard?' active':'')+'" onclick="setBoard(\''+b.id+'\')">'+(b.id==='wisdom'?'📖 ':'')+b.label+'</button>';}).join('')+'</div>';}
 
-function renderTcCards() {
-  const list = tcFilter === 'all' ? teaCupboardTeas : teaCupboardTeas.filter(t => t.cat === tcFilter);
-  document.getElementById('tc-grid').innerHTML = list.map(t => `
-    <div onclick='openTcDetail(${JSON.stringify(t).replace(/'/g,"&#39;")})' style="background:rgba(255,255,255,0.03);border:1px solid ${t.color}25;border-radius:4px;padding:1.25rem;cursor:pointer;position:relative;transition:all 0.2s;" onmouseenter="this.style.background='${t.color}15';this.style.borderColor='${t.color}55';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='${t.color}25';this.style.transform='none'">
-      <div style="position:absolute;top:10px;right:10px;width:7px;height:7px;border-radius:50%;background:${t.color};opacity:0.7"></div>
-      <div style="font-size:1.8rem;margin-bottom:8px">${t.emoji}</div>
-      <div style="font-size:0.95rem;color:#e8dcc8;margin:0 0 3px">${t.name}</div>
-      <div style="font-size:0.73rem;font-style:italic;color:${t.color};margin:0 0 10px">${t.tagline}</div>
-      <ul style="list-style:none;padding:0;margin:0 0 8px">${t.benefits.slice(0,2).map(b=>`<li style="font-size:0.72rem;color:#8a7a5a;padding:2px 0 2px 10px;position:relative"><span style="position:absolute;left:0;color:${t.color}">·</span>${b.split('—')[0].trim()}</li>`).join('')}</ul>
-      <div style="font-family:'Space Mono',monospace;font-size:0.37rem;color:#5a4a3a;letter-spacing:0.1em">TAP TO OPEN →</div>
-    </div>
-  `).join('');
+function wBullet(col,text){return'<li class="w-bullet" style="color:#c8b890;list-style:none"><span style="color:'+col+';position:absolute;left:0">✦</span>'+text+'</li>';}
+function wSection(title,col,content){return'<div class="w-section"><div class="w-title" style="color:'+col+';border-bottom-color:'+col+'30">'+title+'</div><div class="w-body">'+content+'</div></div>';}
+function compBox(col,title,items){return'<div class="comp-box" style="background:'+col+'0a;border:1px solid '+col+'30"><div class="comp-title" style="color:'+col+'">'+title+'</div>'+items.map(function(t){return'<div class="comp-item" style="color:#a09070"><span style="color:'+col+';position:absolute;left:0">·</span>'+t+'</div>';}).join('')+'</div>';}
+
+function renderWisdom(){
+  document.getElementById('root').innerHTML='<div class="wrap">'+hdrHtml()+boardBtnsHtml()
+  +'<div class="board-desc">The philosophy behind the practice. Understanding where this knowledge comes from and why it matters.</div>'
+  +'<div style="max-width:780px">'
+  +wSection("What is Ital?","#3a8a4a",
+    'The word <strong style="color:#e8dcc8">Ital</strong> comes from the word <em>vital</em> — with the initial "v" removed. In Rastafari livity, the letter "I" is sacred, signifying the unity of the self with Jah (God) and with all creation. Ital is therefore not just a diet. It is a way of living that honours the life force in everything.<br><br>'
+    +'<strong style="color:#7ada9a">The core principles of Ital living:</strong><br><br>'
+    +'<ul style="padding-left:1.2rem;margin:0">'
+    +wBullet("#7ada9a","Whole and natural food — nothing processed, nothing from a factory, nothing with chemicals")
+    +wBullet("#7ada9a","Plant-based — no flesh, no blood. What is alive should not be ended to feed you when the earth provides abundantly")
+    +wBullet("#7ada9a","No added salt (traditionally) — herbs and natural flavours only. Some practitioners use natural sea salt")
+    +wBullet("#7ada9a","No alcohol — Babylon's drug of compliance. Ganja (where part of one's livity) is the Ital alternative")
+    +wBullet("#7ada9a","Food prepared with intention and love — the energy of the cook goes into the food")
+    +wBullet("#7ada9a","Living food where possible — fruits, plants, seeds in their natural state carry more life force than cooked food")
+    +wBullet("#7ada9a","Seasonal, local and earth-connected — if it does not grow from the ground, question it")
+    +'</ul><br>'
+    +'Ital is not a rigid rulebook. Different mansions of Rastafari (Bobo Ashanti, Nyabinghi, Twelve Tribes) have different interpretations. The Bobo Ashanti are the strictest — fully vegan, no salt. The Twelve Tribes allow some flexibility. What is consistent across all is the principle: <em>food is medicine, food is spiritual, food connects you to Jah and to the earth.</em>'
+  )
+  +wSection("Who is Dr. Sebi?","#2E8B57",
+    '<strong style="color:#e8dcc8">Dr. Sebi</strong> (born Alfredo Bowman, November 26, 1933 — died August 6, 2016) was born in Ilanga, Honduras. He was a self-taught pathologist, herbalist, biochemist and naturalist who studied herbs across America, Latin America, Africa and the Caribbean for over 30 years.<br><br>'
+    +'He came to the United States diagnosed with asthma, diabetes, impotency and obesity. After being failed by conventional medicine, he was led to an herbalist in Mexico. He healed himself completely. From that experience, he dedicated his life to developing a system of healing he called the <strong style="color:#5aaa7a">African Bio-Mineral Balance</strong>.<br><br>'
+    +'<strong style="color:#5aaa7a">In 1988</strong>, Dr. Sebi was brought to trial in New York after claiming to cure AIDS, cancer, lupus and other diseases. He arrived in court with 77 patients whose files confirmed his claims. The case was dismissed. This is one of the most important moments in modern herbal history — a self-taught Black herbalist from Honduras vindicated in a New York court against the medical establishment.<br><br>'
+    +'He founded the <strong style="color:#5aaa7a">USHA Research Institute</strong> in Honduras, where he treated patients from around the world. He died in police custody in Honduras in 2016 — the circumstances remain disputed and are considered suspicious by those who knew his work.'
+  )
+  +wSection("The African Bio-Mineral Balance","#2E8B57",
+    'Dr. Sebi\'s theory is built on one central idea: <em>all disease has one cause — mucus and acidity in the body.</em><br><br>'
+    +'<strong style="color:#5aaa7a">The four pillars:</strong><br><br>'
+    +'<ul style="padding-left:1.2rem;margin:0">'
+    +wBullet("#5aaa7a","<strong>Alkaline only</strong> — the body\'s natural state is alkaline (pH above 7). Disease thrives in acid. Every food and herb approved by Dr. Sebi is alkaline-forming")
+    +wBullet("#5aaa7a","<strong>Non-hybrid plants only</strong> — modern agriculture has crossbred most plants into forms that do not occur in nature. Dr. Sebi believed hybrid plants are incomplete and acid-forming")
+    +wBullet("#5aaa7a","<strong>Natural minerals in organic form only</strong> — the body can only absorb minerals from plant sources. Inorganic supplements (most commercial vitamins) are rejected by the body")
+    +wBullet("#5aaa7a","<strong>Cellular cleansing and revitalisation</strong> — healing happens at the intra-cellular level. The herbs and foods clean the cells. The minerals rebuild them")
+    +'</ul><br>'
+    +'<strong style="color:#5aaa7a">What Dr. Sebi rejected:</strong> garlic (hybrid), turmeric (he considered it hybrid — note: some practitioners disagree), white rice, all dairy, all meat, all alcohol, all hybrid grains, all commercial supplements, seedless fruit.'
+  )
+  +wSection("Ital vs. Dr. Sebi — The Difference","#c8732a",
+    'They overlap significantly but they are not the same thing.<br><br>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0">'
+    +compBox("#3a8a4a","Ital",["Rastafari spiritual practice","Caribbean in origin — African roots","Spiritual philosophy first, diet second","About honouring Jah through food","No fixed list of approved foods","Includes plantain, callaloo, ackee, breadfruit — all Caribbean staples","Traditional — passed through community and practice","May include natural sea salt","Community-based — the table is shared"])
+    +compBox("#2E8B57","Dr. Sebi",["Herbalist scientific-spiritual framework","Honduran / African diaspora origin","Biochemical theory of cellular healing","About restoring cellular function through alkalinity","Strict approved food and herb list","Excludes garlic, turmeric, carrots, seedless fruit — all considered hybrid","Documented — published nutritional guide","Explicitly rejects all hybrid plants","Rejects all salt (uses herbs instead)","Individual healing protocol"])
+    +'</div>'
+    +'<strong style="color:#e8dcc8">Where they meet:</strong> Both reject processed food. Both reject animal products. Both use plants as medicine. Both are rooted in African healing wisdom. Both understand food as spiritual and political — not just nutritional. Many people who follow one also honour the other. They are complementary, not contradictory.<br><br>'
+    +'<em style="color:#8a7a5a">Items marked <span style="background:rgba(58,180,90,0.12);color:#7ada9a;padding:1px 5px;border-radius:2px;font-family:monospace;font-size:0.7rem">Ital</span> belong to the Rastafari tradition. Items marked <span style="background:rgba(46,139,87,0.15);color:#5aaa7a;padding:1px 5px;border-radius:2px;font-family:monospace;font-size:0.7rem">Dr.Sebi</span> are on his approved list. Many items carry both.</em>'
+  )
+  +wSection("Why Practice This Lifestyle?","#c8b890",
+    'The honest answer is not about trends, wellness culture or aesthetics. It is about something older.<br><br>'
+    +'<strong style="color:#e8dcc8">The body knows.</strong> Before pharmaceutical intervention, before food processing, before the industrialisation of agriculture, human beings ate from the earth and used plants to heal. That knowledge was systematically erased: through colonisation, through the criminalisation of indigenous medicine, through the corporate capture of healthcare, through the economic incentivisation of keeping people ill rather than healing them.<br><br>'
+    +'Ital living and the African Bio-Mineral Balance are acts of <strong style="color:#c8b890">reclamation</strong>. They say: this knowledge belongs to us. It was always ours. And the evidence — in journals, in clinical trials, in the lives of people who practice — keeps confirming what the healers always knew.<br><br>'
+    +'<ul style="padding-left:1.2rem;margin:0">'
+    +wBullet("#c8b890","Reduce inflammation — the root cause of most chronic disease, from heart disease to cancer to diabetes to autoimmune conditions")
+    +wBullet("#c8b890","Alkalise the body — create an internal environment where disease cannot thrive")
+    +wBullet("#c8b890","Cleanse the blood and organs — the liver, kidneys, colon and lymphatic system do their best work when not overloaded with processed food and animal products")
+    +wBullet("#c8b890","Rebuild the gut — the gut microbiome is the second brain. It governs immunity, mood, energy and cognition")
+    +wBullet("#c8b890","Reconnect with the earth — the food grown in soil, the herbs in the earth, the minerals in the sea — this is the original pharmacy")
+    +wBullet("#c8b890","Claim sovereignty over your health — do not outsource your wellbeing entirely to a system that profits from your illness")
+    +'</ul>'
+  )
+  +'<a href="citations.html" style="display:inline-block;margin-top:2rem;font-family:monospace;font-size:0.6rem;letter-spacing:0.15em;color:#5a4a3a;text-decoration:none;border:1px solid rgba(232,220,200,0.08);padding:6px 14px;border-radius:3px">View Full Sources & Citations</a>'
+  +'</div></div>';
 }
 
-function renderTcFilters() {
-  document.getElementById('tc-filters').innerHTML = Object.entries(tcCats).map(([k,v]) => `
-    <button onclick="tcFilter='${k}';renderTcFilters();renderTcCards()" style="padding:4px 12px;border:1px solid ${k===tcFilter?'rgba(232,220,200,0.35)':'rgba(232,220,200,0.1)'};border-radius:2rem;background:${k===tcFilter?'rgba(232,220,200,0.06)':'transparent'};color:${k===tcFilter?'#e8dcc8':'#8a7a5a'};font-size:0.72rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s">${v}</button>
-  `).join('');
+function render(){
+  if(currentBoard==="wisdom"){renderWisdom();return;}
+  var board=boards.filter(function(b){return b.id===currentBoard;})[0];
+  var d=getData();
+  var items=getItems();
+  var filterHtml="";
+  for(var k in d.cats){var v=d.cats[k];var active=k===currentCat;filterHtml+='<button class="filter-btn'+(active?' active':'')+'" style="'+(active?'border-color:'+v.col+';background:'+v.col+'22;color:#e8dcc8':'border-color:rgba(232,184,75,0.1)')+'" onclick="setCat(\''+k+'\')">'+(k==='drfire'?'🔥 ':k==='drsebi'?'🌿 ':k==='ital'?'🌱 ':'')+v.l+'</button>';}
+  var cardsHtml="";
+  for(var i=0;i<items.length;i++){var item=items[i];var badges="";if(item.fire)badges+='<span class="badge badge-fire">🔥 Dr.Fire</span>';if(item.sebi||item.c==="drsebi")badges+='<span class="badge badge-sebi">🌿 Dr.Sebi</span>';if(item.ital||item.c==="ital")badges+='<span class="badge badge-ital">🌱 Ital</span>';var badgeDiv=badges?'<div class="card-badges">'+badges+'</div>':'';var tagText=item.fire?item.fire.role:item.t;var meta=item.method||item.form||item.trad||"";var metaHtml=meta?'<p class="meta-tag">'+esc(meta)+'</p>':'';cardsHtml+='<div class="card" onclick="openModal('+i+')" style="border-color:'+item.col+'22" onmouseenter="this.style.background=\''+item.col+'18\';this.style.borderColor=\''+item.col+'66\';this.style.transform=\'translateY(-2px)\'" onmouseleave="this.style.background=\'rgba(255,255,255,0.02)\';this.style.borderColor=\''+item.col+'22\';this.style.transform=\'none\'">'+
+    '<div class="card-dot" style="background:'+item.col+'"></div>'+badgeDiv+
+    '<span class="card-emoji">'+item.e+'</span>'+
+    '<p class="card-name">'+esc(item.n)+'</p>'+
+    '<p class="card-tag" style="color:'+item.col+'">'+esc(tagText)+'</p>'+
+    metaHtml+'<p class="card-tap">TAP TO OPEN</p></div>';}
+  document.getElementById('root').innerHTML='<div class="wrap">'+hdrHtml()+boardBtnsHtml()+
+    '<div class="board-desc">'+esc(board.desc)+'</div>'+
+    '<div class="filters">'+filterHtml+'</div>'+
+    '<div class="grid">'+cardsHtml+'</div></div>';
+  window._items=items;
 }
 
-function openTcDetail(t) {
-  const d = document.getElementById('tc-detail');
-  d.innerHTML = `
-    <div style="position:relative;background:#131008;border:1px solid ${t.color}40;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto">
-      <button onclick="document.getElementById('tc-detail').innerHTML=''" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#5a4a3a;font-size:1.4rem;cursor:pointer;line-height:1">×</button>
-      <div style="font-size:2.5rem;margin-bottom:10px">${t.emoji}</div>
-      <h3 style="font-size:1.6rem;font-weight:normal;color:#e8dcc8;margin:0 0 3px">${t.name}</h3>
-      <p style="color:${t.color};font-style:italic;font-size:0.85rem;margin:0 0 1.25rem">${t.tagline}</p>
-      <div style="background:${t.color}12;border-left:3px solid ${t.color};padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem">
-        <p style="margin:0;font-size:0.83rem;font-style:italic;color:#c8b890;line-height:1.6">${t.ital}</p>
-      </div>
-      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">BENEFITS</p>
-      <ul style="list-style:none;padding:0;margin:0 0 1.25rem">${t.benefits.map(b=>`<li style="font-size:0.83rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:${t.color}">✦</span>${b}</li>`).join('')}</ul>
-      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">HOW TO USE</p>
-      <p style="font-size:0.83rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem">${t.usage}</p>
-      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:#a06050;margin:0 0 8px">CAUTION</p>
-      <div style="background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px">
-        <p style="margin:0;font-size:0.78rem;color:#a06050;line-height:1.5"><strong style="color:#c07060">NOTE: </strong>${t.caution}</p>
-      </div>
-    </div>`;
-  d.style.display = 'flex';
+function setBoard(id){currentBoard=id;currentCat="all";render();}
+function setCat(cat){currentCat=cat;render();}
+
+function openModal(idx){
+  var item=window._items[idx];if(!item)return;
+  document.getElementById('m-emoji').textContent=item.e||"";
+  document.getElementById('m-name').textContent=item.n;
+  document.getElementById('m-tagline').textContent=item.t;
+  document.getElementById('m-tagline').style.color=item.col;
+  var badges="";
+  if(item.fire)badges+='<span class="modal-badge badge-fire">🔥 Dr.Fire Protocol</span>';
+  if(item.sebi||item.c==="drsebi")badges+='<span class="modal-badge badge-sebi">🌿 Dr.Sebi Approved</span>';
+  if(item.ital||item.c==="ital")badges+='<span class="modal-badge badge-ital">🌱 Ital</span>';
+  document.getElementById('m-badges').innerHTML=badges;
+  var fb=document.getElementById('m-firebox');
+  if(item.fire){fb.style.display="block";document.getElementById('m-firetitle').textContent="Dr.Fire — "+item.fire.role;document.getElementById('m-firetext').textContent=item.fire.p;document.getElementById('m-firefreq').textContent="FREQUENCY: "+item.fire.f;}else{fb.style.display="none";}
+  var ib=document.getElementById('m-italbox');var noteText=item.i||"";
+  if(noteText){ib.style.display="block";ib.style.borderLeftColor=item.col;ib.style.background=item.col+"18";document.getElementById('m-ital').textContent=noteText;}else{ib.style.display="none";}
+  var trad=document.getElementById('m-tradition');var meta=item.trad||item.method||item.form||"";
+  if(meta){trad.style.display="block";trad.textContent=meta;}else{trad.style.display="none";}
+  document.getElementById('m-bsec').style.color=item.col;
+  var bHtml="";for(var i=0;i<item.b.length;i++)bHtml+='<li>'+esc(item.b[i])+'</li>';
+  document.getElementById('m-benefits').innerHTML=bHtml;
+  document.getElementById('m-usage').textContent=item.u;
+  document.getElementById('m-caution').textContent=item.ca;
+  document.getElementById('modal-box').style.borderColor=item.col+"55";
+  document.getElementById('modal').classList.add('open');
 }
-
-// ── INIT ──
-renderNav(founderNav);
-loadPanel('f-overview');
-</script>
-
-<!-- TEA CUPBOARD OVERLAY -->
-<div id="tc-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:10000;backdrop-filter:blur(4px);overflow-y:auto" onclick="if(event.target===this)closeTeaCupboard()">
-  <div style="max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;font-family:Georgia,serif;color:#e8dcc8">
-    <!-- Header -->
-    <div style="text-align:center;padding-bottom:2rem;border-bottom:1px solid rgba(232,220,200,0.1);margin-bottom:2rem;position:relative">
-      <button onclick="closeTeaCupboard()" style="position:absolute;top:0;right:0;background:none;border:none;color:#5a4a3a;font-size:1.6rem;cursor:pointer;line-height:1">×</button>
-      <p style="font-family:'Space Mono',monospace;letter-spacing:0.4em;font-size:0.55rem;color:#8a7a5a;text-transform:uppercase;margin-bottom:0.75rem">Ital Apothecary</p>
-      <h1 style="font-size:clamp(1.8rem,5vw,3rem);font-weight:normal;letter-spacing:0.05em;color:#e8dcc8;margin:0 0 0.4rem">The Tea Cupboard</h1>
-      <p style="color:#8a7a5a;font-style:italic">"Herbs are the healing of a nation" — Rastafari</p>
-      <!-- Filters -->
-      <div id="tc-filters" style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1.5rem"></div>
-    </div>
-    <!-- Grid -->
-    <div id="tc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem"></div>
-    <!-- Detail modal inside overlay -->
-    <div id="tc-detail" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:10001;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px)" onclick="if(event.target===this){this.innerHTML='';this.style.display='none'}"></div>
-  </div>
-</div>
-
-<script>
-// Init tea cupboard when overlay opens (we override openTeaCupboard to also render)
-const _origOpenTc = openTeaCupboard;
-window.openTeaCupboard = function() {
-  document.getElementById('tc-overlay').style.display = 'block';
-  renderTcFilters();
-  renderTcCards();
-};
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.getElementById('modal-close').addEventListener('click',closeModal);
+render();
 </script>
 </body>
 </html>

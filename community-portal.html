@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portal — KIN-NECT</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0d0a06;--card:#131008;--card2:#1a1208;--ochre:#c8732a;--cream:#e8dcc8;--muted:#8a7a5a;--dim:#5a4a3a;--border:rgba(232,220,200,0.08);--border2:rgba(232,220,200,0.15);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;min-height:100vh;}
+  .wrap{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+
+  /* SIDEBAR */
+  .sidebar{background:rgba(10,7,3,0.98);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+  .sb-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);}
+  .sb-logo{font-size:1.1rem;color:var(--ochre);letter-spacing:0.12em;}
+  .sb-sub{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
+
+  /* VIEW TOGGLE */
+  .view-toggle{padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
+  .vt-label{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;}
+  .vt-btns{display:flex;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+  .vt-btn{flex:1;padding:0.5rem 0;font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all 0.15s;text-align:center;}
+  .vt-btn.active{background:var(--ochre);color:#0d0a06;font-weight:700;}
+
+  .profile{padding:1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;}
+  .av{width:36px;height:36px;border-radius:50%;border:1px solid var(--ochre);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--ochre);flex-shrink:0;}
+  .pn{font-size:0.9rem;color:var(--cream);}
+  .pb{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;color:var(--ochre);opacity:0.7;margin-top:0.2rem;}
+
+  nav{padding:0.75rem 0;flex:1;}
+  .nsec{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);padding:0.75rem 1.25rem 0.3rem;}
+  .ni{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.25rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;}
+  .ni:hover{color:var(--cream);background:rgba(200,115,42,0.05);}
+  .ni.active{color:var(--ochre);border-left-color:var(--ochre);background:rgba(200,115,42,0.06);}
+  .nb{margin-left:auto;background:var(--ochre);color:#0d0a06;font-size:0.38rem;padding:0.1rem 0.35rem;border-radius:8px;font-weight:700;}
+  .founder-only{} /* shown/hidden via JS */
+  .community-only{}
+
+  .sb-back{padding:1rem 1.25rem;border-top:1px solid var(--border);}
+  .sb-back a{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;}
+  .sb-back a:hover{color:var(--muted);}
+
+  main{padding:2rem 2.5rem;overflow-y:auto;}
+  .panel{display:none;} .panel.active{display:block;}
+  .ph{margin-bottom:1.75rem;}
+  .pe{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.4rem;}
+  .pt{font-size:1.8rem;font-weight:normal;color:var(--cream);letter-spacing:0.04em;}
+  .ps{font-size:0.9rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
+
+  /* VIEW BANNER */
+  .view-banner{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1rem;border-radius:3px;margin-bottom:1.5rem;display:inline-block;}
+  .view-banner.founder{background:rgba(200,115,42,0.12);color:var(--ochre);border:1px solid rgba(200,115,42,0.2);}
+  .view-banner.community{background:rgba(107,124,94,0.12);color:#8FAE7A;border:1px solid rgba(107,124,94,0.2);}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+  .sn{font-size:1.7rem;color:var(--ochre);}
+  .sl{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
+
+  .sec{margin-bottom:2rem;}
+  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+  .st{font-size:1rem;color:var(--cream);font-weight:normal;letter-spacing:0.04em;}
+  .sl2{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);cursor:pointer;opacity:0.6;}
+  .sl2:hover{opacity:1;}
+
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+  .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;position:relative;transition:border-color 0.2s;}
+  .card:hover{border-color:var(--border2);}
+  .ct{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.5rem;}
+  .cn{font-size:0.95rem;color:var(--cream);margin-bottom:0.3rem;}
+  .cd{font-size:0.82rem;color:var(--muted);line-height:1.5;}
+  .ca{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ochre);text-decoration:none;display:block;margin-top:0.75rem;opacity:0.6;}
+  .ca:hover{opacity:1;}
+  .rb{position:absolute;top:0.75rem;right:0.75rem;font-size:0.6rem;color:var(--dim);cursor:pointer;background:none;border:none;}
+  .hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+
+  /* BACKEND CARDS */
+  .be-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;text-decoration:none;display:block;transition:border-color 0.2s;}
+  .be-card:hover{border-color:rgba(200,115,42,0.4);}
+  .be-icon{font-size:1.6rem;margin-bottom:0.75rem;display:block;}
+  .be-tag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.5;margin-bottom:0.35rem;}
+  .be-name{font-size:1rem;color:var(--cream);margin-bottom:0.25rem;font-weight:normal;}
+  .be-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;}
+  .be-badge{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:2px;margin-top:0.75rem;display:inline-block;}
+
+  /* APOTHECARY */
+  .af-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
+  .af-btn{padding:4px 12px;border:1px solid var(--border);border-radius:2rem;background:transparent;color:var(--muted);font-size:0.75rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s;}
+  .af-btn.active{border-color:var(--border2);color:var(--cream);}
+  .hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;}
+  .hc{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative;}
+  .hc-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7;}
+  .hc-emoji{font-size:1.8rem;margin-bottom:8px;display:block;}
+  .hc-name{font-size:0.95rem;color:var(--cream);margin:0 0 3px;}
+  .hc-tag{font-size:0.75rem;font-style:italic;margin:0 0 10px;}
+  .hc-list{list-style:none;padding:0;margin:0 0 10px;}
+  .hc-list li{font-size:0.73rem;color:var(--muted);padding:2px 0 2px 10px;position:relative;line-height:1.4;}
+  .hc-list li::before{content:'·';position:absolute;left:0;}
+  .hc-tap{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);}
+
+  /* EVENTS */
+  .elist{display:flex;flex-direction:column;gap:0.75rem;}
+  .ei{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;}
+  .edb{text-align:center;min-width:36px;}
+  .ed{font-size:1.3rem;color:var(--ochre);line-height:1;}
+  .em2{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);}
+  .einfo{flex:1;}
+  .ename{font-size:0.9rem;color:var(--cream);}
+  .ewhere{font-family:'Space Mono',monospace;font-size:0.42rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;}
+  .etag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.08);color:var(--ochre);}
+
+  /* SETTINGS */
+  .sform{display:flex;flex-direction:column;gap:1.25rem;max-width:460px;}
+  .fg{display:flex;flex-direction:column;gap:0.4rem;}
+  .fl{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;}
+  .fi{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:0.7rem 1rem;color:var(--cream);font-family:Georgia,serif;font-size:0.95rem;outline:none;}
+  .fi:focus{border-color:var(--border2);}
+  .fta{resize:vertical;min-height:72px;}
+  .sbtn{background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:2rem;cursor:pointer;font-weight:700;align-self:flex-start;}
+
+  /* HERB MODAL */
+  .moverlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:9999;backdrop-filter:blur(3px);}
+  .moverlay.open{display:flex;}
+  .mbox{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
+  .mc{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--dim);font-size:1.5rem;cursor:pointer;line-height:1;}
+  .me{font-size:2.5rem;display:block;margin-bottom:10px;}
+  .mn{font-size:1.7rem;color:var(--cream);font-weight:normal;margin:0 0 3px;}
+  .msl{font-style:italic;font-size:0.85rem;margin:0 0 1.25rem;}
+  .ib{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem;}
+  .ib p{margin:0;font-size:0.85rem;font-style:italic;color:#c8b890;line-height:1.6;}
+  .msec{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.25em;text-transform:uppercase;margin:0 0 8px;}
+  .mlist{list-style:none;padding:0;margin:0 0 1.25rem;}
+  .mlist li{font-size:0.85rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5;}
+  .mlist li::before{content:'✦';position:absolute;left:0;font-size:9px;top:7px;}
+  .musage{font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem;}
+  .mcaut{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px;}
+  .mcaut p{margin:0;font-size:0.78rem;color:#a06050;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <div class="sb-top">
+      <div class="sb-logo">KIN-NECT</div>
+      <div class="sb-sub">My Portal ✦</div>
+    </div>
+    <div class="profile">
+      <div class="av">K</div>
+      <div>
+        <div class="pn">Welcome</div>
+        <div class="pb" style="color:#8FAE7A;">🌿 Community Member</div>
+      </div>
+    </div>
+    <nav id="sidebar-nav"></nav>
+    <div class="sb-back"><a href="index.html">← Back to KIN-NECT</a></div>
+  </aside>
+  <main id="main-content"></main>
+</div>
+
+<div class="moverlay" id="hm" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="mbox" id="hm-box">
+    <button class="mc" onclick="document.getElementById('hm').classList.remove('open')">×</button>
+    <span class="me" id="hm-e"></span>
+    <h3 class="mn" id="hm-n"></h3>
+    <p class="msl" id="hm-t"></p>
+    <div class="ib" id="hm-ib"><p id="hm-i"></p></div>
+    <p class="msec" id="hm-bl">Benefits</p>
+    <ul class="mlist" id="hm-b"></ul>
+    <p class="msec" style="color:var(--ochre)">How to use</p>
+    <p class="musage" id="hm-u"></p>
+    <p class="msec" style="color:#a06050">Caution</p>
+    <div class="mcaut"><p><strong style="color:#c07060;letter-spacing:0.08em">NOTE: </strong><span id="hm-c"></span></p></div>
+  </div>
+</div>
+
+<script>
+const herbs=[
+  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress","Calms the nervous system — aids sleep and anxiety","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
+  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation","Rich in iron, calcium and magnesium","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily.",ital:"A gift specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy. Consult a midwife before use in late pregnancy."},
+  {name:"Hibiscus (Sorrel)",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Blood Cleanser",benefits:["Significantly lowers high blood pressure","Cleans the bloodstream — removes impurities","Extremely high in Vitamin C","Powerful antioxidant — anti-ageing"],usage:"Do NOT boil. Place dried petals in cold or warm water and allow to infuse. Drink 3x a week as part of the DR.Fire blood cleanse protocol.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself. The blood is the river of the body — keep it clean.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy.",drfire:{role:"The Blood",protocol:"DR.Fire's blood cleaner. Do not boil — cold or warm water infusion only. The heat destroys the active compounds needed to cleanse the bloodstream.",freq:"3x per week"}},
+  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Clears sinuses and respiratory congestion","Natural pain relief for headaches","Refreshes without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Neem",emoji:"🌿",cat:"digestive",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's main waste exit","Toxins pushed to the liver and kidneys are escorted out","Powerful antimicrobial — kills harmful bacteria and parasites","Antifungal — addresses candida and gut overgrowth","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach in the morning.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — use 1x per week only as per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy.",drfire:{role:"The Colon (The Toilet)",protocol:"DR.Fire's colon cleanser. The colon is the body's toilet — neem clears it. Toxins pressed from the blood by sorrel are pushed to the liver and kidneys, then neem escorts them out through the colon.",freq:"1x per week only"}},
+  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido","Antidepressant and mood-elevating","Reduces anxiety and emotional exhaustion","Historically used for spiritual practices"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon.",ital:"Used by the Maya — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects."},
+  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health","Soothes bronchitis and asthma","Supports recovery from smoking damage","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein keeps that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family.",drfire:{role:"Liver · Eyes · Legs",protocol:"Use alongside dandelion and neem as part of the DR.Fire cleanse cycle. Clears the liver, supports eye health and circulation in the legs.",freq:"As needed during cleanse cycles"}},
+  {name:"Milk Thistle",emoji:"🌸",cat:"liver",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Reduces liver inflammation and scarring","Powerful antioxidant — neutralises free radicals in liver tissue","Helps the body process and eliminate toxins","Supports healthy cholesterol levels","Indirectly eases kidney load by keeping the liver clean"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. During DR.Fire cleanse: shields the liver as toxins pass through.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic.",drfire:{role:"The Liver",protocol:"Shields and regenerates the liver as toxins are pushed through during the DR.Fire cleanse. Works with mullein to keep the liver processing cleanly.",freq:"Daily during cleanse cycles"}},
+
+  /* ── DR. SEBI APPROVED HERBS ── */
+  {name:"Burdock Root",emoji:"🌱",cat:"drsebi",color:"#8B4513",tagline:"The #1 Blood Cleanser",drsebi:true,benefits:["Dr. Sebi's #1 blood cleanser — removes heavy metals and toxins","Powerful diuretic — flushes kidneys and lymphatic system","Rich in organic iron — rebuilds and strengthens the blood","Anti-inflammatory — reduces joint and tissue inflammation","Prebiotic — feeds beneficial gut bacteria","Supports healthy, clear skin from within"],usage:"Steep 1 tsp dried root in boiling water for 15 minutes. Strong, earthy flavour. Drink 1–2 cups daily. Pairs well with dandelion root as a cleanse duo.",ital:"The root that goes deepest into the earth carries the deepest medicine. Burdock pulls what no other herb can reach.",caution:"Avoid in pregnancy. May interact with blood thinners or diabetes medication. Allergy possible if sensitive to ragweed family."},
+  {name:"Sarsaparilla",emoji:"🌿",cat:"drsebi",color:"#6B4226",tagline:"The Endotoxin Binder",drsebi:true,benefits:["Binds to endotoxins in the gut — removes them before blood absorption","Powerful blood purifier — used for skin disease and systemic toxicity","Anti-inflammatory — used for arthritis and joint pain","Contains organic iron and zinc","Supports testosterone and reproductive hormones naturally","Diuretic — flushes the kidneys"],usage:"Steep 1 tsp dried root for 10–15 minutes. Bitter and earthy. Drink 1 cup daily. Best combined with burdock root as a blood cleanse tea.",ital:"Sarsaparilla binds what poisons the blood and removes it — a guardian at the gate of the body's purity.",caution:"Avoid large amounts in pregnancy. May increase absorption of some medications — space them 2 hours apart."},
+  {name:"Blue Vervain",emoji:"💙",cat:"drsebi",color:"#4169a0",tagline:"The Nervous System Healer",drsebi:true,benefits:["Dr. Sebi's primary herb for the nervous system","Relieves tension, anxiety and emotional stress held in the body","Antispasmodic — relieves muscle tension and cramps","Supports liver and lymphatic drainage","Helps with insomnia rooted in mental overactivity","Mild expectorant — clears mucus from respiratory tract"],usage:"Steep 1 tsp dried herb for 10 minutes. Bitter — sweeten with agave or date syrup. Drink 1 cup in the evening or during stress.",ital:"The mind holds what the body carries. Blue vervain releases the tension that the spirit has been storing for too long.",caution:"Avoid in pregnancy — can stimulate uterine contractions. Do not combine with blood pressure medication without guidance."},
+  {name:"Sea Moss",emoji:"🌊",cat:"drsebi",color:"#2E8B57",tagline:"The 92-Mineral Foundation",drsebi:true,benefits:["Contains 92 of the 102 minerals the human body is made of","Dr. Sebi's foundational supplement — taken daily","Supports thyroid function — rich in natural iodine","Strengthens gut lining and acts as a powerful prebiotic","Boosts immunity, energy and skin health","Anti-inflammatory — supports joints and respiratory health"],usage:"Soak dried sea moss 12–24 hours, blend with spring water to make a gel. Take 1–2 tbsp daily in smoothies, teas or direct. Not typically steeped as a tea alone.",ital:"The ocean is the original womb of life — sea moss carries the mineral memory of where we all came from.",caution:"High in iodine — avoid if you have hyperthyroidism. Source wildcrafted sea moss only. Avoid pool-grown or bleached varieties."},
+  {name:"Bladderwrack",emoji:"🌿",cat:"drsebi",color:"#3d7a5a",tagline:"The Thyroid Herb",drsebi:true,benefits:["Pairs with sea moss as Dr. Sebi's ocean mineral duo","Rich in natural iodine — supports thyroid health directly","Anti-inflammatory — reduces joint swelling","Supports healthy metabolism and weight regulation","Antioxidant — protects cells from oxidative stress","Traditionally used for goitre and thyroid imbalance"],usage:"Steep 1 tsp dried flakes for 10 minutes. Salty, oceanic flavour. Or blend into the sea moss gel. Drink 1 cup daily alongside sea moss.",ital:"From the deep waters Jah made — bladderwrack carries the minerals of the ancient sea, restoring what modern food has stripped from us.",caution:"High in iodine — do not use if you have hyperthyroidism or are on thyroid medication without guidance. Source from clean, non-contaminated waters."},
+  {name:"Tila (Linden Flower)",emoji:"🌼",cat:"drsebi",color:"#b5a030",tagline:"The Mucus Membrane Soother",drsebi:true,benefits:["Dr. Sebi's herb for calming and mucus membrane healing","Antispasmodic — relieves nervous tension and anxiety","Clears mucus from the respiratory tract gently","Anti-inflammatory for the digestive tract","Promotes restful sleep without heavy sedation","Supports healthy blood pressure"],usage:"Steep 1–2 tsp dried flowers for 10 minutes. Light, sweet, honey-like flavour. One of the most pleasant herbs in the cupboard. Drink 1–2 cups daily.",ital:"Gentle enough for children, powerful enough for deep healing — tila is a reminder that medicine does not always need to be bitter to work.",caution:"Generally very safe. Avoid excessive daily use over very long periods without breaks."},
+  {name:"Nopal Cactus",emoji:"🌵",cat:"drsebi",color:"#5a8c3a",tagline:"The Blood Sugar Balancer",drsebi:true,benefits:["Dr. Sebi's approved herb for blood sugar and diabetes","Regulates blood sugar — reduces glucose absorption in the gut","Anti-inflammatory — reduces systemic inflammation","Rich in organic iron, calcium and antioxidants","Reduces LDL cholesterol naturally","Alkaline-forming in the body — aligns with the Bio-Mineral Balance"],usage:"Juice or blend fresh nopal pads. As dried powder — steep 1 tsp in hot water for 10 minutes. Drink 1 cup before meals for blood sugar support.",ital:"The cactus survives where nothing else can — it teaches the body to regulate itself even in the harshest conditions.",caution:"May lower blood sugar significantly — monitor closely if diabetic or on medication. Introduce gradually to avoid digestive discomfort."}
+];
+
+const herbCats={all:"All",drfire:"🔥 DR.Fire",drsebi:"🌿 Dr. Sebi",liver:"Liver",healing:"Healing",calm:"Calm",woman:"Womb",heart:"Heart",digestive:"Digestive",spirit:"Spirit",respiratory:"Respiratory",kidney:"Kidney"};
+let herbFilter="all";
+
+
+let herbFilter = "all";
+
+const communityNav = [
+  {sec:"My Space"},
+  {id:"c-overview",icon:"✦",label:"Overview"},
+  {id:"c-saved",icon:"🔖",label:"Saved",badge:"12"},
+  {id:"c-apothecary",icon:"🌿",label:"Apothecary"},
+  {id:"c-events",icon:"🌙",label:"Events",badge:"3"},
+  {id:"c-submissions",icon:"📬",label:"Submissions"},
+  {sec:"Account"},
+  {id:"c-settings",icon:"⚙",label:"Settings"},
+];
+
+const panels = {
+'c-overview': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Welcome back</div><div class="pt">Your portal.</div><div class="ps">Everything you've saved, attended and contributed — all in one place.</div></div>
+  <div class="stats">
+    <div class="stat"><div class="sn">12</div><div class="sl">Saved</div></div>
+    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
+    <div class="stat"><div class="sn">5</div><div class="sl">Apothecary</div></div>
+    <div class="stat"><div class="sn">2</div><div class="sl">Submissions</div></div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('c-saved')">See all →</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Upcoming events</div><div class="sl2" onclick="gotoPanel('c-events')">See all →</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+    </div>
+  </div>`,
+'c-saved': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Everything you've bookmarked — find it all here.</div></div>
+  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community. London.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening — mood, focus, calm and reflection.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Library</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>`,
+'c-apothecary': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Personal ritual</div><div class="pt">My Apothecary</div><div class="ps">Your herbal reference and ritual toolkit. Tap any herb to open.</div></div>
+  <div class="af-row" id="af-row"></div>
+  <div class="hg" id="hg"></div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Ritual notes</div></div>
+    <div class="sform">
+      <div class="fg"><label class="fl">Morning ritual</label><textarea class="fi fta">Sea moss gel — 2 tablespoons. Hot water with lemon and ginger. 20 min yoga.</textarea></div>
+      <div class="fg"><label class="fl">Evening ritual</label><textarea class="fi fta">Chamomile tea. Journaling. No screens after 9pm.</textarea></div>
+      <div class="fg"><label class="fl">Currently working with</label><input class="fi" value="Sea moss, chamomile, peppermint"/></div>
+      <button class="sbtn">Save ritual notes ✦</button>
+    </div>
+  </div>`,
+'c-events': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
+  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
+      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
+    </div>
+  </div>`,
+'c-submissions': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div><div class="ps">Things you've submitted to KIN-NECT. We review everything.</div></div>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
+  </div>`,
+'c-settings': `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
+  <div class="sform">
+    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Muna"/></div>
+    <div class="fg"><label class="fl">Handle</label><input class="fi" value="@muna.kin"/></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" value="muna@example.com"/></div>
+    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Yoga teacher. Holistic practitioner. Community seeker. London.</textarea></div>
+    <button class="sbtn">Save changes ✦</button>
+  </div>`
+};
+
+// ── STATE ──
+let currentView = 'founder';
+let currentPanel = 'f-overview';
+
+function setView(view, btn) {
+  currentView = view;
+  document.querySelectorAll('.vt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Update profile
+  if (view === 'founder') {
+    document.getElementById('sb-name').textContent = 'Jayde';
+    document.getElementById('sb-role').textContent = '✦ Founder & Director';
+    document.getElementById('sb-role').style.color = 'var(--ochre)';
+    renderNav(founderNav);
+    loadPanel('f-overview');
+  } else {
+    document.getElementById('sb-name').textContent = 'Muna';
+    document.getElementById('sb-role').textContent = '🌿 Community Member';
+    document.getElementById('sb-role').style.color = '#8FAE7A';
+    renderNav(communityNav);
+    loadPanel('c-overview');
+  }
+}
+
+function renderNav(navConfig) {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = navConfig.map(item => {
+    if (item.sec) return `<div class="nsec">${item.sec}</div>`;
+    return `<div class="ni" id="nav-${item.id}" onclick="loadPanel('${item.id}');setActiveNav('${item.id}')">${item.icon} ${item.label}${item.badge ? `<span class="nb">${item.badge}</span>` : ''}</div>`;
+  }).join('');
+  // Set first item active
+  const firstItem = navConfig.find(i => i.id);
+  if (firstItem) setActiveNav(firstItem.id);
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+}
+
+function loadPanel(id) {
+  currentPanel = id;
+  const main = document.getElementById('main-content');
+  main.innerHTML = `<div id="panel-${id}" class="panel active">${panels[id] || '<p style="color:var(--muted)">Coming soon.</p>'}</div>`;
+  // Init herbs if needed
+  if (id === 'f-apothecary' || id === 'c-apothecary') {
+    herbFilter = 'all';
+    renderHerbFilters();
+    renderHerbs();
+  }
+}
+
+function gotoPanel(id) {
+  loadPanel(id);
+  setActiveNav(id);
+}
+
+// ── HERBS ──
+function renderHerbs() {
+  const f = herbFilter === 'drfire'
+    ? herbs.filter(h => h.drfire)
+    : herbFilter === 'drsebi'
+    ? herbs.filter(h => h.drsebi || h.cat === 'drsebi')
+    : herbFilter === 'all' ? herbs : herbs.filter(h => h.cat === herbFilter);
+  const hg = document.getElementById('hg');
+  if (!hg) return;
+  hg.innerHTML = f.map(h => {
+    const hasTag = h.drfire || h.drsebi;
+    const tagHtml = h.drfire
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 6px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE</div>`
+      : h.drsebi
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 6px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI</div>`
+      : '';
+    return `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'">
+      <div class="hc-dot" style="background:${h.color}"></div>
+      ${tagHtml}
+      <span class="hc-emoji" style="${hasTag?'margin-top:14px;display:block':''}">${h.emoji}</span>
+      <p class="hc-name">${h.name}</p>
+      <p class="hc-tag" style="color:${h.color}">${h.drfire?h.drfire.role:h.tagline}</p>
+      <ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <p class="hc-tap">TAP TO OPEN →</p>
+    </div>`;
+  }).join('');
+}
+
+function renderHerbFilters() {
+  const row = document.getElementById('af-row');
+  if (!row) return;
+  row.innerHTML = Object.entries(herbCats).map(([k,v]) => `<button class="af-btn ${k===herbFilter?'active':''}" onclick="setHerbFilter('${k}')">${v}</button>`).join('');
+}
+
+function setHerbFilter(c) { herbFilter = c; renderHerbFilters(); renderHerbs(); }
+
+function oH(h) {
+  document.getElementById('hm-e').textContent = h.emoji;
+  document.getElementById('hm-n').textContent = h.name;
+  document.getElementById('hm-t').textContent = h.tagline;
+  document.getElementById('hm-t').style.color = h.color;
+  // Lineage badges
+  const badgeEl = document.getElementById('hm-badges');
+  badgeEl.innerHTML = [
+    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(200,80,30,0.12);color:#d4733a;padding:4px 10px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE PROTOCOL</span>` : '',
+    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:4px 10px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI APPROVED</span>` : ''
+  ].filter(Boolean).join(' ');
+  document.getElementById('hm-i').textContent = h.ital;
+  document.getElementById('hm-ib').style.borderLeftColor = h.color;
+  document.getElementById('hm-ib').style.background = h.color + '12';
+  document.getElementById('hm-bl').style.color = h.color;
+  document.getElementById('hm-b').innerHTML = h.benefits.map(b => `<li>${b}</li>`).join('');
+  document.getElementById('hm-u').textContent = h.usage;
+  document.getElementById('hm-c').textContent = h.caution;
+  document.getElementById('hm-box').style.borderColor = h.color + '40';
+  // DR.Fire block
+  const dfEl = document.getElementById('hm-drfire');
+  if (h.drfire) {
+    dfEl.style.display = 'block';
+    dfEl.innerHTML = `
+      <div style="background:rgba(200,80,30,0.08);border:1px solid rgba(200,80,30,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1rem">
+        <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:#d4733a;margin-bottom:6px">🔥 DR.FIRE PROTOCOL · ${h.drfire.role.toUpperCase()}</div>
+        <p style="font-size:0.88rem;color:#d4b090;line-height:1.6;margin:0 0 6px">${h.drfire.protocol}</p>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;color:#a06040">FREQUENCY: ${h.drfire.freq}</div>
+      </div>`;
+  } else {
+    dfEl.style.display = 'none';
+    dfEl.innerHTML = '';
+  }
+  document.getElementById('hm').classList.add('open');
+}
+
+// ── PREVIEW LAUNCHER ──
+function openPreview(page) {
+  // Try to open the page file — works when files are in the same folder
+  window.open(page + '.html', '_blank');
+}
+
+// ── TEA CUPBOARD OVERLAY ──
+function openTeaCupboard() {
+  document.getElementById('tc-overlay').classList.add('open');
+}
+function closeTeaCupboard() {
+  document.getElementById('tc-overlay').classList.remove('open');
+}
+
+const teaCupboardTeas = [
+  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal properties","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+  {name:"Thai Tea",emoji:"🍵",cat:"energy",color:"#c17f3a",tagline:"The Golden Energiser",benefits:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise and tamarind seed — aids digestion","Anti-inflammatory properties","Supports immune health"],usage:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",ital:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",caution:"Contains caffeine — avoid late in the evening."},
+  {name:"Elderflower",emoji:"🌸",cat:"healing",color:"#b8a96a",tagline:"The Immune Blossom",benefits:["Powerful immune booster — especially for colds and flu","Natural antihistamine — relieves hay fever and allergies","Anti-inflammatory, supports sinus health","Rich in Vitamin C and flavonoids","Promotes healthy skin from within"],usage:"Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season.",ital:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",caution:"Use flowers only — elderberries and raw bark can be toxic in large amounts."},
+  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Antispasmodic — relieves menstrual cramps","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
+  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Balances hormones naturally","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy."},
+  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C — boosts immunity","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],usage:"Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red. Drink hot or cold. Pairs well with ginger.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep, restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines","Balances the nervous system"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion. Inhale steam for sinus relief.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
+  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family."},
+  {name:"Roasted Green Tea",emoji:"🍵",cat:"energy",color:"#6b7c3a",tagline:"The Grounding Brew",benefits:["Lower caffeine than regular green tea — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Earthy, nutty flavour from the roasting process"],usage:"Steep at 80°C for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",ital:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",caution:"Contains caffeine — avoid in the evening. Not for those with iron deficiency (drink between meals)."},
+  {name:"Neem Leaf",emoji:"🌿",cat:"kidney",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's waste exit","Toxins pushed to liver/kidney are escorted out","Powerful antimicrobial and antifungal","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach. DR.Fire protocol: 1x per week only.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — 1x per week only per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy."},
+  {name:"Milk Thistle",emoji:"🌸",cat:"kidney",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Supports kidney health alongside dandelion","Powerful antioxidant — neutralises free radicals in liver tissue","Anti-inflammatory for the digestive tract","Helps the body process and eliminate toxins","Supports healthy cholesterol levels"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. DR.Fire: pair with dandelion as the kidney cleanse duo.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic."},
+  {name:"Alfalfa",emoji:"🌱",cat:"kidney",color:"#4a8c3a",tagline:"The Mineral Builder",benefits:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Supports bone density with high calcium and magnesium","Detoxifies and rebuilds the blood"],usage:"Steep 1–2 tsp for 5–7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",ital:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",caution:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
+  {name:"Dandelion",emoji:"🌼",cat:"kidney",color:"#c4a000",tagline:"The Kidney Tonic",benefits:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Prebiotic — feeds beneficial gut bacteria"],usage:"Steep 1–2 tsp for 10 minutes. Roasted root makes a rich coffee-like brew. Drink 2–3 cups daily.",ital:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",caution:"May increase urination frequency. Avoid if allergic to ragweed family."}
+];
+
+const tcCats = {all:"All",healing:"Deep Healing",calm:"Calm & Sleep",energy:"Energy",digestive:"Digestive",heart:"Heart & Blood",respiratory:"Respiratory",woman:"Womb Wisdom",spirit:"Spirit",kidney:"Kidney Cleanse"};
+let tcFilter = 'all';
+
+function renderTcCards() {
+  const list = tcFilter === 'all' ? teaCupboardTeas : teaCupboardTeas.filter(t => t.cat === tcFilter);
+  document.getElementById('tc-grid').innerHTML = list.map(t => `
+    <div onclick='openTcDetail(${JSON.stringify(t).replace(/'/g,"&#39;")})' style="background:rgba(255,255,255,0.03);border:1px solid ${t.color}25;border-radius:4px;padding:1.25rem;cursor:pointer;position:relative;transition:all 0.2s;" onmouseenter="this.style.background='${t.color}15';this.style.borderColor='${t.color}55';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='${t.color}25';this.style.transform='none'">
+      <div style="position:absolute;top:10px;right:10px;width:7px;height:7px;border-radius:50%;background:${t.color};opacity:0.7"></div>
+      <div style="font-size:1.8rem;margin-bottom:8px">${t.emoji}</div>
+      <div style="font-size:0.95rem;color:#e8dcc8;margin:0 0 3px">${t.name}</div>
+      <div style="font-size:0.73rem;font-style:italic;color:${t.color};margin:0 0 10px">${t.tagline}</div>
+      <ul style="list-style:none;padding:0;margin:0 0 8px">${t.benefits.slice(0,2).map(b=>`<li style="font-size:0.72rem;color:#8a7a5a;padding:2px 0 2px 10px;position:relative"><span style="position:absolute;left:0;color:${t.color}">·</span>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <div style="font-family:'Space Mono',monospace;font-size:0.37rem;color:#5a4a3a;letter-spacing:0.1em">TAP TO OPEN →</div>
+    </div>
+  `).join('');
+}
+
+function renderTcFilters() {
+  document.getElementById('tc-filters').innerHTML = Object.entries(tcCats).map(([k,v]) => `
+    <button onclick="tcFilter='${k}';renderTcFilters();renderTcCards()" style="padding:4px 12px;border:1px solid ${k===tcFilter?'rgba(232,220,200,0.35)':'rgba(232,220,200,0.1)'};border-radius:2rem;background:${k===tcFilter?'rgba(232,220,200,0.06)':'transparent'};color:${k===tcFilter?'#e8dcc8':'#8a7a5a'};font-size:0.72rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s">${v}</button>
+  `).join('');
+}
+
+function openTcDetail(t) {
+  const d = document.getElementById('tc-detail');
+  d.innerHTML = `
+    <div style="position:relative;background:#131008;border:1px solid ${t.color}40;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto">
+      <button onclick="document.getElementById('tc-detail').innerHTML=''" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#5a4a3a;font-size:1.4rem;cursor:pointer;line-height:1">×</button>
+      <div style="font-size:2.5rem;margin-bottom:10px">${t.emoji}</div>
+      <h3 style="font-size:1.6rem;font-weight:normal;color:#e8dcc8;margin:0 0 3px">${t.name}</h3>
+      <p style="color:${t.color};font-style:italic;font-size:0.85rem;margin:0 0 1.25rem">${t.tagline}</p>
+      <div style="background:${t.color}12;border-left:3px solid ${t.color};padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem">
+        <p style="margin:0;font-size:0.83rem;font-style:italic;color:#c8b890;line-height:1.6">${t.ital}</p>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">BENEFITS</p>
+      <ul style="list-style:none;padding:0;margin:0 0 1.25rem">${t.benefits.map(b=>`<li style="font-size:0.83rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:${t.color}">✦</span>${b}</li>`).join('')}</ul>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">HOW TO USE</p>
+      <p style="font-size:0.83rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem">${t.usage}</p>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:#a06050;margin:0 0 8px">CAUTION</p>
+      <div style="background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px">
+        <p style="margin:0;font-size:0.78rem;color:#a06050;line-height:1.5"><strong style="color:#c07060">NOTE: </strong>${t.caution}</p>
+      </div>
+    </div>`;
+  d.style.display = 'flex';
+}
+
+// ── INIT ──
+renderNav(founderNav);
+loadPanel('f-overview');
+</script>
+
+<!-- TEA CUPBOARD OVERLAY -->
+<div id="tc-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:10000;backdrop-filter:blur(4px);overflow-y:auto" onclick="if(event.target===this)closeTeaCupboard()">
+  <div style="max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;font-family:Georgia,serif;color:#e8dcc8">
+    <!-- Header -->
+    <div style="text-align:center;padding-bottom:2rem;border-bottom:1px solid rgba(232,220,200,0.1);margin-bottom:2rem;position:relative">
+      <button onclick="closeTeaCupboard()" style="position:absolute;top:0;right:0;background:none;border:none;color:#5a4a3a;font-size:1.6rem;cursor:pointer;line-height:1">×</button>
+      <p style="font-family:'Space Mono',monospace;letter-spacing:0.4em;font-size:0.55rem;color:#8a7a5a;text-transform:uppercase;margin-bottom:0.75rem">Ital Apothecary</p>
+      <h1 style="font-size:clamp(1.8rem,5vw,3rem);font-weight:normal;letter-spacing:0.05em;color:#e8dcc8;margin:0 0 0.4rem">The Tea Cupboard</h1>
+      <p style="color:#8a7a5a;font-style:italic">"Herbs are the healing of a nation" — Rastafari</p>
+      <!-- Filters -->
+      <div id="tc-filters" style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1.5rem"></div>
+    </div>
+    <!-- Grid -->
+    <div id="tc-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem"></div>
+    <!-- Detail modal inside overlay -->
+    <div id="tc-detail" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:10001;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px)" onclick="if(event.target===this){this.innerHTML='';this.style.display='none'}"></div>
+  </div>
+</div>
+
+<script>
+// Init tea cupboard when overlay opens (we override openTeaCupboard to also render)
+const _origOpenTc = openTeaCupboard;
+window.openTeaCupboard = function() {
+  document.getElementById('tc-overlay').style.display = 'block';
+  renderTcFilters();
+  renderTcCards();
+};
+</script>
+</body>
+</html>`,
+};
+
+function renderNav(navConfig) {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = navConfig.map(item => {
+    if (item.sec) return `<div class="nsec">${item.sec}</div>`;
+    return `<div class="ni" id="nav-${item.id}" onclick="loadPanel('${item.id}');setActiveNav('${item.id}')">${item.icon} ${item.label}${item.badge ? `<span class="nb">${item.badge}</span>` : ''}</div>`;
+  }).join('');
+  const first = navConfig.find(i => i.id);
+  if (first) setActiveNav(first.id);
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+}
+
+function loadPanel(id) {
+  const main = document.getElementById('main-content');
+  main.innerHTML = `<div class="panel active">${panels[id] || '<p style="color:var(--muted)">Coming soon.</p>'}</div>`;
+  if (id === 'c-apothecary') { herbFilter='all'; renderHerbFilters(); renderHerbs(); }
+}
+
+function gotoPanel(id) { loadPanel(id); setActiveNav(id); }
+
+// ── HERBS ──
+function renderHerbs() {
+  const f = herbFilter === 'drfire'
+    ? herbs.filter(h => h.drfire)
+    : herbFilter === 'drsebi'
+    ? herbs.filter(h => h.drsebi || h.cat === 'drsebi')
+    : herbFilter === 'all' ? herbs : herbs.filter(h => h.cat === herbFilter);
+  const hg = document.getElementById('hg');
+  if (!hg) return;
+  hg.innerHTML = f.map(h => {
+    const hasTag = h.drfire || h.drsebi;
+    const tagHtml = h.drfire
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(200,80,30,0.15);color:#d4733a;padding:2px 6px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE</div>`
+      : h.drsebi
+      ? `<div style="position:absolute;top:10px;left:10px;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.06em;background:rgba(46,139,87,0.15);color:#5aaa7a;padding:2px 6px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI</div>`
+      : '';
+    return `<div class="hc" onclick='oH(${JSON.stringify(h).replace(/'/g,"&#39;")})' style="border-color:${h.color}20" onmouseenter="this.style.background='${h.color}15';this.style.borderColor='${h.color}60';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.02)';this.style.borderColor='${h.color}20';this.style.transform='none'">
+      <div class="hc-dot" style="background:${h.color}"></div>
+      ${tagHtml}
+      <span class="hc-emoji" style="${hasTag?'margin-top:14px;display:block':''}">${h.emoji}</span>
+      <p class="hc-name">${h.name}</p>
+      <p class="hc-tag" style="color:${h.color}">${h.drfire?h.drfire.role:h.tagline}</p>
+      <ul class="hc-list">${h.benefits.slice(0,2).map(b=>`<li>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <p class="hc-tap">TAP TO OPEN →</p>
+    </div>`;
+  }).join('');
+}
+
+function renderHerbFilters() {
+  const row = document.getElementById('af-row');
+  if (!row) return;
+  row.innerHTML = Object.entries(herbCats).map(([k,v]) => `<button class="af-btn ${k===herbFilter?'active':''}" onclick="setHerbFilter('${k}')">${v}</button>`).join('');
+}
+
+function setHerbFilter(c) { herbFilter = c; renderHerbFilters(); renderHerbs(); }
+
+function oH(h) {
+  document.getElementById('hm-e').textContent = h.emoji;
+  document.getElementById('hm-n').textContent = h.name;
+  document.getElementById('hm-t').textContent = h.tagline;
+  document.getElementById('hm-t').style.color = h.color;
+  // Lineage badges
+  const badgeEl = document.getElementById('hm-badges');
+  badgeEl.innerHTML = [
+    h.drfire ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(200,80,30,0.12);color:#d4733a;padding:4px 10px;border-radius:2px;border:1px solid rgba(200,80,30,0.3)">🔥 DR.FIRE PROTOCOL</span>` : '',
+    h.drsebi ? `<span style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;background:rgba(46,139,87,0.12);color:#5aaa7a;padding:4px 10px;border-radius:2px;border:1px solid rgba(46,139,87,0.3)">🌿 DR.SEBI APPROVED</span>` : ''
+  ].filter(Boolean).join(' ');
+  document.getElementById('hm-i').textContent = h.ital;
+  document.getElementById('hm-ib').style.borderLeftColor = h.color;
+  document.getElementById('hm-ib').style.background = h.color + '12';
+  document.getElementById('hm-bl').style.color = h.color;
+  document.getElementById('hm-b').innerHTML = h.benefits.map(b => `<li>${b}</li>`).join('');
+  document.getElementById('hm-u').textContent = h.usage;
+  document.getElementById('hm-c').textContent = h.caution;
+  document.getElementById('hm-box').style.borderColor = h.color + '40';
+  // DR.Fire block
+  const dfEl = document.getElementById('hm-drfire');
+  if (h.drfire) {
+    dfEl.style.display = 'block';
+    dfEl.innerHTML = `
+      <div style="background:rgba(200,80,30,0.08);border:1px solid rgba(200,80,30,0.25);border-radius:4px;padding:12px 14px;margin-bottom:1rem">
+        <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:#d4733a;margin-bottom:6px">🔥 DR.FIRE PROTOCOL · ${h.drfire.role.toUpperCase()}</div>
+        <p style="font-size:0.88rem;color:#d4b090;line-height:1.6;margin:0 0 6px">${h.drfire.protocol}</p>
+        <div style="font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.12em;color:#a06040">FREQUENCY: ${h.drfire.freq}</div>
+      </div>`;
+  } else {
+    dfEl.style.display = 'none';
+    dfEl.innerHTML = '';
+  }
+  document.getElementById('hm').classList.add('open');
+}
+
+// ── PREVIEW LAUNCHER ──
+function openPreview(page) {
+  // Try to open the page file — works when files are in the same folder
+  window.open(page + '.html', '_blank');
+}
+
+// ── TEA CUPBOARD OVERLAY ──
+function openTeaCupboard() {
+  document.getElementById('tc-overlay').classList.add('open');
+}
+function closeTeaCupboard() {
+  document.getElementById('tc-overlay').classList.remove('open');
+}
+
+const teaCupboardTeas = [
+  {name:"Soursop Leaf",emoji:"🌿",cat:"healing",color:"#2d5a27",tagline:"The Cancer Fighter",benefits:["Potent anti-cancer properties — acetogenins inhibit abnormal cell growth","Antioxidant-rich, combating oxidative stress and inflammation","Calms the nervous system — aids sleep and anxiety","Antimicrobial and antifungal properties","Supports healthy blood pressure"],usage:"Steep 3–5 dried leaves in boiling water for 10–15 minutes. Drink 1–2 cups daily. Best in the evening for its calming properties.",ital:"Sacred in Ital healing — seen as one of the most powerful leaves the Most High placed on Earth for bodily restoration.",caution:"Avoid in pregnancy. Do not combine with blood pressure medication without guidance."},
+  {name:"Thai Tea",emoji:"🍵",cat:"energy",color:"#c17f3a",tagline:"The Golden Energiser",benefits:["Rich in antioxidants — fights free radicals","Natural energy boost from black tea base","Contains spices like star anise and tamarind seed — aids digestion","Anti-inflammatory properties","Supports immune health"],usage:"Brew strong with boiling water for 5 minutes. For Ital use: oat milk or coconut milk. Best in the morning.",ital:"The spice blend honours the connection between Eastern herbal wisdom and Ital wholeness.",caution:"Contains caffeine — avoid late in the evening."},
+  {name:"Elderflower",emoji:"🌸",cat:"healing",color:"#b8a96a",tagline:"The Immune Blossom",benefits:["Powerful immune booster — especially for colds and flu","Natural antihistamine — relieves hay fever and allergies","Anti-inflammatory, supports sinus health","Rich in Vitamin C and flavonoids","Promotes healthy skin from within"],usage:"Steep 1–2 tsp dried flowers in hot (not boiling) water for 5–7 minutes. Drink 2–3 cups during cold/flu season.",ital:"The elder tree was revered across many cultures as sacred — a bridge between earthly and spiritual medicine.",caution:"Use flowers only — elderberries and raw bark can be toxic in large amounts."},
+  {name:"Chamomile",emoji:"🌼",cat:"calm",color:"#d4a853",tagline:"The Gentle Healer",benefits:["Powerful sleep aid — reduces insomnia and restlessness","Reduces anxiety and stress naturally","Anti-inflammatory — soothes gut and IBS symptoms","Antispasmodic — relieves menstrual cramps","Gentle enough for children"],usage:"Steep 1 heaped tsp in boiling water for 5–10 minutes. Drink before bed or when anxious. Add raw honey and lemon.",ital:"One of Jah's most gentle medicines — for when the body and mind need to be held, not pushed.",caution:"Allergy possible if sensitive to ragweed family."},
+  {name:"Raspberry Leaf",emoji:"🍃",cat:"woman",color:"#8b3a52",tagline:"The Womb Tonic",benefits:["Tones and strengthens uterine muscles","Eases painful menstruation (dysmenorrhea)","Rich in iron, calcium, magnesium and B vitamins","Balances hormones naturally","Supports milk production when breastfeeding"],usage:"Steep 1–2 tsp in boiling water for 10 minutes. Drink 1–3 cups daily. Especially powerful in the week before menstruation.",ital:"A gift from Jah specifically for the Empress — honouring the sacred creative power of the womb.",caution:"Avoid in early pregnancy (first trimester). Consult a midwife before use in late pregnancy."},
+  {name:"Hibiscus",emoji:"🌺",cat:"heart",color:"#b5294e",tagline:"The Heart Flower",benefits:["Significantly lowers high blood pressure","Lowers LDL (bad) cholesterol","Extremely high in Vitamin C — boosts immunity","Powerful antioxidant — anti-ageing","Natural diuretic — reduces water retention"],usage:"Steep 1–2 tsp dried petals in boiling water for 5–10 minutes. Stunning ruby red. Drink hot or cold. Pairs well with ginger.",ital:"Sorrel — deeply rooted in African and Ital tradition. Red like life itself.",caution:"May lower blood pressure significantly — monitor if on BP medication. Avoid in pregnancy."},
+  {name:"Lavender",emoji:"💜",cat:"calm",color:"#7b5ea7",tagline:"The Peace Herb",benefits:["Powerful anxiety and stress reducer","Promotes deep, restorative sleep","Antidepressant — lifts mood naturally","Relieves headaches and migraines","Balances the nervous system"],usage:"1 tsp of flowers per cup, steep 5 minutes. Blend with chamomile for a potent sleep tea.",ital:"Brings the spirit into alignment — calms the overactive mind so Jah's inner guidance can be heard.",caution:"Excessive use may cause drowsiness. Avoid if pregnant without guidance."},
+  {name:"Peppermint",emoji:"🌱",cat:"digestive",color:"#1a7a4a",tagline:"The Digestive Warrior",benefits:["Powerful relief for IBS, bloating and gas","Antispasmodic — relaxes intestinal muscles","Clears sinuses and respiratory congestion","Natural pain relief for tension headaches","Refreshes and energises without caffeine"],usage:"Steep 1–2 tsp for 5–7 minutes. Drink after meals for digestion. Inhale steam for sinus relief.",ital:"Clean, vital and alive — mint speaks to the freshness that Ital living cultivates in every part of life.",caution:"Avoid in acid reflux. Not recommended for infants."},
+  {name:"Damiana",emoji:"🌾",cat:"spirit",color:"#8b6914",tagline:"The Spirit Lifter",benefits:["Traditional aphrodisiac — supports libido naturally","Antidepressant and mood-elevating properties","Reduces anxiety and emotional exhaustion","Historically used for spiritual and visionary practices","Hormonal balancing — beneficial for both men and women"],usage:"Steep 1 tsp for 10 minutes. Blend with rose petals and cinnamon for a warming tonic.",ital:"Used by the Maya and carried forward in Ital practice — reconnects you to your vital life force.",caution:"Avoid in pregnancy. High doses may have mild psychoactive effects — use with intention."},
+  {name:"Mullein",emoji:"🌿",cat:"respiratory",color:"#5a7a3a",tagline:"The Lung Cleanser",benefits:["Premier herb for lung health — expectorant clears mucus","Soothes bronchitis, asthma and chest tightness","Supports recovery from smoking damage","Antimicrobial — fights respiratory infections","Soothes sore throats"],usage:"Steep 1–2 tsp dried leaf for 10–15 minutes. Strain well. Drink 2–3 cups daily.",ital:"Jah breathed life into man — mullein is how we keep that breath clean, clear and free.",caution:"Strain thoroughly. Avoid if allergic to Scrophulariaceae plant family."},
+  {name:"Roasted Green Tea",emoji:"🍵",cat:"energy",color:"#6b7c3a",tagline:"The Grounding Brew",benefits:["Lower caffeine than regular green tea — gentle sustained energy","Rich in antioxidants (catechins)","Supports metabolism and healthy weight","Calming L-theanine reduces stress while maintaining focus","Earthy, nutty flavour from the roasting process"],usage:"Steep at 80°C for 1–2 minutes. Can be steeped multiple times. Drink in the morning or afternoon.",ital:"The roasting transforms — a reminder that fire purifies. Simple, grounding, medicinal.",caution:"Contains caffeine — avoid in the evening. Not for those with iron deficiency (drink between meals)."},
+  {name:"Neem Leaf",emoji:"🌿",cat:"kidney",color:"#3d6b2a",tagline:"The Colon Cleanser",benefits:["Clears the colon — the body's waste exit","Toxins pushed to liver/kidney are escorted out","Powerful antimicrobial and antifungal","Supports the lymphatic system","Purifies the blood as it passes through"],usage:"Steep 5–7 dried leaves for 10 minutes. Very bitter — start small. Drink on an empty stomach. DR.Fire protocol: 1x per week only.",ital:"Neem is the great sweeper — it clears the path so all other healing can move freely through the body.",caution:"Very potent — 1x per week only per DR.Fire protocol. Do not use for extended periods. Avoid in pregnancy."},
+  {name:"Milk Thistle",emoji:"🌸",cat:"kidney",color:"#9b59b6",tagline:"The Liver Shield",benefits:["Protects and regenerates liver cells — contains silymarin","Supports kidney health alongside dandelion","Powerful antioxidant — neutralises free radicals in liver tissue","Anti-inflammatory for the digestive tract","Helps the body process and eliminate toxins","Supports healthy cholesterol levels"],usage:"Steep 1 tsp crushed seeds or dried herb for 10–15 minutes. Drink 1–2 cups daily. DR.Fire: pair with dandelion as the kidney cleanse duo.",ital:"The liver is the alchemist of the body — milk thistle protects the sacred work it does, keeping the inner fire clean.",caution:"Generally very safe. Avoid high doses in pregnancy. May lower blood sugar — monitor if diabetic."},
+  {name:"Alfalfa",emoji:"🌱",cat:"kidney",color:"#4a8c3a",tagline:"The Mineral Builder",benefits:["Exceptional diuretic — flushes kidneys naturally","Rich in chlorophyll, minerals and vitamins K, C, B","Alkalises the body — supports kidney stone prevention","Supports bone density with high calcium and magnesium","Detoxifies and rebuilds the blood"],usage:"Steep 1–2 tsp for 5–7 minutes. Blend with dandelion for a kidney cleanse tea. Drink 2 cups daily.",ital:"Deep roots that pull minerals from the earth — alfalfa gives us what the soil carries. True Ital nourishment.",caution:"Avoid with autoimmune conditions (lupus). Contains Vitamin K — interacts with blood thinners."},
+  {name:"Dandelion",emoji:"🌼",cat:"kidney",color:"#c4a000",tagline:"The Kidney Tonic",benefits:["Premier kidney tonic and diuretic herb","Supports liver detoxification","Rich in potassium — replenishes what diuretics remove","Anti-inflammatory for urinary tract","Prebiotic — feeds beneficial gut bacteria"],usage:"Steep 1–2 tsp for 10 minutes. Roasted root makes a rich coffee-like brew. Drink 2–3 cups daily.",ital:"The weed Babylon calls a nuisance — Ital wisdom knows it as medicine. What the world discards, we use to heal.",caution:"May increase urination frequency. Avoid if allergic to ragweed family."}
+];
+
+const tcCats = {all:"All",healing:"Deep Healing",calm:"Calm & Sleep",energy:"Energy",digestive:"Digestive",heart:"Heart & Blood",respiratory:"Respiratory",woman:"Womb Wisdom",spirit:"Spirit",kidney:"Kidney Cleanse"};
+let tcFilter = 'all';
+
+function renderTcCards() {
+  const list = tcFilter === 'all' ? teaCupboardTeas : teaCupboardTeas.filter(t => t.cat === tcFilter);
+  document.getElementById('tc-grid').innerHTML = list.map(t => `
+    <div onclick='openTcDetail(${JSON.stringify(t).replace(/'/g,"&#39;")})' style="background:rgba(255,255,255,0.03);border:1px solid ${t.color}25;border-radius:4px;padding:1.25rem;cursor:pointer;position:relative;transition:all 0.2s;" onmouseenter="this.style.background='${t.color}15';this.style.borderColor='${t.color}55';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='rgba(255,255,255,0.03)';this.style.borderColor='${t.color}25';this.style.transform='none'">
+      <div style="position:absolute;top:10px;right:10px;width:7px;height:7px;border-radius:50%;background:${t.color};opacity:0.7"></div>
+      <div style="font-size:1.8rem;margin-bottom:8px">${t.emoji}</div>
+      <div style="font-size:0.95rem;color:#e8dcc8;margin:0 0 3px">${t.name}</div>
+      <div style="font-size:0.73rem;font-style:italic;color:${t.color};margin:0 0 10px">${t.tagline}</div>
+      <ul style="list-style:none;padding:0;margin:0 0 8px">${t.benefits.slice(0,2).map(b=>`<li style="font-size:0.72rem;color:#8a7a5a;padding:2px 0 2px 10px;position:relative"><span style="position:absolute;left:0;color:${t.color}">·</span>${b.split('—')[0].trim()}</li>`).join('')}</ul>
+      <div style="font-family:'Space Mono',monospace;font-size:0.37rem;color:#5a4a3a;letter-spacing:0.1em">TAP TO OPEN →</div>
+    </div>
+  `).join('');
+}
+
+function renderTcFilters() {
+  document.getElementById('tc-filters').innerHTML = Object.entries(tcCats).map(([k,v]) => `
+    <button onclick="tcFilter='${k}';renderTcFilters();renderTcCards()" style="padding:4px 12px;border:1px solid ${k===tcFilter?'rgba(232,220,200,0.35)':'rgba(232,220,200,0.1)'};border-radius:2rem;background:${k===tcFilter?'rgba(232,220,200,0.06)':'transparent'};color:${k===tcFilter?'#e8dcc8':'#8a7a5a'};font-size:0.72rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s">${v}</button>
+  `).join('');
+}
+
+function openTcDetail(t) {
+  const d = document.getElementById('tc-detail');
+  d.innerHTML = `
+    <div style="position:relative;background:#131008;border:1px solid ${t.color}40;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto">
+      <button onclick="document.getElementById('tc-detail').innerHTML=''" style="position:absolute;top:12px;right:14px;background:none;border:none;color:#5a4a3a;font-size:1.4rem;cursor:pointer;line-height:1">×</button>
+      <div style="font-size:2.5rem;margin-bottom:10px">${t.emoji}</div>
+      <h3 style="font-size:1.6rem;font-weight:normal;color:#e8dcc8;margin:0 0 3px">${t.name}</h3>
+      <p style="color:${t.color};font-style:italic;font-size:0.85rem;margin:0 0 1.25rem">${t.tagline}</p>
+      <div style="background:${t.color}12;border-left:3px solid ${t.color};padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem">
+        <p style="margin:0;font-size:0.83rem;font-style:italic;color:#c8b890;line-height:1.6">${t.ital}</p>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">BENEFITS</p>
+      <ul style="list-style:none;padding:0;margin:0 0 1.25rem">${t.benefits.map(b=>`<li style="font-size:0.83rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5"><span style="position:absolute;left:0;color:${t.color}">✦</span>${b}</li>`).join('')}</ul>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:${t.color};margin:0 0 8px">HOW TO USE</p>
+      <p style="font-size:0.83rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem">${t.usage}</p>
+      <p style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;color:#a06050;margin:0 0 8px">CAUTION</p>
+      <div style="background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px">
+        <p style="margin:0;font-size:0.78rem;color:#a06050;line-height:1.5"><strong style="color:#c07060">NOTE: </strong>${t.caution}</p>
+      </div>
+    </div>`;
+  d.style.display = 'flex';
+}
+
+
+renderNav(communityNav);
+loadPanel('c-overview');
+</script>
+</body>
+</html>

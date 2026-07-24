@@ -10,61 +10,40 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg);color:var(--cream);font-family:Georgia,serif;min-height:100vh;}
   .wrap{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
-
-  /* SIDEBAR */
   .sidebar{background:rgba(10,7,3,0.98);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
   .sb-top{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--border);}
   .sb-logo{font-size:1.1rem;color:var(--ochre);letter-spacing:0.12em;}
   .sb-sub{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
-
-  /* VIEW TOGGLE */
-  .view-toggle{padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
-  .vt-label{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:0.5rem;}
-  .vt-btns{display:flex;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;}
-  .vt-btn{flex:1;padding:0.5rem 0;font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all 0.15s;text-align:center;}
-  .vt-btn.active{background:var(--ochre);color:#0d0a06;font-weight:700;}
-
   .profile{padding:1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;}
   .av{width:36px;height:36px;border-radius:50%;border:1px solid var(--ochre);display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:var(--ochre);flex-shrink:0;}
   .pn{font-size:0.9rem;color:var(--cream);}
   .pb{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;color:var(--ochre);opacity:0.7;margin-top:0.2rem;}
-
   nav{padding:0.75rem 0;flex:1;}
   .nsec{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dim);padding:0.75rem 1.25rem 0.3rem;}
   .ni{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.25rem;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;transition:all 0.15s;}
   .ni:hover{color:var(--cream);background:rgba(200,115,42,0.05);}
   .ni.active{color:var(--ochre);border-left-color:var(--ochre);background:rgba(200,115,42,0.06);}
   .nb{margin-left:auto;background:var(--ochre);color:#0d0a06;font-size:0.38rem;padding:0.1rem 0.35rem;border-radius:8px;font-weight:700;}
-  .founder-only{} /* shown/hidden via JS */
-  .community-only{}
-
   .sb-back{padding:1rem 1.25rem;border-top:1px solid var(--border);}
   .sb-back a{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dim);text-decoration:none;}
   .sb-back a:hover{color:var(--muted);}
-
   main{padding:2rem 2.5rem;overflow-y:auto;}
-  .panel{display:none;} .panel.active{display:block;}
+  .panel{display:none;}.panel.active{display:block;}
   .ph{margin-bottom:1.75rem;}
   .pe{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ochre);opacity:0.6;margin-bottom:0.4rem;}
   .pt{font-size:1.8rem;font-weight:normal;color:var(--cream);letter-spacing:0.04em;}
   .ps{font-size:0.9rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
-
-  /* VIEW BANNER */
   .view-banner{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.5rem 1rem;border-radius:3px;margin-bottom:1.5rem;display:inline-block;}
-  .view-banner.founder{background:rgba(200,115,42,0.12);color:var(--ochre);border:1px solid rgba(200,115,42,0.2);}
   .view-banner.community{background:rgba(107,124,94,0.12);color:#8FAE7A;border:1px solid rgba(107,124,94,0.2);}
-
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
   .stat{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
   .sn{font-size:1.7rem;color:var(--ochre);}
   .sl{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);margin-top:0.3rem;}
-
   .sec{margin-bottom:2rem;}
   .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
   .st{font-size:1rem;color:var(--cream);font-weight:normal;letter-spacing:0.04em;}
   .sl2{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ochre);cursor:pointer;opacity:0.6;}
   .sl2:hover{opacity:1;}
-
   .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
   .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
   .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.25rem;position:relative;transition:border-color 0.2s;}
@@ -76,32 +55,6 @@
   .ca:hover{opacity:1;}
   .rb{position:absolute;top:0.75rem;right:0.75rem;font-size:0.6rem;color:var(--dim);cursor:pointer;background:none;border:none;}
   .hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
-
-  /* BACKEND CARDS */
-  .be-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.5rem;text-decoration:none;display:block;transition:border-color 0.2s;}
-  .be-card:hover{border-color:rgba(200,115,42,0.4);}
-  .be-icon{font-size:1.6rem;margin-bottom:0.75rem;display:block;}
-  .be-tag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.5;margin-bottom:0.35rem;}
-  .be-name{font-size:1rem;color:var(--cream);margin-bottom:0.25rem;font-weight:normal;}
-  .be-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;}
-  .be-badge{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);border:1px solid var(--border);padding:0.2rem 0.5rem;border-radius:2px;margin-top:0.75rem;display:inline-block;}
-
-  /* APOTHECARY */
-  .af-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;}
-  .af-btn{padding:4px 12px;border:1px solid var(--border);border-radius:2rem;background:transparent;color:var(--muted);font-size:0.75rem;cursor:pointer;font-family:Georgia,serif;letter-spacing:0.06em;transition:all 0.15s;}
-  .af-btn.active{border-color:var(--border2);color:var(--cream);}
-  .hg{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1rem;}
-  .hc{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;padding:1.25rem;cursor:pointer;transition:all 0.2s;position:relative;}
-  .hc-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;opacity:0.7;}
-  .hc-emoji{font-size:1.8rem;margin-bottom:8px;display:block;}
-  .hc-name{font-size:0.95rem;color:var(--cream);margin:0 0 3px;}
-  .hc-tag{font-size:0.75rem;font-style:italic;margin:0 0 10px;}
-  .hc-list{list-style:none;padding:0;margin:0 0 10px;}
-  .hc-list li{font-size:0.73rem;color:var(--muted);padding:2px 0 2px 10px;position:relative;line-height:1.4;}
-  .hc-list li::before{content:'·';position:absolute;left:0;}
-  .hc-tap{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.1em;color:var(--dim);}
-
-  /* EVENTS */
   .elist{display:flex;flex-direction:column;gap:0.75rem;}
   .ei{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;}
   .edb{text-align:center;min-width:36px;}
@@ -111,8 +64,6 @@
   .ename{font-size:0.9rem;color:var(--cream);}
   .ewhere{font-family:'Space Mono',monospace;font-size:0.42rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;}
   .etag{font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.08);color:var(--ochre);}
-
-  /* SETTINGS */
   .sform{display:flex;flex-direction:column;gap:1.25rem;max-width:460px;}
   .fg{display:flex;flex-direction:column;gap:0.4rem;}
   .fl{font-family:'Space Mono',monospace;font-size:0.45rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ochre);opacity:0.6;}
@@ -120,24 +71,6 @@
   .fi:focus{border-color:var(--border2);}
   .fta{resize:vertical;min-height:72px;}
   .sbtn{background:var(--ochre);color:#0d0a06;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1.5rem;border:none;border-radius:2rem;cursor:pointer;font-weight:700;align-self:flex-start;}
-
-  /* HERB MODAL */
-  .moverlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;padding:1rem;z-index:9999;backdrop-filter:blur(3px);}
-  .moverlay.open{display:flex;}
-  .mbox{background:#131008;border-radius:6px;padding:2rem;max-width:540px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
-  .mc{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--dim);font-size:1.5rem;cursor:pointer;line-height:1;}
-  .me{font-size:2.5rem;display:block;margin-bottom:10px;}
-  .mn{font-size:1.7rem;color:var(--cream);font-weight:normal;margin:0 0 3px;}
-  .msl{font-style:italic;font-size:0.85rem;margin:0 0 1.25rem;}
-  .ib{border-left:3px solid;padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:1.25rem;}
-  .ib p{margin:0;font-size:0.85rem;font-style:italic;color:#c8b890;line-height:1.6;}
-  .msec{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.25em;text-transform:uppercase;margin:0 0 8px;}
-  .mlist{list-style:none;padding:0;margin:0 0 1.25rem;}
-  .mlist li{font-size:0.85rem;color:#c8b890;padding:3px 0 3px 16px;position:relative;line-height:1.5;}
-  .mlist li::before{content:'✦';position:absolute;left:0;font-size:9px;top:7px;}
-  .musage{font-size:0.85rem;color:#c8b890;line-height:1.7;margin:0 0 1.25rem;}
-  .mcaut{background:rgba(180,50,30,0.08);border:1px solid rgba(180,50,30,0.2);border-radius:4px;padding:10px 12px;}
-  .mcaut p{margin:0;font-size:0.78rem;color:#a06050;line-height:1.5;}
 </style>
 </head>
 <body>
@@ -159,9 +92,107 @@
   </aside>
   <main id="main-content"></main>
 </div>
-
-
 <script>
+const communityNav = [
+  {sec:"My Space"},
+  {id:"c-overview",icon:"✦",label:"Overview"},
+  {id:"c-saved",icon:"🔖",label:"Saved",badge:"12"},
+  {id:"c-events",icon:"🌙",label:"Events",badge:"3"},
+  {id:"c-submissions",icon:"📬",label:"Submissions"},
+  {sec:"Account"},
+  {id:"c-settings",icon:"⚙",label:"Settings"},
+];
+
+const panels = {};
+panels['c-overview'] = `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Welcome back</div><div class="pt">Your portal.</div><div class="ps">Everything you've saved, attended and contributed — all in one place.</div></div>
+  <div class="stats">
+    <div class="stat"><div class="sn">12</div><div class="sl">Saved</div></div>
+    <div class="stat"><div class="sn">3</div><div class="sl">Events</div></div>
+    <div class="stat"><div class="sn">5</div><div class="sl">Apothecary</div></div>
+    <div class="stat"><div class="sn">2</div><div class="sl">Submissions</div></div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Recently saved</div><div class="sl2" onclick="gotoPanel('c-saved')">See all →</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">✍🏾 Editorial</div><div class="cn">The Wheel of the Year</div><div class="cd">What the equinoxes and solstices actually mean.</div><a class="ca" href="equinox.html">Read →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">📚 Library</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom meets science.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <div class="sec"><div class="sh"><div class="st">Upcoming events</div><div class="sl2" onclick="gotoPanel('c-events')">See all →</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+    </div>
+  </div>`;
+panels['c-saved'] = `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your collection</div><div class="pt">Saved</div><div class="ps">Everything you've bookmarked — find it all here.</div></div>
+  <div class="sec"><div class="sh"><div class="st">Directory</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">🌿 Directory</div><div class="cn">Wyld Herbs</div><div class="cd">Organic sea moss, herbal blends. Women-owned, Black-founded.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎵 Directory</div><div class="cn">Shai Space</div><div class="cd">Conscious late night events space. Tea, music, community. London.</div><a class="ca" href="directory.html">Visit →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎧 Directory</div><div class="cn">ISO-1</div><div class="cd">Intentional music listening — mood, focus, calm and reflection.</div><a class="ca" href="https://apps.apple.com/app/apple-store/id6746943723?pt=127820037&ct=KIN-NECT&mt=8" target="_blank">Download →</a><button class="rb">✕</button></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Library</div></div>
+    <div class="g3">
+      <div class="card"><div class="ct">📚 Book</div><div class="cn">Braiding Sweetgrass</div><div class="cd">Robin Wall Kimmerer. Indigenous wisdom and the teachings of plants.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+      <div class="card"><div class="ct">🎬 Film</div><div class="cn">Daughters of the Dust</div><div class="cd">Julie Dash, 1991. Ancestral memory, womanhood and roots.</div><a class="ca" href="library.html">View →</a><button class="rb">✕</button></div>
+    </div>
+  </div>`;
+panels['c-events'] = `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your calendar</div><div class="pt">My Events</div></div>
+  <div class="sec"><div class="sh"><div class="st">Attending</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">20</div><div class="em2">Mar</div></div><div class="einfo"><div class="ename">Spring Equinox — KIN-NECT Launch Gathering</div><div class="ewhere">Shai Space · London · 7pm</div></div><div class="etag">🌱 KIN-NECT</div></div>
+      <div class="ei"><div class="edb"><div class="ed">14</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Orri Jam Session</div><div class="ewhere">Colour Factory · London · 8pm</div></div><div class="etag">🎵 Music</div></div>
+    </div>
+  </div>
+  <hr class="hr">
+  <div class="sec"><div class="sh"><div class="st">Spiritual dates</div></div>
+    <div class="elist">
+      <div class="ei"><div class="edb"><div class="ed">24</div><div class="em2">Jun</div></div><div class="einfo"><div class="ename">Full Moon — Strawberry Moon</div><div class="ewhere">00:57 BST</div></div><div class="etag">🌕 Moon</div></div>
+      <div class="ei"><div class="edb"><div class="ed">8</div><div class="em2">Aug</div></div><div class="einfo"><div class="ename">Lion's Gate — 8/8 Portal</div><div class="ewhere">Sirius alignment · Peak manifestation</div></div><div class="etag">🌀 Portal</div></div>
+    </div>
+  </div>`;
+panels['c-submissions'] = `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">What you've shared</div><div class="pt">Submissions</div><div class="ps">Things you've submitted to KIN-NECT. We review everything.</div></div>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">📚</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">Braiding Sweetgrass — Robin Wall Kimmerer</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Library · Book · Submitted 2 weeks ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(107,124,94,0.15);color:#8FAE7A;">✓ Accepted</span></div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;"><span style="font-size:1.2rem;">🎵</span><div style="flex:1;"><div style="color:var(--cream);font-size:0.9rem;">ISO-1 — Music Therapy App</div><div style="font-family:'Space Mono',monospace;font-size:0.4rem;color:var(--dim);margin-top:0.2rem;letter-spacing:0.06em;">Directory · App · Submitted 1 week ago</div></div><span style="font-family:'Space Mono',monospace;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:rgba(200,115,42,0.1);color:var(--ochre);">In review</span></div>
+  </div>`;
+panels['c-settings'] = `
+  <div class="ph"><span class="view-banner community">🌿 Community View</span><div class="pe">Your account</div><div class="pt">Settings</div></div>
+  <div class="sform">
+    <div class="fg"><label class="fl">Display name</label><input class="fi" value="Muna"/></div>
+    <div class="fg"><label class="fl">Handle</label><input class="fi" value="@muna.kin"/></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" value="muna@example.com"/></div>
+    <div class="fg"><label class="fl">Bio</label><textarea class="fi fta">Yoga teacher. Holistic practitioner. Community seeker. London.</textarea></div>
+    <button class="sbtn">Save changes ✦</button>
+  </div>`;
+
+function renderNav(nav) {
+  const el = document.getElementById('sidebar-nav');
+  el.innerHTML = nav.map(item => {
+    if (item.sec) return '<div class="nsec">' + item.sec + '</div>';
+    return '<div class="ni" id="nav-' + item.id + '" onclick="loadPanel(\'' + item.id + '\');setActiveNav(\'' + item.id + '\')">' + item.icon + ' ' + item.label + (item.badge ? '<span class="nb">' + item.badge + '</span>' : '') + '</div>';
+  }).join('');
+  const first = nav.find(i => i.id);
+  if (first) setActiveNav(first.id);
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+}
+
+function loadPanel(id) {
+  document.getElementById('main-content').innerHTML =
+    '<div class="panel active">' + (panels[id] || '<p style="color:#8a7a5a">Coming soon.</p>') + '</div>';
+}
+
+function gotoPanel(id) { loadPanel(id); setActiveNav(id); }
 
 renderNav(communityNav);
 loadPanel('c-overview');

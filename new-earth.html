@@ -584,6 +584,7 @@
     <button class="main-nav-btn" onclick="showMain('reparations')">Reparations</button>
     <button class="main-nav-btn" onclick="showMain('timeline')">Our timeline</button>
     <button class="main-nav-btn" onclick="showMain('understanding')">Understanding the system</button>
+    <button class="main-nav-btn" onclick="showMain('village')">The village</button>
   </nav>
 </div>
 
@@ -3266,6 +3267,347 @@
 
 </div>
 <!-- end understanding section -->
+<!-- ======== VILLAGE SECTION ======== -->
+<div id="village" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">The village</div>
+    <h2 class="sec-title">Kin-nect — the sovereign settlement</h2>
+    <p class="sec-body">This is not a utopia. It is a plan. Every district below has been lived before — in Kemet, in the Maroon communities, in the Freedom Colonies, in Black Wall Street. We are not inventing anything. We are remembering. Tap any district to explore what it holds, who governs it, and which ancestors built something like it before.</p>
+  </div>
+
+  <!-- MAP CONTAINER -->
+  <div id="village-map-wrap" style="position:relative;width:100%;max-width:700px;margin:0 auto 2rem;">
+    
+    <!-- SVG MAP -->
+    <svg id="village-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;cursor:pointer;">
+      <defs>
+        <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" style="stop-color:#1a1a1a"/>
+          <stop offset="100%" style="stop-color:#0d0d0d"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Background -->
+      <rect width="700" height="700" fill="url(#bgGrad)"/>
+
+      <!-- Outer ring path (land) -->
+      <circle cx="350" cy="350" r="300" fill="#1c2a1c" stroke="#3d5c2e" stroke-width="1.5" opacity="0.6"/>
+      
+      <!-- Ring roads -->
+      <circle cx="350" cy="350" r="240" fill="none" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <circle cx="350" cy="350" r="150" fill="none" stroke="#2a3a1a" stroke-width="10" opacity="0.5"/>
+
+      <!-- Spoke paths -->
+      <line x1="350" y1="110" x2="350" y2="200" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="350" y1="500" x2="350" y2="590" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="110" y1="350" x2="200" y2="350" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="500" y1="350" x2="590" y2="350" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="174" y1="174" x2="243" y2="243" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="526" y1="174" x2="457" y2="243" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="174" y1="526" x2="243" y2="457" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+      <line x1="526" y1="526" x2="457" y2="457" stroke="#2a3a1a" stroke-width="12" opacity="0.5"/>
+
+      <!-- CENTRE: Sacred Commons -->
+      <circle cx="350" cy="350" r="80" fill="#1a2e1a" stroke="#C8A84B" stroke-width="2.5" class="district-zone" data-district="sacred" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="350" y="342" text-anchor="middle" fill="#C8A84B" font-size="13" font-weight="700" font-family="serif" filter="url(#glow)">Sacred</text>
+      <text x="350" y="360" text-anchor="middle" fill="#C8A84B" font-size="13" font-weight="700" font-family="serif" filter="url(#glow)">Commons</text>
+
+      <!-- NORTH: Food & Land -->
+      <ellipse cx="350" cy="195" rx="72" ry="42" fill="#1e3320" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="food" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="350" y="189" text-anchor="middle" fill="#a8c490" font-size="11" font-weight="600" font-family="sans-serif">Food &amp;</text>
+      <text x="350" y="204" text-anchor="middle" fill="#a8c490" font-size="11" font-weight="600" font-family="sans-serif">Land</text>
+
+      <!-- NE: Knowledge -->
+      <ellipse cx="487" cy="213" rx="65" ry="40" fill="#1e2e3a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="knowledge" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="487" y="207" text-anchor="middle" fill="#90b8c4" font-size="11" font-weight="600" font-family="sans-serif">Knowledge</text>
+      <text x="487" y="221" text-anchor="middle" fill="#90b8c4" font-size="11" font-weight="600" font-family="sans-serif">&amp; Library</text>
+
+      <!-- EAST: Healing -->
+      <ellipse cx="510" cy="350" rx="62" ry="40" fill="#2a1e2a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="healing" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="510" y="344" text-anchor="middle" fill="#c490c4" font-size="11" font-weight="600" font-family="sans-serif">Healing</text>
+      <text x="510" y="359" text-anchor="middle" fill="#c490c4" font-size="11" font-weight="600" font-family="sans-serif">Centre</text>
+
+      <!-- SE: Economy -->
+      <ellipse cx="487" cy="487" rx="65" ry="40" fill="#2a1e1a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="economy" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="487" y="481" text-anchor="middle" fill="#c4a070" font-size="11" font-weight="600" font-family="sans-serif">Economy</text>
+      <text x="487" y="496" text-anchor="middle" fill="#c4a070" font-size="11" font-weight="600" font-family="sans-serif">&amp; Exchange</text>
+
+      <!-- SOUTH: Infrastructure -->
+      <ellipse cx="350" cy="510" rx="72" ry="42" fill="#1a1e2a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="infra" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="350" y="504" text-anchor="middle" fill="#9090c4" font-size="11" font-weight="600" font-family="sans-serif">Infrastructure</text>
+      <text x="350" y="519" text-anchor="middle" fill="#9090c4" font-size="11" font-weight="600" font-family="sans-serif">&amp; Energy</text>
+
+      <!-- SW: Governance -->
+      <ellipse cx="213" cy="487" rx="65" ry="40" fill="#2a2a1a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="governance" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="213" y="481" text-anchor="middle" fill="#c4c470" font-size="11" font-weight="600" font-family="sans-serif">Governance</text>
+      <text x="213" y="496" text-anchor="middle" fill="#c4c470" font-size="11" font-weight="600" font-family="sans-serif">&amp; Ma'at</text>
+
+      <!-- WEST: Culture -->
+      <ellipse cx="190" cy="350" rx="62" ry="40" fill="#2a1e1a" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="culture" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="190" y="344" text-anchor="middle" fill="#c4a070" font-size="11" font-weight="600" font-family="sans-serif">Culture</text>
+      <text x="190" y="359" text-anchor="middle" fill="#c4a070" font-size="11" font-weight="600" font-family="sans-serif">&amp; Griot</text>
+
+      <!-- NW: Dwellings -->
+      <ellipse cx="213" cy="213" rx="65" ry="40" fill="#1e1e2e" stroke="#6B7C5E" stroke-width="2" class="district-zone" data-district="dwellings" style="transition:all 0.25s;cursor:pointer;"/>
+      <text x="213" y="207" text-anchor="middle" fill="#9090d4" font-size="11" font-weight="600" font-family="sans-serif">Dwellings</text>
+      <text x="213" y="221" text-anchor="middle" fill="#9090d4" font-size="11" font-weight="600" font-family="sans-serif">&amp; Family</text>
+
+      <!-- Compass rose -->
+      <text x="350" y="75" text-anchor="middle" fill="#C8A84B" font-size="11" opacity="0.6" font-family="serif">N</text>
+      <text x="350" y="650" text-anchor="middle" fill="#C8A84B" font-size="11" opacity="0.6" font-family="serif">S</text>
+      <text x="72" y="354" text-anchor="middle" fill="#C8A84B" font-size="11" opacity="0.6" font-family="serif">W</text>
+      <text x="628" y="354" text-anchor="middle" fill="#C8A84B" font-size="11" opacity="0.6" font-family="serif">E</text>
+
+      <!-- Tap prompt -->
+      <text x="350" y="668" text-anchor="middle" fill="#6B7C5E" font-size="10" font-family="sans-serif" opacity="0.7">tap any district to explore</text>
+    </svg>
+  </div>
+
+  <!-- DISTRICT DETAIL PANELS -->
+  <div id="village-detail" style="max-width:700px;margin:0 auto;">
+
+    <!-- Default state -->
+    <div id="district-default" class="info-box" style="text-align:center;padding:2rem 1.5rem;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">🏘</div>
+      <div class="info-box-label" style="text-align:center;">Select a district</div>
+      <div class="info-box-text" style="text-align:center;">Tap any district on the map above to see what it holds, how it is governed, and which ancestral settlement built something like it before.</div>
+    </div>
+
+    <!-- SACRED COMMONS -->
+    <div id="district-sacred" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:var(--gold);">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(200,168,75,0.15);">🕯</div>
+          <div>
+            <div class="card-label" style="color:var(--gold);">Sacred Commons</div>
+            <div style="font-size:12px;color:var(--muted);">Centre of the settlement · all paths lead here</div>
+          </div>
+        </div>
+        <div class="li">The ceremony ground — seasonal gatherings, rites of passage, libation</div>
+        <div class="li">The council circle — Ma'at-governed decision making, consensus not hierarchy</div>
+        <div class="li">The conflict resolution space — elder-mediated, restorative not punitive</div>
+        <div class="li">The ancestral altar — names of the dead kept alive, the first act every morning</div>
+        <div class="li">The fire pit — the original internet. Information shared here reaches everyone.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Kemetic per-nefer (house of beauty) at the centre of every settlement. The Yoruba ilu (town) arranged around the king's palace as a sacred commons. The Akan stool house. The Maroon grounds at Accompong where Cudjoe signed the peace treaty — still a ceremonial site today. In every case: the community's spiritual and political life occupied the same physical centre. There was no separation between governance and ceremony.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOD & LAND -->
+    <div id="district-food" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#6B7C5E;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(107,124,94,0.15);">🌱</div>
+          <div>
+            <div class="card-label" style="color:#a8c490;">Food &amp; Land</div>
+            <div style="font-size:12px;color:var(--muted);">North district · the foundation of everything</div>
+          </div>
+        </div>
+        <div class="li">Permaculture food forest — perennials first: fruit trees, comfrey, herbs, kale</div>
+        <div class="li">Seed bank — heirloom and open-pollinated only. Heritage Seed Library. Seeds saved every year, never purchased from Monsanto/Bayer.</div>
+        <div class="li">Water system — rainwater harvesting, IBC tanks, spring or well, sand/carbon/UV filtration</div>
+        <div class="li">Medicinal plant beds — dandelion, mullein, elder, calendula, nettle, lemon balm</div>
+        <div class="li">Animal husbandry — chickens (eggs, compost), goats (milk), bees (pollination + honey)</div>
+        <div class="li">The farmer role — Land Steward — one of the roles still to be filled in the founding circle</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Freedom Colonies of Texas — every settlement was built around land first. The Maroons cultivated provision grounds in the hills of Jamaica that fed the community and funded trade with coastal towns. The Hayti settlement in Birmingham had communal garden plots alongside the residential lots. The Kemetic agricultural calendar was so precise it determined the entire ceremonial year — the land governed the rhythm of life, not the other way around.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KNOWLEDGE -->
+    <div id="district-knowledge" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#4a7a8a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(74,122,138,0.15);">📚</div>
+          <div>
+            <div class="card-label" style="color:#90b8c4;">Knowledge &amp; Library</div>
+            <div style="font-size:12px;color:var(--muted);">Northeast district · the memory of the community</div>
+          </div>
+        </div>
+        <div class="li">The physical library — books by Black and African scholars first. The blueprint's reading list made real.</div>
+        <div class="li">The school — not the national curriculum. African history, plant medicine, mathematics, philosophy, music, language, land stewardship.</div>
+        <div class="li">The archive — the Griot's domain. Oral history recorded, transcribed, and stored. Every elder's story is a primary source.</div>
+        <div class="li">The Kin-nect platform server — the sovereign digital infrastructure lives here. VPS on-site, community data stays on community land.</div>
+        <div class="li">The Outline wiki — internal strategy documents, SOPs, meeting notes, the living blueprint.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">Timbuktu's Sankore University — 25,000 students, 700,000 manuscripts. The knowledge was the city's greatest asset and most fiercely protected resource. When Leo Africanus visited in 1526 he noted that books were more profitable than any other trade good. The Kemetic per-ankh (house of life) was the library, scriptorium, and medical school in one building at the centre of every major city. Knowledge was not separate from community — it was the infrastructure.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALING -->
+    <div id="district-healing" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#7a4a7a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(122,74,122,0.15);">🌿</div>
+          <div>
+            <div class="card-label" style="color:#c490c4;">Healing Centre</div>
+            <div style="font-size:12px;color:var(--muted);">East district · where the body is restored</div>
+          </div>
+        </div>
+        <div class="li">Plant medicine clinic — Dr Flame's protocol, Dr Sebi's alkaline framework, the full herbal dispensary</div>
+        <div class="li">Water filtration — reverse osmosis or Berkey with PF-2. The first act of healing is clean water.</div>
+        <div class="li">The two healers already in the founding circle hold this district</div>
+        <div class="li">Therapeutic space — somatic work, breathwork, trauma integration. The nervous system is the first community you govern.</div>
+        <div class="li">Isofi sauna — heat therapy, detox, community ritual. Already in the Kin-nect affiliate network.</div>
+        <div class="li">No pharmaceutical dependency. Pharmacy is the food forest and the medicine garden.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Kemetic sekhmet-priests were physician-priests — healing and spirituality were one practice. The Ebers Papyrus documents 877 prescriptions; the physicians who wrote it were revered as among the most important people in the city. The Bwiti tradition of Gabon uses iboga not recreationally but as a multi-day healing ceremony, conducted by trained initiates, for physical and psychological restoration. The Maroons' primary military advantage was that their healers kept the community healthier than the plantations — Nanny herself was described as both warrior and medicine woman.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ECONOMY -->
+    <div id="district-economy" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#8a6a3a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(138,106,58,0.15);">💰</div>
+          <div>
+            <div class="card-label" style="color:#c4a070;">Economy &amp; Exchange</div>
+            <div style="font-size:12px;color:var(--muted);">Southeast district · the Ma'at model of wealth</div>
+          </div>
+        </div>
+        <div class="li">The marketplace — 15% commission to the community, 85% to the vendor. Vendor fulfils. Community never holds stock.</div>
+        <div class="li">The credit union — community capital pooled and lent internally at zero or low interest. Rotating credit (sou-sou / partner hand) formalised.</div>
+        <div class="li">The 30/10/10 fund — every £100 through the platform: £30 founder, £20 tribe, £25 New Earth land fund (untouchable), £15 platform reinvestment, £10 operations</div>
+        <div class="li">The New Earth land fund — at £10k/month revenue, £2,500/month saved. £60k after 24 months. The land account that buys the next settlement.</div>
+        <div class="li">No extraction economy. The wealth generated here stays here and compounds here.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">Black Wall Street — the dollar circulated 36 times within the community before leaving. The Igbo osusu (rotating credit union) has been operating continuously for centuries. The Mali Empire under Mansa Musa controlled 50% of the world's gold supply — and the economy was structured around gift and redistribution, not accumulation. Maggie Walker's Penny Savings Bank in Richmond turned community deposits into community mortgages. The principle is the same across all of them: wealth generated by Black people must circulate within Black communities before it leaves.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFRASTRUCTURE -->
+    <div id="district-infra" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#4a4a7a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(74,74,122,0.15);">⚡</div>
+          <div>
+            <div class="card-label" style="color:#9090c4;">Infrastructure &amp; Energy</div>
+            <div style="font-size:12px;color:var(--muted);">South district · the nervous system of the settlement</div>
+          </div>
+        </div>
+        <div class="li">Solar — 3kW minimum array, 10kWh battery storage. Enough for a small community. No grid dependency.</div>
+        <div class="li">Wind — small turbine to supplement solar in low-light months</div>
+        <div class="li">Heat — rocket mass heater. Burns sticks. Heats 12–18 hours from one small load. No gas.</div>
+        <div class="li">Sanitation — composting toilets (humanure back to the land), reed bed greywater system</div>
+        <div class="li">Communications — Meshtastic mesh network (LoRa radio, no internet required for internal messaging). Starlink as backup for external.</div>
+        <div class="li">Build method — strawbale or cob. Not standard earthship (UK climate = mould). Wales One Planet Development planning policy is the legal pathway.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Maroons built in the Blue Mountains precisely because the terrain provided natural infrastructure — springs, forest cover, defensible high ground. They solved water, heat, building material, and communications (Abeng horn messaging system across the mountains) without any European supply chain. The Freedom Colonies built their own roads and bridges because the county refused to. The Rosewood community had its own sawmill, turpentine still, and sugar cane press — internal infrastructure that made external dependency unnecessary. Sovereignty begins with not needing them for the basics.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOVERNANCE -->
+    <div id="district-governance" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#7a7a3a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(122,122,58,0.15);">⚖️</div>
+          <div>
+            <div class="card-label" style="color:#c4c470;">Governance &amp; Ma'at</div>
+            <div style="font-size:12px;color:var(--muted);">Southwest district · where decisions are made and records kept</div>
+          </div>
+        </div>
+        <div class="li">The Ma'at charter — the community's founding document. The seven principles as the constitution. Every decision tested against them.</div>
+        <div class="li">The council circle — rotating facilitation, consensus decision-making, not voting (voting creates winners and losers; consensus requires everyone to be heard)</div>
+        <div class="li">The Community Land Trust documents — land held collectively, not individually. No single person can sell, speculate, or exclude.</div>
+        <div class="li">The conflict resolution process — elder-mediated, restorative justice model. The person who caused harm makes right with the person harmed. No prisons. No exile unless the community is genuinely endangered.</div>
+        <div class="li">Roles still to fill: Conflict Resolver, Diplomat (external relations), Elder (community memory and counsel)</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Iroquois Confederacy — the model for the US constitution (without its architects admitting this) — operated by consensus across six nations. Chiefs were nominated by women and could be removed by women. The Akan state in Ghana used the concept of the stool (throne) as a vessel of ancestral power — the chief was a custodian, not an owner. The Seneca Nation governance model: rotating leadership, elder council, decisions by the people most affected. Ma'at was not metaphor — it was administrative policy in Kemet, enforced through courts, with judges required to wear the feather of Ma'at during proceedings.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CULTURE -->
+    <div id="district-culture" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#8a6a3a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(138,106,58,0.15);">🥁</div>
+          <div>
+            <div class="card-label" style="color:#c4a070;">Culture &amp; Griot</div>
+            <div style="font-size:12px;color:var(--muted);">West district · the story is the survival</div>
+          </div>
+        </div>
+        <div class="li">The Griot space — oral history, storytelling, naming ceremonies. The Griot is not an entertainer. The Griot is the memory of the people.</div>
+        <div class="li">The music ground — drum, voice, movement. Saturday celebration as weekly medicine.</div>
+        <div class="li">The editorial space — the Kin-nect magazine, the blueprint, the book klub. Written memory alongside oral.</div>
+        <div class="li">Seasonal ceremony — Spring Equinox, Summer Solstice, Autumn Equinox, Winter Solstice. New moon intention circles. Full moon harvests.</div>
+        <div class="li">The children's space — every child grows up knowing their history. The school and the Griot space are connected.</div>
+        <div class="li">The Spring Equinox 2027 gathering is the first anchor point on the Kin-nect seasonal calendar</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Griot tradition across West Africa — the Jeli in Mali, the Gewel among the Wolof — held a status equal to and sometimes above the chief. The chief made decisions; the Griot remembered them, recorded them, and ensured they were honoured. When the Griot died, it was said a library burned. The Harlem Renaissance — Langston Hughes, Zora Neale Hurston, Aaron Douglas — proved that cultural production was community survival. The Saturday night fish fry in the Freedom Colonies was not entertainment. It was community bonding that made Monday morning possible. Joy is not separate from strategy.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DWELLINGS -->
+    <div id="district-dwellings" class="district-panel" style="display:none;">
+      <div class="card" style="border-color:#4a4a8a;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+          <div class="expand-icon-wrap" style="background:rgba(74,74,138,0.15);">🏡</div>
+          <div>
+            <div class="card-label" style="color:#9090d4;">Dwellings &amp; Family</div>
+            <div style="font-size:12px;color:var(--muted);">Northwest district · where people rest and raise children</div>
+          </div>
+        </div>
+        <div class="li">Strawbale or cob construction — natural, locally sourced, high thermal mass. Community build (10–20k with community labour rather than contractors)</div>
+        <div class="li">Extended family model — not nuclear isolation. Multiple generations in proximity. Elder care as communal responsibility.</div>
+        <div class="li">The children's zone — safe, nature-embedded, known by every adult in the community. The village raises the child.</div>
+        <div class="li">Private space honoured — sovereignty of the individual within the collective. The community does not consume the person.</div>
+        <div class="li">Wales One Planet Development — the legal planning route for self-sufficient off-grid dwellings on agricultural land. 3 acres minimum, demonstrate 75% of basic needs met from the land.</div>
+        <div class="info-box" style="margin-top:1rem;">
+          <div class="info-box-label">Ancestral precedent</div>
+          <div class="info-box-text">The Maroon villages in the Blue Mountains — compact, defensible, communally built, with each family's dwelling surrounded by their provision ground. The Freedom Colony lots were typically 5–15 acres — enough for a family, a garden, and livestock, within walking distance of the community commons. In Kemet, the workmen's village at Deir el-Medina housed the builders of the Valley of the Kings — uniform, comfortable, state-built housing for skilled workers, with a community well, a marketplace, and a communal grain store. A community that houses its people well produces people capable of building great things.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end village-detail -->
+
+  <!-- PHASE PLAN -->
+  <div style="max-width:700px;margin:2rem auto 0;">
+    <div style="font-size:11px;font-weight:500;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">The two-phase plan</div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-label">Phase A — UK now</div>
+        <div class="li">🏡 Test on founder's existing land — soil test, measure, map</div>
+        <div class="li">🌱 Sheet mulch immediately — cardboard + 15–20cm wood chip → living soil in 3–6 months</div>
+        <div class="li">🌳 Plum + damson trees — 15–50kg/year each. Damson deeply medicinal.</div>
+        <div class="li">💧 IBC water tank from roof — £20–50 secondhand, 1,000L</div>
+        <div class="li">🌿 Medicine garden — dandelion, mullein, elder, calendula, nettle, lemon balm</div>
+        <div class="li">This is the pilot. What works here scales abroad.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Phase B — New Earth abroad</div>
+        <div class="li">🇬🇭 Ghana — Year of Return, Right of Abode, tropical growing season. 99-year leasehold.</div>
+        <div class="li">🇯🇲 Jamaica — Maroon precedent, freehold purchase possible, spiritual resonance</div>
+        <div class="li">🇵🇹 Portugal Alentejo — D7 visa ~£760/month, cheapest EU agricultural land, accessible in 3–5 years</div>
+        <div class="li">📅 Visit Ghana/Jamaica 1–2x over next 1–3 years — build relationships before the money exists</div>
+        <div class="li">🏦 At £10k/month revenue: £2,500/month → New Earth fund → £60k after 24 months</div>
+        <div class="li">🌍 Land held in Community Land Trust. Not individually owned. Generational.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- end village section -->
 
 
 </div><!-- end content -->
@@ -3447,6 +3789,58 @@
     event.target.classList.add('on');
   }
 
+
+
+  // Village district map interactions
+  function showDistrict(id) {
+    // Hide all panels
+    document.querySelectorAll('.district-panel').forEach(p => p.style.display = 'none');
+    document.getElementById('district-default').style.display = 'none';
+    // Reset all zones
+    document.querySelectorAll('.district-zone').forEach(z => {
+      z.style.opacity = '1';
+      z.style.strokeWidth = z.getAttribute('data-district') === id ? '3.5' : '2';
+    });
+    // Show selected
+    const panel = document.getElementById('district-' + id);
+    if (panel) panel.style.display = 'block';
+    // Scroll to detail
+    const detail = document.getElementById('village-detail');
+    if (detail) detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  // Wire up SVG district zones on load
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.district-zone').forEach(function(zone) {
+      zone.addEventListener('click', function() {
+        var district = this.getAttribute('data-district');
+        if (district) {
+          // Highlight selected
+          document.querySelectorAll('.district-zone').forEach(function(z) {
+            z.style.stroke = '#6B7C5E';
+            z.style.strokeWidth = '2';
+            z.style.opacity = '0.85';
+          });
+          this.style.stroke = '#C8A84B';
+          this.style.strokeWidth = '3.5';
+          this.style.opacity = '1';
+          showDistrict(district);
+        }
+      });
+      zone.addEventListener('mouseenter', function() {
+        if (this.style.strokeWidth !== '3.5') {
+          this.style.opacity = '1';
+          this.style.stroke = '#C8A84B';
+        }
+      });
+      zone.addEventListener('mouseleave', function() {
+        if (this.style.strokeWidth !== '3.5') {
+          this.style.opacity = '0.85';
+          this.style.stroke = '#6B7C5E';
+        }
+      });
+    });
+  });
 </script>
 </body>
 </html>
